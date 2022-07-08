@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -29,11 +30,29 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    // 서버 연결을 위한 Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    // Retrofit2에서 gson 사용을 위한 컨버터
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //gson _ 오픈소스 컨버터
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
