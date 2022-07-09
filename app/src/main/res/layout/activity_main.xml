@@ -26,21 +26,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <and.org.recordream.util.CustomBottomNavigationView
+
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_gravity="bottom"
-        android:background="@color/black"
         app:labelVisibilityMode="labeled"
-        tools:menu="@menu/menu_main_bnv"
-        app:menu="@menu/menu_main_bnv"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView" />
+        app:menu="@menu/menu_main_bnv"
+        tools:menu="@menu/menu_main_bnv" />
 
     <LinearLayout
         android:id="@+id/layout_bottom_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -50,11 +50,11 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
             android:layout_gravity="center"
+            android:clickable="true"
             android:elevation="3dp"
-            android:translationZ="2dp"/>
+            android:focusable="true"
+            android:translationZ="2dp" />
 
     </LinearLayout>
 
