@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_custom">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_custom"
+    app:startDestination="@+id/nav_home_homefragment">
 
+    <fragment
+        android:id="@+id/nav_home_homefragment"
+        android:name="and.org.recordream.presentation.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_storageFragment"
+            app:destination="@+id/nav_storage_storagefragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_storage_storagefragment"
+        android:name="and.org.recordream.presentation.storage.StorageFragment"
+        android:label="fragment_storage"
+        tools:layout="@layout/fragment_storage" />
 </navigation>
