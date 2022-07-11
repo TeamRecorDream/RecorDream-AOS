@@ -20,6 +20,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNav() {
-        NavigationUI.setupWithNavController(binding.bnvMainCustomnav, findNavController(R.id.nav_host))
+        NavigationUI.setupWithNavController(
+            binding.bnvMainCustomnav,
+            findNavController(R.id.fcv_main_navhostfragment)
+        )
     }
 }
