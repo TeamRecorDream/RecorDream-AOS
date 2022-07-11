@@ -13,3 +13,6 @@
 ### 2) 폴더링 구조
 <img src="https://user-images.githubusercontent.com/81347125/178282704-d6a6f7f6-fd9e-4983-99bf-f846021560b4.PNG" width = "40%">
 
+### 3) 사용 기술 스택
+- 앱잼동안은 MVC Pattern으로 진행할 예정이며, 릴리즈 시 다른 아키텍처로 리팩토링 할 예정
+- 시간이 가능하다면, 코루틴을 통한 서버통신에 도전해볼 예정
