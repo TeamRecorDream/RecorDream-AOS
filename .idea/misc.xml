@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Recordream/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/drawable/arrow_back_24dp_black.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/drawable/arrow_back_black.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/drawable/dots_more_24dp_black.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/drawable/line_tab_unselected_gray.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/fragment_dream_record.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/fragment_note.xml" value="0.1" />
         <entry key="..\:/Users/82109/Desktop/and/RecorDream-AOS/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
       </map>
     </option>
