@@ -1,3 +1,3 @@
 package and.org.recordream.data.local
 
-data class TmpData()
+data class TmpData(val x: Int)
