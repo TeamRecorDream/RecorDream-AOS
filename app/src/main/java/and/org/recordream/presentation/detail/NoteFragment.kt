@@ -1,4 +1,4 @@
-package and.org.recordream.presentation
+package and.org.recordream.presentation.detail
 
 import and.org.recordream.databinding.FragmentNoteBinding
 import android.os.Bundle

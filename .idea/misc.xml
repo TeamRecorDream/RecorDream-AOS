@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Recordream/app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/fragment_home.xml" value="0.176" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/fragment_storage.xml" value="0.1" />
+        <entry key="..\:/Recordream/app/src/main/res/layout/home_card_item.xml" value="0.19298245614035087" />
         <entry key="..\:/Users/82109/Desktop/and/RecorDream-AOS/app/src/main/res/drawable/ic_storage.xml" value="0.2365" />
         <entry key="..\:/Users/82109/Desktop/and/RecorDream-AOS/app/src/main/res/drawable/light_blue_gradation_e2e6f0.xml" value="0.177" />
         <entry key="..\:/Users/82109/Desktop/and/RecorDream-AOS/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />

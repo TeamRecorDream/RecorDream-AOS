@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#6F7783"
-    tools:context=".presentation.DetailActivity">
+    tools:context=".presentation.detail.DetailActivity">
 
     <ImageView
         android:id="@+id/iv_arrow_left"

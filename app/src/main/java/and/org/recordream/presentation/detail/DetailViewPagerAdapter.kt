@@ -1,4 +1,4 @@
-package and.org.recordream.presentation
+package and.org.recordream.presentation.detail
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
