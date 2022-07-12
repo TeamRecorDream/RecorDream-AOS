@@ -39,6 +39,9 @@ android {
 
 dependencies {
 
+    //circleimageview를 위한
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     // NavigationComponent
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'

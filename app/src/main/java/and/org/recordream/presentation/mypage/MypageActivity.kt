@@ -1,5 +1,6 @@
-package and.org.recordream
+package and.org.recordream.presentation.mypage
 
+import and.org.recordream.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 

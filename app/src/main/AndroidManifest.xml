@@ -14,8 +14,8 @@
         android:theme="@style/Theme.Recordream"
         tools:targetApi="31">
         <activity
-            android:name=".MypageActivity"
-            android:exported="false" />
+            android:name=".presentation.mypage.MypageActivity"
+            android:exported="true" />
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
