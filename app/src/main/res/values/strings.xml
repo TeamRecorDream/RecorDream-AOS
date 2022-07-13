@@ -14,4 +14,6 @@
     <string name="Withdrawal">탈퇴하기</string>
     <string name="nickname">2019083</string>
     <string name="email">20190837@naver.com</string>
+    <string name="descriptionpushalam">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
+    <string name="timeCount">00:00</string>
 </resources>
