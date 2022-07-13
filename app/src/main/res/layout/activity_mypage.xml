@@ -190,6 +190,7 @@
         app:layout_constraintTop_toBottomOf="@id/btn_mypate_logout" />
 
     <View
+        android:id="@+id/v_mypage_out_user_line"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/white"
