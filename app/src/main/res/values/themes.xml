@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Recordream" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="android:windowBackground">@color/dark_blue01_000119</item>
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -12,15 +13,5 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:includeFontPadding">false</item>
     </style>
-
-    <style name="Theme.Recordream.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">false</item>
-    </style>
-
-    <style name="Theme.Recordream.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Recordream.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
