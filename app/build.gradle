@@ -59,6 +59,13 @@ dependencies {
     // gson _ 오픈소스 컨버터
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    // 카드뷰
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //뷰페이저2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
