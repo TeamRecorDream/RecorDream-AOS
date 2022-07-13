@@ -5,8 +5,10 @@ import and.org.recordream.databinding.ActivityDetailBinding
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
+import java.security.AccessController.getContext
 
 class DetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailBinding
