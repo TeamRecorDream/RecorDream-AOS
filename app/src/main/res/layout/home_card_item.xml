@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:margin="16dp">
+    android:layout_marginLeft="@dimen/pageMargin"
+    android:layout_marginRight="@dimen/pageMargin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_home_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/sub_green01_26C179">
