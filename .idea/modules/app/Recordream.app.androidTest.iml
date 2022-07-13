@@ -21,8 +21,8 @@
               <option value="$MODULE_DIR$/../../../app/build/intermediates/compile_app_classes_jar/debug/classes.jar" />
             </array>
           </option>
-          <option name="languageVersion" value="1.7" />
-          <option name="apiVersion" value="1.7" />
+          <option name="languageVersion" value="1.6" />
+          <option name="apiVersion" value="1.6" />
           <option name="pluginOptions">
             <array />
           </option>
