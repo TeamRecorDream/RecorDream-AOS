@@ -91,10 +91,9 @@
         android:layout_marginTop="15dp"
         android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tv_hashtag1"
-        app:tabBackground="@drawable/line_tab_unselected_gray"
+        app:layout_constraintStart_toStartOf="parent"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/white"
-        app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="#656565" />
