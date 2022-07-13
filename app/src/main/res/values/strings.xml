@@ -4,5 +4,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- 메인 뷰 -->
-
+    
+    
+    <!--마이 페이지 뷰-->
+    <string name="mypage">마이페이지</string>
+    <string name="drampush">꿈 푸시알림</string>
+    <string name="timesetting">시간설정</string>
+    <string name="logout">로그아웃</string>
+    <string name="Withdrawal">탈퇴하기</string>
+    <string name="nickname">2019083</string>
+    <string name="email">20190837@naver.com</string>
 </resources>
