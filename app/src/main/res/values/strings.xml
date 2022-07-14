@@ -3,8 +3,8 @@
 
 
     <!-- 메인 뷰 -->
-    
-    
+
+
     <!--마이 페이지 뷰-->
     <string name="tv_mypage_mypage">마이페이지</string>
     <string name="tv_mypage_pushalam">꿈 푸시알림</string>
@@ -24,6 +24,8 @@
     <!-- 보관함 뷰 -->
     <string name="tv_storage_emotion">나의 감정</string>
     <string name="tv_storage_recordtxt">개의 기록</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
