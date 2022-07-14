@@ -6,15 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".presentation.storage.StorageFragment">
 
+    <ImageView
+        android:id="@+id/iv_storage_seperator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:src="@drawable/seperator"
+        app:layout_constraintEnd_toStartOf="@+id/iv_storage_list"
+        app:layout_constraintTop_toTopOf="@+id/iv_storage_list" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/cl_storage_myemotion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white04_1AFFFFFF"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_storage_emotion"
+            android:id="@+id/tv_storage_myemotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
@@ -25,20 +34,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_storage_emotion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
+            tools:listitem="@layout/item_storage_emotion"
+            tools:itemCount="8"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_storage_emotion" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_storage_myemotion" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+        android:id="@+id/nsv_storage_myrecord"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -46,10 +59,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_storage_recordtxt">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fcv_storage_myrecord"
+                android:name="and.org.recordream.presentation.storage.myrecord.GalleryFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <TextView
@@ -60,7 +81,7 @@
         android:layout_marginTop="30dp"
         android:textAppearance="@style/B12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/cl_storage_myemotion"
         tools:text="7" />
 
     <TextView
@@ -78,18 +99,16 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="14dp"
         android:src="@drawable/selector_storage_sort_gallery"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintEnd_toStartOf="@+id/iv_storage_seperator"
+        app:layout_constraintTop_toTopOf="@+id/iv_storage_list" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_storage_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/selector_storage_sort_list"
-        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_storage_myemotion" />
 </androidx.constraintlayout.widget.ConstraintLayout>
