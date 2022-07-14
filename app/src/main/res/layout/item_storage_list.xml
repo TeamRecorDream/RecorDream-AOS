@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/property_1_container_list_pink">
+   >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/property_1_container_list_pink">
+        >
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_storage_date"
@@ -14,11 +22,11 @@
         android:layout_marginTop="12dp"
         tools:text="2022년 6월 26일"
         android:textAppearance="@style/M10"
-        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotion"
+        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_storage_emotion"
+        android:id="@+id/iv_storage_emotionlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -36,7 +44,7 @@
         android:layout_marginEnd="26dp"
         android:textAppearance="@style/B12"
         app:layout_constraintEnd_toStartOf="@+id/iv_storage_nextbtn"
-        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotion"
+        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
         app:layout_constraintTop_toBottomOf="@+id/tv_storage_date"
         tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고         건너편 세계에갔다." />
 
@@ -61,8 +69,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotion"
-        app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotion"
+        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
+        app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotionlist"
         tools:itemCount="3"
         tools:listitem="@layout/item_storage_genre" />
 
