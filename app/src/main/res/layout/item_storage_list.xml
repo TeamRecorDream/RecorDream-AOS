@@ -28,17 +28,19 @@
 
     <TextView
         android:id="@+id/tv_storage_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="3dp"
+        android:layout_marginEnd="26dp"
         android:textAppearance="@style/B12"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/tv_storage_date"
+        app:layout_constraintEnd_toStartOf="@+id/iv_storage_nextbtn"
+        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotion"
         app:layout_constraintTop_toBottomOf="@+id/tv_storage_date"
-        tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고 건녀편 세계에갔다." />
+        tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고 건너편 세계에갔다." />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_storage_nextbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="3dp"
@@ -46,5 +48,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_arrow_2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_storage_genre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
