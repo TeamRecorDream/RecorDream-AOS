@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/property_1_icon_surprise_selected" />
+            app:srcCompat="@drawable/icon_2_shocked" />
 
         <TextView
             android:id="@+id/tv_storage_dategallery"
@@ -56,6 +56,7 @@
             android:id="@+id/rv_storage_genretag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal"
@@ -63,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_storage_content"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_storage_content"
             app:layout_constraintVertical_bias="0.495"
             tools:itemCount="3"
