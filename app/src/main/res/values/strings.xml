@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">Recordream</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
     <!-- 메인 뷰 -->
-
-
+    
+    
     <!--마이 페이지 뷰-->
     <string name="tv_mypage_mypage">마이페이지</string>
     <string name="tv_mypage_pushalam">꿈 푸시알림</string>
@@ -17,4 +16,14 @@
     <string name="tv_mypage_description_push_alam">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
     <string name="tv_mypage_time">00:00</string>
     <string name="tv_mypage_bottomseet_storage">저장</string>
+
+    <!-- 바텀네비게이션 -->
+    <string name="bnv_main_home">홈</string>
+    <string name="bnv_main_storage">보관하기</string>
+
+    <!-- 보관함 뷰 -->
+    <string name="tv_storage_emotion">나의 감정</string>
+    <string name="tv_storage_recordtxt">개의 기록</string>
+
+
 </resources>
