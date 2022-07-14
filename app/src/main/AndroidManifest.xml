@@ -4,7 +4,6 @@
     package="and.org.recordream">
 
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Recordream"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.mypage.MypageActivity"
+            android:exported="true" />
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
