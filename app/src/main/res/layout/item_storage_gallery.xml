@@ -53,7 +53,7 @@
             tools:text="기묘한 이야기 속 윌과\n함께 자전거를 타고\n건너편 세계에갔다." />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_storage_gallery"
+            android:id="@+id/rv_storage_genretag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
