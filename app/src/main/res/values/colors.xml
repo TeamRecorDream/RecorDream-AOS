@@ -33,7 +33,9 @@
     <color name="dark_blue03_28283A">#28283A</color>
     <color name="light_blue01_CBD5E1">#CBD5E1</color>
     <color name="light_blue02_66CBD5E1">#66CBD5E1</color>
+    <color name="light_blue01_4DCBD5E1">#4DCBD5E1</color>
     <color name="red_EF3F3F">#EF3F3F</color>
+    <color name="red_da5d5d">#da5d5d</color>
 
     <color name="white01_FFFFFF">#FFFFFF</color>
     <color name="white02_80FFFFFF">#80FFFFFF</color>
