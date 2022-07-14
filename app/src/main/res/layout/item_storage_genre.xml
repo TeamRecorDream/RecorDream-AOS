@@ -8,9 +8,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
         android:background="@drawable/rectangle_border_3dp_pink"
-        android:paddingStart="3dp"
-        android:paddingEnd="3dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/tv_storage_genre"

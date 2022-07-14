@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/property_1_container_list_pink">
 
     <TextView
         android:id="@+id/tv_storage_date"
@@ -37,7 +38,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv_storage_nextbtn"
         app:layout_constraintStart_toEndOf="@+id/iv_storage_emotion"
         app:layout_constraintTop_toBottomOf="@+id/tv_storage_date"
-        tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고 건너편 세계에갔다." />
+        tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고         건너편 세계에갔다." />
 
     <ImageView
         android:id="@+id/iv_storage_nextbtn"
@@ -53,13 +54,16 @@
         android:id="@+id/rv_storage_genre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="11dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotion" />
+        app:layout_constraintStart_toEndOf="@+id/iv_storage_emotion"
+        app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotion"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_storage_genre" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
