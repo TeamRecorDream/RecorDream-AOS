@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\82109\.android\avd\Recordream_API_30.avd" />
+            <value value="C:\Users\aliya\.android\avd\Galaxy21Plus_API_31.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-07-13T08:51:51.355838300Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-07-14T00:33:49.398329900Z" />
   </component>
 </project>
