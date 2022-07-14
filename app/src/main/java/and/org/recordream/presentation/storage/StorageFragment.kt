@@ -23,8 +23,8 @@ class StorageFragment : Fragment() {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
 
 
-        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
-            ?.let { binding.tvStorageMyemotion.background = it }
+//        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
+//            ?.let { binding.tvStorageMyemotion.background = it }
 
 
         return binding.root
