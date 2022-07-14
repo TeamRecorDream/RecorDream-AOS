@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Recordream</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- 메인 뷰 -->
+
+    <!-- 바텀네비게이션 -->
+    <string name="bnv_main_home">홈</string>
+    <string name="bnv_main_storage">보관하기</string>
+
+    <!-- 보관함 뷰 -->
+    <string name="tv_storage_emotion">나의 감정</string>
+    <string name="tv_storage_recordtxt">개의 기록</string>
+
 
 </resources>
