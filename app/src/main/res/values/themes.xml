@@ -117,4 +117,10 @@
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/white01_FFFFFF</item>
     </style>
+    
+    <!--mypage numberpicker에 사용-->
+    <style name="NumberpickerStyle">
+        <item name="font">24dp</item>
+        <item name="android:textColorPrimary">"@color/white03_33FFFFFF"</item>
+    </style>
 </resources>

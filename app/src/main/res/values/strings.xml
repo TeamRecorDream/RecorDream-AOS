@@ -10,11 +10,16 @@
     <string name="tv_mypage_mypage">마이페이지</string>
     <string name="tv_mypage_pushalam">꿈 푸시알림</string>
     <string name="tv_mypage_settingtime">시간 설정</string>
-    <string name="btn_mypate_logout">로그아웃</string>
+    <string name="btn_mypage_logout">로그아웃</string>
     <string name="tv_mypage_withdrawl">탈퇴하기</string>
     <string name="tv_mypage_nickname">2019083</string>
     <string name="tv_mypage_email">20190837@naver.com</string>
     <string name="tv_mypage_description_push_alam">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
     <string name="tv_mypage_time">00:00</string>
     <string name="tv_mypage_bottomseet_storage">저장</string>
+
+    <string name="tv_mypage_doing_out_account">탈퇴하기</string>
+    <string name="tv_mypage_out_description">탈퇴 시 저장된 기록은 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?</string>
+    <string name="btn_mypgage_cancle">취소</string>
+    <string name="btn_mypage_outaccount">탈퇴</string>
 </resources>
