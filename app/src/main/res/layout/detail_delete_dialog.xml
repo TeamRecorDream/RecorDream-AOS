@@ -6,7 +6,7 @@
     android:background="@drawable/rectangle_radius_18dp_dark_blue">
 
     <View
-        android:id="@+id/v_detail_dialog_line"
+        android:id="@+id/v_detail_dialog_line1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/light_blue01_4DCBD5E1"
@@ -39,6 +39,17 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_detail_delete"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/v_detail_dialog_line2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/light_blue01_4DCBD5E1"
+        app:layout_constraintBottom_toBottomOf="@id/btn_detail_cancel"
+        app:layout_constraintBottom_toTopOf="@+id/btn_detail_cancel"
+        app:layout_constraintStart_toEndOf="@id/btn_detail_cancel"
+        app:layout_constraintTop_toTopOf="@id/btn_detail_cancel" />
+
     <TextView
         android:id="@+id/tv_detail_dialog_title"
         android:layout_width="wrap_content"
@@ -51,6 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_detail_dialog_content"
         android:layout_width="wrap_content"
@@ -58,7 +70,7 @@
         android:layout_marginBottom="40dp"
         android:text="꿈 기록을 삭제하시겠습니까?"
         android:textColor="@color/white01_FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/v_detail_dialog_line"
+        app:layout_constraintBottom_toTopOf="@+id/v_detail_dialog_line1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

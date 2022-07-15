@@ -4,7 +4,6 @@
     package="and.org.recordream">
 
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,7 +14,10 @@
         android:theme="@style/Theme.Recordream"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.detail.DetailActivity"
+            android:name=".presentation.mypage.MypageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true"></activity>
     </application>
 
 </manifest>
