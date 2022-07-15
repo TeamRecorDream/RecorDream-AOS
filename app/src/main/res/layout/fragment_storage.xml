@@ -1,116 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.storage.StorageFragment"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+>
+
+<ImageView
+    android:id="@+id/iv_storage_seperator"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="14dp"
+    android:layout_width="wrap_content"
+    android:src="@drawable/seperator"
+    app:layout_constraintEnd_toStartOf="@+id/iv_storage_list"
+    app:layout_constraintTop_toTopOf="@+id/iv_storage_list" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/white04_1AFFFFFF"
+    android:id="@+id/cl_storage_myemotion"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.storage.StorageFragment">
-
-    <ImageView
-        android:id="@+id/iv_storage_seperator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
-        android:src="@drawable/seperator"
-        app:layout_constraintEnd_toStartOf="@+id/iv_storage_list"
-        app:layout_constraintTop_toTopOf="@+id/iv_storage_list" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_storage_myemotion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white04_1AFFFFFF"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_storage_myemotion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="17dp"
-            android:text="@string/tv_storage_emotion"
-            android:textAppearance="@style/B12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_storage_emotion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            tools:listitem="@layout/item_storage_emotion"
-            tools:itemCount="8"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_storage_myemotion" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_storage_myrecord"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_storage_recordtxt">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fcv_storage_myrecord"
-                android:name="and.org.recordream.presentation.storage.myrecord.GalleryFragment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/nav_graph_storage"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    app:layout_constraintTop_toTopOf="parent">
 
     <TextView
-        android:id="@+id/tv_storage_count"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_storage_myemotion"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="17dp"
+        android:layout_width="wrap_content"
+        android:text="@string/tv_storage_emotion"
         android:textAppearance="@style/B12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_storage_myemotion"
-        tools:text="7" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_storage_recordtxt"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_storage_emotion"
         android:layout_height="wrap_content"
-        android:text="@string/tv_storage_recordtxt"
-        android:textAppearance="@style/B12"
-        app:layout_constraintStart_toEndOf="@+id/tv_storage_count"
-        app:layout_constraintTop_toTopOf="@+id/tv_storage_count" />
-
-    <ImageView
-        android:id="@+id/iv_storage_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
-        android:src="@drawable/selector_storage_sort_gallery"
-        app:layout_constraintEnd_toStartOf="@+id/iv_storage_seperator"
-        app:layout_constraintTop_toTopOf="@+id/iv_storage_list" />
-
-    <ImageView
-        android:id="@+id/iv_storage_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/selector_storage_sort_list"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_storage_myemotion" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_storage_myemotion"
+        tools:itemCount="8"
+        tools:listitem="@layout/item_storage_emotion" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.core.widget.NestedScrollView
+    android:fillViewport="true"
+    android:id="@+id/nsv_storage_myrecord"
+    android:layout_height="0dp"
+    android:layout_marginTop="16dp"
+    android:layout_width="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_storage_recordtxt">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_storage_myrecord"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:name="and.org.recordream.presentation.storage.myrecord.GalleryFragment"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_graph_storage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+
+<TextView
+    android:id="@+id/tv_storage_count"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="22dp"
+    android:layout_marginTop="30dp"
+    android:layout_width="wrap_content"
+    android:textAppearance="@style/B12"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/cl_storage_myemotion"
+    tools:text="7" />
+
+<TextView
+    android:id="@+id/tv_storage_recordtxt"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:text="@string/tv_storage_recordtxt"
+    android:textAppearance="@style/B12"
+    app:layout_constraintStart_toEndOf="@+id/tv_storage_count"
+    app:layout_constraintTop_toTopOf="@+id/tv_storage_count" />
+
+<ImageView
+    android:id="@+id/iv_storage_gallery"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="14dp"
+    android:layout_width="wrap_content"
+    android:src="@drawable/selector_storage_sort_gallery"
+    app:layout_constraintEnd_toStartOf="@+id/iv_storage_seperator"
+    app:layout_constraintTop_toTopOf="@+id/iv_storage_list" />
+
+<ImageView
+    android:id="@+id/iv_storage_list"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="32dp"
+    android:layout_width="wrap_content"
+    android:src="@drawable/selector_storage_sort_list"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/cl_storage_myemotion" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
