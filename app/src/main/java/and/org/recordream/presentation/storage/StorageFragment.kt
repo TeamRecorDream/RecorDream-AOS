@@ -1,8 +1,12 @@
 package and.org.recordream.presentation.storage
 
 import and.org.recordream.R
+import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.FragmentStorageBinding
+import and.org.recordream.presentation.storage.myrecord.MyEmotionAdapter
+import and.org.recordream.util.shortToast
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 class StorageFragment : Fragment() {
     private var _binding: FragmentStorageBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialization")
+    private lateinit var myEmotionAdapter: MyEmotionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,9 +28,11 @@ class StorageFragment : Fragment() {
 
 //        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
 //            ?.let { binding.tvStorageMyemotion.background = it }
-
-
+        getInfo()
+        initAdapter()
         showMyRecord()
+        addItemList()
+
         return binding.root
     }
 
@@ -38,5 +45,45 @@ class StorageFragment : Fragment() {
                     R.id.action_galleryFragment_to_listFragment
                 )
         }
+    }
+
+    private fun getInfo() { // Adapter initialized
+        myEmotionAdapter = MyEmotionAdapter {
+            context?.shortToast("안녕하소")
+            Log.d("d", "${it.emotion}")
+            when (it.emotion) {
+                ALL -> binding.it
+            }
+        }
+    }
+
+    private fun initAdapter() {
+        binding.rvStorageMyemotion.adapter = myEmotionAdapter
+    }
+
+    private fun addItemList() {
+        myEmotionAdapter.itemList.addAll(
+            listOf<MyEmotionData>(
+                MyEmotionData(R.drawable.selector_storage_emotion_all),
+                MyEmotionData(R.drawable.selector_storage_emotion_smile),
+                MyEmotionData(R.drawable.selector_storage_emotion_surprise),
+                MyEmotionData(R.drawable.selector_storage_emotion_love),
+                MyEmotionData(R.drawable.selector_storage_emotion_shy),
+                MyEmotionData(R.drawable.selector_storage_emotion_sad),
+                MyEmotionData(R.drawable.selector_storage_emotion_angry),
+                MyEmotionData(R.drawable.selector_storage_emotion_unclassified)
+            )
+        )
+    }
+
+    companion object {
+        const val ALL = 2131165404
+        const val SMILE = 2131165409
+        const val SURPRISE = 2131165410
+        const val LOVE = 2131165406
+        const val SHY = 2131165408
+        const val SAD = 2131165407
+        const val ANGRY = 2131165405
+        const val UNCLASSIFIED = 2131165411
     }
 }

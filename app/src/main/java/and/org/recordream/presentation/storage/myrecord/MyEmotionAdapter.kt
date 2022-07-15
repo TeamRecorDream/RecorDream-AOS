@@ -31,7 +31,8 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(data: MyEmotionData) {
-            binding.follower = data
+            binding.storage = data
+            binding.my
             binding.root.setOnClickListener {
                 itemClick(data)
             }
