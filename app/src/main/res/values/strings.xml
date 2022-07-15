@@ -22,4 +22,16 @@
     <string name="tv_mypage_out_description">탈퇴 시 저장된 기록은 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?</string>
     <string name="btn_mypgage_cancle">취소</string>
     <string name="btn_mypage_outaccount">탈퇴</string>
+
+    <!-- 글쓰기 뷰-->
+    <string name="tv_write_write">기록하기</string>
+    <string name="tv_write_modify">수정하기</string>
+    <string name="tv_write_date">날짜</string>
+    <string name="tv_write_voice">음성녹음</string>
+    <string name="tv_write_editdream">꿈의 제목을 남겨주세요.</string>
+    <string name="et_write_content">꿈을 기록해주세요.</string>
+    <string name="tv_write_myemotion">나의 감정</string>
+    <string name="tv_write_dreamcolor">꿈의 색상</string>
+    <string name="">꿈의 장르</string>
+    <string name="save">저장하기</string>
 </resources>
