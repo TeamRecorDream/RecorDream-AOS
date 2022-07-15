@@ -49,11 +49,12 @@ class StorageFragment : Fragment() {
 
     private fun getInfo() { // Adapter initialized
         myEmotionAdapter = MyEmotionAdapter {
-            context?.shortToast("안녕하소")
-            Log.d("d", "${it.emotion}")
-            when (it.emotion) {
-                ALL -> binding.it
+
+            Log.d("CONST", "${it.emotion}")
+            when (it.emotion) { // CONST EMOTION 서버 저장
+                ALL -> context?.shortToast("안녕하소")
             }
+
         }
     }
 
@@ -62,7 +63,7 @@ class StorageFragment : Fragment() {
     }
 
     private fun addItemList() {
-        myEmotionAdapter.itemList.addAll(
+        myEmotionAdapter.myEmotionList.addAll(
             listOf<MyEmotionData>(
                 MyEmotionData(R.drawable.selector_storage_emotion_all),
                 MyEmotionData(R.drawable.selector_storage_emotion_smile),

@@ -6,9 +6,45 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
+
+
+//class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
+//
+//    val myEmotionList = mutableListOf<MyEmotionData>()
+//
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmotionViewHolder {
+//        val binding = ItemStorageEmotionBinding.inflate(
+//            LayoutInflater.from(parent.context), parent, false
+//        )
+//        return MyEmotionViewHolder(binding)
+//    }
+//
+//    override fun onBindViewHolder(holder: MyEmotionViewHolder, position: Int) {
+//        holder.onBind(myEmotionList[position])
+//    }
+//
+//    override fun getItemCount(): Int = myEmotionList.size
+//
+//    class MyEmotionViewHolder(
+//        private val binding: ItemStorageEmotionBinding
+//    ) : RecyclerView.ViewHolder(binding.root) {
+//
+//        fun onBind(data: MyEmotionData) {
+//            with(binding) {
+//                ivStorageMyemotion.isSelected = false
+//                storage = data
+//                itemView.setOnClickListener {
+//                    if (!ivStorageMyemotion.isSelected) ivStorageMyemotion.isSelected = true
+//                }
+//            }
+//        }
+//    }
+//}
+//
+
 class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
     RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
-    val itemList = mutableListOf<MyEmotionData>()
+    val myEmotionList = mutableListOf<MyEmotionData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmotionViewHolder {
         val binding = ItemStorageEmotionBinding.inflate(
@@ -20,10 +56,10 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: MyEmotionViewHolder, position: Int) {
-        holder.onBind(itemList[position])
+        holder.onBind(myEmotionList[position])
     }
 
-    override fun getItemCount(): Int = itemList.size
+    override fun getItemCount(): Int = myEmotionList.size
 
     class MyEmotionViewHolder(
         private val binding: ItemStorageEmotionBinding,
@@ -31,10 +67,14 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(data: MyEmotionData) {
-            binding.storage = data
-            binding.my
-            binding.root.setOnClickListener {
-                itemClick(data)
+
+            with(binding) {
+                ivStorageMyemotion.isSelected = false
+                storage = data
+                itemView.setOnClickListener {
+                    itemClick(data)
+
+                }
             }
         }
     }
