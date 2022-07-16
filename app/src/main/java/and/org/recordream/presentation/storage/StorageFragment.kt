@@ -50,8 +50,9 @@ class StorageFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.rvStorageMyemotion.apply {
-            myEmotionAdapter = MyEmotionAdapter(::selectedItem)
+            myEmotionAdapter = MyEmotionAdapter { ::selectedItem }
             adapter = myEmotionAdapter
+
         }
         addItemList()
     }
@@ -76,8 +77,6 @@ class StorageFragment : Fragment() {
 //    }
 //
     private fun selectedItem(position: Int) {
-        val currentSelectedPostion = position
-        Log.d("dwdwdddwdd", "$currentSelectedPostion")
 
     }
 
