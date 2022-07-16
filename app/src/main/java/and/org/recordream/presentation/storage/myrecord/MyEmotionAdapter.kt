@@ -1,14 +1,14 @@
 package and.org.recordream.presentation.storage.myrecord
 
-import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.ItemStorageEmotionBinding
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
+class MyEmotionAdapter(private val selected: (Int) -> Unit) : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
 
     val myEmotionList = mutableListOf<MyEmotionData>()
 
@@ -20,11 +20,18 @@ class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHold
     }
 
     override fun onBindViewHolder(holder: MyEmotionViewHolder, position: Int) {
-        if (holder is MyEmotionViewHolder)
         holder.onBind(myEmotionList[position])
+        holder.itemView.setOnClickListener {
+            Log.d("ddddddddddddddd", "${holder.adapterPosition}")
+        }
     }
 
     override fun getItemCount(): Int = myEmotionList.size
+
+    fun addMyEmotionList(myEmotionData: MyEmotionData) {
+        myEmotionList.add(myEmotionData)
+        notifyItemInserted(myEmotionList.size - 1)
+    }
 
     inner class MyEmotionViewHolder(
         private val binding: ItemStorageEmotionBinding
@@ -35,18 +42,19 @@ class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHold
                 ivStorageMyemotion.isSelected = false
                 storage = data
                 itemView.setOnClickListener {
+                    selected(adapterPosition)
                     if (!ivStorageMyemotion.isSelected) ivStorageMyemotion.isSelected = true
                 }
             }
         }
     }
 }
-
-
+//
+//
 //class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
 //    RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
 //    val myEmotionList = mutableListOf<MyEmotionData>()
-//
+//    var row_index: Int = 0
 //
 //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmotionViewHolder {
 //        val binding = ItemStorageEmotionBinding.inflate(
@@ -56,17 +64,19 @@ class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHold
 //        )
 //        return MyEmotionViewHolder(binding, itemClick)
 //    }
-
+//
 //    override fun onBindViewHolder(holder: MyEmotionViewHolder, position: Int) {
 //        holder.onBind(myEmotionList[position])
+//        if (row_index == position) {
 //
+//        }
 //    }
 //
 //    override fun getItemCount(): Int = myEmotionList.size
 //
 //    fun addTmp(tmp: MyEmotionData) {
 //        myEmotionList.add(tmp)
-//        notifyItemInserted(myEmotionList.size-1)
+//        notifyItemInserted(myEmotionList.size - 1)
 //    }
 //
 //    inner class MyEmotionViewHolder(
@@ -82,6 +92,8 @@ class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHold
 //
 //                itemView.setOnClickListener {
 //                    itemClick(data)
+//                    row_index = oldPosition
+//                    notifyDataSetChanged()
 //
 //
 //                }

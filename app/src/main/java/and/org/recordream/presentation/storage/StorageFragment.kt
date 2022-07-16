@@ -49,7 +49,7 @@ class StorageFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.rvStorageMyemotion.apply {
-            myEmotionAdapter = MyEmotionAdapter()
+            myEmotionAdapter = MyEmotionAdapter(::selectedItem)
             adapter = myEmotionAdapter
         }
     }
@@ -73,8 +73,12 @@ class StorageFragment : Fragment() {
 //        binding.rvStorageMyemotion.adapter = myEmotionAdapter
 //    }
 //
-    private fun addItemList() {
+    private fun selectedItem(position: Int) {
+        val currentSelectedPostion= position
+       // myEmotionList
+    }
 
+    private fun addItemList() {
         myEmotionAdapter.myEmotionList.addAll(
             listOf<MyEmotionData>(
                 MyEmotionData(R.drawable.selector_storage_emotion_all, true),
