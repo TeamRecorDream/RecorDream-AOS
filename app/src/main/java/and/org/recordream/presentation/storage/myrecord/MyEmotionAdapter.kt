@@ -39,7 +39,7 @@ class MyEmotionAdapter(private val selected: (Int) -> Unit) : RecyclerView.Adapt
 
         fun onBind(data: MyEmotionData) {
             with(binding) {
-                ivStorageMyemotion.isSelected = false
+                ivStorageMyemotion.isSelected = data.switch
                 storage = data
                 itemView.setOnClickListener {
                     selected(adapterPosition)
