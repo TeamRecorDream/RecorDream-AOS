@@ -214,7 +214,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="386dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/dark_blue02_191A30"
+                android:background="@drawable/rectangle_border_7dp"
                 app:layout_constraintTop_toBottomOf="@id/cl_write_dreamdescription">
 
                 <EditText
@@ -225,7 +225,7 @@
                     android:layout_marginTop="18dp"
                     android:gravity="top"
                     android:maxLength="1000"
-                    android:paddingBottom="40dp"
+                    android:paddingBottom="300dp"
                     android:text="@string/et_write_content"
                     android:textAppearance="@style/R14"
                     android:textColor="@color/white02_80FFFFFF"
@@ -250,6 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rectangle_border_7dp"
+                android:paddingBottom="13dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_write_myemotion">
 
                 <ImageView
@@ -260,6 +261,7 @@
                     android:layout_marginTop="13dp"
                     android:src="@drawable/icon_2_joy_off"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_emotion_shocked"
                     app:layout_constraintStart_toStartOf="@id/cl_write_emotionbackground"
                     app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
@@ -271,6 +273,7 @@
                     android:layout_marginTop="13dp"
                     android:src="@drawable/icon_2_shocked_off"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_emotion_love"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_joy"
                     app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
@@ -282,6 +285,7 @@
                     android:layout_marginTop="13dp"
                     android:src="@drawable/icon_2_love_off"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_emotion_shy"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_shocked"
                     app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
@@ -293,6 +297,7 @@
                     android:layout_marginTop="13dp"
                     android:src="@drawable/icon_2_love_off"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_emotion_sad"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_love"
                     app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
@@ -304,6 +309,7 @@
                     android:layout_marginTop="13dp"
                     android:src="@drawable/icon_2_sad_off"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_emotion_angry"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_shy"
                     app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
@@ -313,21 +319,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="13dp"
+                    android:layout_marginEnd="9dp"
                     android:src="@drawable/icon_2_sad_off"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_write_emotionbackground"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_sad"
                     app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
-                <ImageView
-                    android:id="@+id/iv_emotion_blank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_sad_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_angry"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -335,11 +333,11 @@
                 android:id="@+id/tv_write_dreamcolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/B12"
                 android:layout_marginTop="24dp"
                 android:text="@string/tv_write_dreamcolor"
-                app:layout_constraintTop_toBottomOf="@id/cl_write_emotionbackground"
-                />
+                android:textAppearance="@style/B12"
+                app:layout_constraintStart_toStartOf="@id/cl_write_allcl"
+                app:layout_constraintTop_toBottomOf="@id/cl_write_emotionbackground" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_write_dreamcolor_background"
@@ -347,91 +345,295 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rectangle_border_7dp"
+                android:paddingBottom="13dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_write_dreamcolor">
 
                 <ImageView
-                    android:id="@+id/iv_emotion_joy"
+                    android:id="@+id/iv_dream_red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_joy_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toStartOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:src="@drawable/property_1_colorchip_red_unselected"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_dream_orange"
+                    app:layout_constraintStart_toStartOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamcolor_background" />
 
                 <ImageView
-                    android:id="@+id/iv_emotion_shocked"
+                    android:id="@+id/iv_dream_orange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_shocked_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_joy"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:src="@drawable/property_1_colorchip_orange_unselected"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_dream_pink"
+                    app:layout_constraintStart_toEndOf="@id/iv_dream_red"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamcolor_background" />
 
                 <ImageView
-                    android:id="@+id/iv_emotion_love"
+                    android:id="@+id/iv_dream_pink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_love_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_shocked"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:src="@drawable/property_1_colorchip_pink_unselected"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_dream_puple"
+                    app:layout_constraintStart_toEndOf="@id/iv_dream_orange"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamcolor_background" />
 
                 <ImageView
-                    android:id="@+id/iv_emotion_shy"
+                    android:id="@+id/iv_dream_puple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_love_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_love"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:src="@drawable/property_1_colorchip_purple_unselected"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_dream_green"
+                    app:layout_constraintStart_toEndOf="@id/iv_dream_pink"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamcolor_background" />
 
                 <ImageView
-                    android:id="@+id/iv_emotion_sad"
+                    android:id="@+id/iv_dream_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_sad_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_shy"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:src="@drawable/property_1_colorchip_green_unselected"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_dream_blue"
+                    app:layout_constraintStart_toEndOf="@id/iv_dream_puple"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamcolor_background" />
 
                 <ImageView
-                    android:id="@+id/iv_emotion_angry"
+                    android:id="@+id/iv_dream_blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_sad_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_sad"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:src="@drawable/property_1_colorchip_blue_unselected"
+                    app:layout_constraintBottom_toBottomOf="@id/cl_write_dreamcolor_background"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_write_dreamcolor_background"
+                    app:layout_constraintStart_toEndOf="@id/iv_dream_green"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamcolor_background" />
 
-                <ImageView
-                    android:id="@+id/iv_emotion_blank"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_write_genredream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/tv_write_genredream"
+                android:textAppearance="@style/B12"
+                app:layout_constraintStart_toStartOf="@id/cl_write_allcl"
+                app:layout_constraintTop_toBottomOf="@id/cl_write_dreamcolor_background" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_write_dreamtag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/dark_blue01_000119"
+                app:layout_constraintTop_toBottomOf="@id/tv_write_genredream">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_comedy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="13dp"
-                    android:src="@drawable/icon_2_sad_off"
-                    app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
-                    app:layout_constraintStart_toEndOf="@id/iv_emotion_angry"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_comedy"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toStartOf="@id/cl_write_dreamtag"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_romense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_romense"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_comedy"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_action"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_romense"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_thrill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_thrill"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_action"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_mystery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_mystery"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_thrill"
+                    app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_fear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_fear"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintTop_toBottomOf="@id/btn_write_comedy" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_sf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_fear"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_fear"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_fear" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_fantasy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_fantasy"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_sf"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_sf" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_family"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_family"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_fantasy"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_fantasy" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_etc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rectangle_border_7dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@string/btn_write_etc"
+                    android:textAppearance="@style/B12"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_family"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_family" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_write_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_write_note"
+                android:textAppearance="@style/B12"
+                android:layout_marginTop="39dp"
+                app:layout_constraintStart_toStartOf="@id/cl_write_allcl"
+                app:layout_constraintTop_toBottomOf="@id/cl_write_dreamtag" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_write_notebackground"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectangle_border_7dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_write_note">
+
+                <EditText
+                    android:id="@+id/et_write_notecontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="top"
+                    android:maxLength="1000"
+                    android:paddingBottom="200dp"
+                    tools:text="노트 내용 입력"
+                    android:textAppearance="@style/R14"
+                    android:textColor="@color/white02_80FFFFFF"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_write_notebackground"
+                    app:layout_constraintStart_toStartOf="@+id/cl_write_notebackground"
+                    app:layout_constraintTop_toTopOf="@+id/cl_write_notebackground" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:textAppearance="@style/B18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/grey_ADADAD"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

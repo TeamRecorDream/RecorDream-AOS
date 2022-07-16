@@ -32,6 +32,17 @@
     <string name="et_write_content">꿈을 기록해주세요.</string>
     <string name="tv_write_myemotion">나의 감정</string>
     <string name="tv_write_dreamcolor">꿈의 색상</string>
-    <string name="">꿈의 장르</string>
+    <string name="tv_write_genredream">꿈의 장르</string>
     <string name="save">저장하기</string>
+    <string name="btn_write_comedy"># 코미디</string>
+    <string name="btn_write_romense"># 로맨스</string>
+    <string name="btn_write_action"># 액션</string>
+    <string name="btn_write_thrill"># 스릴러</string>
+    <string name="btn_write_mystery"># 미스터리</string>
+    <string name="btn_write_fear"># 공포</string>
+    <string name="btn_write_SF"># SF</string>
+    <string name="btn_write_fantasy"># 판타지</string>
+    <string name="btn_write_family"># 가족/친구</string>
+    <string name="btn_write_etc"># 기타</string>
+    <string name="tv_write_note">노트</string>
 </resources>
