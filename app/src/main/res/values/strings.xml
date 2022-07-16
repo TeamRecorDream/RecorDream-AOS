@@ -33,7 +33,7 @@
     <string name="tv_write_myemotion">나의 감정</string>
     <string name="tv_write_dreamcolor">꿈의 색상</string>
     <string name="tv_write_genredream">꿈의 장르</string>
-    <string name="save">저장하기</string>
+    <string name="btn_write_save">저장하기</string>
     <string name="btn_write_comedy"># 코미디</string>
     <string name="btn_write_romense"># 로맨스</string>
     <string name="btn_write_action"># 액션</string>

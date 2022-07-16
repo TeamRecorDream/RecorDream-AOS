@@ -451,6 +451,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_comedy"
                     android:textAppearance="@style/B12"
+
                     app:layout_constraintStart_toStartOf="@id/cl_write_dreamtag"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
@@ -458,12 +459,12 @@
                     android:id="@+id/btn_write_romense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:background="@drawable/rectangle_border_7dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="5dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/btn_write_romense"
                     android:textAppearance="@style/B12"
                     app:layout_constraintStart_toEndOf="@id/btn_write_comedy"
@@ -481,6 +482,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_action"
                     android:textAppearance="@style/B12"
+                    app:layout_goneMarginStart="10dp"
                     app:layout_constraintStart_toEndOf="@id/btn_write_romense"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
@@ -496,6 +498,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_thrill"
                     android:textAppearance="@style/B12"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_write_mystery"
                     app:layout_constraintStart_toEndOf="@id/btn_write_action"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
@@ -511,6 +514,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_mystery"
                     android:textAppearance="@style/B12"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_write_dreamtag"
                     app:layout_constraintStart_toEndOf="@id/btn_write_thrill"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
@@ -526,6 +530,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_fear"
                     android:textAppearance="@style/B12"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_write_sf"
                     app:layout_constraintTop_toBottomOf="@id/btn_write_comedy" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -585,6 +590,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_etc"
                     android:textAppearance="@style/B12"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btn_write_family"
                     app:layout_constraintTop_toTopOf="@id/btn_write_family" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -593,9 +599,9 @@
                 android:id="@+id/tv_write_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="39dp"
                 android:text="@string/tv_write_note"
                 android:textAppearance="@style/B12"
-                android:layout_marginTop="39dp"
                 app:layout_constraintStart_toStartOf="@id/cl_write_allcl"
                 app:layout_constraintTop_toBottomOf="@id/cl_write_dreamtag" />
 
@@ -604,7 +610,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="280dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="75dp"
                 android:background="@drawable/rectangle_border_7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_write_note">
 
                 <EditText
@@ -612,28 +620,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="18dp"
                     android:gravity="top"
                     android:maxLength="1000"
                     android:paddingBottom="200dp"
-                    tools:text="노트 내용 입력"
                     android:textAppearance="@style/R14"
                     android:textColor="@color/white02_80FFFFFF"
                     app:layout_constraintEnd_toEndOf="@+id/cl_write_notebackground"
                     app:layout_constraintStart_toStartOf="@+id/cl_write_notebackground"
-                    app:layout_constraintTop_toTopOf="@+id/cl_write_notebackground" />
+                    app:layout_constraintTop_toTopOf="@+id/cl_write_notebackground"
+                    tools:text="노트 내용 입력" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
+
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_write_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save"
+        android:background="@color/grey_ADADAD"
+        android:text="@string/btn_write_save"
         android:textAppearance="@style/B18"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/grey_ADADAD"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
