@@ -3,9 +3,9 @@ package and.org.recordream.presentation.storage.myrecord
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.ItemStorageEmotionBinding
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
 
 
 //class MyEmotionAdapter : RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
@@ -46,6 +46,12 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
     RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
     val myEmotionList = mutableListOf<MyEmotionData>()
 
+    interface ItemClick
+    {
+        fun onClick(view: View, position: Int)
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyEmotionViewHolder {
         val binding = ItemStorageEmotionBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -57,6 +63,7 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
 
     override fun onBindViewHolder(holder: MyEmotionViewHolder, position: Int) {
         holder.onBind(myEmotionList[position])
+
     }
 
     override fun getItemCount(): Int = myEmotionList.size
@@ -71,6 +78,7 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
             with(binding) {
                 ivStorageMyemotion.isSelected = false
                 storage = data
+
                 itemView.setOnClickListener {
                     itemClick(data)
 
