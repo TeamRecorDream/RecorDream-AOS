@@ -1,5 +1,6 @@
 package and.org.recordream.presentation.storage.myrecord
 
+import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.ItemStorageEmotionBinding
 import android.view.LayoutInflater
@@ -80,7 +81,11 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
                 storage = data
 
                 itemView.setOnClickListener {
+                    var tmp : Int
                     itemClick(data)
+                    when (tmp){
+
+                    }
 
                 }
             }
