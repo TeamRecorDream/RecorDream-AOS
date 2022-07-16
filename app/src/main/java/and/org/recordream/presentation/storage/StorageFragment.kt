@@ -32,7 +32,7 @@ class StorageFragment : Fragment() {
         showMyRecord()
 
         setUpRecyclerView()
-        addItemList()
+
         return binding.root
     }
 
@@ -52,6 +52,7 @@ class StorageFragment : Fragment() {
             myEmotionAdapter = MyEmotionAdapter(::selectedItem)
             adapter = myEmotionAdapter
         }
+        addItemList()
     }
 
 

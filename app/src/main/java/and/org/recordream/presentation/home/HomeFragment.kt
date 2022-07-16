@@ -57,8 +57,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
             if (position < -1) {
                 page.translationX = -myOffset
             } else if (position <= 1) {
-                // Paging 시 Y축
-                // Animation 배경색을 약간 연하게 처리
+                // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
                 val scaleFactor = 0.8f.coerceAtLeast(1 - abs(position))
                 page.translationX = myOffset
                 page.scaleY = scaleFactor
