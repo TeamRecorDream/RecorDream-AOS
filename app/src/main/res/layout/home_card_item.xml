@@ -10,7 +10,7 @@
             type="and.org.recordream.presentation.home.ResponseHomeItems.Records" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="10dp">
@@ -19,8 +19,8 @@
             android:id="@+id/cl_home_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@{records.dream_color}"
-            tools:background="@drawable/property_1_card_main_green">
+            tools:background="@drawable/property_1_card_main_green"
+            android:background="@{records.dream_color}">
 
             <ImageView
                 android:id="@+id/iv_home_emoticon"
@@ -110,5 +110,5 @@
                 tools:textColor="@color/sub_green01_26C179" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
