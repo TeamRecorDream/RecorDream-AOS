@@ -3,17 +3,17 @@
     <item
         android:id="@+id/homeFragment2"
         android:icon="@drawable/ic_home"
-        android:title="홈" />
+        android:title="@string/bnv_main_home" />
 
     <item
         android:id="@+id/menu_empty"
         android:checkable="false"
         android:enabled="false"
-        android:title="기록하기" />
+        android:title="" />
 
     <item
         android:id="@+id/storageFragment2"
         android:icon="@drawable/ic_storage"
-        android:title="보관함" />
+        android:title="@string/bnv_main_storage" />
 
 </menu>

@@ -32,6 +32,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".presentation.detail.DetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>

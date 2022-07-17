@@ -2,6 +2,8 @@ package and.org.recordream.presentation.home
 
 import and.org.recordream.R
 import and.org.recordream.databinding.FragmentHomeBinding
+import and.org.recordream.presentation.detail.DetailActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,17 +15,24 @@ import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.abs
 
 class HomeFragment : Fragment(), LifecycleObserver {
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
     private lateinit var homePagerRecyclerAdapter: HomePagerRecyclerAdapter
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
+        binding.tvHomeHi.setOnClickListener {
+            activity?.let {
+                val intent = Intent(context, DetailActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +43,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
         var homeList = mutableListOf<ResponseHomeItems.Records>(
 
         )
+
         // RecyclerView.Adapter<ViewHolder>()
         // ViewPager의 Paging 방향은 Horizontal
         binding.vpHome.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -47,7 +57,8 @@ class HomeFragment : Fragment(), LifecycleObserver {
             if (position < -1) {
                 page.translationX = -myOffset
             } else if (position <= 1) {
-                // Paging 시 Y축 Animation 배경색을 약간 연하게 처리
+                // Paging 시 Y축
+                // Animation 배경색을 약간 연하게 처리
                 val scaleFactor = 0.8f.coerceAtLeast(1 - abs(position))
                 page.translationX = myOffset
                 page.scaleY = scaleFactor
@@ -64,5 +75,10 @@ class HomeFragment : Fragment(), LifecycleObserver {
                 Log.e("ViewPagerFragment", "Page ${position + 1}")
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
