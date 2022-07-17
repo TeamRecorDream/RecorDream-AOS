@@ -2,6 +2,8 @@ package and.org.recordream.presentation.detail
 
 import and.org.recordream.R
 import and.org.recordream.databinding.ActivityDetailBinding
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -43,9 +45,10 @@ class DetailActivity : AppCompatActivity() {
             // on below line we are creating a new bottom sheet dialog.
             val dialog = BottomSheetDialog(this)
 
-            // on below line we are inflating a layout file which we have created.
+            //커on below line we are inflating a layout file which we have created.
             val view = layoutInflater.inflate(R.layout.detail_bottom_sheet, null)
-
+            //배경 투명하게 해줘서 커스텀한 모양이 보이게
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             //외부 화면 누르면 창 자동으로 닫히게
             dialog.setCancelable(true)
 

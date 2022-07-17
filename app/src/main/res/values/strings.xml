@@ -6,6 +6,10 @@
     <!-- 메인 뷰 -->
 
 
+    <!-- 홈 뷰-->
+    <string name="tv_home_which_dream">최근에 어떤 꿈을 꾸셨나요?</string>
+    <string name="tv_home_hi_nickname">반가워요, %s님!</string>
+    <string name="tv_home_off_record_dream">꿈의 기록을 채워주세요.</string>
     <!--마이 페이지 뷰-->
     <string name="tv_mypage_mypage">마이페이지</string>
     <string name="tv_mypage_pushalam">꿈 푸시알림</string>
@@ -45,4 +49,20 @@
     <string name="btn_write_family"># 가족/친구</string>
     <string name="btn_write_etc"># 기타</string>
     <string name="tv_write_note">노트</string>
+
+    <!--마이크-->
+    <string name="tv_voice_save">저장</string>
+
+
+    <!-- 바텀네비게이션 -->
+    <string name="bnv_main_home">홈</string>
+    <string name="bnv_main_storage">보관하기</string>
+
+    <!-- 보관함 뷰 -->
+    <string name="tv_storage_emotion">나의 감정</string>
+    <string name="tv_storage_recordtxt">개의 기록</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    
+
+
 </resources>
