@@ -118,6 +118,7 @@
         <item name="android:textColor">@color/white01_FFFFFF</item>
     </style>
 
+    <!--상세보기 뷰 커스텀바텀시트 테마 -->
     <style name="BottomSheetTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>

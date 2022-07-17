@@ -16,14 +16,31 @@
         android:layout_height="match_parent"
         android:background="#6F7783"
         tools:context=".presentation.detail.DetailActivity">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_detail_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.63" />
+        <ImageView
+            android:id="@+id/iv_detail_dream_color"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:imgResId="@{records.dream_color}"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@id/tl_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/property_1_bg_record_green" />
 
         <ImageView
             android:id="@+id/iv_arrow_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/arrow_back_24dp_black"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="46dp"
+            android:src="@drawable/icon_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,9 +57,9 @@
             android:id="@+id/iv_dots_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/dots_more_24dp_black"
-            app:layout_constraintBottom_toBottomOf="@id/iv_arrow_left"
+            android:layout_marginTop="46dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/icon_view_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_arrow_left" />
 
@@ -112,6 +129,20 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/tl_detail"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="-54dp" />
+
+        <ImageView
+            android:id="@+id/iv_detail_bottom_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:src="@drawable/logo_watermark_recordeream"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
