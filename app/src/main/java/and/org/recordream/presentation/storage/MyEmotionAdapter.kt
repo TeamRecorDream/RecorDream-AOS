@@ -1,4 +1,4 @@
-package and.org.recordream.presentation.storage.myrecord
+package and.org.recordream.presentation.storage
 
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.ItemStorageEmotionBinding
