@@ -3,9 +3,7 @@ package and.org.recordream.presentation.storage
 import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.FragmentStorageBinding
-import and.org.recordream.presentation.storage.myrecord.MyEmotionAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
