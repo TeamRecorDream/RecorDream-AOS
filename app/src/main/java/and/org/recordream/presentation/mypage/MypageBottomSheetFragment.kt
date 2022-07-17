@@ -1,41 +1,42 @@
 package and.org.recordream.presentation.mypage//package before.forget.feature.write
-//
-//import android.os.Bundle
-//import android.util.Log
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import androidx.databinding.DataBindingUtil
-//import before.forget.R
-//import before.forget.databinding.FragmentWriteBottomSheetBinding
-//import com.google.android.material.bottomsheet.BottomSheetBehavior
-//import com.google.android.material.bottomsheet.BottomSheetDialog
-//import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-//import com.google.android.material.tabs.TabLayoutMediator
-//
-//class WriteBottomSheetFragment : BottomSheetDialogFragment() {
-//    private lateinit var binding: FragmentWriteBottomSheetBinding
-//    private lateinit var writeViewPagerAdapter: WriteViewPagerAdapter
-//    val writeGoodFragment = WriteGoodFragment()
-//    val writeBadFragment = WriteBadFragment()
-//    private var oneLineCallback: ((List<String>) -> Unit)? = null
-//
-//    fun setOneLineCallback(listener: (List<String>) -> Unit) {
-//        this.oneLineCallback = listener
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        binding = DataBindingUtil.inflate(
-//            inflater,
-//            R.layout.fragment_write_bottom_sheet,
-//            container,
-//            false
-//        )
-//
+
+import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
+class WriteBottomSheetFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentMypageBottomSheetBinding? = null
+    private val binding get() = _binding ?: error("바인딩에 NULL 값이 들어갔어요!!")
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentMypageBottomSheetBinding.inflate(inflater, container, false)
+        amOrpmSettiing()
+
+        return binding.root
+    }
+
+    private fun amOrpmSettiing() {
+        var amOrpm = ""
+        var min = 0
+        val str = arrayOf<String>("AM", "PM")
+        binding.npDatepickerAmorpm.maxValue = 0
+        binding.npDatepickerAmorpm.maxValue = (str.size - 1)
+        binding.npDatepickerAmorpm.displayedValues = str
+
+        binding.npDatepickerAmorpm.setOnValueChangedListener { numberPicker, i, i2 ->
+            val i = numberPicker.value
+            amOrpm = str[i]
+        }
+    }
+}
+
 //        binding.btnWriteApply.visibility = View.GONE
 //        binding.clWriteResetbtn.visibility = View.GONE
 //
@@ -83,4 +84,4 @@ package and.org.recordream.presentation.mypage//package before.forget.feature.wr
 //        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
 //        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
 //    }
-//}
+
