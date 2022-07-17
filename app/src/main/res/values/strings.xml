@@ -45,4 +45,8 @@
     <string name="btn_write_family"># 가족/친구</string>
     <string name="btn_write_etc"># 기타</string>
     <string name="tv_write_note">노트</string>
+
+    <!--마이크-->
+    <string name="tv_voice_save">저장</string>
+   
 </resources>
