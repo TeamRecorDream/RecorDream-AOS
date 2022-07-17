@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_mypage_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dark_blue02_191A30"
-    android:id="@+id/cl_mypage_dialog"
-    tools:context=".presentation.mypage.MypageAccountDeleteFragment">
+    android:background="@color/dark_blue02_191A30">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -59,8 +57,8 @@
         android:layout_height="wrap_content"
         android:background="@color/dark_blue02_191A30"
         android:text="@string/btn_mypage_outaccount"
-        app:layout_constraintEnd_toEndOf="parent"
         android:textColor="#DA5D5D"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_mypgage_cancle"
         app:layout_constraintTop_toBottomOf="@id/tv_mypage_out_description"
