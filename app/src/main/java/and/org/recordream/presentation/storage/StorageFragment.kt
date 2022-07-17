@@ -4,6 +4,7 @@ import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.FragmentStorageBinding
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,18 +33,30 @@ class StorageFragment : Fragment() {
 
         setUpRecyclerView()
 
+
         return binding.root
     }
 
     private fun showMyRecord() {
+
         // java.lang.IllegalArgumentException: Navigation action/destination
-        // currentDestination 확인해보기
+//         currentDestination 확인해보기
         binding.ivStorageList.setOnClickListener {
+            Log.d("우우우우우", "우우우ㅜ우우우꺼져러")
             if (findNavController().currentDestination?.id == R.id.galleryFragment)
                 findNavController().navigate(
                     R.id.action_galleryFragment_to_listFragment
+
                 )
+            Log.d("우우우우우", "우우우ㅜ우우우꺼져러")
         }
+
+//        binding.ivStorageGallery.setOnClickListener {
+//            if (findNavController().currentDestination?.id == R.id.listFragment)
+//                findNavController().navigate(
+//                    R.id.action_listFragment_to_galleryFragment
+//                )
+//        }
     }
 
     private fun setUpRecyclerView() {
@@ -95,6 +108,26 @@ class StorageFragment : Fragment() {
             )
         )
     }
+//
+//    private fun initNavComponent() {
+//        with(binding) {
+//
+//            ivStorageGallery.isSelected = true
+//
+//            ivStorageGallery.setOnClickListener {
+//                ivStorageGallery.isSelected = true
+//                ivStorageList.isSelected = false
+//
+//                findNavController().navigate(R.id.action_listFragment_to_galleryFragment)
+//            }
+//
+//            ivStorageList.setOnClickListener {
+//                ivStorageList.isSelected = true
+//                ivStorageGallery.isSelected = false
+//                findNavController().navigate(R.id.action_galleryFragment_to_listFragment)
+//            }
+//        }
+//    }
 
     companion object {
         const val ALL = 2131165404
