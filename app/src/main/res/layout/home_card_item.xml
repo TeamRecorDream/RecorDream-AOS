@@ -24,11 +24,11 @@
 
             <ImageView
                 android:id="@+id/iv_home_emoticon"
+                imgResId="@{records.emotion}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="26dp"
-                app:imgResId="@{records.emotion}"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_date"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:src="@drawable/icon_3_joy" />

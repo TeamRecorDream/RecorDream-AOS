@@ -16,17 +16,19 @@
         android:layout_height="match_parent"
         android:background="#6F7783"
         tools:context=".presentation.detail.DetailActivity">
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_detail_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.63" />
+
         <ImageView
             android:id="@+id/iv_detail_dream_color"
+            imgResId="@{records.dream_color}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:imgResId="@{records.dream_color}"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@id/tl_detail"
             app:layout_constraintEnd_toEndOf="parent"
