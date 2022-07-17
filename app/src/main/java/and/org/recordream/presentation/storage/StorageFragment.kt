@@ -4,7 +4,6 @@ import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.FragmentStorageBinding
 import and.org.recordream.presentation.storage.myrecord.MyEmotionAdapter
-import and.org.recordream.util.shortToast
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,10 +27,12 @@ class StorageFragment : Fragment() {
 
 //        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
 //            ?.let { binding.tvStorageMyemotion.background = it }
-        getInfo()
-        initAdapter()
+//        getInfo()
+//        initAdapter()
+//        addItemList()
         showMyRecord()
-        addItemList()
+
+        setUpRecyclerView()
 
         return binding.root
     }
@@ -47,32 +48,52 @@ class StorageFragment : Fragment() {
         }
     }
 
-    private fun getInfo() { // Adapter initialized
-        myEmotionAdapter = MyEmotionAdapter {
+    private fun setUpRecyclerView() {
+        binding.rvStorageMyemotion.apply {
+            myEmotionAdapter = MyEmotionAdapter {
 
-            Log.d("CONST", "${it.emotion}")
-            when (it.emotion) { // CONST EMOTION 서버 저장
-                ALL -> context?.shortToast("안녕하소")
+                myEmotionAdapter.notifyDataSetChanged()
             }
+            adapter = myEmotionAdapter
 
         }
+        addItemList()
     }
 
-    private fun initAdapter() {
-        binding.rvStorageMyemotion.adapter = myEmotionAdapter
+
+    //    private fun getInfo() { // Adapter initialized
+//        myEmotionAdapter = MyEmotionAdapter {
+//
+//            Log.d("CONST", "${it.emotion}")
+//            when (it.emotion) { // CONST EMOTION 서버 저장
+//                ALL -> context?.shortToast("안녕하소")
+//                SMILE ->{
+//                    it.emotion = R.drawable.logo
+//                }
+//            }
+//
+//        }
+//    }
+//
+//    private fun initAdapter() {
+//        binding.rvStorageMyemotion.adapter = myEmotionAdapter
+//    }
+//
+    private fun selectedItem(position: Int) {
+
     }
 
     private fun addItemList() {
         myEmotionAdapter.myEmotionList.addAll(
             listOf<MyEmotionData>(
-                MyEmotionData(R.drawable.selector_storage_emotion_all),
-                MyEmotionData(R.drawable.selector_storage_emotion_smile),
-                MyEmotionData(R.drawable.selector_storage_emotion_surprise),
-                MyEmotionData(R.drawable.selector_storage_emotion_love),
-                MyEmotionData(R.drawable.selector_storage_emotion_shy),
-                MyEmotionData(R.drawable.selector_storage_emotion_sad),
-                MyEmotionData(R.drawable.selector_storage_emotion_angry),
-                MyEmotionData(R.drawable.selector_storage_emotion_unclassified)
+                MyEmotionData(R.drawable.selector_storage_emotion_all, true),
+                MyEmotionData(R.drawable.selector_storage_emotion_smile, false),
+                MyEmotionData(R.drawable.selector_storage_emotion_surprise, false),
+                MyEmotionData(R.drawable.selector_storage_emotion_love, false),
+                MyEmotionData(R.drawable.selector_storage_emotion_shy, false),
+                MyEmotionData(R.drawable.selector_storage_emotion_sad, false),
+                MyEmotionData(R.drawable.selector_storage_emotion_angry, false),
+                MyEmotionData(R.drawable.selector_storage_emotion_unclassified, false)
             )
         )
     }
