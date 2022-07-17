@@ -20,7 +20,7 @@ class MypageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
 
         //setOnDreamPushClickEvent()
-        initBottomSheet()
+        //initBottomSheet()
         showDialog()
         setContentView(binding.root)
     }
@@ -31,29 +31,6 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun initBottomSheet() {
-        binding.scMypageDreampushSwitch.setOnClickListener {
-
-            // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(this)
-
-            //커on below line we are inflating a layout file which we have created.
-            val view = layoutInflater.inflate(R.layout.fragment_mypage_timedialog, null)
-            //배경 투명하게 해줘서 커스텀한 모양이 보이게
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            //외부 화면 누르면 창 자동으로 닫히게
-            dialog.setCancelable(true)
-
-            // on below line we are setting
-            // content view to our view.
-            dialog.setContentView(view)
-
-            // on below line we are calling
-            // a show method to display a dialog.
-            dialog.show()
-        }
-    }
-
     private fun showDialog() {
         binding.tvMypageWithdrawl.setOnClickListener {
             dialog = CustomDialog(this)
@@ -61,28 +38,30 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
+//    private fun initBottomSheet() {
+//        btnShowBottomSheet.setOnClickListener {
+//
+//            // on below line we are creating a new bottom sheet dialog.
+//            val dialog = BottomSheetDialog(this)
+//
+//            //커on below line we are inflating a layout file which we have created.
+//            val view = layoutInflater.inflate(R.layout.detail_bottom_sheet, null)
+//            //배경 투명하게 해줘서 커스텀한 모양이 보이게
+//            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            //외부 화면 누르면 창 자동으로 닫히게
+//            dialog.setCancelable(true)
+//
+//            // on below line we are setting
+//            // content view to our view.
+//            dialog.setContentView(view)
+//
+//            // on below line we are calling
+//            // a show method to display a dialog.
+//            dialog.show()
+//        }
+
 }
 
-//private fun createBottomSheet() { // 바텀시트 프래그먼트 생성
-//// 전역변수로 이미 초기화 해줬기 때문에 여기는 지워도 됨, 다른 인스턴스 생성
-//    writeBottomSheetFragment.show(supportFragmentManager, writeBottomSheetFragment.tag)
-//}
-
-
-//private fun setOnDreamPushClickEvent() {
-//
-//    //  스위치를 클릭했을때
-//    val switch: SwitchCompat = findViewById(R.id.sc_mypage_dreampush_switch)
-//    switch.setOnCheckedChangeListener { _, isChecked ->
-//        if (isChecked) {
-//            // The toggle is enabled
-//            val bottomSheet = mypage_timedialog()
-//            //  bottomSheet.show(supportFragmentManager, "exampleBottomSheet")
-//        } else {
-//            // The toggle is disabled
-//        }
-//    }
-//}
 
 
 
