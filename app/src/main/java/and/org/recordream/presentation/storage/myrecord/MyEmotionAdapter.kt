@@ -79,6 +79,7 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
         holder.onBind(myEmotionList[position])
         Log.d("d","${myEmotionList[0]}")
 
+
     }
 
     override fun getItemCount(): Int = myEmotionList.size
@@ -98,17 +99,26 @@ class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
             with(binding) {
 
                 storage = data
-                itemClick(data)
+
                 ivStorageMyemotion.isSelected = data.switch
+
                 itemView.setOnClickListener {
                     Log.d("포이치","${itemView.isSelected}")
-                    data.switch = false
-                    ivStorageMyemotion.isSelected = false
-                    (0..7).forEach {
-                        if(it == adapterPosition) ivStorageMyemotion.isSelected= true
-
+                    ivStorageMyemotion.isSelected = true
+                    Log.d("조건", "position $adapterPosition")
+                    for(i in 0..7) {
+                        Log.d("조건","불린 : ${myEmotionList[i].switch.toString()}")
+                        //if(i == adapterPosition) ivStorageMyemotion.isSelected= true
+                        if(i!=adapterPosition) {
+                            myEmotionList[i].switch=false
+                        }
+                        else{
+                            myEmotionList[adapterPosition].switch=true
+                        }
                         Log.d("포이치","foreach")
                     }
+
+                    notifyDataSetChanged()
                     //selected(adapterPosition)
 
                    // if (ivStorageMyemotion.isSelected) ivStorageMyemotion.isSelected = true

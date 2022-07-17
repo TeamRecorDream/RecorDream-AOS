@@ -50,7 +50,10 @@ class StorageFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.rvStorageMyemotion.apply {
-            myEmotionAdapter = MyEmotionAdapter { ::selectedItem }
+            myEmotionAdapter = MyEmotionAdapter {
+
+                myEmotionAdapter.notifyDataSetChanged()
+            }
             adapter = myEmotionAdapter
 
         }
