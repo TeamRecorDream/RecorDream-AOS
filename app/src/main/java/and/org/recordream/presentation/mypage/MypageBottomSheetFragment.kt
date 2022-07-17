@@ -1,4 +1,4 @@
-//package before.forget.feature.write
+package and.org.recordream.presentation.mypage//package before.forget.feature.write
 //
 //import android.os.Bundle
 //import android.util.Log
