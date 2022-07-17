@@ -10,16 +10,19 @@
         android:id="@+id/iv_mypage_backbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:src="@drawable/icon_back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_mypage_mypage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:text="@string/tv_mypage_mypage"
         android:textAppearance="@style/B16"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_mypage_backbtn"
         app:layout_constraintStart_toEndOf="@id/iv_mypage_backbtn"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:text="@string/tv_mypage_nickname"
-        android:textColor="@color/white"
+        android:textAppearance="@style/B18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile" />
@@ -58,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_pen"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_mypage_nickname"
         app:layout_constraintStart_toEndOf="@id/tv_mypage_nickname"
         app:layout_constraintTop_toTopOf="@id/tv_mypage_nickname" />
 
@@ -65,8 +69,9 @@
         android:id="@+id/tv_mypage_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/tv_mypage_email"
-        android:textColor="@color/white"
+        android:textAppearance="@style/M14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_mypage_nickname" />
@@ -102,7 +107,11 @@
             android:layout_marginStart="189dp"
             android:layout_marginEnd="19dp"
             android:checked="false"
+            android:switchMinWidth="0dp"
+            android:textOff=""
+            android:textOn=""
             android:thumb="@drawable/setting_switch_thumb"
+            android:thumbTextPadding="15dp"
             android:track="@drawable/selector_switch_track"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_mypage_pushalam"
@@ -144,14 +153,6 @@
             app:layout_constraintEnd_toEndOf="@id/cl_mypage_settingcount_back"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_settingtime" />
 
-        <ImageView
-            android:id="@+id/tv_mypage_btn_setting_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_arrow_2"
-            app:layout_constraintEnd_toEndOf="@id/cl_mypage_settingcount_back"
-            app:layout_constraintStart_toEndOf="@id/tv_mypage_time"
-            app:layout_constraintTop_toTopOf="@id/tv_mypage_time" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -172,7 +173,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="88dp"
         android:background="@drawable/rectangle_button_puple_gradient"
-        android:text="@string/btn_mypate_logout"
+        android:text="@string/btn_mypage_logout"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -182,6 +183,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/tv_mypage_withdrawl"
+        android:textAppearance="@style/M14"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
