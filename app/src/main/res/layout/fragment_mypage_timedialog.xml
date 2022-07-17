@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.mypage.mypage_timedialog">
+
+    <NumberPicker
+        android:id="@+id/time_datepicker"
+        android:layout_width="63dp"
+        android:layout_height="124dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:selectionDividerHeight="0dp"
+        android:theme="@style/NumberpickerStyle"/>
+
+    <NumberPicker
+        android:id="@+id/minute_datepicker"
+        android:layout_width="63dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="50dp"
+        app:layout_constraintStart_toEndOf="@+id/time_datepicker"
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/NumberpickerStyle"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
