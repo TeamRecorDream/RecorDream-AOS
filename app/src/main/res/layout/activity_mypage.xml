@@ -113,6 +113,7 @@
             app:layout_constraintTop_toTopOf="@id/cl_mypage_pushalam_back" />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sc_mypage_dreampush_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="189dp"
