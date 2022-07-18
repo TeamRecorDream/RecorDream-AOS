@@ -1,21 +1,58 @@
 <resources>
     <string name="app_name">Recordream</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- 메인 뷰 -->
 
 
+    <!-- 홈 뷰-->
+    <string name="tv_home_which_dream">최근에 어떤 꿈을 꾸셨나요?</string>
+    <string name="tv_home_hi_nickname">반가워요, %s님!</string>
+    <string name="tv_home_off_record_dream">꿈의 기록을 채워주세요.</string>
     <!--마이 페이지 뷰-->
     <string name="tv_mypage_mypage">마이페이지</string>
     <string name="tv_mypage_pushalam">꿈 푸시알림</string>
     <string name="tv_mypage_settingtime">시간 설정</string>
-    <string name="btn_mypate_logout">로그아웃</string>
+    <string name="btn_mypage_logout">로그아웃</string>
     <string name="tv_mypage_withdrawl">탈퇴하기</string>
     <string name="tv_mypage_nickname">2019083</string>
     <string name="tv_mypage_email">20190837@naver.com</string>
     <string name="tv_mypage_description_push_alam">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
     <string name="tv_mypage_time">00:00</string>
     <string name="tv_mypage_bottomseet_storage">저장</string>
+
+    <string name="tv_mypage_doing_out_account">탈퇴하기</string>
+    <string name="tv_mypage_out_description">탈퇴 시 저장된 기록은 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?</string>
+    <string name="btn_mypgage_cancle">취소</string>
+    <string name="btn_mypage_outaccount">탈퇴</string>
+
+    <!-- 글쓰기 뷰-->
+    <string name="tv_write_write">기록하기</string>
+    <string name="tv_write_modify">수정하기</string>
+    <string name="tv_write_date">날짜</string>
+    <string name="tv_write_voice">음성녹음</string>
+    <string name="tv_write_editdream">꿈의 제목을 남겨주세요.</string>
+    <string name="et_write_content">꿈을 기록해주세요.</string>
+    <string name="tv_write_myemotion">나의 감정</string>
+    <string name="tv_write_dreamcolor">꿈의 색상</string>
+    <string name="tv_write_genredream">꿈의 장르</string>
+    <string name="btn_write_save">저장하기</string>
+    <string name="btn_write_comedy"># 코미디</string>
+    <string name="btn_write_romense"># 로맨스</string>
+    <string name="btn_write_action"># 액션</string>
+    <string name="btn_write_thrill"># 스릴러</string>
+    <string name="btn_write_mystery"># 미스터리</string>
+    <string name="btn_write_fear"># 공포</string>
+    <string name="btn_write_SF"># SF</string>
+    <string name="btn_write_fantasy"># 판타지</string>
+    <string name="btn_write_family"># 가족/친구</string>
+    <string name="btn_write_etc"># 기타</string>
+    <string name="tv_write_note">노트</string>
+
+    <!--마이크-->
+    <string name="tv_voice_save">저장</string>
+
 
     <!-- 바텀네비게이션 -->
     <string name="bnv_main_home">홈</string>
@@ -25,7 +62,7 @@
     <string name="tv_storage_emotion">나의 감정</string>
     <string name="tv_storage_recordtxt">개의 기록</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
 
 
 </resources>
