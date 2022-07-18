@@ -1,6 +1,7 @@
 package and.org.recordream.presentation.storage.myrecord
 
 import and.org.recordream.R
+import and.org.recordream.data.remote.response.Record
 import and.org.recordream.data.remote.response.ResponseRecords
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
 import and.org.recordream.databinding.FragmentListTypeBinding
@@ -43,7 +44,8 @@ class GalleryTypeFragment : Fragment() {
     }
     private fun addItemList(){
         galleryTypeAdapter.galleryRecords.addAll(
-            listOf<ResponseRecords>(
+            listOf<Record>(
+                Record("wdwdddw","12121",2,2, listOf(2,4),"232")
 
             )
         )

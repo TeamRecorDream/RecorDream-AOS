@@ -1,15 +1,15 @@
 package and.org.recordream.presentation.storage.myrecord
 
-import and.org.recordream.data.remote.response.ResponseRecords
+import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.ItemStorageGalleryBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class GalleryTypeAdapter(private val itemClick: (ResponseRecords) -> Unit) :
+class GalleryTypeAdapter(private val itemClick: (Record) -> Unit) :
     RecyclerView.Adapter<GalleryTypeAdapter.GalleryTypeViewHolder>() {
-    val galleryRecords = mutableListOf<ResponseRecords>()
+    val galleryRecords = mutableListOf<Record>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryTypeViewHolder {
         val binding = ItemStorageGalleryBinding.inflate(
@@ -28,12 +28,12 @@ class GalleryTypeAdapter(private val itemClick: (ResponseRecords) -> Unit) :
 
     class GalleryTypeViewHolder(
         private val binding: ItemStorageGalleryBinding,
-        private val itemClick: (ResponseRecords) -> Unit
+        private val itemClick: (Record) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(data: ResponseRecords) {
+        fun onBind(data: Record) {
             with(binding) {
-                recordGallery = data
+                recordgallery = data
                 itemClick(data)
                 itemView.setOnClickListener {
 

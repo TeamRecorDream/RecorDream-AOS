@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="record_gallery"
+            name="recordgallery"
             type="and.org.recordream.data.remote.response.Record" />
     </data>
 
@@ -47,6 +47,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="2dp"
                 android:textAppearance="@style/M10"
+                android:text="@{recordgallery.date}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotiongallery"
                 tools:text="2022년 6월 26일" />

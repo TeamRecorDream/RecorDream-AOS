@@ -21,13 +21,13 @@ class ListTypeFragment : Fragment() {
     ): View? {
         _binding = FragmentListTypeBinding.inflate(layoutInflater, container, false)
 
-        initAdapter()
+       // initAdapter()
         return binding.root
     }
 
-    private fun initAdapter(){
-        listTypeAdapter = ListTypeAdapter {  }
-        binding.
-    }
+//    private fun initAdapter(){
+//        listTypeAdapter = ListTypeAdapter {  }
+//        binding.
+//    }
 
 }
