@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDetailBottomSheetBinding
-    private lateinit var dialog:CustomDialog
+    private lateinit var dialog: CustomDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +29,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             false
         )
         initDialog()
-
+        clickEvent()
         return binding.root
     }
 
@@ -39,10 +39,16 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
+    private fun clickEvent() {
+        binding.tvDetailBottomDelete.setOnClickListener {
+            showDialog()
+        }
+    }
+
     private fun showDialog() {
         binding.tvDetailBottomDelete.setOnClickListener {
-            dialog=CustomDialog(this)
-
+            dialog = CustomDialog(this)
+            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
         }
 
     }

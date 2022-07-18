@@ -70,12 +70,4 @@ class DetailActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun showDialog() {
-        binding
-        binding.tvMypageWithdrawl.setOnClickListener {
-            dialog = CustomDialog(this)
-            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
-        }
-    }
-
 }

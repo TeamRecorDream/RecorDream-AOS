@@ -34,7 +34,7 @@ class MypageActivity : AppCompatActivity() {
     private fun showDialog() {
         binding.tvMypageWithdrawl.setOnClickListener {
             dialog = CustomDialog(this)
-            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
+            dialog.showDropOutDialog(R.layout.detail_delete_dialog)
         }
     }
 }
