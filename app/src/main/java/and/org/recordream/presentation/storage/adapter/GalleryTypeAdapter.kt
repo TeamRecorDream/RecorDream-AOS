@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class GalleryTypeAdapter(private val itemClick: (Record) -> Unit) :
+class GalleryTypeAdapter(
+    private val itemClick: (Record) -> Unit
+) :
     RecyclerView.Adapter<GalleryTypeAdapter.GalleryTypeViewHolder>() {
     val galleryRecords = mutableListOf<Record>()
 

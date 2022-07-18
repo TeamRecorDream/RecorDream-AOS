@@ -23,17 +23,13 @@ class StorageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
-
-
 //        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
 //            ?.let { binding.tvStorageMyemotion.background = it }
 //        getInfo()
 //        initAdapter()
 //        addItemList()
         showMyRecord()
-
         setUpRecyclerView()
-
 
         return binding.root
     }
@@ -43,38 +39,17 @@ class StorageFragment : Fragment() {
         binding.rvStorageMyemotion.apply {
             storageAdapter = StorageAdapter {
 
+                // it을 활용한 람다표현식, 고차함수 등 함수구현가능
                 storageAdapter.notifyDataSetChanged()
+
+
             }
             adapter = storageAdapter
-
         }
         addItemList()
     }
 
-
-    //    private fun getInfo() { // Adapter initialized
-//        myEmotionAdapter = MyEmotionAdapter {
-//
-//            Log.d("CONST", "${it.emotion}")
-//            when (it.emotion) { // CONST EMOTION 서버 저장
-//                ALL -> context?.shortToast("안녕하소")
-//                SMILE ->{
-//                    it.emotion = R.drawable.logo
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    private fun initAdapter() {
-//        binding.rvStorageMyemotion.adapter = myEmotionAdapter
-//    }
-//
-    private fun selectedItem(position: Int) {
-
-    }
-
-    private fun addItemList() {
+    private fun addItemList() { // 나의 감정 카테고리 데이터
         storageAdapter.myEmotionList.addAll(
             listOf<MyEmotionData>(
                 MyEmotionData(R.drawable.selector_storage_emotion_all, true),
@@ -89,7 +64,7 @@ class StorageFragment : Fragment() {
         )
     }
 
-    private fun showMyRecord() {
+    private fun showMyRecord() { // 갤러리형, 목록형 프래그먼트 관리
         val listTypeFragment = ListTypeFragment()
         val galleryTypeFragment = GalleryTypeFragment()
 

@@ -25,29 +25,37 @@ class GalleryTypeFragment : Fragment() {
         return binding.root
     }
 
-    private fun emotionMatch(){
-        val emotion : Int = 0
+    private fun emotionMatch() {
+        val emotion: Int = 0
         val img: Int
-        when(emotion){
+        when (emotion) {
             0 -> img = R.drawable.logo
 
         }
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
         galleryTypeAdapter = GalleryTypeAdapter {
-
+            it.emotion
         }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
         addItemList()
     }
-    private fun addItemList(){
+
+    private fun addItemList() {
         galleryTypeAdapter.galleryRecords.addAll(
             listOf<Record>(
-                Record("wdwdddw","12121",2,2, listOf(2,4),"232")
+                Record("wdwdddw", "12121", 2, 2, listOf(2, 4), "232")
 
             )
         )
     }
 
+    private fun mappingList(emotion: Int) {
+        when (emotion) {
+            0 -> binding.
+        }
+    }
+    //   context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
+//            ?.let { binding.tvStorageMyemotion.background = it }
 }
