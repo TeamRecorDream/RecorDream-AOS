@@ -14,13 +14,13 @@
         android:theme="@style/Theme.Recordream"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.write.WriteActivity"
+            android:exported="true" />
+        <activity
             android:name=".presentation.mypage.MypageActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.detail.DetailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

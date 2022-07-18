@@ -12,65 +12,102 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_home_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/sub_green01_26C179">
+            android:background="@{records.dream_color}"
+            tools:background="@drawable/property_1_card_main_green">
 
             <ImageView
                 android:id="@+id/iv_home_emoticon"
+                imgResId="@{records.emotion}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="30dp"
-                app:imgResId="@{records.emotion}"
-                tools:src="@drawable/ic_launcher_background"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="26dp"
+                app:layout_constraintBottom_toTopOf="@id/tv_home_date"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.28" />
+                tools:src="@drawable/icon_3_joy" />
 
             <TextView
                 android:id="@+id/tv_home_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@id/iv_home_emoticon"
-                app:layout_constraintTop_toBottomOf="@id/iv_home_emoticon"
-                tools:text="@{records.date}" />
+                android:layout_marginBottom="6dp"
+                android:text="@{records.date}"
+                android:textAppearance="@style/M14"
+                app:layout_constraintBottom_toTopOf="@id/tv_home_card_title"
+                app:layout_constraintStart_toStartOf="@id/tv_home_card_title"
+                tools:text="2022/06/26 (일)" />
 
             <TextView
                 android:id="@+id/tv_home_card_title"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="14dp"
                 android:maxLines="3"
+                android:text="@{records.title}"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/iv_home_emoticon"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_date"
-                tools:text="@{records.title}" />
+                app:layout_constraintBottom_toTopOf="@id/tv_home_genre1"
+                app:layout_constraintStart_toStartOf="@id/tv_home_genre1"
+                tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고 건너편 세계에갔다." />
 
             <TextView
-                android:id="@+id/tv_home_hashtag"
+                android:id="@+id/tv_home_genre1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="140dp"
                 android:background="@color/white"
-                android:padding="5dp"
-                android:textColor="@color/sub_green01_26C179"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/iv_home_emoticon"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_card_title"
-                tools:text="#@{records.genre.toString()}" />
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:text="@{records.genre[0]}"
+                android:textAppearance="@style/B14"
+                android:textColor="@{records.dream_color}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="#미스터리"
+                tools:textColor="@color/sub_green01_26C179" />
+
+            <TextView
+                android:id="@+id/tv_home_genre2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="140dp"
+                android:background="@color/white"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:text="@{records.genre[1]}"
+                android:textAppearance="@style/B14"
+                android:textColor="@{records.dream_color}"
+                app:layout_constraintStart_toEndOf="@id/tv_home_genre1"
+                app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
+                tools:text="#가족/친구"
+                tools:textColor="@color/sub_green01_26C179" />
+
+            <TextView
+                android:id="@+id/tv_home_genre3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@color/white"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:text="@{records.genre[2]}"
+                android:textAppearance="@style/B14"
+                android:textColor="@{records.dream_color}"
+                app:layout_constraintStart_toEndOf="@id/tv_home_genre2"
+                app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
+                tools:text="#로맨스"
+                tools:textColor="@color/sub_green01_26C179" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
