@@ -2,9 +2,8 @@ package and.org.recordream.presentation.storage.myrecord
 
 import and.org.recordream.R
 import and.org.recordream.data.remote.response.Record
-import and.org.recordream.data.remote.response.ResponseRecords
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
-import and.org.recordream.databinding.FragmentListTypeBinding
+import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -3,6 +3,7 @@ package and.org.recordream.presentation.storage
 import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.FragmentStorageBinding
+import and.org.recordream.presentation.storage.adapter.StorageAdapter
 import and.org.recordream.presentation.storage.myrecord.GalleryTypeFragment
 import and.org.recordream.presentation.storage.myrecord.ListTypeFragment
 import android.os.Bundle
@@ -14,7 +15,7 @@ import androidx.fragment.app.Fragment
 class StorageFragment : Fragment() {
     private var _binding: FragmentStorageBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialization")
-    private lateinit var myEmotionAdapter: MyEmotionAdapter
+    private lateinit var storageAdapter: StorageAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,11 +41,11 @@ class StorageFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         binding.rvStorageMyemotion.apply {
-            myEmotionAdapter = MyEmotionAdapter {
+            storageAdapter = StorageAdapter {
 
-                myEmotionAdapter.notifyDataSetChanged()
+                storageAdapter.notifyDataSetChanged()
             }
-            adapter = myEmotionAdapter
+            adapter = storageAdapter
 
         }
         addItemList()
@@ -74,7 +75,7 @@ class StorageFragment : Fragment() {
     }
 
     private fun addItemList() {
-        myEmotionAdapter.myEmotionList.addAll(
+        storageAdapter.myEmotionList.addAll(
             listOf<MyEmotionData>(
                 MyEmotionData(R.drawable.selector_storage_emotion_all, true),
                 MyEmotionData(R.drawable.selector_storage_emotion_smile, false),

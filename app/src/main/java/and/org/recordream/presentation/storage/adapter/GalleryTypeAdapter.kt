@@ -1,4 +1,4 @@
-package and.org.recordream.presentation.storage.myrecord
+package and.org.recordream.presentation.storage.adapter
 
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.ItemStorageGalleryBinding

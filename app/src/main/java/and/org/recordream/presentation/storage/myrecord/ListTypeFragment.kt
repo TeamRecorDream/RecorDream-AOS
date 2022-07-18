@@ -1,8 +1,8 @@
 package and.org.recordream.presentation.storage.myrecord
 
-import and.org.recordream.R
+import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentListTypeBinding
-import and.org.recordream.databinding.FragmentStorageBinding
+import and.org.recordream.presentation.storage.adapter.ListTypeAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,13 +21,22 @@ class ListTypeFragment : Fragment() {
     ): View? {
         _binding = FragmentListTypeBinding.inflate(layoutInflater, container, false)
 
-       // initAdapter()
+        initAdapter()
         return binding.root
     }
 
-//    private fun initAdapter(){
-//        listTypeAdapter = ListTypeAdapter {  }
-//        binding.
-//    }
+    private fun initAdapter() {
+        listTypeAdapter = ListTypeAdapter { }
+        binding.rvStorageList.adapter = listTypeAdapter
+        addItemList()
+    }
+
+    private fun addItemList() {
+        listTypeAdapter.listRecords.addAll(
+            listOf<Record>(
+                Record("wdwdddw", "12121", 2, 2, listOf(2, 4), "232")
+            )
+        )
+    }
 
 }

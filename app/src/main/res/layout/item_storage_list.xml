@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="record_list"
-            type="and.org.recordream.data.remote.response.ResponseRecords" />
+            name="recordlist"
+            type="and.org.recordream.data.remote.response.Record" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -54,6 +54,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="26dp"
             android:textAppearance="@style/B12"
+            android:text="@{recordlist.title}"
             app:layout_constraintEnd_toStartOf="@+id/iv_storage_nextbtn"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"

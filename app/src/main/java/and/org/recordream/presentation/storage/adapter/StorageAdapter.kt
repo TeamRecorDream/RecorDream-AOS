@@ -1,4 +1,4 @@
-package and.org.recordream.presentation.storage
+package and.org.recordream.presentation.storage.adapter
 
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.ItemStorageEmotionBinding
@@ -60,8 +60,8 @@ import androidx.recyclerview.widget.RecyclerView
 //}
 
 
-class MyEmotionAdapter(private val itemClick: (MyEmotionData) -> Unit) :
-    RecyclerView.Adapter<MyEmotionAdapter.MyEmotionViewHolder>() {
+class StorageAdapter(private val itemClick: (MyEmotionData) -> Unit) :
+    RecyclerView.Adapter<StorageAdapter.MyEmotionViewHolder>() {
     val myEmotionList = mutableListOf<MyEmotionData>()
     var row_index: Int = 0
 
