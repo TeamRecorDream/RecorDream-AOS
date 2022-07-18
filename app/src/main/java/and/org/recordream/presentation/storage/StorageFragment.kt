@@ -7,6 +7,7 @@ import and.org.recordream.presentation.storage.adapter.StorageAdapter
 import and.org.recordream.presentation.storage.myrecord.GalleryTypeFragment
 import and.org.recordream.presentation.storage.myrecord.ListTypeFragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,9 +40,9 @@ class StorageFragment : Fragment() {
         binding.rvStorageMyemotion.apply {
             storageAdapter = StorageAdapter {
 
+                Log.d("dddd", "$it.emotion")
                 // it을 활용한 람다표현식, 고차함수 등 함수구현가능
                 storageAdapter.notifyDataSetChanged()
-
 
             }
             adapter = storageAdapter
