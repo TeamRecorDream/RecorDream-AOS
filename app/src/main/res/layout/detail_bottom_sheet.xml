@@ -9,37 +9,52 @@
     android:padding="0dp"
     app:layout_constraintStart_toStartOf="parent">
 
-    <View
-        android:id="@+id/v_detail_bottom_sheet_line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_blue01_4DCBD5E1"
-        app:layout_constraintBottom_toTopOf="@+id/tv_detail_bottom_edit" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/tv_detail_bottom_share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_detail_rounded_dialog"
-        android:text="공유하기"
-        android:textColor="@color/white01_FFFFFF"
+        android:paddingTop="23dp"
+        android:paddingBottom="25dp"
+        android:text="@string/tv_detail_share"
+        android:textAppearance="@style/B12"
+        app:layout_constraintBottom_toTopOf="@id/v_detail_bottom_sheet_line1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/v_detail_bottom_sheet_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_blue01_4DCBD5E1"
+        app:layout_constraintBottom_toTopOf="@+id/tv_detail_bottom_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_bottom_share" />
 
     <View
         android:id="@+id/v_detail_bottom_sheet_line2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/light_blue01_4DCBD5E1"
-        app:layout_constraintBottom_toTopOf="@+id/tv_detail_bottom_delete" />
+        app:layout_constraintBottom_toTopOf="@+id/tv_detail_bottom_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_bottom_edit" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/tv_detail_bottom_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_blue02_191A30"
-        android:text="수정하기"
-        android:textColor="@color/white01_FFFFFF"
-
+        android:paddingTop="23dp"
+        android:paddingBottom="25dp"
+        android:text="@string/tv_detail_edit"
+        android:textAppearance="@style/B12"
+        app:layout_constraintBottom_toTopOf="@id/tv_detail_bottom_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottom_share" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -47,7 +62,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_blue02_191A30"
-        android:text="삭제하기"
-        android:textColor="@color/white01_FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottom_edit" />
+        android:paddingTop="23dp"
+        android:paddingBottom="25dp"
+        android:text="@string/tv_detail_delete"
+        android:textAppearance="@style/B12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_detail_bottom_sheet_line2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
