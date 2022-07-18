@@ -31,7 +31,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun amOrpmSettiing() {
+    private fun amOrpmSettiing() { // 바텀시트 오류발생부분
         var amOrpm = ""
         var min = 0
         val str = arrayOf<String>("AM", "PM")
