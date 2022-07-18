@@ -118,6 +118,7 @@
         <item name="android:textColor">@color/white01_FFFFFF</item>
     </style>
 
+    <!--상세보기 뷰 커스텀바텀시트 테마 -->
     <style name="BottomSheetTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
@@ -133,10 +134,24 @@
 
     </style>
 
+    <!-- 상세보기 뷰 탭레이아웃 글꼴-->
+    <style name="TabUnselected" parent="Widget.MaterialComponents.TabLayout">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white02_80FFFFFF</item>
+    </style>
+
+    <style name="TabSelected" parent="Widget.Material3.TabLayout">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
 
     <!--mypage numberpicker에 사용-->
     <style name="NumberpickerStyle">
         <item name="android:textSize">24dp</item>
         <item name="android:textColorPrimary">"@color/white03_33FFFFFF"</item>
     </style>
+
 </resources>

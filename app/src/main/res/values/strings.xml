@@ -10,7 +10,19 @@
     <string name="tv_home_which_dream">최근에 어떤 꿈을 꾸셨나요?</string>
     <string name="tv_home_hi_nickname">반가워요, %s님!</string>
     <string name="tv_home_off_record_dream">꿈의 기록을 채워주세요.</string>
-    <!--마이 페이지 뷰-->
+
+    <!-- 상세보기 뷰 -->
+    <string name="tv_detail_page_name">기록 상세보기</string>
+
+    <!-- 상세보기 뷰 바텀시트-->
+    <string name="tv_detail_share">공유하기</string>
+    <string name="tv_detail_edit">수정하기</string>
+    <string name="tv_detail_delete">삭제하기</string>
+    <string name="tv_detail_cancel">취소</string>
+    <string name="tv_detail_button_delete">삭제</string>
+    <string name="tv_detail_question_delete">꿈 기록을 삭제하시겠습니까?</string>
+
+    <!-- 마이 페이지 뷰 -->
     <string name="tv_mypage_mypage">마이페이지</string>
     <string name="tv_mypage_pushalam">꿈 푸시알림</string>
     <string name="tv_mypage_settingtime">시간 설정</string>

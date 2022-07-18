@@ -7,25 +7,56 @@
 
         <variable
             name="records"
-            type="and.org.recordream.presentation.home.ResponseHomeItems.Records" />
+            type="and.org.recordream.data.local.Record" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#6F7783"
         tools:context=".presentation.detail.DetailActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_detail_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.42" />
+
+        <ImageView
+            android:id="@+id/iv_detail_dream_color"
+            imgResId="@{records.dream_color}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@id/tl_detail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/property_1_bg_record_green" />
 
         <ImageView
             android:id="@+id/iv_arrow_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/arrow_back_24dp_black"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="46dp"
+            android:src="@drawable/icon_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_detail_page_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="6dp"
+            android:layout_marginStart="6dp"
+            android:text="@string/tv_detail_page_name"
+            android:textAppearance="@style/B16"
+            app:layout_constraintBottom_toBottomOf="@id/iv_arrow_left"
+            app:layout_constraintStart_toEndOf="@id/iv_arrow_left"
+            app:layout_constraintTop_toTopOf="@id/iv_arrow_left" />
+
 
         <TextView
             android:id="@+id/tv_record_detail"
@@ -40,22 +71,21 @@
             android:id="@+id/iv_dots_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
-            android:src="@drawable/dots_more_24dp_black"
-            app:layout_constraintBottom_toBottomOf="@id/iv_arrow_left"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/icon_view_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_arrow_left" />
 
         <ImageView
             android:id="@+id/iv_profile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="100dp"
-            android:background="@color/white"
-            app:imgResId="@{records.emotion}"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toEndOf="@id/iv_arrow_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_detail" />
+            imgResId="@{records.emotion}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_record_date"
+            app:layout_constraintStart_toStartOf="@id/tv_home_genre1"
+            tools:src="@drawable/icon_3_love" />
 
         <TextView
             android:id="@+id/tv_record_date"
@@ -63,55 +93,110 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@{records.date}"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@id/iv_profile"
-            app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+            android:textAppearance="@style/M12"
+            app:layout_constraintBottom_toTopOf="@id/tv_record_title"
+            app:layout_constraintStart_toStartOf="@id/tv_record_title"
+            tools:text="2022/06/26 (일)" />
 
         <TextView
             android:id="@+id/tv_record_title"
-            android:layout_width="wrap_content"
+            android:layout_width="201dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:breakStrategy="simple"
+            android:ellipsize="end"
+            android:maxHeight="69dp"
+            android:maxLines="3"
+            android:scrollHorizontally="false"
             android:text="@{records.title}"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/iv_profile"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
+            android:textAppearance="@style/B18"
+            app:layout_constraintBottom_toTopOf="@id/tv_home_genre1"
+            app:layout_constraintStart_toStartOf="@id/tv_home_genre1"
+            tools:text="기묘한 이야기 속 윌과 함께자전거를 타고 건너편 세계에 갔다." />
 
         <TextView
-            android:id="@+id/tv_genre1"
+            android:id="@+id/tv_home_genre1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:background="#D6D6D6"
-            android:padding="3dp"
-            android:text="@{records.genre.toString()}"
-            android:textColor="#656565"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/iv_profile"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_title" />
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/shape_genre_radius"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:text="@{records.genre[0].toString()}"
+            android:textAppearance="@style/B12"
+            android:textColor="@{records.dream_color}"
+            app:layout_constraintBottom_toTopOf="@id/tl_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="#미스터리"
+            tools:textColor="@color/sub_green01_26C179" />
+
+        <TextView
+            android:id="@+id/tv_home_genre2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="140dp"
+            android:background="@drawable/shape_genre_radius"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:text="@{records.genre[1].toString()}"
+            android:textAppearance="@style/B12"
+            android:textColor="@{records.dream_color}"
+            app:layout_constraintStart_toEndOf="@id/tv_home_genre1"
+            app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
+            tools:text="#가족/친구"
+            tools:textColor="@color/sub_green01_26C179" />
+
+        <TextView
+            android:id="@+id/tv_home_genre3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shape_genre_radius"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:text="@{records.genre[2].toString()}"
+            android:textAppearance="@style/B12"
+            android:textColor="@{records.dream_color}"
+            app:layout_constraintStart_toEndOf="@id/tv_home_genre2"
+            app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
+            tools:text="#로맨스"
+            tools:textColor="@color/sub_green01_26C179" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/black"
+            android:background="@color/dark_blue01_000119"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_genre1"
+            app:layout_constraintTop_toBottomOf="@id/gl_detail_guideline"
+            app:tabBackground="@drawable/line_detail_tab_unselected"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/white"
+            app:tabIndicator="@drawable/line_detail_rounded_indicator"
+            app:tabIndicatorColor="@color/white01_FFFFFF"
             app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="#656565" />
+            app:tabTextAppearance="@style/TabUnselected"
+            app:tabTextColor="@color/white02_80FFFFFF" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_detail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/dark_blue01_000119"
+            app:layout_constraintBottom_toTopOf="@id/iv_detail_bottom_logo"
             app:layout_constraintTop_toBottomOf="@+id/tl_detail" />
+
+        <ImageView
+            android:id="@+id/iv_detail_bottom_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:src="@drawable/logo_watermark_recordeream"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

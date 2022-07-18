@@ -1,34 +1,30 @@
 package and.org.recordream.presentation.home
 
 import and.org.recordream.R
-import and.org.recordream.data.local.TmpData
-import and.org.recordream.databinding.ItemTmpBinding
+import and.org.recordream.data.local.Record
+import and.org.recordream.databinding.HomeCardItemBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 
 class HomeViewPagerAdapter() :
     RecyclerView.Adapter<HomeViewPagerAdapter.PagerViewHolder>() {
-    val tmpList = mutableListOf<TmpData>()
+    val homeCardList = mutableListOf<Record>()
 
     class PagerViewHolder(
-        private val binding: ItemTmpBinding
+        private val binding: HomeCardItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: TmpData) {
-            binding.test = data
-            Glide.with(binding.ivTmp)
-                .load(data.img)
-                .into(binding.ivTmp)
+        fun onBind(data: Record) {
+            binding.records = data
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-        val binding: ItemTmpBinding = DataBindingUtil.inflate(
+        val binding: HomeCardItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_tmp,
+            R.layout.home_card_item,
             parent,
             false
         )
@@ -36,10 +32,10 @@ class HomeViewPagerAdapter() :
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.onBind(tmpList[position])
+        holder.onBind(homeCardList[position])
     }
 
     override fun getItemCount(): Int {
-        return tmpList.size
+        return homeCardList.size
     }
 }
