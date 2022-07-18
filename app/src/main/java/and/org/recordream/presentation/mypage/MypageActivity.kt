@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private lateinit var dialog: CustomDialog
-    private val myPageBottomSheetFragment = MypageBottomSheetFragment()
+    // private val myPageBottomSheetFragment = MypageBottomSheetFragment()
 
     var isSwitch: Boolean = false
 
@@ -20,15 +20,15 @@ class MypageActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.scMypageSwitchbtn.setOnClickListener {
 
-            createBottomSheet()
+            //createBottomSheet()
         }
 
         showDialog()
     }
 
-    private fun createBottomSheet() {
-        myPageBottomSheetFragment.show(supportFragmentManager, myPageBottomSheetFragment.tag)
-    }
+//    private fun createBottomSheet() {
+//        myPageBottomSheetFragment.show(supportFragmentManager, myPageBottomSheetFragment.tag)
+//    }
 
 
     private fun showDialog() {

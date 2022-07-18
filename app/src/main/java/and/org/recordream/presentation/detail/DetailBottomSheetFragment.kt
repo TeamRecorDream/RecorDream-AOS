@@ -41,15 +41,15 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun clickEvent() {
         binding.tvDetailBottomDelete.setOnClickListener {
-            showDialog()
+          //  showDialog()
         }
     }
 
-    private fun showDialog() {
-        binding.tvDetailBottomDelete.setOnClickListener {
-            dialog = CustomDialog(this)
-            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
-        }
-
-    }
+//    private fun showDialog() {
+//        binding.tvDetailBottomDelete.setOnClickListener {
+//            dialog = CustomDialog(this)
+//            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
+//        }
+//
+//    }
 }
