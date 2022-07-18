@@ -1,8 +1,5 @@
 package and.org.recordream.presentation.home
 
-import and.org.recordream.R
-import and.org.recordream.data.local.MyEmotionData
-import and.org.recordream.data.local.TmpData
 import and.org.recordream.databinding.FragmentHomeBinding
 import and.org.recordream.presentation.detail.DetailActivity
 import and.org.recordream.util.ZoomOutPageTransformer
@@ -35,19 +32,16 @@ class HomeFragment : Fragment(), LifecycleObserver {
             }
         }
 
-        initAdapterPopular()
+        initAdapterHomeCard()
         return binding.root
     }
 
 
-    private fun initAdapterPopular() {
+    private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter()
-        homeViewPagerAdapter.tmpList.addAll(
+        homeViewPagerAdapter.homeCardList.addAll(
             listOf(
-                TmpData(R.drawable.property_1_bg_record_green),
-                TmpData(R.drawable.property_1_bg_record_green),
-                TmpData(R.drawable.property_1_bg_record_green),
-                TmpData(R.drawable.property_1_bg_record_green)
+                //Record("333", "2022/04/06 (일)", 3, 1,[1, 2, 3], "우와아앙아 테스트다!!!!!")
             )
         )
 

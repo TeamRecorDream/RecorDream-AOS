@@ -1,4 +1,4 @@
-package and.org.recordream.presentation.home
+package and.org.recordream.data.remote.response
 
 data class ResponseHomeItems(
     val nickname: String,
