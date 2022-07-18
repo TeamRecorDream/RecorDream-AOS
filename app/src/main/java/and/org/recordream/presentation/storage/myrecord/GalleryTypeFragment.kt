@@ -51,11 +51,6 @@ class GalleryTypeFragment : Fragment() {
         )
     }
 
-    private fun mappingList(emotion: Int) {
-        when (emotion) {
-            0 -> binding.
-        }
-    }
     //   context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
 //            ?.let { binding.tvStorageMyemotion.background = it }
 }

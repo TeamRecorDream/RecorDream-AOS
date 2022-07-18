@@ -2,6 +2,7 @@ package and.org.recordream.presentation.storage.adapter
 
 import and.org.recordream.data.local.MyEmotionData
 import and.org.recordream.databinding.ItemStorageEmotionBinding
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,8 @@ class StorageAdapter(private val itemClick: (MyEmotionData) -> Unit) :
                 storage = data
                 ivStorageMyemotion.isSelected = data.switch // default category 부분
                 binding.root.setOnClickListener {
-                    itemClick(data)
+                   // itemClick(data)
+
 
                     ivStorageMyemotion.isSelected = true
 
@@ -47,6 +49,7 @@ class StorageAdapter(private val itemClick: (MyEmotionData) -> Unit) :
                         } else {
                             myEmotionList[adapterPosition].switch = true
                         }
+                        Log.d("wdqdqdwqwqqwdq", "$adapterPosition")
                     }
                     notifyDataSetChanged()
 

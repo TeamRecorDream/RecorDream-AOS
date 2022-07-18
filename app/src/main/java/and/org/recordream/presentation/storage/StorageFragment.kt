@@ -6,6 +6,7 @@ import and.org.recordream.databinding.FragmentStorageBinding
 import and.org.recordream.presentation.storage.adapter.StorageAdapter
 import and.org.recordream.presentation.storage.myrecord.GalleryTypeFragment
 import and.org.recordream.presentation.storage.myrecord.ListTypeFragment
+import and.org.recordream.util.RecordreamMapping
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ class StorageFragment : Fragment() {
     private var _binding: FragmentStorageBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var storageAdapter: StorageAdapter
+    val recordreamMapping = RecordreamMapping()
 
     override fun onCreateView(
         inflater: LayoutInflater,
