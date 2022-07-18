@@ -25,15 +25,26 @@ class GalleryTypeFragment : Fragment() {
         return binding.root
     }
 
+    private fun emotionMatch(){
+        val emotion : Int = 0
+        val img: Int
+        when(emotion){
+            0 -> img = R.drawable.logo
+
+        }
+    }
+
     private fun initAdapter(){
-        galleryTypeAdapter = GalleryTypeAdapter {  }
+        galleryTypeAdapter = GalleryTypeAdapter {
+
+        }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
         addItemList()
     }
     private fun addItemList(){
         galleryTypeAdapter.galleryRecords.addAll(
             listOf<ResponseRecords>(
-                ResponseRecords(["22"])
+
             )
         )
     }
