@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_record_memo"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".presentation.detail.NoteFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="detail_dreamrecord"
+            type="and.org.recordream.data.remote.response.ResponseDetailDreamRecord" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/dark_blue01_000119"
+        tools:context=".presentation.detail.DreamRecordFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_record_memo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/dark_blue01_000119"
+                tools:context=".presentation.detail.NoteFragment">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@{detail_dreamrecord.note}"
+                    android:textAppearance="@style/R12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="우리 학교 앞에 떡볶이집이 하나있음 그래서 군것질이나 할 겸 그 가게에 갔는데 메뉴들이 엄청 맛있어보였음. 막 호떡, 핫도그, 떡볶이, 오뎅 뭐가 많았는데 갑자기 내가 식욕이 터지는거임. 분식집 아줌마는 여유롭게 스몰토크 하면서 핫도그 튀기고 있고. 초조한 시간과 지금이라도 버리고 타야되나? 이런 생각을 했음. 고민하면서 시간은 흐르고, 굉장히 긴박한 상황에서 드디어 핫도그가 나왔음. \n명랑핫도그마냥 소스를 마음대로 뿌리라길래 근본조합인 설탕+케챱+머스타드를 뿌리고(아니 소스 조합이 너무 선명하게 기억남)" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
