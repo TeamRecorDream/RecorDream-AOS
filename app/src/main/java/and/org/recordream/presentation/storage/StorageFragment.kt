@@ -2,11 +2,13 @@ package and.org.recordream.presentation.storage
 
 import and.org.recordream.R
 import and.org.recordream.data.local.MyEmotionData
+import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.databinding.FragmentStorageBinding
 import and.org.recordream.presentation.storage.adapter.StorageAdapter
 import and.org.recordream.presentation.storage.myrecord.GalleryTypeFragment
 import and.org.recordream.presentation.storage.myrecord.ListTypeFragment
 import and.org.recordream.util.RecordreamMapping
+import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,20 +39,45 @@ class StorageFragment : Fragment() {
         return binding.root
     }
 
+    private fun initNetwork(selectedEmotion: Int) {
+        val call = RecordreamClient.customRetrofit.getMyRecord(selectedEmotion)
+
+        call.enqueueUtil(
+            onSuccess = {
+               // val name = it.data?.get(0)
+                Log.d("ddddddd", "123123")
+            })
+    }
 
     private fun setUpRecyclerView() {
         binding.rvStorageMyemotion.apply {
             storageAdapter = StorageAdapter {
-
+                val emotionInt = emotionMapping(it.emotion)
+                initNetwork(emotionInt)
                 Log.d("dddd", "$it.emotion")
                 // it을 활용한 람다표현식, 고차함수 등 함수구현가능
                 storageAdapter.notifyDataSetChanged()
-
             }
             adapter = storageAdapter
         }
         addItemList()
     }
+
+    private fun emotionMapping(emotion: Int): Int {
+        var emotionInt: Int = 7
+        when (emotion) {
+            2131165404 -> emotionInt = 0
+            2131165409 -> emotionInt = 1
+            2131165410 -> emotionInt = 2
+            2131165406 -> emotionInt = 3
+            2131165408 -> emotionInt = 4
+            2131165407 -> emotionInt = 5
+            2131165405 -> emotionInt = 6
+            2131165411 -> emotionInt = 7
+        }
+        return emotionInt
+    }
+
 
     private fun addItemList() { // 나의 감정 카테고리 데이터
         storageAdapter.myEmotionList.addAll(
@@ -99,14 +126,5 @@ class StorageFragment : Fragment() {
         }
     }
 
-    companion object {
-        const val ALL = 2131165404
-        const val SMILE = 2131165409
-        const val SURPRISE = 2131165410
-        const val LOVE = 2131165406
-        const val SHY = 2131165408
-        const val SAD = 2131165407
-        const val ANGRY = 2131165405
-        const val UNCLASSIFIED = 2131165411
-    }
+
 }
