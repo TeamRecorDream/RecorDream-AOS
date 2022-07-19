@@ -1,7 +1,6 @@
 package and.org.recordream.util
 
-import and.org.recordream.databinding.DetailDeleteDialogBinding
-import and.org.recordream.databinding.FragmentDetailDialogBinding
+import and.org.recordream.databinding.MypageDropoutDialogBinding
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,47 +9,26 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 
 class CustomDialog(private val context: AppCompatActivity) {
-    private lateinit var binding: DetailDeleteDialogBinding
-    private lateinit var bindingDetail: FragmentDetailDialogBinding
+    private lateinit var binding: MypageDropoutDialogBinding
     private val dialog = Dialog(context)
 
     fun showDeleteDialog(@LayoutRes layout: Int) {
-        binding = DetailDeleteDialogBinding.inflate(context.layoutInflater)
+        binding = MypageDropoutDialogBinding.inflate(context.layoutInflater)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(binding.root)
             setCancelable(false)
         }
-        binding.tvDetailCancel.setOnClickListener {
+        binding.btnMypgageCancle.setOnClickListener {
             dialog.dismiss()
         }
 
-        binding.tvDetailDelete.setOnClickListener {
+        binding.btnMypageOutaccount.setOnClickListener {
             dialog.dismiss()
-            context.finish()
         }
         dialog.show()
     }
-//
-//    fun showDetailDialog(@LayoutRes layout: Int) {
-//        bindingDetail = FragmentDetailDialogBinding.inflate(context.layoutInflater)
-//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        dialog.apply {
-//            requestWindowFeature(Window.FEATURE_NO_TITLE)
-//            setContentView(binding.root)
-//            setCancelable(false)
-//        }
-//        binding.tvDetailCancel.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//
-//        binding.tvDetailDelete.setOnClickListener {
-//            dialog.dismiss()
-//            context.finish()
-//        }
-//        dialog.show()
-//    }
 
 
 }
