@@ -106,8 +106,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.tvMypageBottomseetStorage.setOnClickListener {
 
             mypgae.tvMypageTime.text = "$amOrpm $hour:$minvalue"
-
-
             dismiss()
         }
     }

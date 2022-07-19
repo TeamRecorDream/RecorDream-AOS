@@ -1,83 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:behavior_draggable="true"
+    app:behavior_hideable="true"
+    app:layout_behavior="@string/bottom_sheet_behavior">
 
-    <TextView
-        android:id="@+id/tv_write_voice"
-        android:layout_width="wrap_content"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="23dp"
-        android:text="@string/tv_write_voice"
-        android:textAppearance="@style/SB14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/dark_blue02_191A30">
 
-    <TextView
-        android:id="@+id/tv_voice_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="21dp"
-        android:text="@string/tv_voice_save"
-        android:textAppearance="@style/SB14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_write_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="23dp"
+            android:text="@string/tv_write_voice"
+            android:textAppearance="@style/SB14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_mic_micimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_mic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_write_voice" />
+        <TextView
+            android:id="@+id/tv_voice_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="21dp"
+            android:text="@string/tv_voice_save"
+            android:textAppearance="@style/SB14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_mic_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textAppearance="@style/B28"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_mic_micimage" />
+        <ImageView
+            android:id="@+id/iv_mic_micimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_mic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_write_voice" />
 
-    <ImageView
-        android:id="@+id/iv_mic_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/btn_play"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_mic_record"
-        app:layout_constraintEnd_toStartOf="@+id/iv_mic_record"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_mic_record" />
+        <TextView
+            android:id="@+id/tv_mic_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textAppearance="@style/B28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_mic_micimage" />
 
-    <ImageView
-        android:id="@+id/iv_mic_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="18dp"
-        android:src="@drawable/btn_record"
-        app:layout_constraintEnd_toStartOf="@+id/iv_mic_stop"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_mic_play"
-        app:layout_constraintTop_toBottomOf="@+id/tv_mic_time" />
+        <ImageView
+            android:id="@+id/iv_mic_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_play"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_mic_record"
+            app:layout_constraintEnd_toStartOf="@+id/iv_mic_record"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_mic_record" />
 
-    <ImageView
-        android:id="@+id/iv_mic_stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:src="@drawable/btn_stop"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_mic_record"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_mic_record"
-        app:layout_constraintTop_toTopOf="@+id/iv_mic_record" />
+        <ImageView
+            android:id="@+id/iv_mic_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/btn_record"
+            app:layout_constraintEnd_toStartOf="@+id/iv_mic_stop"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_mic_play"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mic_time" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_mic_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:src="@drawable/btn_stop"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_mic_record"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_mic_record"
+            app:layout_constraintTop_toTopOf="@+id/iv_mic_record" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
