@@ -6,12 +6,13 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface StorageService {
 
-    @GET("record/storage?filter={num}")
+    @GET("record/storage/list?")
     fun getMyRecord(
-        @Path("num") num: Int = 5,
-        @Header("userId") userId: Int = 1
+        @Query("filter") num: Int,
+        @Header("userId") userId: Int
     ): Call<ResponseWrapper<List<Record>>>
 }

@@ -40,7 +40,8 @@ class StorageFragment : Fragment() {
     }
 
     private fun initNetwork() {
-        val call = RecordreamClient.storageService.getMyRecord()
+
+        val call = RecordreamClient.storageService.getMyRecord(3,1)
 
         call.enqueueUtil(
             onSuccess = {
