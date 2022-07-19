@@ -13,9 +13,19 @@ class WriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWriteBinding.inflate(layoutInflater)
+
+        voiceClick()
         setContentView(binding.root)
-
-
-
     }
+
+    private fun createBottomSheet() {
+        voiceFragment.show(supportFragmentManager, voiceFragment.tag)
+    }
+
+    private fun voiceClick(){
+        binding.clWriteVoiceRecord.setOnClickListener {
+            createBottomSheet()
+        }
+    }
+
 }

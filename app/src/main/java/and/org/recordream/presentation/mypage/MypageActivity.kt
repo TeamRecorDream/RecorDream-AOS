@@ -14,8 +14,6 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var dialog: CustomDialog
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
 
-   // var isSwitch: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
