@@ -25,6 +25,7 @@ class DetailActivity : AppCompatActivity() {
 
         initAdapter()
         initTabLayout()
+        initBackButton()
         initBottomSheet()
         showDialog()
     }
@@ -42,34 +43,41 @@ class DetailActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun initBottomSheet() {
-        btnShowBottomSheet.setOnClickListener {
-
-            // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(this)
-            //on below line we are inflating a layout file which we have created.
-            val view = layoutInflater.inflate(R.layout.detail_bottom_sheet, null)
-            //배경 투명하게 해줘서 커스텀한 모양이 보이게
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            //외부 화면 누르면 창 자동으로 닫히게
-            dialog.setCancelable(true)
-
-            // on below line we are setting
-            // content view to our view.
-            dialog.setContentView(view)
-
-            // on below line we are calling
-            // a show method to display a dialog.
-            dialog.show()
+    private fun initBackButton() {
+        binding.ivArrowLeft.setOnClickListener {
+            finish()
         }
     }
-
-    private fun showDialog() {
-        binding
-        binding.tvMypageWithdrawl.setOnClickListener {
-            dialog = CustomDialog(this)
-            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
-        }
-    }
-
 }
+
+private fun initBottomSheet() {
+    btnShowBottomSheet.setOnClickListener {
+
+        // on below line we are creating a new bottom sheet dialog.
+        val dialog = BottomSheetDialog(this)
+        //on below line we are inflating a layout file which we have created.
+        val view = layoutInflater.inflate(R.layout.detail_bottom_sheet, null)
+        //배경 투명하게 해줘서 커스텀한 모양이 보이게
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //외부 화면 누르면 창 자동으로 닫히게
+        dialog.setCancelable(true)
+
+        // on below line we are setting
+        // content view to our view.
+        dialog.setContentView(view)
+
+        // on below line we are calling
+        // a show method to display a dialog.
+        dialog.show()
+    }
+}
+
+private fun showDialog() {
+//    binding
+//        binding.tvMypageWithdrawl.setOnClickListener {
+//            dialog = CustomDiaAlog(this)
+//    dialog.showDeleteDialog(R.layout.detail_delete_dialog)
+}
+//}
+
+//}
