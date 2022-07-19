@@ -35,16 +35,16 @@ class StorageFragment : Fragment() {
 //        addItemList()
         showMyRecord()
         setUpRecyclerView()
-
+        initNetwork()
         return binding.root
     }
 
-    private fun initNetwork(selectedEmotion: Int) {
-        val call = RecordreamClient.customRetrofit.getMyRecord(selectedEmotion)
+    private fun initNetwork() {
+        val call = RecordreamClient.customRetrofit.getMyRecord()
 
         call.enqueueUtil(
             onSuccess = {
-               // val name = it.data?.get(0)
+                // val name = it.data?.get(0)
                 Log.d("ddddddd", "123123")
             })
     }
@@ -56,7 +56,7 @@ class StorageFragment : Fragment() {
                 //initNetwork(emotionInt)
                 Log.d("dddd", "$it.emotion")
                 // it을 활용한 람다표현식, 고차함수 등 함수구현가능
-                storageAdapter.notifyDataSetChanged()
+                //storageAdapter.notifyDataSetChanged()
             }
             adapter = storageAdapter
         }

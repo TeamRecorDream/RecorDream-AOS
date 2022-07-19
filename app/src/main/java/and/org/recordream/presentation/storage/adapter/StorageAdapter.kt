@@ -36,10 +36,9 @@ class StorageAdapter(private val itemClick: (MyEmotionData) -> Unit) :
 
             with(binding) {
                 storage = data
-                //  itemClick(data)
                 ivStorageMyemotion.isSelected = data.switch // default category 부분
                 root.setOnClickListener {
-
+                    itemClick(data)
 
                     ivStorageMyemotion.isSelected = true
 
