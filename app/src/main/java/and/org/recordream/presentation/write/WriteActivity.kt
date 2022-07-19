@@ -9,6 +9,7 @@ import java.util.*
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding
+    private val voiceFragment = VoiceRecordFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
