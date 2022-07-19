@@ -11,7 +11,7 @@ interface StorageService {
 
     @GET("record/storage?filter={num}")
     fun getMyRecord(
-        @Path("num") num: Int=5,
+        @Path("num") num: Int = 5,
         @Header("userId") userId: Int = 1
     ): Call<ResponseWrapper<List<Record>>>
 }
