@@ -1,6 +1,7 @@
 package and.org.recordream.presentation.mypage//package before.forget.feature.write
 
 import and.org.recordream.R
+import and.org.recordream.databinding.ActivityMypageBinding
 import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -81,25 +82,26 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun minuteSettiing() { // 바텀시트 오류발생부분
+    private fun minuteSettiing() {
         binding.npDatepickerMinute.minValue = 0
         binding.npDatepickerMinute.maxValue = 59
-        binding.npDatepickerHour.wrapSelectorWheel = false
+        binding.npDatepickerMinute.wrapSelectorWheel = false
 
 //        binding.npDatepickerMinute.displayedValues = minvalue
 
         binding.npDatepickerMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            binding.npDatepickerHour.wrapSelectorWheel = false
+            binding.npDatepickerMinute.wrapSelectorWheel = false
         }
     }
 
-    private fun initDialog() { // 바텀시트달기
+    private fun initDialog() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
 
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
+
 
 
 }
