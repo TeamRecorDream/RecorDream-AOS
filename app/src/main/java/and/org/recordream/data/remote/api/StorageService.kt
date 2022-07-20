@@ -5,7 +5,6 @@ import and.org.recordream.data.remote.response.ResponseWrapper
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface StorageService {
@@ -15,4 +14,10 @@ interface StorageService {
         @Query("filter") num: Int,
         @Header("userId") userId: Int
     ): Call<ResponseWrapper<List<Record>>>
+
+//    @GET("record/storage/list?filter={num}")
+//    fun getMyRecord(
+//        @Path("num") num: Int,
+//        @Header("userId") userId: Int
+//    ): Call<ResponseWrapper<List<Record>>>
 }
