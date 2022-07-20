@@ -1,7 +1,12 @@
 package and.org.recordream.presentation.write
 
 import and.org.recordream.databinding.ActivityWriteBinding
+import and.org.recordream.presentation.detail.DetailActivity
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class WriteActivity : AppCompatActivity() {
@@ -12,8 +17,11 @@ class WriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWriteBinding.inflate(layoutInflater)
 
+        clickSave() //저장버튼
         voiceClick()
+        checkTunderExplanation()
         emotionClick()
+        colorClick()
         setContentView(binding.root)
     }
 
@@ -27,6 +35,45 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
+    private fun clickSave() {   //저장버튼 클릭 시
+        binding.btnWriteSave.setOnClickListener {
+            if(!binding.btnWriteSave.isSelected){
+                Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+
+            }
+        }
+    }
+
+    //제목에 글자 입력시 버튼 바뀌게
+    private fun checkTunderExplanation() {
+        binding.tvWriteEditdream.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                savebtnActive()
+            }
+        })
+    }
+
+    private fun savebtnActive() {
+        with(binding) {
+            if (tvWriteEditdream.text.toString().isEmpty()) {  //제목이 공백일 경우
+                btnWriteSave.isSelected = false
+                Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
+            } else btnWriteSave.isSelected = true
+        }
+    }
+
+    private fun putDreamDescription() {    //꿈 내용 전달
+        val intent = Intent(this, DetailActivity::class.java)
+        startActivity(intent)
+    }
+
+    //감정 클릭시
     private fun emotionClick() {
         with(binding) {
             ivEmotionJoy.setOnClickListener {
@@ -80,57 +127,57 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
+    //꿈 색상 선택시
     private fun colorClick() {
         with(binding) {
-            ivEmotionJoy.setOnClickListener {
-                ivEmotionJoy.isSelected = true
-                ivEmotionShocked.isSelected = false
-                ivEmotionLove.isSelected = false
-                ivEmotionShy.isSelected = false
-                ivEmotionSad.isSelected = false
-                ivEmotionAngry.isSelected = false
+            ivDreamRed.setOnClickListener {
+                ivDreamRed.isSelected = true
+                ivDreamOrange.isSelected = false
+                ivDreamPink.isSelected = false
+                ivDreamPurple.isSelected = false
+                ivDreamGreen.isSelected = false
+                ivDreamBlue.isSelected = false
             }
-            ivEmotionShocked.setOnClickListener {
-                ivEmotionJoy.isSelected = false
-                ivEmotionShocked.isSelected = true
-                ivEmotionLove.isSelected = false
-                ivEmotionShy.isSelected = false
-                ivEmotionSad.isSelected = false
-                ivEmotionAngry.isSelected = false
+            ivDreamOrange.setOnClickListener {
+                ivDreamRed.isSelected = false
+                ivDreamOrange.isSelected = true
+                ivDreamPink.isSelected = false
+                ivDreamPurple.isSelected = false
+                ivDreamGreen.isSelected = false
+                ivDreamBlue.isSelected = false
             }
-            ivEmotionLove.setOnClickListener {
-                ivEmotionJoy.isSelected = false
-                ivEmotionShocked.isSelected = false
-                ivEmotionLove.isSelected = true
-                ivEmotionShy.isSelected = false
-                ivEmotionSad.isSelected = false
-                ivEmotionAngry.isSelected = false
+            ivDreamPink.setOnClickListener {
+                ivDreamRed.isSelected = false
+                ivDreamOrange.isSelected = false
+                ivDreamPink.isSelected = true
+                ivDreamPurple.isSelected = false
+                ivDreamGreen.isSelected = false
+                ivDreamBlue.isSelected = false
             }
-            ivEmotionShy.setOnClickListener {
-                ivEmotionJoy.isSelected = false
-                ivEmotionShocked.isSelected = false
-                ivEmotionLove.isSelected = false
-                ivEmotionShy.isSelected = true
-                ivEmotionSad.isSelected = false
-                ivEmotionAngry.isSelected = false
+            ivDreamPurple.setOnClickListener {
+                ivDreamRed.isSelected = false
+                ivDreamOrange.isSelected = false
+                ivDreamPink.isSelected = false
+                ivDreamPurple.isSelected = true
+                ivDreamGreen.isSelected = false
+                ivDreamBlue.isSelected = false
             }
-            ivEmotionSad.setOnClickListener {
-                ivEmotionJoy.isSelected = false
-                ivEmotionShocked.isSelected = false
-                ivEmotionLove.isSelected = false
-                ivEmotionShy.isSelected = false
-                ivEmotionSad.isSelected = true
-                ivEmotionAngry.isSelected = false
+            ivDreamGreen.setOnClickListener {
+                ivDreamRed.isSelected = false
+                ivDreamOrange.isSelected = false
+                ivDreamPink.isSelected = false
+                ivDreamPurple.isSelected = false
+                ivDreamGreen.isSelected = true
+                ivDreamBlue.isSelected = false
             }
-            ivEmotionAngry.setOnClickListener {
-                ivEmotionJoy.isSelected = false
-                ivEmotionShocked.isSelected = false
-                ivEmotionLove.isSelected = false
-                ivEmotionShy.isSelected = false
-                ivEmotionSad.isSelected = false
-                ivEmotionAngry.isSelected = true
+            ivDreamBlue.setOnClickListener {
+                ivDreamRed.isSelected = false
+                ivDreamOrange.isSelected = false
+                ivDreamPink.isSelected = false
+                ivDreamPurple.isSelected = false
+                ivDreamGreen.isSelected = false
+                ivDreamBlue.isSelected = true
             }
         }
-
     }
 }
