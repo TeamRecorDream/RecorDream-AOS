@@ -3,6 +3,7 @@ package and.org.recordream.presentation
 import and.org.recordream.R
 import and.org.recordream.databinding.ActivityMainBinding
 import and.org.recordream.presentation.mypage.MypageActivity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun clickEvent() {
         binding.ivMainMypage.setOnClickListener {
-            startActivity(this, MypageActivity::class.java)
+            startActivity(Intent(this, MypageActivity::class.java))
         }
     }
 }
