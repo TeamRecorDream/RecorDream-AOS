@@ -39,15 +39,20 @@ class StorageFragment : Fragment() {
         return binding.root
     }
 
-    private fun initNetwork() {
+    private fun initNetwork(selectedEmotion: Int) {
 
-        val call = RecordreamClient.storageService.getMyRecord(3, 1)
+        val call = RecordreamClient.storageService.getMyRecord(selectedEmotion, 1)
 
         call.enqueueUtil(
             onSuccess = {
 
-                // val name = it.data?.get(0)
-                Log.d("ddddddd", "${it.status}")
+//                var tmp = it.data?.recordTotal
+//                for(i in tmp){
+//
+//                }
+//                it.data.records.
+//                // val name = it.data?.get(0)
+//                Log.d("ddddddd", "${it.status}")
             })
     }
 

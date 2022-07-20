@@ -61,6 +61,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="15dp"
                 android:textAppearance="@style/B12"
+                android:text="@{recordgallery.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_storage_dategallery"
@@ -79,6 +80,7 @@
                 android:textAppearance="@style/B8"
                 android:textColor="@color/sub_pink01_EA37A2"
                 android:visibility="invisible"
+                android:text="@{recordgallery.genre[2]}"
                 app:layout_constraintStart_toEndOf="@+id/tv_storage_genre2"
                 app:layout_constraintTop_toTopOf="@+id/tv_storage_genre2"
                 tools:text="# 미스터리" />
@@ -96,6 +98,7 @@
                 android:textAppearance="@style/B8"
                 android:textColor="@color/sub_pink01_EA37A2"
                 android:visibility="invisible"
+                android:text="@{recordgallery.genre[1]}"
                 app:layout_constraintStart_toEndOf="@+id/tv_storage_genre1"
                 app:layout_constraintTop_toTopOf="@+id/tv_storage_genre1"
                 tools:text="# 미스터리" />
@@ -113,6 +116,7 @@
                 android:paddingEnd="4dp"
                 android:paddingBottom="3dp"
                 android:textAppearance="@style/B8"
+                android:text="@{recordgallery.genre[0]}"
                 android:textColor="@color/sub_pink01_EA37A2"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
