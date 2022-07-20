@@ -7,7 +7,7 @@
 
         <variable
             name="records"
-            type="and.org.recordream.presentation.home.ResponseHomeItems.Records" />
+            type="and.org.recordream.data.local.Record" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

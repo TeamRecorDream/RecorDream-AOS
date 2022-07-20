@@ -45,8 +45,8 @@
 
             <NumberPicker
                 android:id="@+id/np_datepicker_amorpm"
-                android:layout_width="63dp"
-                android:layout_height="124dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
                 android:theme="@style/NumberpickerStyle"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -54,37 +54,27 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <NumberPicker
-                android:id="@+id/np_datepicker_time"
-                android:layout_width="63dp"
-                android:layout_height="124dp"
-                android:layout_marginStart="52dp"
+                android:id="@+id/np_datepicker_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
                 android:theme="@style/NumberpickerStyle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/np_datepicker_amorpm"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_minute_collon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:text=":"
-                android:textColor="@color/white"
-                android:textSize="28dp"
-                app:layout_constraintBottom_toBottomOf="@+id/cl_mypage_timedialog"
-                app:layout_constraintStart_toEndOf="@+id/np_datepicker_time"
-                app:layout_constraintTop_toTopOf="@+id/cl_mypage_timedialog" />
-
             <NumberPicker
                 android:id="@+id/np_datepicker_minute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="52dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginStart="60dp"
                 android:theme="@style/NumberpickerStyle"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_minute_collon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="64dp"
+                app:layout_constraintStart_toEndOf="@+id/np_datepicker_hour"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

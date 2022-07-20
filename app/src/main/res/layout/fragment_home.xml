@@ -7,7 +7,7 @@
 
         <variable
             name="record_nickname"
-            type="and.org.recordream.presentation.home.ResponseHomeItems" />
+            type="and.org.recordream.data.local.HomeItemData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

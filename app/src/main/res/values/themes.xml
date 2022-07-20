@@ -150,8 +150,9 @@
 
     <!--mypage numberpicker에 사용-->
     <style name="NumberpickerStyle">
+        <item name="fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">24dp</item>
-        <item name="android:textColorPrimary">"@color/white03_33FFFFFF"</item>
+        <item name="android:editTextColor">@color/white01_FFFFFF</item>
     </style>
 
 </resources>
