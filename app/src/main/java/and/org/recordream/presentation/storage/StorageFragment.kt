@@ -61,7 +61,7 @@ class StorageFragment : Fragment() {
     }
 
 
-    //    private fun getInfo() { // Adapter initialized
+//    private fun getInfo() { // Adapter initialized
 //        myEmotionAdapter = MyEmotionAdapter {
 //
 //            Log.d("CONST", "${it.emotion}")
