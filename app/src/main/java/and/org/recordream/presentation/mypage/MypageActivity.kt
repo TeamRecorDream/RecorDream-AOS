@@ -41,8 +41,8 @@ class MypageActivity : AppCompatActivity() {
 
     private fun showDialog() {
         binding.tvMypageWithdrawl.setOnClickListener {
-            dialog = CustomDialog(this)
-            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
+            dialog = CustomDialog(this@MypageActivity)
+            dialog.showDropOutDialog(R.layout.detail_delete_dialog)
         }
 
     }
@@ -56,8 +56,6 @@ class MypageActivity : AppCompatActivity() {
 
     private fun backClick() {
         binding.ivMypageBackbtn.setOnClickListener {
-            val intent = Intent(this, HomeFragment::class.java)
-            startActivity(intent)
             finish()
         }
     }

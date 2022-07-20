@@ -1,7 +1,6 @@
 package and.org.recordream.presentation.mypage//package before.forget.feature.write
 
 import and.org.recordream.R
-import and.org.recordream.databinding.ActivityMypageBinding
 import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
-    private lateinit var mypgae: ActivityMypageBinding
+
     private var amOrpm = ""
     private var hourvalue = ""
     private var minvalue = 0
@@ -50,7 +49,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         hourSettiing()
         minuteSettiing()
         initDialog()
-        clickSave()
+
         return binding.root
     }
 
@@ -102,13 +101,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun clickSave() {   //저장하기 버튼 클릭
-        binding.tvMypageBottomseetStorage.setOnClickListener {
-
-            mypgae.tvMypageTime.text = "$amOrpm $hour:$minvalue"
-            dismiss()
-        }
-    }
 
 }
 
