@@ -45,8 +45,9 @@ class StorageFragment : Fragment() {
 
         call.enqueueUtil(
             onSuccess = {
+
                 // val name = it.data?.get(0)
-                Log.d("ddddddd", "123123")
+                Log.d("ddddddd", "${it.status}")
             })
     }
 
