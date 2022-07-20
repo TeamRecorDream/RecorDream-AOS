@@ -2,6 +2,8 @@ package and.org.recordream.data.remote
 
 import and.org.recordream.data.remote.api.MypageService
 import and.org.recordream.data.remote.api.StorageService
+import and.org.recordream.data.remote.api.WriteService
+import and.org.recordream.presentation.write.WriteActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -18,4 +20,5 @@ object RecordreamClient {
 
     val storageService: StorageService = retrofit.create(StorageService::class.java)
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
+    val writeService:WriteService = retrofit.create(WriteService::class.java)
 }

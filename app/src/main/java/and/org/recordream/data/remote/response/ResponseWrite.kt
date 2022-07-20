@@ -1,6 +1,6 @@
 package and.org.recordream.data.remote.response
 
-data class ResponseMypagePutTime(
+data class ResponseWrite(
     val `data`: Data,
 ) {
     data class Data(

@@ -31,7 +31,6 @@ class MypageActivity : AppCompatActivity() {
         editClick()
         backClick()
         firebase()
-        initNetwork()
     }
 
     private fun createBottomSheet() {
@@ -44,6 +43,7 @@ class MypageActivity : AppCompatActivity() {
             if (onSwitch) {
                 createBottomSheet()
                 settinTime()
+                initNetwork()
             }
         }
     }
