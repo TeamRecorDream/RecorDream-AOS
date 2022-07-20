@@ -1,73 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="recordgallery"
+            type="and.org.recordream.data.remote.response.Record" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_storage_gallerycard"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="6dp"
-        android:background="@drawable/property_1_smallcard_pi"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_storage_emotiongallery"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_storage_gallerycard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="53dp"
-            android:layout_marginEnd="104dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_2_shocked" />
-
-        <TextView
-            android:id="@+id/tv_storage_dategallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="2dp"
-            android:textAppearance="@style/M10"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotiongallery"
-            tools:text="2022년 6월 26일" />
-
-        <TextView
-            android:id="@+id/tv_storage_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textAppearance="@style/B12"
-            app:layout_constraintStart_toStartOf="@+id/tv_storage_dategallery"
-            app:layout_constraintTop_toBottomOf="@+id/tv_storage_dategallery"
-            tools:text="기묘한 이야기 속 윌과\n함께 자전거를 타고\n건너편 세계에갔다." />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_storage_genretag"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/property_1_smallcard_pi"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_storage_content"
-            app:layout_constraintVertical_bias="0.495"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_storage_genre" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/iv_storage_emotiongallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="53dp"
+                android:layout_marginEnd="101dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_2_shocked" />
+
+            <TextView
+                android:id="@+id/tv_storage_dategallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:text="@{recordgallery.date}"
+                android:textAppearance="@style/M10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotiongallery"
+                tools:text="2022년 6월 26일" />
+
+            <TextView
+                android:id="@+id/tv_storage_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="15dp"
+                android:textAppearance="@style/B12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_storage_dategallery"
+                tools:text="기묘한 이야기 속 윌과\n함께 자전거를 타고\n건너편 세계에갔다." />
+
+            <TextView
+                android:id="@+id/tv_storage_genre3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/rectangle_border_3dp_pink"
+                android:paddingStart="4dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/B8"
+                android:textColor="@color/sub_pink01_EA37A2"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/tv_storage_genre2"
+                app:layout_constraintTop_toTopOf="@+id/tv_storage_genre2"
+                tools:text="# 미스터리" />
+
+            <TextView
+                android:id="@+id/tv_storage_genre2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/rectangle_border_3dp_pink"
+                android:paddingStart="4dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/B8"
+                android:textColor="@color/sub_pink01_EA37A2"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@+id/tv_storage_genre1"
+                app:layout_constraintTop_toTopOf="@+id/tv_storage_genre1"
+                tools:text="# 미스터리" />
+
+            <TextView
+                android:id="@+id/tv_storage_genre1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rectangle_border_3dp_pink"
+                android:paddingStart="4dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/B8"
+                android:textColor="@color/sub_pink01_EA37A2"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_storage_content"
+                tools:text="# 미스터리" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

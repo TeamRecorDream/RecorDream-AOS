@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
-    private lateinit var mypgae: ActivityMypageBinding
+
     private var amOrpm = ""
     private var hourvalue = ""
     private var minvalue = 0
@@ -50,7 +50,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         hourSettiing()
         minuteSettiing()
         initDialog()
-        clickSave()
+
         return binding.root
     }
 
@@ -82,33 +82,27 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun minuteSettiing() { // 바텀시트 오류발생부분
+    private fun minuteSettiing() {
         binding.npDatepickerMinute.minValue = 0
         binding.npDatepickerMinute.maxValue = 59
-        binding.npDatepickerHour.wrapSelectorWheel = false
+        binding.npDatepickerMinute.wrapSelectorWheel = false
 
 //        binding.npDatepickerMinute.displayedValues = minvalue
 
         binding.npDatepickerMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            binding.npDatepickerHour.wrapSelectorWheel = false
+            binding.npDatepickerMinute.wrapSelectorWheel = false
         }
     }
 
-    private fun initDialog() { // 바텀시트달기
+    private fun initDialog() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
 
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun clickSave() {   //저장하기 버튼 클릭
-        binding.tvMypageBottomseetStorage.setOnClickListener {
 
-            mypgae.tvMypageTime.text = "$amOrpm $hour:$minvalue"
-            dismiss()
-        }
-    }
 
 }
 

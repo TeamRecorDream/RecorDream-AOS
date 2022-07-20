@@ -6,8 +6,10 @@ import and.org.recordream.presentation.home.HomeFragment
 import and.org.recordream.util.CustomDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import java.time.LocalDateTime
 
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
@@ -35,14 +37,15 @@ class MypageActivity : AppCompatActivity() {
             //  스위치가 켜지면
             if (onSwitch) {
                 createBottomSheet()
+                settinTime()
             }
         }
     }
 
     private fun showDialog() {
         binding.tvMypageWithdrawl.setOnClickListener {
-            dialog = CustomDialog(this)
-            dialog.showDeleteDialog(R.layout.detail_delete_dialog)
+            dialog = CustomDialog(this@MypageActivity)
+            dialog.showDropOutDialog(R.layout.detail_delete_dialog)
         }
 
     }
@@ -54,12 +57,15 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun backClick() {
+    private fun backClick() {   //뒤로가기
         binding.ivMypageBackbtn.setOnClickListener {
-            val intent = Intent(this, HomeFragment::class.java)
-            startActivity(intent)
             finish()
         }
+    }
+    private fun settinTime(){
+        val dateAndtime: LocalDateTime = LocalDateTime.now()
+//        binding.tvWriteSelectTime.setText(dateAndtime)
+        Log.d("dateAndtime", "settinTime:$dateAndtime ")
     }
 }
 

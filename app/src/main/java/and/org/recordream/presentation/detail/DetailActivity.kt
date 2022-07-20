@@ -1,37 +1,43 @@
 package and.org.recordream.presentation.detail
 
-import and.org.recordream.R
 import and.org.recordream.data.remote.request.RequestDetailDreamRecord
 import and.org.recordream.data.remote.response.enqueueUtil
 import and.org.recordream.databinding.ActivityDetailBinding
 import and.org.recordream.util.CustomDialog
 import and.org.recordream.util.ServiceCreator
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+
+    private val detailBottomSheetFragment = DetailBottomSheetFragment()
     private lateinit var dialog: CustomDialog
 
-    lateinit var btnShowBottomSheet: ImageView
+    // lateinit var btnShowBottomSheet: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        btnShowBottomSheet = binding.ivDotsMore
+        // btnShowBottomSheet = binding.ivDotsMore
+
 
         initAdapter()
         initTabLayout()
         initBackButton()
         initNetwork()
-        initBottomSheet()
-        showDialog()
+        // initBottomSheet()
+        // showDialog()
+
+        binding.ivDotsMore.setOnClickListener { createBottom() }
+
+    }
+
+    private fun createBottom() {
+        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
     }
 
     private fun initAdapter() {
@@ -52,7 +58,6 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
     }
-
     private fun initNetwork() {
         val requestDetail = RequestDetailDreamRecord(
             recordId = "62d16e7fe8b4508dbca5ead6"
@@ -69,37 +74,4 @@ class DetailActivity : AppCompatActivity() {
             }
         )
     }
-
-    private fun initBottomSheet() {
-        btnShowBottomSheet.setOnClickListener {
-
-            // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(this)
-            //on below line we are inflating a layout file which we have created.
-            val view = layoutInflater.inflate(R.layout.detail_bottom_sheet, null)
-            //배경 투명하게 해줘서 커스텀한 모양이 보이게
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            //외부 화면 누르면 창 자동으로 닫히게
-            dialog.setCancelable(true)
-
-            // on below line we are setting
-            // content view to our view.
-            dialog.setContentView(view)
-
-            // on below line we are calling
-            // a show method to display a dialog.
-            dialog.show()
-        }
-    }
-
-    private fun showDialog() {
-//    binding
-//        binding.tvMypageWithdrawl.setOnClickListener {
-//            dialog = CustomDiaAlog(this)
-//    dialog.showDeleteDialog(R.layout.detail_delete_dialog)
-    }
-//}
-
-//}
-
 }
