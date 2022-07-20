@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RecordreamClient {
-    private const val BASE_URL = "13.125.138.47:8000/"
+    private const val BASE_URL = "http://13.125.138.47:8000/"
 
     private val retrofit: Retrofit =
         Retrofit.Builder()
