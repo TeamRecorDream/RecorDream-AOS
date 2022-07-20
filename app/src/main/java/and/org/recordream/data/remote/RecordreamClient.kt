@@ -1,8 +1,10 @@
 package and.org.recordream.data.remote
 
+import and.org.recordream.data.remote.api.MypageService
 import and.org.recordream.data.remote.api.StorageService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 
 object RecordreamClient {
@@ -15,4 +17,5 @@ object RecordreamClient {
             .build()
 
     val storageService: StorageService = retrofit.create(StorageService::class.java)
+    val mypageService: MypageService = retrofit.create(MypageService::class.java)
 }
