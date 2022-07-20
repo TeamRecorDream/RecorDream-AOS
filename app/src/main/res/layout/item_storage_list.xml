@@ -1,86 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-   >
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="recordlist"
+            type="and.org.recordream.data.remote.response.Record" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        android:background="@drawable/property_1_container_list_pink"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_storage_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:textAppearance="@style/M10"
-            app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="2022년 6월 26일" />
-
-        <ImageView
-            android:id="@+id/iv_storage_emotionlist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/property_1_container_list_pink"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/property_1_icon_sad_selected" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_storage_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="26dp"
-            android:textAppearance="@style/B12"
-            app:layout_constraintEnd_toStartOf="@+id/iv_storage_nextbtn"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
-            app:layout_constraintTop_toBottomOf="@+id/tv_storage_date"
-            tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고\n건너편 세계에갔다." />
+            <TextView
+                android:id="@+id/tv_storage_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:textAppearance="@style/M10"
+                app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2022년 6월 26일" />
 
-        <ImageView
-            android:id="@+id/iv_storage_nextbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_arrow_2" />
+            <ImageView
+                android:id="@+id/iv_storage_emotionlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_2_shocked" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_storage_genre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="11dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
-            app:layout_constraintTop_toBottomOf="@+id/iv_storage_emotionlist"
-            tools:itemCount="3"
-            tools:listitem="@layout/item_storage_genre" />
+            <TextView
+                android:id="@+id/tv_storage_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="26dp"
+                android:text="@{recordlist.title}"
+                android:textAppearance="@style/B12"
+                app:layout_constraintEnd_toStartOf="@+id/iv_storage_nextbtn"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
+                app:layout_constraintTop_toBottomOf="@+id/tv_storage_date"
+                tools:text="기묘한 이야기 속 윌과 함께 자전거를 타고\n건너편 세계에갔다." />
 
+            <ImageView
+                android:id="@+id/iv_storage_nextbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_arrow_2" />
+
+            <TextView
+                android:id="@+id/tv_storage_genre3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/rectangle_border_3dp_pink"
+                android:paddingStart="4dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/B8"
+                android:visibility="invisible"
+                android:textColor="@color/sub_pink01_EA37A2"
+                app:layout_constraintStart_toEndOf="@+id/tv_storage_genre2"
+                app:layout_constraintTop_toTopOf="@+id/tv_storage_genre2"
+                tools:text="# 미스터리" />
+
+            <TextView
+                android:id="@+id/tv_storage_genre2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/rectangle_border_3dp_pink"
+                android:paddingStart="4dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/B8"
+                android:visibility="invisible"
+                android:textColor="@color/sub_pink01_EA37A2"
+                app:layout_constraintStart_toEndOf="@+id/tv_storage_genre1"
+                app:layout_constraintTop_toTopOf="@+id/tv_storage_genre1"
+                tools:text="# 미스터리" />
+
+            <TextView
+                android:id="@+id/tv_storage_genre1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="11dp"
+                android:background="@drawable/rectangle_border_3dp_pink"
+                android:paddingStart="4dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/B8"
+                android:visibility="invisible"
+                android:textColor="@color/sub_pink01_EA37A2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_storage_title"
+                tools:text="# 미스터리" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

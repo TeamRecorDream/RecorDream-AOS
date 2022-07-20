@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
-    private lateinit var mypgae: ActivityMypageBinding
+
     private var amOrpm = ""
     private var hourvalue = ""
     private var minvalue = 0
@@ -50,7 +50,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         hourSettiing()
         minuteSettiing()
         initDialog()
-        clickSave()
+
         return binding.root
     }
 
@@ -101,27 +101,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
-
-    private fun clickSave() {   //저장하기 버튼 클릭'
-
-        binding.tvMypageBottomseetStorage.setOnClickListener {
-
-            mypgae.tvMypageTime.text = "$amOrpm $hour:$minvalue"
-            dismiss()
-        }
-    }
-
-    /*
-    fun setTypePicker(typePicker: NumberPicker) {
-    typePicker.apply {
-        value = 0
-        maxValue = notiTypes.size - 1
-        displayedValues =
-            notiTypes.map { this.context.resources.getString(it.strRes) }.toTypedArray()
-        descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-    }
-}
-     */
 
 }
 
