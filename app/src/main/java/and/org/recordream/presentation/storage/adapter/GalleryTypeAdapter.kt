@@ -38,8 +38,8 @@ class GalleryTypeAdapter(
         fun onBind(data: Record) {
             with(binding) {
                 recordgallery = data
-                val img = data.emotion
-                binding.ivStorageEmotiongallery.setImageDrawable()
+                val img = RecordreamMapping().emotionImgMapping(data.emotion)
+                binding.ivStorageEmotiongallery.setBackgroundResource(img)
                 itemView.setOnClickListener {
                     itemClick(data)
 

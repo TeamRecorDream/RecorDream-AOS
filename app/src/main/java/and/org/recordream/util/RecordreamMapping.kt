@@ -19,18 +19,17 @@ class RecordreamMapping {
     }
 
     fun emotionImgMapping(emotion: Int): Int {
-        val emotionImg : Int
+        var emotionImg : Int = 0
         when (emotion) {
-            0 -> emotionImg = R.drawable.ico
-            1 -> emotionImg = "joy"
-            2 -> emotionImg = "shocked"
-            3 -> emotionImg = "love"
-            4 -> emotionImg = "shy"
-            5 -> emotionImg = "sad"
-            6 -> emotionImg = "angry"
-            7 -> emotionImg = "blank"
+            1 -> emotionImg = R.drawable.icon_2_joy
+            2 -> emotionImg = R.drawable.icon_2_shocked
+            3 -> emotionImg = R.drawable.icon_2_love
+            4 -> emotionImg = R.drawable.icon_2_shy
+            5 -> emotionImg = R.drawable.icon_2_sad
+            6 -> emotionImg = R.drawable.icon_2_angry
+            7 -> emotionImg = R.drawable.icon_2_blank
         }
-        return emotionStr
+        return emotionImg
     }
 
     fun colorMapping(dream_color: Int): String {

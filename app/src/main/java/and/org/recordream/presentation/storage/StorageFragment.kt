@@ -7,7 +7,6 @@ import and.org.recordream.databinding.FragmentStorageBinding
 import and.org.recordream.presentation.storage.adapter.StorageAdapter
 import and.org.recordream.presentation.storage.myrecord.GalleryTypeFragment
 import and.org.recordream.presentation.storage.myrecord.ListTypeFragment
-import and.org.recordream.util.RecordreamMapping
 import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +20,8 @@ class StorageFragment : Fragment() {
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var storageAdapter: StorageAdapter
     private var emotionNum = 0 // 전역으로 이모션넘버
-    val recordreamMapping = RecordreamMapping()
+//    private var callbackButtonClickListener: ((List<Int>) -> Unit)? = null
+//    var oneLine = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,15 +29,17 @@ class StorageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
-//        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
-//            ?.let { binding.tvStorageMyemotion.background = it }
-
-
+        initNetwork(0)
         showMyRecord()
         setUpRecyclerView()
 
         return binding.root
     }
+
+//    fun setCallbackButtonClickListener(listener: (oneLine: List<Int>) -> Unit) {
+//        this.callbackButtonClickListener = listener
+//        Log.d("함수 실행", "wpqkf")
+//    }
 
     private fun initNetwork(selected: Int) {
 
@@ -57,6 +59,8 @@ class StorageFragment : Fragment() {
                 val emotionInt = emotionMapping(it.emotion)
                 Log.d("******emotionInt******", "$emotionInt")
                 initNetwork(emotionInt)
+//                oneLine.add(emotionInt)
+//                callbackButtonClickListener?.invoke(oneLine)
                 emotionNum = emotionInt
             }
             adapter = storageAdapter
@@ -93,6 +97,7 @@ class StorageFragment : Fragment() {
             )
         )
     }
+
 
     private fun showMyRecord() { // 갤러리형, 목록형 프래그먼트 관리
         val listTypeFragment = ListTypeFragment()
