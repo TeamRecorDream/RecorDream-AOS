@@ -36,9 +36,9 @@ class GalleryTypeAdapter(
         fun onBind(data: Record) {
             with(binding) {
                 recordgallery = data
-                itemClick(data)
-                itemView.setOnClickListener {
 
+                itemView.setOnClickListener {
+                    itemClick(data)
                 }
             }
         }

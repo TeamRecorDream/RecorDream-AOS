@@ -3,8 +3,10 @@ package and.org.recordream.presentation.storage.myrecord
 import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
+import and.org.recordream.presentation.detail.DetailActivity
 import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
 import and.org.recordream.util.enqueueUtil
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,7 +31,7 @@ class GalleryTypeFragment : Fragment() {
         initNetwork()
         return binding.root
     }
-// 인텐트전달만 하고, 각 요소별로 넣기만하면 보관함끝
+
 
     private fun initNetwork() {
         val selectedEmotion = arguments?.getInt("emotion")
@@ -46,15 +48,23 @@ class GalleryTypeFragment : Fragment() {
 
     private fun initAdapter() {
         galleryTypeAdapter = GalleryTypeAdapter {
-
+            toDetailView(it.id)
         }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
-        addItemList()
+       // addItemList()
     }
 
     private fun addItem(data: List<Record>) {
         galleryTypeAdapter.galleryRecords = data as MutableList<Record>
         galleryTypeAdapter.notifyDataSetChanged()
+    }
+
+    private fun toDetailView(id:String){
+        val intent = Intent(requireContext(),DetailActivity::class.java)
+        intent.apply {
+            putExtra("id",id)
+        }
+        startActivity(intent)
     }
 
     private fun addItemList() {

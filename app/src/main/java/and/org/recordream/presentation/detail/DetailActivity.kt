@@ -26,7 +26,7 @@ class DetailActivity : AppCompatActivity() {
         initTabLayout()
         // initBottomSheet()
         // showDialog()
-
+        val recordId = intent.getStringExtra("id")
         binding.ivDotsMore.setOnClickListener { createBottom() }
 
     }
