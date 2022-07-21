@@ -31,37 +31,38 @@ class StorageFragment : Fragment() {
 //        context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
 //            ?.let { binding.tvStorageMyemotion.background = it }
 //        getInfo()
-//        initAdapter()
+
 //        addItemList()
         showMyRecord()
         setUpRecyclerView()
-        initNetwork()
+
         return binding.root
     }
 
-    private fun initNetwork(selectedEmotion: Int) {
-
-        val call = RecordreamClient.storageService.getMyRecord(selectedEmotion, 1)
-
-        call.enqueueUtil(
-            onSuccess = {
-
-//                var tmp = it.data?.recordTotal
-//                for(i in tmp){
+//    private fun initNetwork() {
 //
-//                }
-//                it.data.records.
-//                // val name = it.data?.get(0)
+//        val call = RecordreamClient.storageService.getMyRecord(3, 1)
+//
+//        call.enqueueUtil(
+//            onSuccess = {
+//
+////                var tmp = it.data?.recordTotal
+////                for(i in tmp){
+////
+////                }
+////                it.data.records.
+////                // val name = it.data?.get(0)
 //                Log.d("ddddddd", "${it.status}")
-            })
-    }
+//            })
+//    }
 
     private fun setUpRecyclerView() {
         binding.rvStorageMyemotion.apply {
             storageAdapter = StorageAdapter {
+                Log.d("dddㅇㄴㄻㄻㄹㅇㄻㄹㅇㅁㄹㄴㄹd", "${it.emotion}")
                 val emotionInt = emotionMapping(it.emotion)
+                Log.d("dddㅇㄴㄻㄻㄹㅇㄻㄹㅇㅁㄹㄴㄹd", "$emotionInt")
                 //initNetwork(emotionInt)
-                Log.d("dddd", "$it.emotion")
                 // it을 활용한 람다표현식, 고차함수 등 함수구현가능
                 //storageAdapter.notifyDataSetChanged()
             }
@@ -132,7 +133,13 @@ class StorageFragment : Fragment() {
             }
         }
     }
+
+    fun tmp(emot:Int){
+        val tmp : Int = emot
+    }
 }
+
+
 //
 //package and.org.recordream.presentation.storage
 //

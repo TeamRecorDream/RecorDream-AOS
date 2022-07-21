@@ -7,11 +7,11 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="$USER_HOME$/.android/avd/soptGalaxy21_API_32.avd" />
+            <value value="C:\Users\82109\.android\avd\Recordream_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-07-19T08:01:23.112851Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-07-21T06:56:59.824931600Z" />
   </component>
 </project>
