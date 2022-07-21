@@ -2,13 +2,12 @@ package and.org.recordream.presentation.mypage
 
 import and.org.recordream.R
 import and.org.recordream.data.remote.RecordreamClient
+import and.org.recordream.data.remote.request.RequesMypageNickname
 import and.org.recordream.data.remote.request.RequestMypagePutTime
-import and.org.recordream.data.remote.response.ResponseWrapper
 import and.org.recordream.databinding.ActivityMypageBinding
 import and.org.recordream.util.CustomDialog
 import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +18,8 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private lateinit var dialog: CustomDialog
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
+    private var token = ""
+    private var time = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class MypageActivity : AppCompatActivity() {
         editClick()
         backClick()
         firebase()
-        initNetwork()
+        initNoticeNetwork()
     }
 
     private fun createBottomSheet() {
@@ -83,10 +84,11 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNetwork() {
+    //푸쉬알림
+    private fun initNoticeNetwork() {
         val requestMypagePutTime = RequestMypagePutTime(
             token = "00000",
-            time = "PM 03:10"
+            time = ""
         )
         val call = RecordreamClient.mypageService.postPushTime(
             1,
@@ -94,8 +96,19 @@ class MypageActivity : AppCompatActivity() {
         )
         call.enqueueUtil(
             onSuccess = {
-                Log.d("data","${it.status}")
+                Log.d("data", "${it.status}")
             }
+        )
+    }
+
+    //이름 수정
+    private fun initNicknameNetwork() {
+        val requesMypageNickname = RequesMypageNickname(
+            nickname = "레코드림"
+        )
+        val call = RecordreamClient.mypageEditnickname.putEditNickname(
+            1,
+            requesMypageNickname
         )
     }
 }

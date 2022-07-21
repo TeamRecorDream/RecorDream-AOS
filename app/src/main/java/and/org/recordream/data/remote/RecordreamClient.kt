@@ -17,5 +17,9 @@ object RecordreamClient {
             .build()
 
     val storageService: StorageService = retrofit.create(StorageService::class.java)
+
+    //mypgae
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
+    val mypagePushModify:MypageService = retrofit.create(MypageService::class.java)
+    val mypageEditnickname:MypageService = retrofit.create(MypageService::class.java)
 }
