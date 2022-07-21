@@ -1,19 +1,23 @@
 package and.org.recordream.presentation.mypage//package before.forget.feature.write
 
 import and.org.recordream.R
-import and.org.recordream.databinding.ActivityMypageBinding
 import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class   MypageBottomSheetFragment : BottomSheetDialogFragment() {
+class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     private var amOrpm = ""
     private var hourvalue = ""
@@ -49,6 +53,7 @@ class   MypageBottomSheetFragment : BottomSheetDialogFragment() {
         amOrpmSettiing()
         hourSettiing()
         minuteSettiing()
+        clickSave()
         initDialog()
 
         return binding.root
@@ -102,7 +107,14 @@ class   MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-
-
+    private fun clickSave(){
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+                val data = result.data ?: return@registerForActivityResult
+//                binding.text =
+//                    "${data.getStringExtra(WEIGHT_LEFT)}.${data.getStringExtra(WEIGHT_RIGHT)}"
+            }
+    }
 }
 

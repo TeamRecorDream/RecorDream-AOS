@@ -7,11 +7,14 @@ import and.org.recordream.data.remote.request.RequestMypagePutTime
 import and.org.recordream.databinding.ActivityMypageBinding
 import and.org.recordream.util.CustomDialog
 import and.org.recordream.util.enqueueUtil
+import android.content.Context
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
 
 class MypageActivity : AppCompatActivity() {
@@ -20,18 +23,18 @@ class MypageActivity : AppCompatActivity() {
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
     private var token = ""
     private var time = ""
+    private var nickname = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
         pushSwitchClick()
         showDialog()
         editClick()
         backClick()
-        firebase()
+        //  clickEnter()
         initNoticeNetwork()
     }
 
@@ -56,12 +59,39 @@ class MypageActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun editClick() {
-        binding.ivMypageEdit.setOnClickListener {
-            binding.edMypageEditnickname.visibility = View.VISIBLE
-            binding.tvMypageNickname.visibility = View.INVISIBLE
+    private fun clickEnter() {  //엔터로 입력
+        val str = SpannableStringBuilder("")
+        binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
+            var handled = false
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard(binding.edMypageEditnickname)
+                nickname = binding.edMypageEditnickname.text.toString()
+                handled = true
+                binding.edMypageEditnickname.text = str
+            }
+            handled
         }
+    }
+
+    private fun hideKeyboard(view: View) {  //키보드 숨기기
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun editClick() {   //이름 수정
+        initNicknameNetwork()
+        binding.ivMypageEdit.setOnClickListener {
+            focusEditText()
+            clickEnter()
+        }
+//        binding.edMypageEditnickname.visibility =
+    }
+    private fun focusEditText() {
+//        binding.edMypageEditnickname.focusable = 1
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.edMypageEditnickname, 0)
     }
 
     private fun backClick() {   //뒤로가기
@@ -70,19 +100,12 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun settinTime() {
+    private fun settinTime() {  //현재 시간 불러오기
         val dateAndtime: LocalDateTime = LocalDateTime.now()
 //        binding.tvWriteSelectTime.setText(dateAndtime)
         Log.d("dateAndtime", "settinTime:$dateAndtime ")
     }
 
-    private fun firebase() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("firebaseToken", "firebase: ${task.result}")
-            }
-        }
-    }
 
     //푸쉬알림
     private fun initNoticeNetwork() {
@@ -101,18 +124,36 @@ class MypageActivity : AppCompatActivity() {
         )
     }
 
-    //이름 수정
+    //이름 수정 서버
     private fun initNicknameNetwork() {
         val requesMypageNickname = RequesMypageNickname(
-            nickname = "레코드림"
+            nickname = nickname
         )
-        val call = RecordreamClient.mypageEditnickname.putEditNickname(
+        val call = RecordreamClient.mypageEditNickname.putEditNickname(
             1,
             requesMypageNickname
         )
     }
 }
 
+//private fun clickEnter() {
+//        binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
+//            var handled = false
+//         //   event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER
+//            if (action == EditorInfo.IME_ACTION_DONE) {
+//                nickname = binding.edMypageEditnickname.text.toString()
+//                hideKeyboard(binding.edMypageEditnickname)
+//                handled = true
+//            }
+//            handled
+//        }
+//    }
+
+//    private fun hideKeyboard(editSearch: View) {
+//        val inputMethodManager =
+//            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.hideSoftInputFromWindow(editSearch.windowToken, 0)
+//    }
 
 
 

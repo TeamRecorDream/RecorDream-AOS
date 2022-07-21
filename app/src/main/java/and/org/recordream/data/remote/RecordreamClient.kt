@@ -21,5 +21,5 @@ object RecordreamClient {
     //mypgae
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val mypagePushModify:MypageService = retrofit.create(MypageService::class.java)
-    val mypageEditnickname:MypageService = retrofit.create(MypageService::class.java)
+    val mypageEditNickname:MypageService = retrofit.create(MypageService::class.java)
 }
