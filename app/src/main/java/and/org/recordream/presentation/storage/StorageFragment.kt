@@ -9,8 +9,6 @@ import and.org.recordream.presentation.storage.myrecord.GalleryTypeFragment
 import and.org.recordream.presentation.storage.myrecord.ListTypeFragment
 import and.org.recordream.util.RecordreamMapping
 import and.org.recordream.util.enqueueUtil
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,6 +20,7 @@ class StorageFragment : Fragment() {
     private var _binding: FragmentStorageBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var storageAdapter: StorageAdapter
+    private var emotionNum = 0 // 전역으로 이모션넘버
     val recordreamMapping = RecordreamMapping()
 
     override fun onCreateView(
@@ -58,17 +57,11 @@ class StorageFragment : Fragment() {
                 val emotionInt = emotionMapping(it.emotion)
                 Log.d("******emotionInt******", "$emotionInt")
                 initNetwork(emotionInt)
-                passingIntent(emotionInt)
+                emotionNum = emotionInt
             }
             adapter = storageAdapter
         }
         addItemList()
-    }
-
-    private fun passingIntent(selected: Int) {
-        val intent = Intent(context, GalleryTypeFragment::class.java)
-
-        intent.putExtra("emotion", selected)
     }
 
     private fun emotionMapping(emotion: Int): Int { // 카테고리별 값 mapping
@@ -105,8 +98,12 @@ class StorageFragment : Fragment() {
         val listTypeFragment = ListTypeFragment()
         val galleryTypeFragment = GalleryTypeFragment()
 
-        childFragmentManager.beginTransaction().add(R.id.fcv_storage_myrecord, galleryTypeFragment)
-            .commit()
+        childFragmentManager.beginTransaction()
+            .add(R.id.fcv_storage_myrecord, galleryTypeFragment.apply {
+                arguments = Bundle().apply {
+                    putInt("emotion", emotionNum)
+                }
+            }).commit()
 
         with(binding) {
             ivStorageGallery.isSelected = true

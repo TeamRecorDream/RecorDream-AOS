@@ -23,17 +23,22 @@ class GalleryTypeFragment : Fragment() {
     ): View? {
         _binding = FragmentGalleryTypeBinding.inflate(layoutInflater, container, false)
 
+
+
         initAdapter()
         initNetwork()
         return binding.root
     }
+// 인텐트전달만 하고, 각 요소별로 넣기만하면 보관함끝
 
     private fun initNetwork() {
-        val call = RecordreamClient.storageService.getMyRecord(selected, 1)
+        val selectedEmotion = arguments?.getInt("emotion")
 
-        call.enqueueUtil(
+        Log.d("q2fsfqlnekhqhkvhklwvhwlkvhwv", "$selectedEmotion")
+
+        selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it, 1) }?.enqueueUtil(
             onSuccess = {
-it.data?.let { it1 -> addItem(it1.records) }
+                it.data?.let { it1 -> addItem(it1.records) }
                 Log.d("******status******", "${it.status}")
             })
     }
@@ -41,7 +46,7 @@ it.data?.let { it1 -> addItem(it1.records) }
 
     private fun initAdapter() {
         galleryTypeAdapter = GalleryTypeAdapter {
-            it.emotion
+
         }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
         addItemList()
