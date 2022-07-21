@@ -40,8 +40,10 @@ class GalleryTypeFragment : Fragment() {
 
         selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it, 1) }?.enqueueUtil(
             onSuccess = {
-                it.data?.let { it1 -> addItem(it1.records) }
+                it.data?.let { _it -> addItemList(_it.records) }
                 Log.d("******status******", "${it.status}")
+
+
             })
     }
 
@@ -51,28 +53,21 @@ class GalleryTypeFragment : Fragment() {
             toDetailView(it.id)
         }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
-       // addItemList()
+
     }
 
-    private fun addItem(data: List<Record>) {
+    private fun addItemList(data: List<Record>) {
         galleryTypeAdapter.galleryRecords = data as MutableList<Record>
         galleryTypeAdapter.notifyDataSetChanged()
     }
 
-    private fun toDetailView(id:String){
-        val intent = Intent(requireContext(),DetailActivity::class.java)
+    private fun toDetailView(id: String) {
+        val intent = Intent(requireContext(), DetailActivity::class.java)
         intent.apply {
-            putExtra("id",id)
+            putExtra("id", id)
         }
         startActivity(intent)
     }
 
-    private fun addItemList() {
-        galleryTypeAdapter.galleryRecords.addAll(
-            listOf<Record>(
-                Record("wdwdddw", "12121", 2, 2, listOf(2, 4), "232")
 
-            )
-        )
-    }
 }

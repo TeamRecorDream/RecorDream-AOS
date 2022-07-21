@@ -1,5 +1,7 @@
 package and.org.recordream.util
 
+import and.org.recordream.R
+
 class RecordreamMapping {
     fun emotionMapping(emotion: Int): String {
         var emotionStr: String = ""
@@ -12,6 +14,21 @@ class RecordreamMapping {
             5 -> emotionStr = "sad"
             6 -> emotionStr = "angry"
             7 -> emotionStr = "blank"
+        }
+        return emotionStr
+    }
+
+    fun emotionImgMapping(emotion: Int): Int {
+        val emotionImg : Int
+        when (emotion) {
+            0 -> emotionImg = R.drawable.ico
+            1 -> emotionImg = "joy"
+            2 -> emotionImg = "shocked"
+            3 -> emotionImg = "love"
+            4 -> emotionImg = "shy"
+            5 -> emotionImg = "sad"
+            6 -> emotionImg = "angry"
+            7 -> emotionImg = "blank"
         }
         return emotionStr
     }

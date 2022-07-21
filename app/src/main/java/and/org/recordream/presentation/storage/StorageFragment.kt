@@ -98,7 +98,7 @@ class StorageFragment : Fragment() {
         val listTypeFragment = ListTypeFragment()
         val galleryTypeFragment = GalleryTypeFragment()
 
-        childFragmentManager.beginTransaction()
+        childFragmentManager.beginTransaction() // 데이터전달 fragment to fragment, bundle
             .add(R.id.fcv_storage_myrecord, galleryTypeFragment.apply {
                 arguments = Bundle().apply {
                     putInt("emotion", emotionNum)
