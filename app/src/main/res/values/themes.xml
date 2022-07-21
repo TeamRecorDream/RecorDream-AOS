@@ -174,10 +174,17 @@
     <style name="Switch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">#AB53F9</item>
-
-<!--         inactive thumb color -->
-<!--        <item name="colorSwitchThumbNormal">@color/white01_FFFFFF</item>-->
-
     </style>
+
+    <!--바텀시트에서 사용-->
+    <style name="TransparentBottomSheetDialogFragment" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
+    </style>
+
+    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rectangle_radius_18dp_mypage_top</item>
+    </style>
+
+
 
 </resources>
