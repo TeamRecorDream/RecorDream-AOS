@@ -1,7 +1,11 @@
 package and.org.recordream.presentation.detail
 
+import and.org.recordream.data.remote.RecordreamClient
+import and.org.recordream.data.remote.response.ResponseDetailDreamRecord
 import and.org.recordream.databinding.FragmentDreamRecordBinding
+import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +20,35 @@ class DreamRecordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDreamRecordBinding.inflate(inflater, container, false)
-
+        initNetwork()
         return binding.root
+    }
+
+    private fun initNetwork() {
+//        val requestDetail = RequestDetailDreamRecord(
+//            recordId = "62d16e7fe8b4508dbca5ead6"
+//        )
+        val recordId = "62d7b6f19669f53b6c72a89f"
+        Log.d("dddddddddd", "wddddddddd123123ddddd")
+        val call = RecordreamClient.recorDreamServicee.getDetailRecord(recordId)
+
+        call.enqueueUtil(
+            onSuccess = {
+                Log.d("dddddddddd", "${it.status}")
+//
+                val data = it.data
+                applyData(data)
+            },
+            onError = {
+                Log.d("dddddddddd", "$it")
+            }
+        )
+    }
+
+    private fun applyData(response: ResponseDetailDreamRecord?) {
+
+        binding.tvDetailTabRecord.text = response!!.content
+//        binding.tvDetailVoiceTime.text = response!!.voice.url.length
+
     }
 }

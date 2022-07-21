@@ -25,7 +25,6 @@
 
         <ImageView
             android:id="@+id/iv_detail_dream_color"
-            imgResId="@{records.dream_color}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitXY"
@@ -78,7 +77,6 @@
 
         <ImageView
             android:id="@+id/iv_profile"
-            imgResId="@{records.emotion}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="-8dp"
@@ -124,9 +122,7 @@
             android:background="@drawable/shape_genre_radius"
             android:paddingHorizontal="6dp"
             android:paddingVertical="4dp"
-            android:text="@{records.genre[0].toString()}"
             android:textAppearance="@style/B12"
-            android:textColor="@{records.dream_color}"
             app:layout_constraintBottom_toTopOf="@id/tl_detail"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="#미스터리"
@@ -141,9 +137,7 @@
             android:background="@drawable/shape_genre_radius"
             android:paddingHorizontal="6dp"
             android:paddingVertical="4dp"
-            android:text="@{records.genre[1].toString()}"
             android:textAppearance="@style/B12"
-            android:textColor="@{records.dream_color}"
             app:layout_constraintStart_toEndOf="@id/tv_home_genre1"
             app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
             tools:text="#가족/친구"
@@ -157,9 +151,7 @@
             android:background="@drawable/shape_genre_radius"
             android:paddingHorizontal="6dp"
             android:paddingVertical="4dp"
-            android:text="@{records.genre[2].toString()}"
             android:textAppearance="@style/B12"
-            android:textColor="@{records.dream_color}"
             app:layout_constraintStart_toEndOf="@id/tv_home_genre2"
             app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
             tools:text="#로맨스"
