@@ -1,10 +1,12 @@
 package and.org.recordream.presentation.storage.myrecord
 
-import and.org.recordream.R
+import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
 import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
+import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,17 +24,20 @@ class GalleryTypeFragment : Fragment() {
         _binding = FragmentGalleryTypeBinding.inflate(layoutInflater, container, false)
 
         initAdapter()
+        initNetwork()
         return binding.root
     }
 
-    private fun emotionMatch() {
-        val emotion: Int = 0
-        val img: Int
-        when (emotion) {
-            0 -> img = R.drawable.logo
+    private fun initNetwork() {
+        val call = RecordreamClient.storageService.getMyRecord(selected, 1)
 
-        }
+        call.enqueueUtil(
+            onSuccess = {
+it.data?.let { it1 -> addItem(it1.records) }
+                Log.d("******status******", "${it.status}")
+            })
     }
+
 
     private fun initAdapter() {
         galleryTypeAdapter = GalleryTypeAdapter {
@@ -40,6 +45,11 @@ class GalleryTypeFragment : Fragment() {
         }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
         addItemList()
+    }
+
+    private fun addItem(data: List<Record>) {
+        galleryTypeAdapter.galleryRecords = data as MutableList<Record>
+        galleryTypeAdapter.notifyDataSetChanged()
     }
 
     private fun addItemList() {
@@ -50,7 +60,4 @@ class GalleryTypeFragment : Fragment() {
             )
         )
     }
-
-    //   context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
-//            ?.let { binding.tvStorageMyemotion.background = it }
 }

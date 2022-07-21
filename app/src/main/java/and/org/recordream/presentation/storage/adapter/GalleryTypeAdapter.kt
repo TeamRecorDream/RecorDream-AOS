@@ -11,7 +11,7 @@ class GalleryTypeAdapter(
     private val itemClick: (Record) -> Unit
 ) :
     RecyclerView.Adapter<GalleryTypeAdapter.GalleryTypeViewHolder>() {
-    val galleryRecords = mutableListOf<Record>()
+    var galleryRecords = mutableListOf<Record>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryTypeViewHolder {
         val binding = ItemStorageGalleryBinding.inflate(
