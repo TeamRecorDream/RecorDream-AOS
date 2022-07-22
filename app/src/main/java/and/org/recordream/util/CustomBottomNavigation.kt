@@ -58,16 +58,16 @@ class CustomBottomNavigationView : BottomNavigationView {
         mNavigationBarHeight = height
 
         mFirstCurveStartPoint.set( // CURVE_CIRCLE_RADIUS 굴곡담당
-            (mNavigationBarWidth / 2 - CURVE_CIRCLE_RADIUS * 1.5 - CURVE_CIRCLE_RADIUS / 3).toInt(),
+            (mNavigationBarWidth / 1.92 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3).toInt(),
             0
         )
         mFirstCurveEndPoint.set(
-            mNavigationBarWidth / 2,
+            (mNavigationBarWidth / 2),
             CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4
         )
         mSecondCurveStartPoint = mFirstCurveEndPoint
         mSecondCurveEndPoint.set(
-            (mNavigationBarWidth / 2 + CURVE_CIRCLE_RADIUS * 1.5 + CURVE_CIRCLE_RADIUS / 3).toInt(),
+            (mNavigationBarWidth / 2.1 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3).toInt(),
             0
         )
 
@@ -77,12 +77,12 @@ class CustomBottomNavigationView : BottomNavigationView {
         )
 
         mFirstCurveControlPoint2.set(
-            mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS,
+            (mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2.29 + CURVE_CIRCLE_RADIUS).toInt(),
             mFirstCurveEndPoint.y
         )
 
         mSecondCurveControlPoint1.set(
-            mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS,
+            (mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2.29 - CURVE_CIRCLE_RADIUS).toInt(),
             mSecondCurveStartPoint.y
         )
         mSecondCurveControlPoint2.set(
