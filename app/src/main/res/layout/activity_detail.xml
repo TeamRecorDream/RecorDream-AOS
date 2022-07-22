@@ -7,7 +7,7 @@
 
         <variable
             name="records"
-            type="and.org.recordream.data.local.Record" />
+            type="and.org.recordream.data.remote.response.ResponseDetailDreamRecord" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -177,6 +177,7 @@
             android:id="@+id/vp_detail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="27dp"
             android:background="@color/dark_blue01_000119"
             app:layout_constraintBottom_toTopOf="@id/iv_detail_bottom_logo"
             app:layout_constraintTop_toBottomOf="@+id/tl_detail" />
