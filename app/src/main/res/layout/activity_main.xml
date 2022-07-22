@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_blue01_000119"
     tools:context=".presentation.MainActivity">
 
     <fragment
@@ -11,45 +12,27 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/ll_main_bnv"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_main_top"
+        app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/nav_graph" />
 
     <and.org.recordream.util.CustomBottomNavigationView
 
         android:id="@+id/bnv_main_customnav"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="72dp"
         android:layout_gravity="bottom"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ll_main_bnv"
         app:menu="@menu/menu_main_bnv"
         tools:menu="@menu/menu_main_bnv" />
 
-    <LinearLayout
-        android:id="@+id/ll_main_bnv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fb_main_write"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:elevation="3dp"
-            android:focusable="true"
-            android:translationZ="2dp" />
-
-    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_main_top"
@@ -92,5 +75,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/icon_profile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/bnv_main_customnav"
+        app:srcCompat="@drawable/btn_footer_write"
+        tools:layout_editor_absoluteX="136dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

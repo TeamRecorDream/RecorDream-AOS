@@ -32,5 +32,6 @@ class MainActivity : AppCompatActivity() {
         binding.ivMainMypage.setOnClickListener {
             startActivity(Intent(this, MypageActivity::class.java))
         }
+
     }
 }

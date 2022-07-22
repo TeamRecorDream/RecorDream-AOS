@@ -1,5 +1,9 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="design_fab_size_auto" tools:override="true">120dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">120dp</dimen>
     <!--  item_view 간의 양 옆 여백을 상쇄할 값   -->
     <dimen name="offsetBetweenPages">40dp</dimen>
     <!--  각 페이지의 양 옆 margin  -->
