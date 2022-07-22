@@ -15,7 +15,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-
     <style name="B28">
         <item name="fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">28dp</item>
@@ -136,7 +135,7 @@
 
     <style name="CustomShapeAppearanceBottomsheetDialog" parent="">
         <item name="android:background">@color/dark_blue01_000119</item>
-       <item name="android:backgroundTint">@color/transparent</item>
+        <item name="android:backgroundTint">@color/transparent</item>
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">16dp</item>
         <item name="cornerSizeTopLeft">16dp</item>
@@ -184,7 +183,6 @@
     <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rectangle_radius_18dp_mypage_top</item>
     </style>
-
 
 
 </resources>

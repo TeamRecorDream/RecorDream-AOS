@@ -61,6 +61,7 @@
     <string name="btn_write_family"># 가족/친구</string>
     <string name="btn_write_etc"># 기타</string>
     <string name="tv_write_note">노트</string>
+    <string name="tv_wirte_dreamcount">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
 
     <!--마이크-->
     <string name="tv_voice_save">저장</string>
@@ -68,6 +69,7 @@
 
     <!-- 바텀네비게이션 -->
     <string name="bnv_main_home">홈</string>
+    <string name="bnv_main_write">기록하기</string>
     <string name="bnv_main_storage">보관하기</string>
 
     <!-- 보관함 뷰 -->
