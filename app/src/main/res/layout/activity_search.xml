@@ -77,8 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="11dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -90,9 +90,11 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:ems="10"
-            android:hint="Name"
+            android:background="@null"
             android:inputType="textPersonName"
+            android:hint="@string/et_search_enter"
             android:textAppearance="@style/M14"
+            android:textColorHint="@color/white02_80FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_search_searchbtn"
@@ -144,5 +146,26 @@
             tools:itemCount="8"
             tools:listitem="@layout/item_storage_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_search_none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_search_none"
+        android:textAppearance="@style/B18"
+        android:textColor="@color/white02_80FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vi_search_bar2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/logo_watermark_recordeream"
+        tools:layout_editor_absoluteX="320dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
