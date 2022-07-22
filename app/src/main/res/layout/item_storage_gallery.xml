@@ -16,8 +16,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_storage_gallerycard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="155dp"
+            android:layout_height="201dp"
             android:layout_marginStart="7dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="7dp"
@@ -60,8 +60,8 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="15dp"
-                android:textAppearance="@style/B12"
                 android:text="@{recordgallery.title}"
+                android:textAppearance="@style/B12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_storage_dategallery"

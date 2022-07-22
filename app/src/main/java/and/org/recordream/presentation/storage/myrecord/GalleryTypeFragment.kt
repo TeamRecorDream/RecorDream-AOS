@@ -26,11 +26,7 @@ class GalleryTypeFragment : Fragment() {
     ): View? {
         _binding = FragmentGalleryTypeBinding.inflate(layoutInflater, container, false)
 
-        binding.textView.setOnClickListener {
-            initNetwork()
-
-        }
-        //initNetwork()
+        initNetwork()
         initAdapter()
 
 
