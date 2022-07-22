@@ -37,6 +37,10 @@ class SearchActivity : AppCompatActivity() {
         call.enqueueUtil(
             onSuccess = {
                 Log.d("******Status******", "${it.status}")
+                binding.tvSearchTotal.text = it.data?.recordTotal.toString()
+                if (it.data!!.recordTotal != 0) {
+                    visibility()
+                }
             }
         )
     }
@@ -47,6 +51,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun visibility() {
         with(binding) {
+            tvSearchRecordtxt.visibility = View.VISIBLE
             viSearchBar2.visibility = View.VISIBLE
             clSearchResultfield.visibility = View.VISIBLE
             tvSearchNone.visibility = View.INVISIBLE
