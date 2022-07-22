@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
@@ -26,11 +27,15 @@ class MypageActivity : AppCompatActivity() {
     private var time = ""
     private var nickname = ""
 
+    private val viewModel by viewModels<MyPageViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
         pushSwitchClick()
         showDialog()
         editClick()
@@ -44,10 +49,14 @@ class MypageActivity : AppCompatActivity() {
 
     private fun pushSwitchClick() {
         binding.scMypageSwitchbtn.setOnCheckedChangeListener { compoundButton, onSwitch ->
+
             //  스위치가 켜지면
             if (onSwitch) {
                 createBottomSheet()
                 settingTime()
+                viewModel.setIsShow(true)
+            } else {
+                viewModel.setIsShow(false)
             }
         }
     }
