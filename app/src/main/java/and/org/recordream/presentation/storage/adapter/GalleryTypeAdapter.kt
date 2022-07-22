@@ -2,6 +2,7 @@ package and.org.recordream.presentation.storage.adapter
 
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.ItemStorageGalleryBinding
+import and.org.recordream.util.RecordreamMapping
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,8 @@ class GalleryTypeAdapter(
     private val itemClick: (Record) -> Unit
 ) :
     RecyclerView.Adapter<GalleryTypeAdapter.GalleryTypeViewHolder>() {
-    val galleryRecords = mutableListOf<Record>()
+    var galleryRecords = mutableListOf<Record>()
+    val recordreamMapping = RecordreamMapping()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryTypeViewHolder {
         val binding = ItemStorageGalleryBinding.inflate(
@@ -36,8 +38,10 @@ class GalleryTypeAdapter(
         fun onBind(data: Record) {
             with(binding) {
                 recordgallery = data
-                itemClick(data)
+                val img = RecordreamMapping().emotionImgMapping(data.emotion)
+                binding.ivStorageEmotiongallery.setBackgroundResource(img)
                 itemView.setOnClickListener {
+                    itemClick(data)
 
                 }
             }

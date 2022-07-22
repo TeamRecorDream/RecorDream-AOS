@@ -27,13 +27,13 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
+        android:padding="3dp"
         android:theme="@style/B12"
-        app:itemIconTint="@color/white01_FFFFFF"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_main_bnv"
-        tools:menu="@menu/menu_main_bnv"
-        android:padding="3dp"/>
+        app:itemIconTint="@color/white01_FFFFFF"
+        tools:menu="@menu/menu_main_bnv" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
