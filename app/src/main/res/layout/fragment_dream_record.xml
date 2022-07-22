@@ -21,6 +21,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_dream_record"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -31,6 +32,7 @@
                     android:layout_marginHorizontal="18dp"
                     android:layout_marginTop="28dp"
                     android:background="@drawable/rectangle_detail_radius7"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +45,7 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="13dp"
                     android:src="@drawable/icon_mic"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/iv_detail_rectangle_voice"
                     app:layout_constraintStart_toStartOf="@id/iv_detail_rectangle_voice"
                     app:layout_constraintTop_toTopOf="@id/iv_detail_rectangle_voice" />
@@ -55,6 +58,7 @@
                     android:layout_marginTop="18dp"
                     android:text="01:42"
                     android:textAppearance="@style/B14"
+                    android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@id/iv_detail_record_icon"
                     app:layout_constraintTop_toTopOf="@id/iv_detail_rectangle_voice"
                     tools:text="01:42" />
@@ -65,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="13dp"
                     android:src="@drawable/icon_play"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/iv_detail_record_icon"
                     app:layout_constraintEnd_toEndOf="@id/iv_detail_rectangle_voice"
                     app:layout_constraintTop_toTopOf="@id/iv_detail_record_icon" />
