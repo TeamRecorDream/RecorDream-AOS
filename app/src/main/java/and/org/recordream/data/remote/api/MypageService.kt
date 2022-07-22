@@ -5,9 +5,7 @@ import and.org.recordream.data.remote.response.ResponseMypagePutTime
 import and.org.recordream.data.remote.response.ResponseWrapper
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.PUT
 
 interface MypageService {
     //푸시알림

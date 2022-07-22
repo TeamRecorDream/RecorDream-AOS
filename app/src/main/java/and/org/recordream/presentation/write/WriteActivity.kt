@@ -15,7 +15,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Calendar
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding
@@ -87,7 +87,7 @@ class WriteActivity : AppCompatActivity() {
             val dateSetListener =
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     dateString = "${year}-${month + 1}-${dayOfMonth}"
-                    binding.tvWriteDetailday.setText(dateString)
+                    binding.tvWriteDetailday.text = dateString
                 }
             DatePickerDialog(
                 this,
@@ -138,13 +138,14 @@ class WriteActivity : AppCompatActivity() {
             content = binding.etWriteContent.text.toString(),
             emotion = tmp,
             dream_color = dreamcolor,
-            genre = mutableSetOf(1,2,3),
+            genre = mutableSetOf(1, 2, 3),
             note = binding.etWriteNotecontent.text.toString(),
             voice = "62cdb868c3032f2b7af76531",
             writer = "62c9cf068094605c781a2fb9"
         )
 
-        val call = RecordreamClient.writeService.postRecordDescription(1,
+        val call = RecordreamClient.writeService.postRecordDescription(
+            1,
             requestWrite
         )
         call.enqueueUtil(

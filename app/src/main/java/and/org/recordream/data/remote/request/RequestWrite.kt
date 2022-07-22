@@ -1,8 +1,5 @@
 package and.org.recordream.data.remote.request
 
-import java.time.LocalDateTime
-import java.util.*
-
 data class RequestWrite(
     val content: String,
     val date: String,
