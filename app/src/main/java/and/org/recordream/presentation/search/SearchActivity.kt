@@ -22,6 +22,10 @@ class SearchActivity : AppCompatActivity() {
 
 
         initAdapter()
+        binding.ivSearchBackbtn.setOnClickListener {
+            finish()
+        }
+
         binding.ivSearchSearchbtn.setOnClickListener {
             val keyword = binding.etSearchEnter.text.toString()
             initNetwork(keyword)

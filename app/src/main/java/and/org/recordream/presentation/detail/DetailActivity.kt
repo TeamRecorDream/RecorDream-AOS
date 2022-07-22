@@ -9,6 +9,7 @@ import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -23,11 +24,14 @@ class DetailActivity : AppCompatActivity() {
     // lateinit var btnShowBottomSheet: ImageView
     private val recorDreamMapping = RecordreamMapping()
 
+    private val viewModel by viewModels<DetailViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val recordId = intent.getStringExtra("id") ?: ""
+        val recordId = intent.getStringExtra("id") ?: error("record Id 안 넘어옴 (승현)")
+        Log.i("iiii", recordId.toString())
         // btnShowBottomSheet = binding.ivDotsMore
 
 
@@ -35,6 +39,7 @@ class DetailActivity : AppCompatActivity() {
         initTabLayout()
         initBackButton()
         initNetwork(recordId)
+        observeData()
 
         // initBottomSheet()
         // showDialog()
@@ -66,25 +71,26 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initNetwork(id: String) {
-
-        val call = RecordreamClient.recorDreamServicee.getDetailRecord(id)
-
-        call.enqueueUtil(
-            onSuccess = {
-                Log.d("dddddddddd", "${it.status}")
-
-                val data = it.data
-                if (data != null) {
-                    applyData(data)
-                }
-            },
-            onError = {
-                Log.d("dddddddddd", "$it")
-            }
-        )
+        viewModel.getData(id)
+//        val call = RecordreamClient.recorDreamServicee.getDetailRecord(id)
+//
+//        call.enqueueUtil(
+//            onSuccess = {
+//                Log.d("dddddddddd", "${it.status}")
+//
+//                val data = it.data
+//                if (data != null) {
+//                    applyData(data)
+//                }
+//            },
+//            onError = {
+//                Log.d("dddddddddd", "$it")
+//            }
+//        )
     }
 
     private fun applyData(response: ResponseDetailDreamRecord) {
+        Log.i("iiii", "applyData")
         val applyEmotion = response?.emotion?.let { recorDreamMapping.matchEmotion(it) }
         val applyTextColor = response?.let {
             it.dream_color?.let { it1 ->
@@ -113,46 +119,54 @@ class DetailActivity : AppCompatActivity() {
             binding.ivProfile.setBackgroundResource(applyEmotion)
         }
         binding.tvRecordTitle.text = response?.title
-//
-//        binding.ivProfile.setImageDrawable(applyEmotion)
 
-//        if (response != null) {
-//            binding.tvRecordDate.text = response.date
-//            if (response.genre.size == 1) {
-//                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-//            }
-//            if (response.genre.size == 2) {
-//                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-//                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
-//            }
-//            if (response.genre.size == 3) {
-//                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-//                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
-//                binding.tvHomeGenre3.text = "#${applyGenre?.get(2)}"
-//            }
-//            when (response.genre.size) {
-//                1 -> {
-//                    binding.tvHomeGenre1.visibility = View.VISIBLE
-//                    binding.tvHomeGenre2.visibility = View.INVISIBLE
-//                    binding.tvHomeGenre3.visibility = View.INVISIBLE
-//                }
-//                2 -> {
-//                    binding.tvHomeGenre1.visibility = View.VISIBLE
-//                    binding.tvHomeGenre2.visibility = View.VISIBLE
-//                    binding.tvHomeGenre3.visibility = View.INVISIBLE
-//                }
-//                3 -> {
-//                    binding.tvHomeGenre1.visibility = View.VISIBLE
-//                    binding.tvHomeGenre2.visibility = View.VISIBLE
-//                    binding.tvHomeGenre3.visibility = View.VISIBLE
-//                }
-//            }
-//            if (applyTextColor != null) {
-//                binding.tvHomeGenre1.setTextColor(applyTextColor)
-//                binding.tvHomeGenre2.setTextColor(applyTextColor)
-//                binding.tvHomeGenre3.setTextColor(applyTextColor)
-//            }
-//        }
-//    }
-}}
+        applyEmotion?.let {
+            binding.ivProfile.setImageResource(it)
+        }
+
+        if (response != null) {
+            binding.tvRecordDate.text = response.date
+            if (response.genre.size == 1) {
+                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+            }
+            if (response.genre.size == 2) {
+                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
+            }
+            if (response.genre.size == 3) {
+                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
+                binding.tvHomeGenre3.text = "#${applyGenre?.get(2)}"
+            }
+            when (response.genre.size) {
+                1 -> {
+                    binding.tvHomeGenre1.visibility = View.VISIBLE
+                    binding.tvHomeGenre2.visibility = View.INVISIBLE
+                    binding.tvHomeGenre3.visibility = View.INVISIBLE
+                }
+                2 -> {
+                    binding.tvHomeGenre1.visibility = View.VISIBLE
+                    binding.tvHomeGenre2.visibility = View.VISIBLE
+                    binding.tvHomeGenre3.visibility = View.INVISIBLE
+                }
+                3 -> {
+                    binding.tvHomeGenre1.visibility = View.VISIBLE
+                    binding.tvHomeGenre2.visibility = View.VISIBLE
+                    binding.tvHomeGenre3.visibility = View.VISIBLE
+                }
+            }
+            if (applyTextColor != null) {
+                binding.tvHomeGenre1.setTextColor(applyTextColor)
+                binding.tvHomeGenre2.setTextColor(applyTextColor)
+                binding.tvHomeGenre3.setTextColor(applyTextColor)
+            }
+        }
+    }
+
+    private fun observeData() {
+        viewModel.detailResponse.observe(this) {
+            applyData(it)
+        }
+    }
+}
 
