@@ -4,11 +4,8 @@ import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.request.RequestWrite
 import and.org.recordream.databinding.ActivityWriteBinding
 import and.org.recordream.databinding.FragmentDetailBottomSheetBinding
-import and.org.recordream.presentation.detail.DetailActivity
-import and.org.recordream.presentation.detail.DetailBottomSheetFragment
-import and.org.recordream.util.RecordreamMapping
 import and.org.recordream.util.enqueueUtil
-import android.content.Intent
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,21 +13,20 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.time.LocalDateTime
+import java.util.*
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding
-    private lateinit var detailBottomSheet:FragmentDetailBottomSheetBinding
+    private lateinit var detailBottomSheet: FragmentDetailBottomSheetBinding
     private val voiceFragment = VoiceRecordFragment()
 
-    private var title =""
-    private var date = ""
-    private var content = ""
-    private var emotion = 0
-    private var dream_color = 0
-    private var genre = listOf<Int>()
-    private var note = "null"
-    private var voice = "62cdb868c3032f2b7af76531"
-    private var writer = "62c9cf068094605c781a2fb9"
+    var tmp: Int = 0
+    var dreamcolor: Int = 0
+    var dreamgnre = mutableSetOf<Int>(10)
+    var gnrecount = 0
+    val dateAndtime: LocalDateTime = LocalDateTime.now()
+    var dateString = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +35,13 @@ class WriteActivity : AppCompatActivity() {
         clickSave() //저장버튼
         voiceClick()
         checkTunderExplanation()
-        wirteInitNetwork()
+//        wirteInitNetwork()
         emotionClick()
         colorClick()
-        clickModify()
+        dateClick()
+        dreamgnre()
+        backClick()
+//        clickModify()
         setContentView(binding.root)
     }
 
@@ -56,13 +55,33 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
+    private fun backClick(){
+        binding.ivWriteBack.setOnClickListener {
+            finish()
+        }
+    }
+
     private fun clickSave() {   //저장버튼 클릭 시
         binding.btnWriteSave.setOnClickListener {
             if (!binding.btnWriteSave.isSelected) {
                 Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 wirteInitNetwork()
+                finish()
             }
+        }
+    }
+
+    private fun dateClick(){
+        binding.clWriteDay.setOnClickListener {
+            val cal = Calendar.getInstance()    //캘린더뷰 만들기
+            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                dateString = "${year}-${month+1}-${dayOfMonth}"
+                binding.tvWriteDetailday.setText(dateString)
+//                result.text = "날짜/시간 : "+dateString + " / " + timeString
+            }
+            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
+            Log.d("dateString", "dateString: $cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)")
         }
     }
 
@@ -78,12 +97,13 @@ class WriteActivity : AppCompatActivity() {
             }
         })
     }
-    private fun clickModify(){
-        detailBottomSheet.tvDetailBottomEdit.setOnClickListener {
-            binding.tvWriteModify.visibility  = View.VISIBLE
-            binding.tvWriteWrite.visibility = View.INVISIBLE
-        }
-    }
+
+//    private fun clickModify() {
+//        if(detailBottomSheet.tvDetailBottomEdit.isSelected) {
+//            binding.tvWriteModify.visibility = View.VISIBLE
+//            binding.tvWriteWrite.visibility = View.INVISIBLE
+//        }
+//    }
 
     private fun savebtnActive() {
         with(binding) {
@@ -96,28 +116,15 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private var pudreamemotion = putDreamDescription()
-    private var emotionmaping = RecordreamMapping()
-    private fun putDreamDescription() {    //이모지 감정 뭐 클릭 됐는지
-        with(binding){
-            ivEmotionJoy = emotionmaping.emotionMapping()
-            ivEmotionShocked
-            ivEmotionLove
-            ivEmotionShy
-            ivEmotionSad
-            ivEmotionAngry
-        }
-    }
-
     private fun wirteInitNetwork() {
         val requestWrite = RequestWrite(
             title = binding.tvWriteEditdream.text.toString(),
-            date = "2022/07/20 (수)",
+            date = dateAndtime,
             content = binding.etWriteContent.text.toString(),
-            emotion = pudreamemotion,
-            dream_color = 3,
-            genre = listOf(1, 2, 5),
-            note = "null",
+            emotion = tmp,
+            dream_color = dreamcolor,
+            genre = dreamgnre,
+            note = binding.etWriteNotecontent.text.toString(),
             voice = "62cdb868c3032f2b7af76531",
             writer = "62c9cf068094605c781a2fb9"
         )
@@ -130,6 +137,103 @@ class WriteActivity : AppCompatActivity() {
                 Log.d("data", "${it.status}")
             }
         )
+    }
+
+    private fun clickEmotion() {    //서버 전달을 위한 감정 수
+        binding.ivEmotionJoy.setOnClickListener {
+            tmp = 1
+        }
+        binding.ivEmotionShocked.setOnClickListener {
+            tmp = 2
+        }
+        binding.ivEmotionLove.setOnClickListener {
+            tmp = 3
+        }
+        binding.ivEmotionShy.setOnClickListener {
+            tmp = 4
+        }
+        binding.ivEmotionSad.setOnClickListener {
+            tmp = 5
+        }
+        binding.ivEmotionAngry.setOnClickListener {
+            tmp = 6
+        }
+    }
+
+    private fun dreamgnre() {   //장르 서버 연동
+        Log.d("gnre", "gnrecount: $gnrecount")
+        binding.tvWriteComedy.setOnClickListener {
+            dreamgnre.add(0)
+            binding.tvWriteComedy.isSelected =true
+//            binding.ivDreamRed.
+            Log.d("gnre", "dreamgnre: $dreamgnre")
+            gnrecount++
+        }
+        binding.tvWriteRomense.setOnClickListener {
+            dreamgnre.add(1)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteAction.setOnClickListener {
+            dreamgnre.add(2)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteThrill.setOnClickListener {
+            dreamgnre.add(3)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteMystery.setOnClickListener {
+            dreamgnre.add(4)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteFear.setOnClickListener {
+            dreamgnre.add(5)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.tvWriteSf.setOnClickListener {
+            dreamgnre.add(6)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteFantasy.setOnClickListener {
+            dreamgnre.add(7)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteFamily.setOnClickListener {
+            dreamgnre.add(8)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.tvWriteEtc.setOnClickListener {
+            dreamgnre.add(9)
+            gnrecount++
+            if ( gnrecount > 4) {
+                Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     //감정 클릭시
