@@ -20,8 +20,7 @@ class StorageFragment : Fragment() {
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var storageAdapter: StorageAdapter
     private var emotionNum = 0 // 전역으로 이모션넘버
-    private var callbackButtonClickListener: ((Int) -> Unit)? = null
-//    var oneLine = mutableListOf<Int>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,17 +35,7 @@ class StorageFragment : Fragment() {
         return binding.root
     }
 
-//    fun setCallbackButtonClickListener(listener: Int-> Unit)
-//    {
-//        this.callbackButtonClickListener = listener
-//        Log.d("함수 실행", "wpqkf")
-//    }
 
-    private fun bundle() {
-        childFragmentManager.setFragmentResultListener("emotion") { key, bundle ->
-
-        }
-    }
 
     private fun initNetwork(selected: Int) {
 
@@ -66,8 +55,7 @@ class StorageFragment : Fragment() {
                 val emotionInt = emotionMapping(it.emotion)
                 Log.d("******emotionInt******", "$emotionInt")
                 initNetwork(emotionInt)
-//                oneLine.add(emotionInt)
-//                callbackButtonClickListener?.invoke(oneLine)
+
                 emotionNum = emotionInt
             }
             adapter = storageAdapter

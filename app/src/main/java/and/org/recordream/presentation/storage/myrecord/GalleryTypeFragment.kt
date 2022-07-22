@@ -4,7 +4,6 @@ import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
 import and.org.recordream.presentation.detail.DetailActivity
-import and.org.recordream.presentation.storage.StorageFragment
 import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
 import and.org.recordream.util.enqueueUtil
 import android.content.Intent
@@ -19,7 +18,7 @@ class GalleryTypeFragment : Fragment() {
     private var _binding: FragmentGalleryTypeBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var galleryTypeAdapter: GalleryTypeAdapter
-    // private var oneLineCallback: ((List<String>) -> Unit)? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +28,7 @@ class GalleryTypeFragment : Fragment() {
 
         binding.textView.setOnClickListener {
             initNetwork()
-//            StorageFragment().setCallbackButtonClickListener {
-//                Log.d("123123123123321213312", "$it")
 
-
-            // }
         }
         //initNetwork()
         initAdapter()
@@ -77,10 +72,4 @@ class GalleryTypeFragment : Fragment() {
         }
         startActivity(intent)
     }
-
-    private fun genreTag() {
-
-    }
-
-
 }
