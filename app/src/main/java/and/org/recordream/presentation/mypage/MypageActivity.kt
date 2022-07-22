@@ -89,7 +89,6 @@ class MypageActivity : AppCompatActivity() {
             time = "PM 03:10"
         )
         val call = RecordreamClient.mypageService.postPushTime(
-            1,
             requestMypagePutTime
         )
         call.enqueueUtil(

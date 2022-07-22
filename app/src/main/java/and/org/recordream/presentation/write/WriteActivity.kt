@@ -4,13 +4,14 @@ import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.request.RequestWrite
 import and.org.recordream.databinding.ActivityWriteBinding
 import and.org.recordream.databinding.FragmentDetailBottomSheetBinding
+import and.org.recordream.presentation.detail.DetailActivity
 import and.org.recordream.util.enqueueUtil
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDateTime
@@ -25,7 +26,7 @@ class WriteActivity : AppCompatActivity() {
     var dreamcolor: Int = 0
     var dreamgnre = mutableSetOf<Int>(10)
     var gnrecount = 0
-    val dateAndtime: LocalDateTime = LocalDateTime.now()
+    val currenttime = LocalDateTime.now()
     var dateString = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +36,6 @@ class WriteActivity : AppCompatActivity() {
         clickSave() //저장버튼
         voiceClick()
         checkTunderExplanation()
-//        wirteInitNetwork()
         emotionClick()
         colorClick()
         dateClick()
@@ -55,7 +55,7 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun backClick(){
+    private fun backClick() {
         binding.ivWriteBack.setOnClickListener {
             finish()
         }
@@ -66,22 +66,36 @@ class WriteActivity : AppCompatActivity() {
             if (!binding.btnWriteSave.isSelected) {
                 Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                wirteInitNetwork()
+//                hideKeyboard()
+                writeInitNetwork()
+                val intent = Intent(this@WriteActivity, DetailActivity::class.java)
+                startActivity(intent)
                 finish()
             }
         }
     }
 
-    private fun dateClick(){
+//    private fun hideKeyboard(view: View) {    키보드 들어가게 하는거
+//        val inputMethodManager =
+//            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
+
+    private fun dateClick() {
         binding.clWriteDay.setOnClickListener {
             val cal = Calendar.getInstance()    //캘린더뷰 만들기
-            val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                dateString = "${year}-${month+1}-${dayOfMonth}"
-                binding.tvWriteDetailday.setText(dateString)
-//                result.text = "날짜/시간 : "+dateString + " / " + timeString
-            }
-            DatePickerDialog(this, dateSetListener, cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show()
-            Log.d("dateString", "dateString: $cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)")
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    dateString = "${year}-${month + 1}-${dayOfMonth}"
+                    binding.tvWriteDetailday.setText(dateString)
+                }
+            DatePickerDialog(
+                this,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
     }
 
@@ -116,25 +130,29 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun wirteInitNetwork() {
+    private fun writeInitNetwork() {
+        Log.d("title", "$title ")
         val requestWrite = RequestWrite(
             title = binding.tvWriteEditdream.text.toString(),
-            date = dateAndtime,
+            date = "$currenttime",
             content = binding.etWriteContent.text.toString(),
             emotion = tmp,
             dream_color = dreamcolor,
-            genre = dreamgnre,
+            genre = mutableSetOf(1,2,3),
             note = binding.etWriteNotecontent.text.toString(),
             voice = "62cdb868c3032f2b7af76531",
             writer = "62c9cf068094605c781a2fb9"
         )
-        val call = RecordreamClient.writeService.postRecordDescription(
-            1,
+
+        val call = RecordreamClient.writeService.postRecordDescription(1,
             requestWrite
         )
         call.enqueueUtil(
             onSuccess = {
                 Log.d("data", "${it.status}")
+            },
+            onError = {
+                Log.d("error", "writeInitNetwork: ")
             }
         )
     }
@@ -162,74 +180,74 @@ class WriteActivity : AppCompatActivity() {
 
     private fun dreamgnre() {   //장르 서버 연동
         Log.d("gnre", "gnrecount: $gnrecount")
-        binding.tvWriteComedy.setOnClickListener {
+        binding.btnWriteComedy.setOnClickListener {
             dreamgnre.add(0)
-            binding.tvWriteComedy.isSelected =true
+            binding.btnWriteComedy.isSelected = true
 //            binding.ivDreamRed.
             Log.d("gnre", "dreamgnre: $dreamgnre")
             gnrecount++
         }
-        binding.tvWriteRomense.setOnClickListener {
+        binding.btnWriteRomense.setOnClickListener {
             dreamgnre.add(1)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteAction.setOnClickListener {
+        binding.btnWriteAction.setOnClickListener {
             dreamgnre.add(2)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteThrill.setOnClickListener {
+        binding.btnWriteThrill.setOnClickListener {
             dreamgnre.add(3)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteMystery.setOnClickListener {
+        binding.btnWriteMystery.setOnClickListener {
             dreamgnre.add(4)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteFear.setOnClickListener {
+        binding.btnWriteFear.setOnClickListener {
             dreamgnre.add(5)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        binding.tvWriteSf.setOnClickListener {
+        binding.btnWriteSf.setOnClickListener {
             dreamgnre.add(6)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteFantasy.setOnClickListener {
+        binding.btnWriteFantasy.setOnClickListener {
             dreamgnre.add(7)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteFamily.setOnClickListener {
+        binding.btnWriteFamily.setOnClickListener {
             dreamgnre.add(8)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvWriteEtc.setOnClickListener {
+        binding.btnWriteEtc.setOnClickListener {
             dreamgnre.add(9)
             gnrecount++
-            if ( gnrecount > 4) {
+            if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }

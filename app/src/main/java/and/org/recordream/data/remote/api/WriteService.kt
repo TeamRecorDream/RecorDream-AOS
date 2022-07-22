@@ -10,7 +10,7 @@ import retrofit2.http.POST
 
 interface WriteService {
 
-    @POST("/record")
+    @POST("record")
     fun postRecordDescription(
         @Header("userId") userId: Int = 1,
         @Body body: RequestWrite

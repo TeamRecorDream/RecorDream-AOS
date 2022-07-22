@@ -1,10 +1,11 @@
 package and.org.recordream.data.remote.request
 
 import java.time.LocalDateTime
+import java.util.*
 
 data class RequestWrite(
     val content: String,
-    val date: LocalDateTime,
+    val date: String,
     val dream_color: Int,
     val emotion: Int,
     val genre: MutableSet<Int>,
