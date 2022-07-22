@@ -18,6 +18,20 @@ class RecordreamMapping {
         return emotionStr
     }
 
+    fun emotionImgMapping(emotion: Int): Int {
+        var emotionImg: Int = 0
+        when (emotion) {
+            1 -> emotionImg = R.drawable.icon_2_joy
+            2 -> emotionImg = R.drawable.icon_2_shocked
+            3 -> emotionImg = R.drawable.icon_2_love
+            4 -> emotionImg = R.drawable.icon_2_shy
+            5 -> emotionImg = R.drawable.icon_2_sad
+            6 -> emotionImg = R.drawable.icon_2_angry
+            7 -> emotionImg = R.drawable.icon_2_blank
+        }
+        return emotionImg
+    }
+
     fun colorMapping(dream_color: Int): String {
         var colorStr: String = ""
         when (dream_color) {
@@ -34,9 +48,9 @@ class RecordreamMapping {
 
     }
 
-    fun genreMapping(genre: List<Int>): MutableList<String> {
+    fun genreMapping(genre: List<Int>?): MutableList<String> {
         val genreStr = mutableListOf<String>()
-        genre.map {
+        genre?.map {
             when (it) {
                 0 -> genreStr.add("코미디")
                 1 -> genreStr.add("로맨스")

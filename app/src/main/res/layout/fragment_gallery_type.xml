@@ -21,4 +21,5 @@
         app:spanCount="2"
         tools:itemCount="8"
         tools:listitem="@layout/item_storage_gallery" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

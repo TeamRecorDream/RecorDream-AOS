@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="and.org.recordream">
 
+    <!-- Permissions of internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@drawable/app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recordream"
         android:usesCleartextTraffic="true"
@@ -28,6 +30,9 @@
             android:value="false" />
 
         <activity
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.write.WriteActivity"
             android:exported="true" />
         <activity
@@ -35,9 +40,7 @@
             android:exported="true" />
         <activity
             android:name=".presentation.detail.DetailActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
@@ -55,7 +58,18 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <!-- 외부 저장소 사용을 위한 FileProvider auth 추가. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.khs.instagramshareexampleproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/path">
 
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>
