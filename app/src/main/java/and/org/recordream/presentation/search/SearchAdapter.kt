@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SearchAdapter(private val itemClick: (Record) -> Unit) :
     RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
-    val listRecords = mutableListOf<Record>()
+    var listRecords = mutableListOf<Record>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val binding = ItemStorageListBinding.inflate(
