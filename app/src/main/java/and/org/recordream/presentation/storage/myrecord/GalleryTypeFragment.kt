@@ -1,10 +1,14 @@
 package and.org.recordream.presentation.storage.myrecord
 
-import and.org.recordream.R
+import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
+import and.org.recordream.presentation.detail.DetailActivity
 import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
+import and.org.recordream.util.enqueueUtil
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,42 +19,57 @@ class GalleryTypeFragment : Fragment() {
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var galleryTypeAdapter: GalleryTypeAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentGalleryTypeBinding.inflate(layoutInflater, container, false)
 
+        binding.textView.setOnClickListener {
+            initNetwork()
+
+        }
+        //initNetwork()
         initAdapter()
+
+
         return binding.root
     }
 
-    private fun emotionMatch() {
-        val emotion: Int = 0
-        val img: Int
-        when (emotion) {
-            0 -> img = R.drawable.logo
 
-        }
+    private fun initNetwork() {
+        val selectedEmotion = arguments?.getInt("emotion")
+
+        Log.d("q2fsfqlnekhqhkvhklwvhwlkvhwv", "$selectedEmotion")
+
+        selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it, 1) }?.enqueueUtil(
+            onSuccess = {
+                it.data?.let { _it -> addItemList(_it.records) }
+                Log.d("******status******", "${it.status}")
+
+            })
     }
+
 
     private fun initAdapter() {
         galleryTypeAdapter = GalleryTypeAdapter {
-            it.emotion
+            toDetailView(it.id)
         }
         binding.rvStorageGallery.adapter = galleryTypeAdapter
-        addItemList()
+
     }
 
-    private fun addItemList() {
-        galleryTypeAdapter.galleryRecords.addAll(
-            listOf<Record>(
-                Record("wdwdddw", "12121", 2, 2, listOf(2, 4), "232")
-
-            )
-        )
+    private fun addItemList(data: List<Record>) {
+        galleryTypeAdapter.galleryRecords = data as MutableList<Record>
+        galleryTypeAdapter.notifyDataSetChanged()
     }
 
-    //   context?.let { ContextCompat.getDrawable(it,R.drawable.logo) }
-//            ?.let { binding.tvStorageMyemotion.background = it }
+    private fun toDetailView(id: String) {
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        intent.apply {
+            putExtra("id", id)
+        }
+        startActivity(intent)
+    }
 }
