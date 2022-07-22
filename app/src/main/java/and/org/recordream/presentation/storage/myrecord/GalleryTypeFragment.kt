@@ -4,7 +4,6 @@ import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
 import and.org.recordream.presentation.detail.DetailActivity
-import and.org.recordream.presentation.storage.StorageFragment
 import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
 import and.org.recordream.util.enqueueUtil
 import android.content.Intent
@@ -19,7 +18,7 @@ class GalleryTypeFragment : Fragment() {
     private var _binding: FragmentGalleryTypeBinding? = null
     private val binding get() = _binding ?: error("Binding is not initialization")
     private lateinit var galleryTypeAdapter: GalleryTypeAdapter
-   // private var oneLineCallback: ((List<String>) -> Unit)? = null
+    // private var oneLineCallback: ((List<String>) -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +32,7 @@ class GalleryTypeFragment : Fragment() {
 //                Log.d("123123123123321213312", "$it")
 
 
-           // }
+            // }
         }
         //initNetwork()
         initAdapter()
@@ -50,8 +49,12 @@ class GalleryTypeFragment : Fragment() {
 
         selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it, 1) }?.enqueueUtil(
             onSuccess = {
-                it.data?.let { _it -> addItemList(_it.records) }
+                it.data?.let { _it ->
+                    addItemList(_it.records)
+                }
+                val a = it.data?.records[].genre[]
                 Log.d("******status******", "${it.status}")
+
             })
     }
 
@@ -65,7 +68,7 @@ class GalleryTypeFragment : Fragment() {
     }
 
     private fun addItemList(data: List<Record>) {
-        galleryTypeAdapter.galleryRecords = data as MutableList<Record>
+        data.galleryTypeAdapter.galleryRecords = data as MutableList<Record>
         galleryTypeAdapter.notifyDataSetChanged()
     }
 
@@ -75,6 +78,10 @@ class GalleryTypeFragment : Fragment() {
             putExtra("id", id)
         }
         startActivity(intent)
+    }
+
+    private fun genreTag() {
+
     }
 
 
