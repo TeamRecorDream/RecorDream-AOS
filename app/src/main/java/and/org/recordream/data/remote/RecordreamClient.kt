@@ -4,7 +4,7 @@ import and.org.recordream.data.remote.api.MypageService
 import and.org.recordream.data.remote.api.StorageService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+import java.io.IOException
 
 
 object RecordreamClient {
@@ -13,13 +13,34 @@ object RecordreamClient {
     private val retrofit: Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(provideOkHttpClient(AppInterceptor()))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     val storageService: StorageService = retrofit.create(StorageService::class.java)
 
     //mypgae
+    val writeService: WriteService = retrofit.create(WriteService::class.java)
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val mypagePushModify:MypageService = retrofit.create(MypageService::class.java)
     val mypageEditNickname:MypageService = retrofit.create(MypageService::class.java)
+    val recorDreamServicee: RecorDreamService = retrofit.create(RecorDreamService::class.java)
+
+    val homeService: HomeService = retrofit.create(HomeService::class.java)
+}
+
+private fun provideOkHttpClient(interceptor: AppInterceptor): OkHttpClient =
+    OkHttpClient.Builder().run {
+        addInterceptor(interceptor)
+        build()
+    }
+
+class AppInterceptor : Interceptor {
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+        val newRequest = request().newBuilder()
+            .addHeader("userId", "1")
+            .build()
+        proceed(newRequest)
+    }
 }

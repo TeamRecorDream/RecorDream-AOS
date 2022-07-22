@@ -3,7 +3,7 @@ package and.org.recordream.data.remote.response
 data class ResponseMypagePutTime(
     val `data`: Data,
 ) {
-    data class Date(
+    data class Data(
         val _id: String
     )
 }

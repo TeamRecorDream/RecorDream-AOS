@@ -17,8 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-
     private var amOrpm = ""
     private var hourvalue = ""
     private var minvalue = 0
@@ -107,14 +105,5 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun clickSave(){
-        resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-                val data = result.data ?: return@registerForActivityResult
-//                binding.text =
-//                    "${data.getStringExtra(WEIGHT_LEFT)}.${data.getStringExtra(WEIGHT_RIGHT)}"
-            }
-    }
 }
 

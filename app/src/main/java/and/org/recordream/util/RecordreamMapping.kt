@@ -1,5 +1,7 @@
 package and.org.recordream.util
 
+import and.org.recordream.R
+
 class RecordreamMapping {
     fun emotionMapping(emotion: Int): String {
         var emotionStr: String = ""
@@ -32,7 +34,7 @@ class RecordreamMapping {
 
     }
 
-    fun genreMapping(genre: Array<Int>): MutableList<String> {
+    fun genreMapping(genre: List<Int>): MutableList<String> {
         val genreStr = mutableListOf<String>()
         genre.map {
             when (it) {
@@ -46,7 +48,7 @@ class RecordreamMapping {
                 7 -> genreStr.add("판타지")
                 8 -> genreStr.add("가족/친구")
                 9 -> genreStr.add("기타")
-                10 -> genreStr.add("장르 선택 안됨")
+                10 -> genreStr.add("아직 설정되지 않았어요")
 
                 else -> {
                     throw IllegalArgumentException()
@@ -54,5 +56,76 @@ class RecordreamMapping {
             }
         }
         return genreStr
+    }
+
+    fun matchEmotion(emotion: Int): Int {
+        var emotionImg: Int = 7
+        when (emotion) {
+            1 -> emotionImg = R.drawable.property_1_icon_smile_selected
+            2 -> emotionImg = R.drawable.property_1_icon_surprise_selected
+            3 -> emotionImg = R.drawable.property_1_icon_love_selected
+            4 -> emotionImg = R.drawable.property_1_icon_shy_selected
+            5 -> emotionImg = R.drawable.property_1_icon_sad_selected
+            6 -> emotionImg = R.drawable.property_1_icon_angry_selected
+            7 -> emotionImg = R.drawable.property_1_icon_unclassified_selected
+        }
+        return emotionImg
+    }
+
+    fun matchHomeEmotion(emotion: Int): Int {
+        var emotionImg: Int = 7
+        when (emotion) {
+            0 -> emotionImg = 0
+            1 -> emotionImg = R.drawable.icon_3_joy
+            2 -> emotionImg = R.drawable.icon_3_shocked
+            3 -> emotionImg = R.drawable.icon_3_love
+            4 -> emotionImg = R.drawable.icon_3_shy
+            5 -> emotionImg = R.drawable.icon_3_sad
+            6 -> emotionImg = R.drawable.icon_3_angry
+            7 -> emotionImg = R.drawable.icon_3_blank
+        }
+        return emotionImg
+    }
+
+    fun matchHomeColor(dream_color: Int): Int? {
+        var colorHomeImg: Int = 0
+        when (dream_color) {
+            0 -> colorHomeImg = R.drawable.property_1_card_main_black
+            1 -> colorHomeImg = R.drawable.property_1_card_main_green
+            2 -> colorHomeImg = R.drawable.property_1_card_main_blue
+            3 -> colorHomeImg = R.drawable.property_1_card_main_orange
+            4 -> colorHomeImg = R.drawable.property_1_card_main_purple
+            5 -> colorHomeImg = R.drawable.property_1_card_main_pink
+            6 -> colorHomeImg = R.drawable.property_1_card
+        }
+        return colorHomeImg
+    }
+
+    fun matchDetailColor(dream_color: Int): Int {
+        var colorDetailImg: Int = 0
+        when (dream_color) {
+            0 -> colorDetailImg = R.drawable.property_1_bg_record_black
+            1 -> colorDetailImg = R.drawable.property_1_bg_record_green
+            2 -> colorDetailImg = R.drawable.property_1_bg_record_blue
+            3 -> colorDetailImg = R.drawable.property_1_bg_record_orange
+            4 -> colorDetailImg = R.drawable.property_1_bg_record_purple
+            5 -> colorDetailImg = R.drawable.property_1_bg_record_pink
+            6 -> colorDetailImg = R.drawable.property_1_bg_record_red
+        }
+        return colorDetailImg
+    }
+
+    fun matchTextColor(dream_color: Int): Int {
+        var textColor: Int = 0
+        when (dream_color) {
+            0 -> textColor = R.color.dark_blue03_28283A
+            1 -> textColor = R.color.sub_green01_26C179
+            2 -> textColor = R.color.sub_blue01_00C9FF
+            3 -> textColor = R.color.sub_orange01_F85F4A
+            4 -> textColor = R.color.sub_purple01_AB53F9
+            5 -> textColor = R.color.sub_pink01_EA37A2
+            6 -> textColor = R.color.sub_red01_D60228
+        }
+        return textColor
     }
 }

@@ -3,13 +3,14 @@
     <item
         android:id="@+id/homeFragment2"
         android:icon="@drawable/ic_home"
-        android:title="@string/bnv_main_home" />
+        android:title="@string/bnv_main_home"
+        />
 
     <item
         android:id="@+id/menu_empty"
         android:checkable="false"
-        android:enabled="false"
-        android:title="" />
+
+        android:title="@string/bnv_main_write" />
 
     <item
         android:id="@+id/storageFragment2"

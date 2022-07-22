@@ -15,6 +15,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
 
 class MypageActivity : AppCompatActivity() {
@@ -34,8 +35,7 @@ class MypageActivity : AppCompatActivity() {
         showDialog()
         editClick()
         backClick()
-        //  clickEnter()
-        initNoticeNetwork()
+        firebase()
     }
 
     private fun createBottomSheet() {
@@ -47,7 +47,7 @@ class MypageActivity : AppCompatActivity() {
             //  스위치가 켜지면
             if (onSwitch) {
                 createBottomSheet()
-                settinTime()
+                settingTime()
             }
         }
     }
@@ -100,21 +100,26 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun settinTime() {  //현재 시간 불러오기
+    private fun settingTime() {
         val dateAndtime: LocalDateTime = LocalDateTime.now()
 //        binding.tvWriteSelectTime.setText(dateAndtime)
         Log.d("dateAndtime", "settinTime:$dateAndtime ")
     }
 
+    private fun firebase() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("firebaseToken", "firebase: ${task.result}")
+            }
+        }
+    }
 
-    //푸쉬알림
-    private fun initNoticeNetwork() {
+    private fun initNetwork() {
         val requestMypagePutTime = RequestMypagePutTime(
             token = "00000",
-            time = ""
+            time = "PM 03:10"
         )
         val call = RecordreamClient.mypageService.postPushTime(
-            1,
             requestMypagePutTime
         )
         call.enqueueUtil(

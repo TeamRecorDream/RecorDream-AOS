@@ -7,7 +7,7 @@
 
         <variable
             name="records"
-            type="and.org.recordream.data.local.Record" />
+            type="and.org.recordream.data.remote.response.ResponseHomeRecord" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,12 +19,10 @@
             android:id="@+id/cl_home_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@{records.dream_color}"
             tools:background="@drawable/property_1_card_main_green">
 
             <ImageView
                 android:id="@+id/iv_home_emoticon"
-                imgResId="@{records.emotion}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -38,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
-                android:text="@{records.date}"
                 android:textAppearance="@style/M14"
                 app:layout_constraintBottom_toTopOf="@id/tv_home_card_title"
                 app:layout_constraintStart_toStartOf="@id/tv_home_card_title"
@@ -65,10 +62,9 @@
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginBottom="140dp"
-                android:background="@color/white"
+                android:background="@drawable/shape_genre_radius"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
-                android:text="@{records.genre[0]}"
                 android:textAppearance="@style/B14"
                 android:textColor="@{records.dream_color}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -82,10 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginBottom="140dp"
-                android:background="@color/white"
+                android:background="@drawable/shape_genre_radius"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
-                android:text="@{records.genre[1]}"
                 android:textAppearance="@style/B14"
                 android:textColor="@{records.dream_color}"
                 app:layout_constraintStart_toEndOf="@id/tv_home_genre1"
@@ -98,10 +93,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:background="@color/white"
+                android:background="@drawable/shape_genre_radius"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
-                android:text="@{records.genre[2]}"
                 android:textAppearance="@style/B14"
                 android:textColor="@{records.dream_color}"
                 app:layout_constraintStart_toEndOf="@id/tv_home_genre2"

@@ -15,7 +15,7 @@ class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()
     private var mPaint: Paint = Paint()
 
-    private val CURVE_CIRCLE_RADIUS = 190 / 2
+    private val CURVE_CIRCLE_RADIUS = 190 / 2 // 움푹파이는자식
 
     private val mFirstCurveStartPoint = Point()
     private val mFirstCurveEndPoint = Point()
@@ -47,7 +47,7 @@ class CustomBottomNavigationView : BottomNavigationView {
 
     private fun init() {
         mPaint.style = Paint.Style.FILL_AND_STROKE
-        mPaint.color = ContextCompat.getColor(context, R.color.black)
+        mPaint.color = ContextCompat.getColor(context, R.color.dark_blue01_000119) // 네비게이션 색상
         setBackgroundColor(Color.TRANSPARENT)
     }
 
@@ -57,17 +57,17 @@ class CustomBottomNavigationView : BottomNavigationView {
         mNavigationBarWidth = width
         mNavigationBarHeight = height
 
-        mFirstCurveStartPoint.set(
-            mNavigationBarWidth / 2 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3,
+        mFirstCurveStartPoint.set( // CURVE_CIRCLE_RADIUS 굴곡담당
+            (mNavigationBarWidth / 1.92 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3).toInt(),
             0
         )
         mFirstCurveEndPoint.set(
-            mNavigationBarWidth / 2,
+            (mNavigationBarWidth / 2),
             CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4
         )
         mSecondCurveStartPoint = mFirstCurveEndPoint
         mSecondCurveEndPoint.set(
-            mNavigationBarWidth / 2 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3,
+            (mNavigationBarWidth / 2.1 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3).toInt(),
             0
         )
 
@@ -77,12 +77,12 @@ class CustomBottomNavigationView : BottomNavigationView {
         )
 
         mFirstCurveControlPoint2.set(
-            mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS,
+            (mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2.29 + CURVE_CIRCLE_RADIUS).toInt(),
             mFirstCurveEndPoint.y
         )
 
         mSecondCurveControlPoint1.set(
-            mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS,
+            (mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2.29 - CURVE_CIRCLE_RADIUS).toInt(),
             mSecondCurveStartPoint.y
         )
         mSecondCurveControlPoint2.set(

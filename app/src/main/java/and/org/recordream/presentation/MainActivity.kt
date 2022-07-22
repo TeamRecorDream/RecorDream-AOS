@@ -3,6 +3,7 @@ package and.org.recordream.presentation
 import and.org.recordream.R
 import and.org.recordream.databinding.ActivityMainBinding
 import and.org.recordream.presentation.mypage.MypageActivity
+import and.org.recordream.presentation.write.WriteActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -32,5 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding.ivMainMypage.setOnClickListener {
             startActivity(Intent(this, MypageActivity::class.java))
         }
+
+        binding.ivMainWritebtn.setOnClickListener {
+            val intent = Intent(this, WriteActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

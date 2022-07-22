@@ -288,12 +288,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:layout_marginTop="13dp"
                     android:src="@drawable/selector_write_emotion_shy"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
                     app:layout_constraintEnd_toStartOf="@+id/iv_emotion_sad"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_love"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    app:layout_constraintTop_toTopOf="@id/iv_emotion_love" />
 
                 <ImageView
                     android:id="@+id/iv_emotion_sad"
