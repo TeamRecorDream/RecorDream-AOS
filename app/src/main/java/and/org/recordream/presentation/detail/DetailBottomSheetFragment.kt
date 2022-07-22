@@ -1,6 +1,7 @@
 package and.org.recordream.presentation.detail
 
 import and.org.recordream.R
+import and.org.recordream.data.remote.response.ResponseEdit
 import and.org.recordream.databinding.FragmentDetailBottomSheetBinding
 import and.org.recordream.presentation.edit.EditActivity
 import and.org.recordream.util.CustomDialog
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import io.grpc.InternalChannelz.id
 
 
 class DetailBottomSheetFragment : BottomSheetDialogFragment() {
@@ -33,7 +35,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         )
         initDialog()
         clickShare()
-        clickEdit()
+//        clickEdit()
         clickEvent()
         return binding.root
     }
@@ -50,15 +52,16 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun clickEdit() {
-        binding.tvDetailBottomEdit.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, EditActivity::class.java)
-                startActivity(intent)
-            }
-
-        }
-    }
+//    private fun clickEdit() {
+//        binding.tvDetailBottomEdit.setOnClickListener {
+//            activity?.let {
+//                val intent = Intent(context, EditActivity::class.java)
+//                toDetailView()
+//                startActivity(intent)
+//            }
+//
+//        }
+//    }
 
 
     private fun clickEvent() {
@@ -75,4 +78,11 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
 
     }
 
+    private fun toDetailView(id: String) {
+        val intent = Intent(requireContext(), DetailActivity::class.java)
+        intent.apply {
+            putExtra("id", id)
+        }
+        startActivity(intent)
+    }
 }

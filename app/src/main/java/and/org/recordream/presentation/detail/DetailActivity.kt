@@ -1,16 +1,16 @@
 package and.org.recordream.presentation.detail
 
-import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.ResponseDetailDreamRecord
 import and.org.recordream.databinding.ActivityDetailBinding
 import and.org.recordream.util.CustomDialog
 import and.org.recordream.util.RecordreamMapping
-import and.org.recordream.util.enqueueUtil
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -43,9 +43,25 @@ class DetailActivity : AppCompatActivity() {
 
         // initBottomSheet()
         // showDialog()
-        binding.ivDotsMore.setOnClickListener { createBottom() }
+        showBottom()
 
     }
+
+    private fun showBottom() {
+        binding.ivDotsMore.setOnClickListener {
+            createBottom()
+//            toDetailView()
+        }
+
+    }
+
+//    private fun toDetailView(id: String) {
+//        val intent = Intent(requireContext(), DetailActivity::class.java)
+//        intent.apply {
+//            putExtra("id", id)
+//        }
+//        startActivity(intent)
+//    }
 
     private fun createBottom() {
         detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
