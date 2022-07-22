@@ -78,9 +78,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/bnv_main_customnav"
+        android:layout_marginTop="525dp"
+        app:layout_constraintTop_toTopOf="@+id/fcv_main_navhostfragment"
         app:srcCompat="@drawable/btn_footer_write"
         tools:layout_editor_absoluteX="136dp" />
 
