@@ -15,6 +15,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+
     <style name="B28">
         <item name="fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">28dp</item>
@@ -120,7 +121,6 @@
     <!--상세보기 뷰 커스텀바텀시트 테마 -->
     <style name="BottomSheetTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
-
     </style>
 
     <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -143,10 +143,6 @@
         <item name="cornerSizeBottomLeft">0dp</item>
 
     </style>
-
-
-    <!--상세보기 뷰 커스텀바텀시트 테마 -->
-
 
     <!-- 상세보기 뷰 탭레이아웃 글꼴-->
     <style name="TabUnselected" parent="Widget.MaterialComponents.TabLayout">
@@ -173,16 +169,17 @@
     <style name="Switch" parent="Theme.AppCompat.Light">
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">#AB53F9</item>
+
+<!--         inactive thumb color -->
+<!--        <item name="colorSwitchThumbNormal">@color/white01_FFFFFF</item>-->
+    </style>
+    <!--bottomsheet-->
+    <style name="BottomSheetDialog.Style" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Modal.Style</item>
     </style>
 
-    <!--바텀시트에서 사용-->
-    <style name="TransparentBottomSheetDialogFragment" parent="Theme.Design.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
-    </style>
-
-    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
+    <style name="Modal.Style" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rectangle_radius_18dp_mypage_top</item>
     </style>
-
 
 </resources>

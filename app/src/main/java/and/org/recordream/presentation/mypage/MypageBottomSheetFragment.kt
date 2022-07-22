@@ -2,10 +2,14 @@ package and.org.recordream.presentation.mypage//package before.forget.feature.wr
 
 import and.org.recordream.R
 import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -47,12 +51,8 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         amOrpmSettiing()
         hourSettiing()
         minuteSettiing()
+//        clickSave()
         initDialog()
-
-        setStyle( // Background -> Transparent.
-            STYLE_NORMAL,
-            R.style.TransparentBottomSheetDialogFragment
-        )
 
         return binding.root
     }
@@ -104,7 +104,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
-
 
 }
 
