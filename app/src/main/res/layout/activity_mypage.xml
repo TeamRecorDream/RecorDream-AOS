@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/v_mypate_line"
+        android:id="@+id/v_mypage_line"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginTop="21dp"
@@ -43,7 +43,7 @@
         android:src="@drawable/icon_user_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/v_mypate_line" />
+        app:layout_constraintTop_toTopOf="@id/v_mypage_line" />
 
     <TextView
         android:id="@+id/tv_mypage_nickname"
@@ -59,7 +59,7 @@
 
     <EditText
         android:id="@+id/ed_mypage_editnickname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:visibility="invisible"
@@ -122,9 +122,9 @@
             android:switchMinWidth="0dp"
             android:textOff=""
             android:textOn=""
+            android:theme="@style/Switch"
             android:thumb="@drawable/setting_switch_thumb"
             android:thumbTextPadding="15dp"
-            android:track="@drawable/selector_switch_track"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_mypage_pushalam"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_pushalam"

@@ -13,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
-
     private var amOrpm = ""
     private var hourvalue = ""
     private var minvalue = 0
@@ -50,6 +49,11 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         minuteSettiing()
         initDialog()
 
+        setStyle( // Background -> Transparent.
+            STYLE_NORMAL,
+            R.style.TransparentBottomSheetDialogFragment
+        )
+
         return binding.root
     }
 
@@ -81,20 +85,20 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun minuteSettiing() { // 바텀시트 오류발생부분
+    private fun minuteSettiing() {
         binding.npDatepickerMinute.minValue = 0
         binding.npDatepickerMinute.maxValue = 59
-        binding.npDatepickerHour.wrapSelectorWheel = false
+        binding.npDatepickerMinute.wrapSelectorWheel = false
 
 //        binding.npDatepickerMinute.displayedValues = minvalue
 
         binding.npDatepickerMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            binding.npDatepickerHour.wrapSelectorWheel = false
+            binding.npDatepickerMinute.wrapSelectorWheel = false
         }
     }
 
-    private fun initDialog() { // 바텀시트달기
+    private fun initDialog() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
 
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED

@@ -120,18 +120,33 @@
     <!--상세보기 뷰 커스텀바텀시트 테마 -->
     <style name="BottomSheetTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+
     </style>
 
-    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
-        <item name="android:colorBackground">@color/dark_blue02_191A30</item>
+        <item name="android:colorBackground">@color/dark_blue01_000119</item>
     </style>
 
-    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
-        <item name="backgroundTint">@android:color/transparent</item>
-        <item name="android:background">@drawable/shape_detail_rounded_dialog</item>
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomsheetDialog</item>
+        <item name="android:backgroundTint">@color/transparent</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomsheetDialog" parent="">
+        <item name="android:background">@color/dark_blue01_000119</item>
+        <item name="android:backgroundTint">@color/transparent</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
 
     </style>
+
+
+    <!--상세보기 뷰 커스텀바텀시트 테마 -->
+
 
     <!-- 상세보기 뷰 탭레이아웃 글꼴-->
     <style name="TabUnselected" parent="Widget.MaterialComponents.TabLayout">
@@ -153,5 +168,21 @@
         <item name="android:textSize">24dp</item>
         <item name="android:editTextColor">@color/white01_FFFFFF</item>
     </style>
+
+    <!--switch-->
+    <style name="Switch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#AB53F9</item>
+    </style>
+
+    <!--바텀시트에서 사용-->
+    <style name="TransparentBottomSheetDialogFragment" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
+    </style>
+
+    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rectangle_radius_18dp_mypage_top</item>
+    </style>
+
 
 </resources>

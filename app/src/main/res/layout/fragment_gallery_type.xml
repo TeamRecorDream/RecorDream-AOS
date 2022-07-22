@@ -4,17 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.storage.myrecord.ListFragment">
+    tools:context=".presentation.storage.myrecord.GalleryTypeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_storage_list"
-        android:layout_width="0dp"
+        android:id="@+id/rv_storage_gallery"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="11dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_storage_list" />
-
+        app:spanCount="2"
+        tools:itemCount="8"
+        tools:listitem="@layout/item_storage_gallery" />
 </androidx.constraintlayout.widget.ConstraintLayout>
