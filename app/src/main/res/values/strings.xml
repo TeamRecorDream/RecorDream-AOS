@@ -75,7 +75,10 @@
     <!-- 보관함 뷰 -->
     <string name="tv_storage_emotion">나의 감정</string>
     <string name="tv_storage_recordtxt">개의 기록</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- 검색 뷰 -->
+    <string name="tv_search_search">검색하기</string>
+    <string name="tv_search_enter">검색어 입력</string>
+    <string name="tv_search_recordtxt">개의 기록</string>
 
 
 </resources>
