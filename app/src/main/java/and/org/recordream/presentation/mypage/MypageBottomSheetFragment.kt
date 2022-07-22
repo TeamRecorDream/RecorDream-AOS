@@ -1,7 +1,6 @@
 package and.org.recordream.presentation.mypage//package before.forget.feature.write
 
 import and.org.recordream.R
-import and.org.recordream.databinding.ActivityMypageBinding
 import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class   MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentMypageBottomSheetBinding
-
     private var amOrpm = ""
     private var hourvalue = ""
     private var minvalue = 0
@@ -50,6 +48,11 @@ class   MypageBottomSheetFragment : BottomSheetDialogFragment() {
         hourSettiing()
         minuteSettiing()
         initDialog()
+
+        setStyle( // Background -> Transparent.
+            STYLE_NORMAL,
+            R.style.TransparentBottomSheetDialogFragment
+        )
 
         return binding.root
     }
@@ -101,7 +104,6 @@ class   MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
-
 
 
 }

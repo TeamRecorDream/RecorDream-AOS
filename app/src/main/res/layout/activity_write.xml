@@ -288,12 +288,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/icon_2_shy_off"
+                    android:src="@drawable/selector_write_emotion_shy"
                     app:layout_constraintBottom_toBottomOf="@id/cl_write_emotionbackground"
                     app:layout_constraintEnd_toStartOf="@+id/iv_emotion_sad"
                     app:layout_constraintStart_toEndOf="@id/iv_emotion_love"
-                    app:layout_constraintTop_toTopOf="@id/cl_write_emotionbackground" />
+                    app:layout_constraintTop_toTopOf="@id/iv_emotion_love" />
 
                 <ImageView
                     android:id="@+id/iv_emotion_sad"
@@ -434,11 +433,11 @@
                 android:background="@color/dark_blue01_000119"
                 app:layout_constraintTop_toBottomOf="@id/tv_write_genredream">
 
-                <TextView
-                    android:id="@+id/tv_write_comedy"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_comedy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_write_gnre"
+                    android:background="@drawable/rectangle_border_7dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:paddingHorizontal="8dp"
@@ -448,8 +447,8 @@
                     app:layout_constraintStart_toStartOf="@id/cl_write_dreamtag"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
-                <TextView
-                    android:id="@+id/tv_write_romense"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_romense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -460,11 +459,11 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_romense"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_comedy"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_comedy"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
-                <TextView
-                    android:id="@+id/tv_write_action"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -475,12 +474,12 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_action"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_romense"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_romense"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag"
                     app:layout_goneMarginStart="10dp" />
 
-                <TextView
-                    android:id="@+id/tv_write_thrill"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_thrill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -491,11 +490,12 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_thrill"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_action"
+
+                    app:layout_constraintStart_toEndOf="@id/btn_write_action"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
-                <TextView
-                    android:id="@+id/tv_write_mystery"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_mystery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -506,11 +506,11 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_mystery"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_thrill"
+                    app:layout_constraintStart_toEndOf="@id/btn_write_thrill"
                     app:layout_constraintTop_toTopOf="@id/cl_write_dreamtag" />
 
-                <TextView
-                    android:id="@+id/tv_write_fear"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_fear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rectangle_border_7dp"
@@ -520,11 +520,11 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_fear"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toStartOf="@id/tv_write_comedy"
-                    app:layout_constraintTop_toBottomOf="@id/tv_write_comedy" />
+                    app:layout_constraintStart_toStartOf="@id/btn_write_comedy"
+                    app:layout_constraintTop_toBottomOf="@id/btn_write_comedy" />
 
-                <TextView
-                    android:id="@+id/tv_write_sf"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_sf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -535,11 +535,11 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_fear"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_fear"
-                    app:layout_constraintTop_toTopOf="@id/tv_write_fear" />
+                    app:layout_constraintStart_toEndOf="@id/btn_write_fear"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_fear" />
 
-                <TextView
-                    android:id="@+id/tv_write_fantasy"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_fantasy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -550,11 +550,11 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_fantasy"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_sf"
-                    app:layout_constraintTop_toTopOf="@id/tv_write_sf" />
+                    app:layout_constraintStart_toEndOf="@id/btn_write_sf"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_sf" />
 
-                <TextView
-                    android:id="@+id/tv_write_family"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_family"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -565,11 +565,11 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_family"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_fantasy"
-                    app:layout_constraintTop_toTopOf="@id/tv_write_fantasy" />
+                    app:layout_constraintStart_toEndOf="@id/btn_write_fantasy"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_fantasy" />
 
-                <TextView
-                    android:id="@+id/tv_write_etc"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_write_etc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -580,8 +580,8 @@
                     android:paddingVertical="5dp"
                     android:text="@string/btn_write_etc"
                     android:textAppearance="@style/B12"
-                    app:layout_constraintStart_toEndOf="@id/tv_write_family"
-                    app:layout_constraintTop_toTopOf="@id/tv_write_family" />
+                    app:layout_constraintStart_toEndOf="@id/btn_write_family"
+                    app:layout_constraintTop_toTopOf="@id/btn_write_family" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
