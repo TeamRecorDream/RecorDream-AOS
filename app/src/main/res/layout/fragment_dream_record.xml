@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="18dp"
-                    android:text="01:42"
+                    android:text="00:05"
                     android:textAppearance="@style/B14"
                     android:visibility="gone"
                     app:layout_constraintStart_toEndOf="@id/iv_detail_record_icon"
