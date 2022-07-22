@@ -74,6 +74,7 @@ class DetailActivity : AppCompatActivity() {
                 Log.d("dddddddddd", "${it.status}")
 
                 val data = it.data
+                Log.d("데이터", "${it.data}")
                 if (data != null) {
                     applyData(data)
                 }
@@ -153,6 +154,6 @@ class DetailActivity : AppCompatActivity() {
 //                binding.tvHomeGenre3.setTextColor(applyTextColor)
 //            }
 //        }
-//    }
-}}
+    }
+}
 

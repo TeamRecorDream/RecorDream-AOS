@@ -21,7 +21,6 @@ class MypageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
         pushSwitchClick()
