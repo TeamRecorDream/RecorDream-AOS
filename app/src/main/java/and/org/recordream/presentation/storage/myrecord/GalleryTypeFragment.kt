@@ -4,6 +4,7 @@ import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.FragmentGalleryTypeBinding
 import and.org.recordream.presentation.detail.DetailActivity
+import and.org.recordream.presentation.storage.StorageFragment
 import and.org.recordream.presentation.storage.adapter.GalleryTypeAdapter
 import and.org.recordream.util.enqueueUtil
 import android.content.Intent
@@ -49,10 +50,7 @@ class GalleryTypeFragment : Fragment() {
 
         selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it, 1) }?.enqueueUtil(
             onSuccess = {
-                it.data?.let { _it ->
-                    addItemList(_it.records)
-                }
-                val a = it.data?.records[].genre[]
+                it.data?.let { _it -> addItemList(_it.records) }
                 Log.d("******status******", "${it.status}")
 
             })
@@ -68,7 +66,7 @@ class GalleryTypeFragment : Fragment() {
     }
 
     private fun addItemList(data: List<Record>) {
-        data.galleryTypeAdapter.galleryRecords = data as MutableList<Record>
+        galleryTypeAdapter.galleryRecords = data as MutableList<Record>
         galleryTypeAdapter.notifyDataSetChanged()
     }
 
