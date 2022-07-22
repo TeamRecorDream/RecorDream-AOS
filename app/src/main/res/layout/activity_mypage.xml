@@ -29,7 +29,7 @@
     <View
         android:id="@+id/v_mypage_line"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_marginTop="21dp"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
@@ -62,7 +62,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:textColor="@color/white01_FFFFFF"
+        android:textAppearance="@style/B18"
         android:visibility="invisible"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="@+id/tv_mypage_nickname"
         app:layout_constraintStart_toStartOf="@+id/tv_mypage_nickname"
         app:layout_constraintTop_toTopOf="@+id/tv_mypage_nickname" />
