@@ -6,11 +6,11 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface StorageService {
+interface SearchService {
 
-    @GET("record/storage/list")
+    @GET("record/storage/search")
     fun getMyRecord(
-        @Query("filter") num: Int,
+        @Query("keyword") keyword: String,
     ): Call<ResponseWrapper<ResponseRecords>>
 
 }
