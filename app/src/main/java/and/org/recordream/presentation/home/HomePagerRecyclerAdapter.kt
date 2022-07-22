@@ -4,23 +4,40 @@ import and.org.recordream.R
 import and.org.recordream.data.remote.response.ResponseHomeRecord
 import and.org.recordream.databinding.HomeCardItemBinding
 import and.org.recordream.util.RecordreamMapping
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class HomeViewPagerAdapter() :
+class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     RecyclerView.Adapter<HomeViewPagerAdapter.PagerViewHolder>() {
-    var homeCardList = mutableListOf<ResponseHomeRecord>()
+    private val asyncDiffer = AsyncListDiffer(this, diffResult)
+
+    private var homeCardList = mutableListOf<ResponseHomeRecord>()
+
+    fun updateList(list: MutableList<ResponseHomeRecord>) {
+//        Log.i("list.size", homeCardList.size.toString())
+//        homeCardList = list
+//        this.notifyDataSetChanged()
+        asyncDiffer.submitList(list)
+    }
 
     class PagerViewHolder(
-        private val binding: HomeCardItemBinding
+        private val binding: HomeCardItemBinding,
+        private val itemClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseHomeRecord) {
             binding.tvHomeDate.text = data.date
             binding.tvHomeCardTitle.text = data.title
             applyData(data)
+
+            binding.root.setOnClickListener {
+                itemClick(data._id)
+            }
         }
 
         val recorDreamMapping = RecordreamMapping()
@@ -84,11 +101,11 @@ class HomeViewPagerAdapter() :
             parent,
             false
         )
-        return PagerViewHolder(binding)
+        return PagerViewHolder(binding, itemClick)
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.onBind(homeCardList[position])
+        holder.onBind(asyncDiffer.currentList[position])
 //
 //        holder.itemView.setOnClickListener {
 //            val intent = Intent(holder.itemView?.context, DetailActivity::class.java)
@@ -97,6 +114,24 @@ class HomeViewPagerAdapter() :
     }
 
     override fun getItemCount(): Int {
-        return homeCardList.size
+        return asyncDiffer.currentList.size
+    }
+
+    companion object {
+        private val diffResult = object : DiffUtil.ItemCallback<ResponseHomeRecord>() {
+            override fun areItemsTheSame(
+                oldItem: ResponseHomeRecord,
+                newItem: ResponseHomeRecord
+            ): Boolean {
+                return oldItem._id == newItem._id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: ResponseHomeRecord,
+                newItem: ResponseHomeRecord
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

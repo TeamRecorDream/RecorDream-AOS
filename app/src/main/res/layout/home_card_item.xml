@@ -5,9 +5,7 @@
 
     <data>
 
-        <variable
-            name="records"
-            type="and.org.recordream.data.remote.response.ResponseHomeRecord" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -47,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
                 android:maxLines="3"
-                android:text="@{records.title}"
+
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -66,7 +64,7 @@
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
                 android:textAppearance="@style/B14"
-                android:textColor="@{records.dream_color}"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="#미스터리"
@@ -82,7 +80,7 @@
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
                 android:textAppearance="@style/B14"
-                android:textColor="@{records.dream_color}"
+
                 app:layout_constraintStart_toEndOf="@id/tv_home_genre1"
                 app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
                 tools:text="#가족/친구"
@@ -97,7 +95,7 @@
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
                 android:textAppearance="@style/B14"
-                android:textColor="@{records.dream_color}"
+                
                 app:layout_constraintStart_toEndOf="@id/tv_home_genre2"
                 app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
                 tools:text="#로맨스"
