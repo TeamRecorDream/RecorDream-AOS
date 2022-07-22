@@ -1,11 +1,5 @@
 package and.org.recordream.data.remote
 
-import and.org.recordream.data.remote.api.HomeService
-import and.org.recordream.data.remote.api.MypageService
-import and.org.recordream.data.remote.api.RecorDreamService
-import and.org.recordream.data.remote.api.SearchService
-import and.org.recordream.data.remote.api.StorageService
-import and.org.recordream.data.remote.api.WriteService
 import and.org.recordream.data.remote.api.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
