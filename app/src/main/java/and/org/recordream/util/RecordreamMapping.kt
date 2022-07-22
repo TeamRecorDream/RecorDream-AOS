@@ -19,7 +19,7 @@ class RecordreamMapping {
     }
 
     fun emotionImgMapping(emotion: Int): Int {
-        var emotionImg : Int = 0
+        var emotionImg: Int = 0
         when (emotion) {
             1 -> emotionImg = R.drawable.icon_2_joy
             2 -> emotionImg = R.drawable.icon_2_shocked

@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class HomeViewPagerAdapter() :
+class HomeViewPagerAdapter :
     RecyclerView.Adapter<HomeViewPagerAdapter.PagerViewHolder>() {
     var homeCardList = mutableListOf<ResponseHomeRecord>()
 

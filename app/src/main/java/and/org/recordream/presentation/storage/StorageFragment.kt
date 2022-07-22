@@ -36,7 +36,6 @@ class StorageFragment : Fragment() {
     }
 
 
-
     private fun initNetwork(selected: Int) {
 
         val call = RecordreamClient.storageService.getMyRecord(selected, 1)
