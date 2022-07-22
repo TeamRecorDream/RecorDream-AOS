@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -84,8 +84,8 @@
                 android:paddingEnd="4dp"
                 android:paddingBottom="3dp"
                 android:textAppearance="@style/B8"
-                android:visibility="invisible"
                 android:textColor="@color/sub_pink01_EA37A2"
+                android:visibility="invisible"
                 app:layout_constraintStart_toEndOf="@+id/tv_storage_genre2"
                 app:layout_constraintTop_toTopOf="@+id/tv_storage_genre2"
                 tools:text="# 미스터리" />
@@ -101,8 +101,8 @@
                 android:paddingEnd="4dp"
                 android:paddingBottom="3dp"
                 android:textAppearance="@style/B8"
-                android:visibility="invisible"
                 android:textColor="@color/sub_pink01_EA37A2"
+                android:visibility="invisible"
                 app:layout_constraintStart_toEndOf="@+id/tv_storage_genre1"
                 app:layout_constraintTop_toTopOf="@+id/tv_storage_genre1"
                 tools:text="# 미스터리" />
@@ -120,8 +120,8 @@
                 android:paddingEnd="4dp"
                 android:paddingBottom="3dp"
                 android:textAppearance="@style/B8"
-                android:visibility="invisible"
                 android:textColor="@color/sub_pink01_EA37A2"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_storage_title"
