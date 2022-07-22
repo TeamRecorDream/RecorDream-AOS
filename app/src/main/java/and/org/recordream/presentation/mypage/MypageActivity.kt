@@ -82,6 +82,8 @@ class MypageActivity : AppCompatActivity() {
     private fun editClick() {   //이름 수정
         initNicknameNetwork()
         binding.ivMypageEdit.setOnClickListener {
+            binding.edMypageEditnickname.visibility = View.VISIBLE
+            binding.tvMypageNickname.visibility = View.INVISIBLE
             focusEditText()
             clickEnter()
         }
@@ -120,6 +122,7 @@ class MypageActivity : AppCompatActivity() {
             time = "PM 03:10"
         )
         val call = RecordreamClient.mypageService.postPushTime(
+            1,
             requestMypagePutTime
         )
         call.enqueueUtil(

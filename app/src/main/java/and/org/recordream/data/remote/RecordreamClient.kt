@@ -1,7 +1,9 @@
 package and.org.recordream.data.remote
 
-import and.org.recordream.data.remote.api.MypageService
-import and.org.recordream.data.remote.api.StorageService
+import and.org.recordream.data.remote.api.*
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
@@ -22,8 +24,8 @@ object RecordreamClient {
     //mypgae
     val writeService: WriteService = retrofit.create(WriteService::class.java)
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
-    val mypagePushModify:MypageService = retrofit.create(MypageService::class.java)
-    val mypageEditNickname:MypageService = retrofit.create(MypageService::class.java)
+    val mypagePushModify: MypageService = retrofit.create(MypageService::class.java)
+    val mypageEditNickname: MypageService = retrofit.create(MypageService::class.java)
     val recorDreamServicee: RecorDreamService = retrofit.create(RecorDreamService::class.java)
 
     val homeService: HomeService = retrofit.create(HomeService::class.java)

@@ -51,7 +51,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         amOrpmSettiing()
         hourSettiing()
         minuteSettiing()
-        clickSave()
+//        clickSave()
         initDialog()
 
         return binding.root
