@@ -22,7 +22,7 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private lateinit var dialog: CustomDialog
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
-    private var token = ""
+    private var token = "c5TOohRtSMavGcdWJUp6fT:APA91bGIo1M_S_fw-IsYQiXRkvjgdD8xq6Gfkm0EEykuzudch-ELUYJPADZa1p2szGgE0MThqJjM06W9jEj-lN9NQ4VSdZA_ljqREgDlTtATF4gSVWA2VGl9LoBn-e4aosInEor6QDxO"
     private var time = ""
     private var nickname = ""
 
@@ -35,6 +35,8 @@ class MypageActivity : AppCompatActivity() {
         showDialog()
         editClick()
         backClick()
+        initNetwork()
+        editEditNickname()
         firebase()
     }
 
@@ -47,7 +49,6 @@ class MypageActivity : AppCompatActivity() {
             //  스위치가 켜지면
             if (onSwitch) {
                 createBottomSheet()
-                settingTime()
             }
         }
     }
@@ -57,9 +58,71 @@ class MypageActivity : AppCompatActivity() {
             dialog = CustomDialog(this@MypageActivity)
             dialog.showDropOutDialog(R.layout.detail_delete_dialog)
         }
-
     }
-    private fun clickEnter() {  //엔터로 입력
+
+    private fun editEditNickname(){
+        binding.tvMypageNickname.setOnClickListener {
+            initNicknameNetwork()
+            binding.edMypageEditnickname.visibility = View.VISIBLE
+            binding.tvMypageNickname.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun editClick() {   //이름 수정
+        binding.ivMypageEdit.setOnClickListener {
+          nickname= binding.edMypageEditnickname.text.toString()
+            binding.tvMypageNickname.setText(nickname)
+        }
+    }
+
+    private fun backClick() {   //뒤로가기
+        binding.ivMypageBackbtn.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun firebase() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("firebaseToken", "firebase: ${task.result}")
+            }
+        }
+    }
+
+    private fun initNetwork() {
+        val requestMypagePutTime = RequestMypagePutTime(
+            token = "c5TOohRtSMavGcdWJUp6fT:APA91bGIo1M_S_fw-IsYQiXRkvjgdD8xq6Gfkm0EEykuzudch-ELUYJPADZa1p2szGgE0MThqJjM06W9jEj-lN9NQ4VSdZA_ljqREgDlTtATF4gSVWA2VGl9LoBn-e4aosInEor6QDxO",
+            time = "PM 03:10"
+        )
+        val call = RecordreamClient.mypageService.postPushTime(
+            1,
+            requestMypagePutTime
+        )
+        call.enqueueUtil(
+            onSuccess = {
+                Log.d("data", "${it.status}")
+            },
+            onError = {
+                Log.d("error", "error  ")
+            }
+        )
+    }
+
+    //이름 수정 서버
+    private fun initNicknameNetwork() {
+        val requesMypageNickname = RequesMypageNickname(
+            nickname = nickname
+        )
+        val call = RecordreamClient.mypageEditNickname.putEditNickname(
+            1,
+            requesMypageNickname
+        )
+    }
+}
+
+/*
+닉네임 입력
+private fun clickEnter() {  //엔터로 입력
         val str = SpannableStringBuilder("")
         binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
             var handled = false
@@ -78,71 +141,13 @@ class MypageActivity : AppCompatActivity() {
             this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
-    private fun editClick() {   //이름 수정
-        initNicknameNetwork()
-        binding.ivMypageEdit.setOnClickListener {
-            binding.edMypageEditnickname.visibility = View.VISIBLE
-            binding.tvMypageNickname.visibility = View.INVISIBLE
-            focusEditText()
-            clickEnter()
-        }
-//        binding.edMypageEditnickname.visibility =
-    }
     private fun focusEditText() {
-//        binding.edMypageEditnickname.focusable = 1
+//       binding.edMypageEditnickname.focusable = 1
         val inputMethodManager =
             this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.edMypageEditnickname, 0)
     }
-
-    private fun backClick() {   //뒤로가기
-        binding.ivMypageBackbtn.setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun settingTime() {
-        val dateAndtime: LocalDateTime = LocalDateTime.now()
-//        binding.tvWriteSelectTime.setText(dateAndtime)
-        Log.d("dateAndtime", "settinTime:$dateAndtime ")
-    }
-
-    private fun firebase() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("firebaseToken", "firebase: ${task.result}")
-            }
-        }
-    }
-
-    private fun initNetwork() {
-        val requestMypagePutTime = RequestMypagePutTime(
-            token = "00000",
-            time = "PM 03:10"
-        )
-        val call = RecordreamClient.mypageService.postPushTime(
-            1,
-            requestMypagePutTime
-        )
-        call.enqueueUtil(
-            onSuccess = {
-                Log.d("data", "${it.status}")
-            }
-        )
-    }
-
-    //이름 수정 서버
-    private fun initNicknameNetwork() {
-        val requesMypageNickname = RequesMypageNickname(
-            nickname = nickname
-        )
-        val call = RecordreamClient.mypageEditNickname.putEditNickname(
-            1,
-            requesMypageNickname
-        )
-    }
-}
+ */
 
 //private fun clickEnter() {
 //        binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->

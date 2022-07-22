@@ -67,6 +67,7 @@
         android:visibility="invisible"
         android:maxLength="8"
         android:maxLines="1"
+        android:singleLine="true"
         android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="@+id/tv_mypage_nickname"
         app:layout_constraintStart_toStartOf="@+id/tv_mypage_nickname"

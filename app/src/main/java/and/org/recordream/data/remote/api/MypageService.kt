@@ -19,7 +19,7 @@ interface MypageService {
         @Body body: RequestMypagePutTime
     ): Call<ResponseWrapper<ResponseMypagePutTime>>
 
-    @PUT("/user/nickname")
+    @PUT("user/nickname")
     fun putEditNickname(    //닉네임 수정
         @Header("userId") userId: Int = 1,
         @Body post: RequesMypageNickname
