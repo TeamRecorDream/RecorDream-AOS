@@ -94,6 +94,7 @@
             android:inputType="textPersonName"
             android:hint="@string/et_search_enter"
             android:textAppearance="@style/M14"
+            android:textColor="@color/white01_FFFFFF"
             android:textColorHint="@color/white02_80FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,6 +128,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_search_recordtxt"
             android:textAppearance="@style/B12"
+            android:visibility="invisible"
             app:layout_constraintStart_toEndOf="@+id/tv_search_total"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -151,16 +153,16 @@
         android:id="@+id/tv_search_none"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="263dp"
         android:text="@string/tv_search_none"
         android:textAppearance="@style/B18"
         android:textColor="@color/white02_80FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_search_logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vi_search_bar2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_search_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="65dp"

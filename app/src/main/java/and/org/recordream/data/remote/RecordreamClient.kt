@@ -3,6 +3,7 @@ package and.org.recordream.data.remote
 import and.org.recordream.data.remote.api.HomeService
 import and.org.recordream.data.remote.api.MypageService
 import and.org.recordream.data.remote.api.RecorDreamService
+import and.org.recordream.data.remote.api.SearchService
 import and.org.recordream.data.remote.api.StorageService
 import and.org.recordream.data.remote.api.WriteService
 import okhttp3.Interceptor
@@ -27,8 +28,8 @@ object RecordreamClient {
     val writeService: WriteService = retrofit.create(WriteService::class.java)
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val recorDreamServicee: RecorDreamService = retrofit.create(RecorDreamService::class.java)
-
     val homeService: HomeService = retrofit.create(HomeService::class.java)
+    val searchService: SearchService = retrofit.create(SearchService::class.java)
 }
 
 private fun provideOkHttpClient(interceptor: AppInterceptor): OkHttpClient =

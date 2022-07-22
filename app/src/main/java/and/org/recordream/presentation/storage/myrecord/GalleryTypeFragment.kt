@@ -43,7 +43,7 @@ class GalleryTypeFragment : Fragment() {
 
         Log.d("q2fsfqlnekhqhkvhklwvhwlkvhwv", "$selectedEmotion")
 
-        selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it, 1) }?.enqueueUtil(
+        selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it) }?.enqueueUtil(
             onSuccess = {
                 it.data?.let { _it -> addItemList(_it.records) }
                 Log.d("******status******", "${it.status}")
