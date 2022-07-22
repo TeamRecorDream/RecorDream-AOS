@@ -27,17 +27,17 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val recordId = intent.getStringExtra("id") ?: ""
         // btnShowBottomSheet = binding.ivDotsMore
 
 
         initAdapter()
         initTabLayout()
         initBackButton()
-        initNetwork()
+        initNetwork(recordId)
 
         // initBottomSheet()
         // showDialog()
-        val recordId = intent.getStringExtra("id")
         binding.ivDotsMore.setOnClickListener { createBottom() }
 
     }
@@ -65,20 +65,18 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNetwork() {
-//        val requestDetail = RequestDetailDreamRecord(
-//            recordId = "62d16e7fe8b4508dbca5ead6"
-//        )
-        val recordId = "62d7b6f19669f53b6c72a89f"
-        Log.d("dddddddddd", "wddddddddd123123ddddd")
-        val call = RecordreamClient.recorDreamServicee.getDetailRecord(recordId)
+    private fun initNetwork(id: String) {
+
+        val call = RecordreamClient.recorDreamServicee.getDetailRecord(id)
 
         call.enqueueUtil(
             onSuccess = {
                 Log.d("dddddddddd", "${it.status}")
 
                 val data = it.data
-                applyData(data)
+                if (data != null) {
+                    applyData(data)
+                }
             },
             onError = {
                 Log.d("dddddddddd", "$it")
@@ -86,12 +84,24 @@ class DetailActivity : AppCompatActivity() {
         )
     }
 
-    private fun applyData(response: ResponseDetailDreamRecord?) {
+    private fun applyData(response: ResponseDetailDreamRecord) {
         val applyEmotion = response?.emotion?.let { recorDreamMapping.matchEmotion(it) }
-        val applyTextColor = response?.let { recorDreamMapping.matchTextColor(it.dream_color) }
-        val applyGenre = response?.let { recorDreamMapping.genreMapping(it.genre) }
-        val applyCardImage = response?.let { recorDreamMapping.matchDetailColor(it.dream_color) }
-
+        val applyTextColor = response?.let {
+            it.dream_color?.let { it1 ->
+                recorDreamMapping.matchTextColor(
+                    it1
+                )
+            }
+        }
+        val applyGenre = RecordreamMapping().genreMapping(response.genre)
+        Log.d("ddddddddddddddddddddddd", "$applyGenre")
+        val applyCardImage = response?.let {
+            it.dream_color?.let { it1 ->
+                recorDreamMapping.matchDetailColor(
+                    it1
+                )
+            }
+        }
 //        context?.let { ContextCompat.getDrawable(it, R.drawable.logo) }
 //          ?.let { binding.ivDetailDreamColor.background = it }
 ////        binding.ivDetailDreamColor = applyCardImage
@@ -102,46 +112,47 @@ class DetailActivity : AppCompatActivity() {
         if (applyEmotion != null) {
             binding.ivProfile.setBackgroundResource(applyEmotion)
         }
+        binding.tvRecordTitle.text = response?.title
 //
 //        binding.ivProfile.setImageDrawable(applyEmotion)
 
-        if (response != null) {
-            binding.tvRecordDate.text = response.date
-            if (response.genre.size == 1) {
-                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-            }
-            if (response.genre.size == 2) {
-                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
-            }
-            if (response.genre.size == 3) {
-                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
-                binding.tvHomeGenre3.text = "#${applyGenre?.get(2)}"
-            }
-            when (response.genre.size) {
-                1 -> {
-                    binding.tvHomeGenre1.visibility = View.VISIBLE
-                    binding.tvHomeGenre2.visibility = View.INVISIBLE
-                    binding.tvHomeGenre3.visibility = View.INVISIBLE
-                }
-                2 -> {
-                    binding.tvHomeGenre1.visibility = View.VISIBLE
-                    binding.tvHomeGenre2.visibility = View.VISIBLE
-                    binding.tvHomeGenre3.visibility = View.INVISIBLE
-                }
-                3 -> {
-                    binding.tvHomeGenre1.visibility = View.VISIBLE
-                    binding.tvHomeGenre2.visibility = View.VISIBLE
-                    binding.tvHomeGenre3.visibility = View.VISIBLE
-                }
-            }
-            if (applyTextColor != null) {
-                binding.tvHomeGenre1.setTextColor(applyTextColor)
-                binding.tvHomeGenre2.setTextColor(applyTextColor)
-                binding.tvHomeGenre3.setTextColor(applyTextColor)
-            }
-        }
-    }
-}
+//        if (response != null) {
+//            binding.tvRecordDate.text = response.date
+//            if (response.genre.size == 1) {
+//                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+//            }
+//            if (response.genre.size == 2) {
+//                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+//                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
+//            }
+//            if (response.genre.size == 3) {
+//                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+//                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
+//                binding.tvHomeGenre3.text = "#${applyGenre?.get(2)}"
+//            }
+//            when (response.genre.size) {
+//                1 -> {
+//                    binding.tvHomeGenre1.visibility = View.VISIBLE
+//                    binding.tvHomeGenre2.visibility = View.INVISIBLE
+//                    binding.tvHomeGenre3.visibility = View.INVISIBLE
+//                }
+//                2 -> {
+//                    binding.tvHomeGenre1.visibility = View.VISIBLE
+//                    binding.tvHomeGenre2.visibility = View.VISIBLE
+//                    binding.tvHomeGenre3.visibility = View.INVISIBLE
+//                }
+//                3 -> {
+//                    binding.tvHomeGenre1.visibility = View.VISIBLE
+//                    binding.tvHomeGenre2.visibility = View.VISIBLE
+//                    binding.tvHomeGenre3.visibility = View.VISIBLE
+//                }
+//            }
+//            if (applyTextColor != null) {
+//                binding.tvHomeGenre1.setTextColor(applyTextColor)
+//                binding.tvHomeGenre2.setTextColor(applyTextColor)
+//                binding.tvHomeGenre3.setTextColor(applyTextColor)
+//            }
+//        }
+//    }
+}}
 
