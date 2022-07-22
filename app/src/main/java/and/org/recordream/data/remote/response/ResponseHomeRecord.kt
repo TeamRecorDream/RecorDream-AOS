@@ -1,6 +1,6 @@
-package and.org.recordream.data.local
+package and.org.recordream.data.remote.response
 
-data class Record(
+data class ResponseHomeRecord(
 
     val _id: String,
     val date: String,
