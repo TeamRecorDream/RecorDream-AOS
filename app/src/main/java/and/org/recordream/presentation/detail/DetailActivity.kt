@@ -102,6 +102,7 @@ class DetailActivity : AppCompatActivity() {
         if (applyEmotion != null) {
             binding.ivProfile.setBackgroundResource(applyEmotion)
         }
+        binding.tvRecordTitle.text = response?.title
 //
 //        binding.ivProfile.setImageDrawable(applyEmotion)
 
