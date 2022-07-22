@@ -38,7 +38,8 @@ class MypageActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         pushSwitchClick()
         showDialog()
-        editClick()
+        clickTime()
+        editEditNickname()
         backClick()
         firebase()
     }
@@ -60,6 +61,20 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
+    private fun clickTime() {
+        binding.clMypageSettingcountBack.setOnClickListener {
+            binding.scMypageSwitchbtn.setOnCheckedChangeListener { compoundButton, onSwitch ->
+                //  스위치가 켜지면
+                if (onSwitch) { //시간 부분 클릭 했을 때
+                    createBottomSheet()
+                } else {
+                    binding.clMypageSettingcountBack.isClickable = false
+                }
+            }
+
+        }
+    }
+
     private fun showDialog() {
         binding.tvMypageWithdrawl.setOnClickListener {
             dialog = CustomDialog(this@MypageActivity)
@@ -67,12 +82,13 @@ class MypageActivity : AppCompatActivity() {
         }
 
     }
+
     private fun clickEnter() {  //엔터로 입력
         val str = SpannableStringBuilder("")
         binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
             var handled = false
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard(binding.edMypageEditnickname)
+//                hideKeyboard(binding.edMypageEditnickname)
                 nickname = binding.edMypageEditnickname.text.toString()
                 handled = true
                 binding.edMypageEditnickname.text = str
@@ -81,7 +97,7 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun editEditNickname(){
+    private fun editEditNickname() {
         binding.tvMypageNickname.setOnClickListener {
             initNicknameNetwork()
             binding.edMypageEditnickname.visibility = View.VISIBLE
@@ -89,8 +105,8 @@ class MypageActivity : AppCompatActivity() {
             focusEditText()
             clickEnter()
         }
-//        binding.edMypageEditnickname.visibility =
     }
+
     private fun focusEditText() {
 //        binding.edMypageEditnickname.focusable = 1
         val inputMethodManager =

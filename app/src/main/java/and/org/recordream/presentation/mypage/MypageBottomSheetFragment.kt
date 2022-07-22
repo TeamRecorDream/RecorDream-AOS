@@ -2,14 +2,10 @@ package and.org.recordream.presentation.mypage//package before.forget.feature.wr
 
 import and.org.recordream.R
 import and.org.recordream.databinding.FragmentMypageBottomSheetBinding
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
