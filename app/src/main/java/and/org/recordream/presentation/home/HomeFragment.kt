@@ -32,12 +32,12 @@ class HomeFragment : Fragment(), LifecycleObserver {
     ): View? {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
-        binding.tvHomeHi.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, DetailActivity::class.java)
-                startActivity(intent)
-            }
-        }
+//        binding.tvHomeHi.setOnClickListener {
+//            activity?.let {
+//                val intent = Intent(context, DetailActivity::class.java)
+//                startActivity(intent)
+//            }
+//        }
 
         initAdapterHomeCard()
         initNetwork()
@@ -46,7 +46,12 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
 
     private fun initAdapterHomeCard() {
-        homeViewPagerAdapter = HomeViewPagerAdapter()
+        homeViewPagerAdapter = HomeViewPagerAdapter {
+            val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                putExtra("id", it)
+            }
+            startActivity(intent)
+        }
         binding.vpHome.adapter = homeViewPagerAdapter
 //        homeViewPagerAdapter.homeCardList.addAll(
 //            listOf<ResponseHomeRecord>(
@@ -124,8 +129,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     }
 
     private fun addHomeCardList(data: List<ResponseHomeRecord>) {
-        homeViewPagerAdapter.homeCardList = data as MutableList<ResponseHomeRecord>
-        homeViewPagerAdapter.notifyDataSetChanged()
+        (binding.vpHome.adapter as HomeViewPagerAdapter).updateList(data.toMutableList())
     }
 
     override fun onDestroyView() {

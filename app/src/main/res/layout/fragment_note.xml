@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="24dp"
-                    android:text="@{detail_dreamrecord.note}"
+
                     android:textAppearance="@style/R12"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

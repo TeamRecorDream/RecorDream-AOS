@@ -48,9 +48,9 @@ class RecordreamMapping {
 
     }
 
-    fun genreMapping(genre: List<Int>): MutableList<String> {
+    fun genreMapping(genre: List<Int>?): MutableList<String> {
         val genreStr = mutableListOf<String>()
-        genre.map {
+        genre?.map {
             when (it) {
                 0 -> genreStr.add("코미디")
                 1 -> genreStr.add("로맨스")

@@ -33,7 +33,7 @@ class WriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWriteBinding.inflate(layoutInflater)
 
-        clickSave() //저장버튼
+        clickSave("1") //저장버튼
         voiceClick()
         checkTunderExplanation()
         emotionClick()
@@ -61,7 +61,7 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickSave() {   //저장버튼 클릭 시
+    private fun clickSave(id: String) {   //저장버튼 클릭 시
         binding.btnWriteSave.setOnClickListener {
             if (!binding.btnWriteSave.isSelected) {
                 Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
@@ -69,6 +69,10 @@ class WriteActivity : AppCompatActivity() {
 //                hideKeyboard()
                 writeInitNetwork()
                 val intent = Intent(this@WriteActivity, DetailActivity::class.java)
+                intent.apply {
+                    putExtra("id", id)
+                }
+                Log.d("id값 찍어", "$id")
                 startActivity(intent)
                 finish()
             }

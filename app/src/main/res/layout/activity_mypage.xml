@@ -1,216 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.mypage.MypageActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_mypage_backbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:src="@drawable/icon_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_mypage_mypage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/tv_mypage_mypage"
-        android:textAppearance="@style/B16"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_mypage_backbtn"
-        app:layout_constraintStart_toEndOf="@id/iv_mypage_backbtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="viewmodel"
+            type="and.org.recordream.presentation.mypage.MyPageViewModel" />
 
-    <View
-        android:id="@+id/v_mypage_line"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="21dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_mypage_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="140dp"
-        android:layout_marginTop="47dp"
-        android:src="@drawable/icon_user_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/v_mypage_line" />
-
-    <TextView
-        android:id="@+id/tv_mypage_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/tv_mypage_nickname"
-        android:textAppearance="@style/B18"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile" />
-
-    <EditText
-        android:id="@+id/ed_mypage_editnickname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/tv_mypage_nickname"
-        app:layout_constraintStart_toStartOf="@+id/tv_mypage_nickname"
-        app:layout_constraintTop_toTopOf="@+id/tv_mypage_nickname" />
-
-    <ImageView
-        android:id="@+id/iv_mypage_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_pen"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_mypage_nickname"
-        app:layout_constraintStart_toEndOf="@id/tv_mypage_nickname"
-        app:layout_constraintTop_toTopOf="@id/tv_mypage_nickname" />
-
-    <TextView
-        android:id="@+id/tv_mypage_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/tv_mypage_email"
-        android:textAppearance="@style/M14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_nickname" />
+        <import type="android.view.View" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_mypage_pushalam_back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="29dp"
-        android:background="@drawable/rectangle_border_7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_email">
+        android:layout_height="match_parent"
+        tools:context=".presentation.mypage.MypageActivity">
+
+        <ImageView
+            android:id="@+id/iv_mypage_backbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_mypage_pushalam"
+            android:id="@+id/tv_mypage_mypage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"
-            android:text="@string/tv_mypage_pushalam"
-            android:textAppearance="@style/SB14"
-            app:layout_constraintBottom_toBottomOf="@id/cl_mypage_pushalam_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cl_mypage_pushalam_back" />
+            android:layout_marginTop="28dp"
+            android:text="@string/tv_mypage_mypage"
+            android:textAppearance="@style/B16"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_mypage_backbtn"
+            app:layout_constraintStart_toEndOf="@id/iv_mypage_backbtn"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/sc_mypage_switchbtn"
+        <View
+            android:id="@+id/v_mypage_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="21dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_mypage_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="189dp"
-            android:layout_marginEnd="19dp"
-            android:checked="false"
-            android:switchMinWidth="0dp"
-            android:textOff=""
-            android:textOn=""
-            android:theme="@style/Switch"
-            android:thumb="@drawable/setting_switch_thumb"
-            android:thumbTextPadding="15dp"
+            android:layout_marginHorizontal="140dp"
+            android:layout_marginTop="47dp"
+            android:src="@drawable/icon_user_profile"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_mypage_pushalam"
-            app:layout_constraintTop_toTopOf="@id/tv_mypage_pushalam"
-            app:switchMinWidth="50dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_mypage_settingcount_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rectangle_border_7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_mypage_pushalam_back">
-
-        <TextView
-            android:id="@+id/tv_mypage_settingtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="19dp"
-            android:text="@string/tv_mypage_settingtime"
-            android:textAppearance="@style/SB14"
-            app:layout_constraintBottom_toBottomOf="@id/cl_mypage_settingcount_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cl_mypage_settingcount_back" />
+            app:layout_constraintTop_toTopOf="@id/v_mypage_line" />
 
         <TextView
-            android:id="@+id/tv_mypage_time"
+            android:id="@+id/tv_mypage_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
+            android:layout_marginTop="11dp"
+            android:text="@string/tv_mypage_nickname"
+            android:textAppearance="@style/B18"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile" />
 
+        <EditText
+            android:id="@+id/ed_mypage_editnickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:imeOptions="actionDone"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:textAppearance="@style/B18"
+            android:textColor="@color/white01_FFFFFF"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/tv_mypage_nickname"
+            app:layout_constraintStart_toStartOf="@+id/tv_mypage_nickname"
+            app:layout_constraintTop_toTopOf="@+id/tv_mypage_nickname" />
+
+        <ImageView
+            android:id="@+id/iv_mypage_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_pen"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_mypage_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_mypage_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_nickname" />
+
+        <TextView
+            android:id="@+id/tv_mypage_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_mypage_email"
+            android:textAppearance="@style/M14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_nickname" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_pushalam_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="29dp"
+            android:background="@drawable/rectangle_border_7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.514"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_email">
+
+            <TextView
+                android:id="@+id/tv_mypage_pushalam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"
+                android:text="@string/tv_mypage_pushalam"
+                android:textAppearance="@style/SB14"
+                app:layout_constraintBottom_toBottomOf="@id/cl_mypage_pushalam_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_mypage_pushalam_back" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sc_mypage_switchbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="189dp"
+                android:layout_marginEnd="19dp"
+                android:checked="false"
+                android:switchMinWidth="0dp"
+                android:textOff=""
+                android:textOn=""
+                android:theme="@style/Switch"
+                android:thumb="@drawable/setting_switch_thumb"
+                android:thumbTextPadding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_mypage_pushalam"
+                app:layout_constraintTop_toTopOf="@id/tv_mypage_pushalam"
+                app:switchMinWidth="50dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_settingcount_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rectangle_border_7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_mypage_pushalam_back">
+
+            <TextView
+                android:id="@+id/tv_mypage_settingtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="19dp"
+                android:text="@string/tv_mypage_settingtime"
+                android:textAppearance="@style/SB14"
+                app:layout_constraintBottom_toBottomOf="@id/cl_mypage_settingcount_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_mypage_settingcount_back" />
+
+            <TextView
+                android:id="@+id/tv_mypage_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:text="@{viewmodel.amOrPm + ` ` + viewmodel.hour + `:` + viewmodel.minute}"
+                android:textAppearance="@style/M14"
+                android:textColor="@color/white"
+                android:visibility="@{viewmodel.isShow == true ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintEnd_toEndOf="@id/cl_mypage_settingcount_back"
+                app:layout_constraintTop_toTopOf="@id/tv_mypage_settingtime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_mypage_description_push_alam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/tv_mypage_description_push_alam"
+            android:textAppearance="@style/M12"
+            android:textColor="@color/white02_80FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/cl_mypage_settingcount_back" />
+
+        <Button
+            android:id="@+id/btn_mypate_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="88dp"
+            android:background="@drawable/rectangle_button_puple_gradient"
+            android:text="@string/btn_mypage_logout"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_mypage_withdrawl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/tv_mypage_withdrawl"
             android:textAppearance="@style/M14"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/cl_mypage_settingcount_back"
-            app:layout_constraintTop_toTopOf="@id/tv_mypage_settingtime" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_mypate_logout" />
+
+        <View
+            android:id="@+id/v_mypage_out_user_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/tv_mypage_withdrawl"
+            app:layout_constraintStart_toStartOf="@id/tv_mypage_withdrawl"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_withdrawl"
+
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tv_mypage_description_push_alam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/tv_mypage_description_push_alam"
-        android:textAppearance="@style/M12"
-        android:textColor="@color/white02_80FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/cl_mypage_settingcount_back" />
-
-    <Button
-        android:id="@+id/btn_mypate_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="88dp"
-        android:background="@drawable/rectangle_button_puple_gradient"
-        android:text="@string/btn_mypage_logout"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_mypage_withdrawl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/tv_mypage_withdrawl"
-        android:textAppearance="@style/M14"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_mypate_logout" />
-
-    <View
-        android:id="@+id/v_mypage_out_user_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/tv_mypage_withdrawl"
-        app:layout_constraintStart_toStartOf="@id/tv_mypage_withdrawl"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_withdrawl"
-
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
