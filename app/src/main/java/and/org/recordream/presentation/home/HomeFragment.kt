@@ -3,7 +3,6 @@ package and.org.recordream.presentation.home
 import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.ResponseHomeItems
 import and.org.recordream.data.remote.response.ResponseHomeRecord
-import and.org.recordream.data.remote.response.ResponseWrapper
 import and.org.recordream.databinding.FragmentHomeBinding
 import and.org.recordream.presentation.detail.DetailActivity
 import and.org.recordream.util.RecordreamMapping
@@ -19,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
-import and.org.recordream.data.remote.response.Record as Record1
 
 class HomeFragment : Fragment(), LifecycleObserver {
     private var _binding: FragmentHomeBinding? = null
@@ -49,6 +47,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
     private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter()
+        binding.vpHome.adapter = homeViewPagerAdapter
 //        homeViewPagerAdapter.homeCardList.addAll(
 //            listOf<ResponseHomeRecord>(
 //
@@ -80,19 +79,24 @@ class HomeFragment : Fragment(), LifecycleObserver {
 //            recordId = "62d16e7fe8b4508dbca5ead6"
 //        )
         val recordId = "62d7b6f19669f53b6c72a89f"
-        Log.d("dddddddddd", "wddddddddd123123ddddd")
+//        Log.d("dddddddddd", "wddddddddd123123ddddd")
         val call = RecordreamClient.homeService.getHomeRecord()
 
         call.enqueueUtil(
             onSuccess = {
-                Log.d("dddddddddd", "${it.status}")
+                Log.d("dddddddddd", "${it.data.toString()}")
 
                 val data = it.data
                 val recordData =
-                applyNickname(data)
+                    applyNickname(data)
+                it.data?.let { data ->
+                    addHomeCardList(data.records)
+                    Log.d("데이터체크", "${data.records}")
+
+                }
             },
             onError = {
-                Log.d("dddddddddd", "$it")
+                Log.d("ddddddd1234", "$it")
             }
         )
     }
@@ -117,6 +121,11 @@ class HomeFragment : Fragment(), LifecycleObserver {
                 }
             }
         }
+    }
+
+    private fun addHomeCardList(data: List<ResponseHomeRecord>) {
+        homeViewPagerAdapter.homeCardList = data as MutableList<ResponseHomeRecord>
+        homeViewPagerAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {
@@ -166,5 +175,3 @@ class HomeFragment : Fragment(), LifecycleObserver {
 //            }
 //        })
 //    }
-
-

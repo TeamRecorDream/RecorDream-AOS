@@ -29,6 +29,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             false
         )
         initDialog()
+        clickShare()
         clickEvent()
         return binding.root
     }
@@ -37,6 +38,12 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    private fun clickShare() {
+        binding.tvDetailBottomShare.setOnClickListener {
+
+        }
     }
 
     private fun clickEvent() {
