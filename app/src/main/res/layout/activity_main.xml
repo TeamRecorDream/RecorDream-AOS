@@ -27,19 +27,21 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
+        android:theme="@style/B12"
+        app:itemIconTint="@color/white01_FFFFFF"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_main_bnv"
-        tools:menu="@menu/menu_main_bnv" />
+        tools:menu="@menu/menu_main_bnv"
+        android:padding="3dp"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_main_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/dark_blue01_000119"
-       >
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/iv_main_logo"
