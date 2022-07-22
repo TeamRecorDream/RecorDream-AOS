@@ -5,6 +5,7 @@ import and.org.recordream.databinding.ActivitySearchBinding
 import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 class SearchActivity : AppCompatActivity() {
@@ -21,6 +22,11 @@ class SearchActivity : AppCompatActivity() {
             initNetwork(keyword)
         }
         setContentView(binding.root)
+        visibility()
+        binding.ivSearchSearchbtn.setOnClickListener {
+            val keyword = binding.etSearchEnter.text.toString()
+            initNetwork(keyword)
+        }
     }
 
     private fun initNetwork(search: String) {
@@ -37,6 +43,15 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
 
+    }
+
+    private fun visibility() {
+        with(binding) {
+            viSearchBar2.visibility = View.VISIBLE
+            clSearchResultfield.visibility = View.VISIBLE
+            tvSearchNone.visibility = View.INVISIBLE
+            ivSearchLogo.visibility = View.INVISIBLE
+        }
     }
 
 
