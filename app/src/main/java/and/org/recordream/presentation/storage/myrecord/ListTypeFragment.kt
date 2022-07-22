@@ -34,7 +34,7 @@ class ListTypeFragment : Fragment() {
     private fun addItemList() {
         listTypeAdapter.listRecords.addAll(
             listOf<Record>(
-                Record("wdwdddw", "12121", 2, 2, listOf(2, 4), "232")
+                Record("wdwdddw", "12121", 2, 2, listOf(2, 4), "오늘 밤새서 붙일 예정 ^^,,,")
             )
         )
     }

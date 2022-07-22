@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDateTime
@@ -22,21 +23,23 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private lateinit var dialog: CustomDialog
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
-    private var token = "c5TOohRtSMavGcdWJUp6fT:APA91bGIo1M_S_fw-IsYQiXRkvjgdD8xq6Gfkm0EEykuzudch-ELUYJPADZa1p2szGgE0MThqJjM06W9jEj-lN9NQ4VSdZA_ljqREgDlTtATF4gSVWA2VGl9LoBn-e4aosInEor6QDxO"
+    private var token = ""
     private var time = ""
     private var nickname = ""
+
+    private val viewModel by viewModels<MyPageViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
         pushSwitchClick()
         showDialog()
         editClick()
         backClick()
-        initNetwork()
-        editEditNickname()
         firebase()
     }
 
@@ -49,6 +52,10 @@ class MypageActivity : AppCompatActivity() {
             //  스위치가 켜지면
             if (onSwitch) {
                 createBottomSheet()
+                settingTime()
+                viewModel.setIsShow(true)
+            } else {
+                viewModel.setIsShow(false)
             }
         }
     }
@@ -58,6 +65,20 @@ class MypageActivity : AppCompatActivity() {
             dialog = CustomDialog(this@MypageActivity)
             dialog.showDropOutDialog(R.layout.detail_delete_dialog)
         }
+
+    }
+    private fun clickEnter() {  //엔터로 입력
+        val str = SpannableStringBuilder("")
+        binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
+            var handled = false
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard(binding.edMypageEditnickname)
+                nickname = binding.edMypageEditnickname.text.toString()
+                handled = true
+                binding.edMypageEditnickname.text = str
+            }
+            handled
+        }
     }
 
     private fun editEditNickname(){
@@ -65,20 +86,28 @@ class MypageActivity : AppCompatActivity() {
             initNicknameNetwork()
             binding.edMypageEditnickname.visibility = View.VISIBLE
             binding.tvMypageNickname.visibility = View.INVISIBLE
+            focusEditText()
+            clickEnter()
         }
+//        binding.edMypageEditnickname.visibility =
     }
-
-    private fun editClick() {   //이름 수정
-        binding.ivMypageEdit.setOnClickListener {
-          nickname= binding.edMypageEditnickname.text.toString()
-            binding.tvMypageNickname.setText(nickname)
-        }
+    private fun focusEditText() {
+//        binding.edMypageEditnickname.focusable = 1
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.edMypageEditnickname, 0)
     }
 
     private fun backClick() {   //뒤로가기
         binding.ivMypageBackbtn.setOnClickListener {
             finish()
         }
+    }
+
+    private fun settingTime() {
+        val dateAndtime: LocalDateTime = LocalDateTime.now()
+//        binding.tvWriteSelectTime.setText(dateAndtime)
+        Log.d("dateAndtime", "settinTime:$dateAndtime ")
     }
 
     private fun firebase() {

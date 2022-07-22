@@ -9,6 +9,7 @@ import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -23,21 +24,25 @@ class DetailActivity : AppCompatActivity() {
     // lateinit var btnShowBottomSheet: ImageView
     private val recorDreamMapping = RecordreamMapping()
 
+    private val viewModel by viewModels<DetailViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val recordId = intent.getStringExtra("id") ?: error("record Id 안 넘어옴 (승현)")
+        Log.i("iiii", recordId.toString())
         // btnShowBottomSheet = binding.ivDotsMore
 
 
         initAdapter()
         initTabLayout()
         initBackButton()
-        initNetwork()
+        initNetwork(recordId)
+        observeData()
 
         // initBottomSheet()
         // showDialog()
-        val recordId = intent.getStringExtra("id")
         binding.ivDotsMore.setOnClickListener { createBottom() }
 
     }
@@ -65,33 +70,44 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNetwork() {
-//        val requestDetail = RequestDetailDreamRecord(
-//            recordId = "62d16e7fe8b4508dbca5ead6"
+    private fun initNetwork(id: String) {
+        viewModel.getData(id)
+//        val call = RecordreamClient.recorDreamServicee.getDetailRecord(id)
+//
+//        call.enqueueUtil(
+//            onSuccess = {
+//                Log.d("dddddddddd", "${it.status}")
+//
+//                val data = it.data
+//                if (data != null) {
+//                    applyData(data)
+//                }
+//            },
+//            onError = {
+//                Log.d("dddddddddd", "$it")
+//            }
 //        )
-        val recordId = "62d7b6f19669f53b6c72a89f"
-        Log.d("dddddddddd", "wddddddddd123123ddddd")
-        val call = RecordreamClient.recorDreamServicee.getDetailRecord(recordId)
-
-        call.enqueueUtil(
-            onSuccess = {
-                Log.d("dddddddddd", "${it.status}")
-
-                val data = it.data
-                applyData(data)
-            },
-            onError = {
-                Log.d("dddddddddd", "$it")
-            }
-        )
     }
 
-    private fun applyData(response: ResponseDetailDreamRecord?) {
+    private fun applyData(response: ResponseDetailDreamRecord) {
+        Log.i("iiii", "applyData")
         val applyEmotion = response?.emotion?.let { recorDreamMapping.matchEmotion(it) }
-        val applyTextColor = response?.let { recorDreamMapping.matchTextColor(it.dream_color) }
-        val applyGenre = response?.let { recorDreamMapping.genreMapping(it.genre) }
-        val applyCardImage = response?.let { recorDreamMapping.matchDetailColor(it.dream_color) }
-
+        val applyTextColor = response?.let {
+            it.dream_color?.let { it1 ->
+                recorDreamMapping.matchTextColor(
+                    it1
+                )
+            }
+        }
+        val applyGenre = RecordreamMapping().genreMapping(response.genre)
+        Log.d("ddddddddddddddddddddddd", "$applyGenre")
+        val applyCardImage = response?.let {
+            it.dream_color?.let { it1 ->
+                recorDreamMapping.matchDetailColor(
+                    it1
+                )
+            }
+        }
 //        context?.let { ContextCompat.getDrawable(it, R.drawable.logo) }
 //          ?.let { binding.ivDetailDreamColor.background = it }
 ////        binding.ivDetailDreamColor = applyCardImage
@@ -102,8 +118,11 @@ class DetailActivity : AppCompatActivity() {
         if (applyEmotion != null) {
             binding.ivProfile.setBackgroundResource(applyEmotion)
         }
-//
-//        binding.ivProfile.setImageDrawable(applyEmotion)
+        binding.tvRecordTitle.text = response?.title
+
+        applyEmotion?.let {
+            binding.ivProfile.setImageResource(it)
+        }
 
         if (response != null) {
             binding.tvRecordDate.text = response.date
@@ -141,6 +160,12 @@ class DetailActivity : AppCompatActivity() {
                 binding.tvHomeGenre2.setTextColor(applyTextColor)
                 binding.tvHomeGenre3.setTextColor(applyTextColor)
             }
+        }
+    }
+
+    private fun observeData() {
+        viewModel.detailResponse.observe(this) {
+            applyData(it)
         }
     }
 }

@@ -10,8 +10,10 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.os.Message
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -33,27 +35,29 @@ class MyFireBaseMessagingService : FirebaseMessagingService() {
                 message.data["body"].toString()
             )
         } else {
-
+            message.notification?.let {
+                sendNotification(it.title.toString(), it.body.toString())
+            }
         }
     }
 
     private fun sendNotification(title: String?, body: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // 액티비티 중복 생성 방지
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT
-        ) // 일회성
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // 액티비티 중복 생성 방지
+//        val pendingIntent = PendingIntent.getActivity(
+//            this, 0, intent,
+//            PendingIntent.FLAG_ONE_SHOT
+//        ) // 일회성
 
-        val channelId = "channel" // 채널 아이디
+        val channelId = "default_messaging_channel" // 채널 아이디
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) // 소리
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title) // 제목
             .setContentText(body) // 내용
-            .setAutoCancel(true)
+            .setPriority(NotificationManagerCompat.IMPORTANCE_HIGH)
             .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
+//            .setContentIntent(pendingIntent)
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -62,13 +66,17 @@ class MyFireBaseMessagingService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "Channel human readable title",
-                NotificationManager.IMPORTANCE_DEFAULT
+                channelId,
+                NotificationManager.IMPORTANCE_HIGH
             )
             notificationManager.createNotificationChannel(channel)
-        }
+            with(NotificationManagerCompat.from(this)) {
+                notify(1000, notificationBuilder.build())
+            }
+        } else {
 
-        notificationManager.notify(0, notificationBuilder.build()) // 알림 생성
+            notificationManager.notify(0, notificationBuilder.build()) // 알림 생성
+        }
     }
 
     companion object {

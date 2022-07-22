@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 
 
 class DreamRecordFragment : Fragment() {
@@ -20,6 +21,8 @@ class DreamRecordFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var mediaPlayer: MediaPlayer
     lateinit var playIv: ImageView
+
+    private val viewModel by activityViewModels<DetailViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,25 +35,30 @@ class DreamRecordFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeData()
+    }
+
     private fun initNetwork() {
 //        val requestDetail = RequestDetailDreamRecord(
 //            recordId = "62d16e7fe8b4508dbca5ead6"
 //        )
         val recordId = "62d7b6f19669f53b6c72a89f"
         Log.d("dddddddddd", "wddddddddd123123ddddd")
-        val call = RecordreamClient.recorDreamServicee.getDetailRecord(recordId)
-
-        call.enqueueUtil(
-            onSuccess = {
-                Log.d("dddddddddd", "${it.status}")
+//        val call = RecordreamClient.recorDreamServicee.getDetailRecord(recordId)
 //
-                val data = it.data
-                applyData(data)
-            },
-            onError = {
-                Log.d("dddddddddd", "$it")
-            }
-        )
+//        call.enqueueUtil(
+//            onSuccess = {
+//                Log.d("dddddddddd", "${it.status}")
+////
+//                val data = it.data
+//                applyData(data)
+//            },
+//            onError = {
+//                Log.d("dddddddddd", "$it")
+//            }
+//        )
     }
 
     private fun applyData(response: ResponseDetailDreamRecord?) {
@@ -112,6 +120,12 @@ class DreamRecordFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun observeData() {
+        viewModel.detailResponse.observe(viewLifecycleOwner) {
+            applyData(it)
+        }
     }
 
     override fun onDestroyView() {

@@ -18,6 +18,17 @@
         android:theme="@style/Theme.Recordream"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="default_messaging_channel" />
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+
         <activity
             android:name=".presentation.search.SearchActivity"
             android:exported="false" />
@@ -47,6 +58,18 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <!-- 외부 저장소 사용을 위한 FileProvider auth 추가. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.khs.instagramshareexampleproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/path">
+
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>
