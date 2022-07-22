@@ -3,7 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_write"
+    android:id="@+id/activity_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.write.WriteActivity">
@@ -21,20 +21,9 @@
         android:id="@+id/tv_write_write"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tv_write_write"
-        android:textAppearance="@style/B16"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/iv_write_back"
-        app:layout_constraintStart_toEndOf="@id/iv_write_back"
-        app:layout_constraintTop_toTopOf="@id/iv_write_back" />
-
-    <TextView
-        android:id="@+id/tv_write_modify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/tv_write_modify"
         android:textAppearance="@style/B16"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@id/iv_write_back"
         app:layout_constraintStart_toEndOf="@id/iv_write_back"
         app:layout_constraintTop_toTopOf="@id/iv_write_back" />
