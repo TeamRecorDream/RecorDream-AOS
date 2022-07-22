@@ -1,10 +1,17 @@
 package and.org.recordream.presentation.home
 
+import and.org.recordream.data.remote.RecordreamClient
+import and.org.recordream.data.remote.response.ResponseHomeItems
+import and.org.recordream.data.remote.response.ResponseHomeRecord
+import and.org.recordream.data.remote.response.ResponseWrapper
 import and.org.recordream.databinding.FragmentHomeBinding
 import and.org.recordream.presentation.detail.DetailActivity
+import and.org.recordream.util.RecordreamMapping
 import and.org.recordream.util.ZoomOutPageTransformer
+import and.org.recordream.util.enqueueUtil
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +19,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
+import and.org.recordream.data.remote.response.Record as Record1
 
 class HomeFragment : Fragment(), LifecycleObserver {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
     private val binding get() = _binding!!
+    private val recorDreamMapping = RecordreamMapping()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,17 +42,18 @@ class HomeFragment : Fragment(), LifecycleObserver {
         }
 
         initAdapterHomeCard()
+        initNetwork()
         return binding.root
     }
 
 
     private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter()
-        homeViewPagerAdapter.homeCardList.addAll(
-            listOf(
-                //Record("333", "2022/04/06 (일)", 3, 1,[1, 2, 3], "우와아앙아 테스트다!!!!!")
-            )
-        )
+//        homeViewPagerAdapter.homeCardList.addAll(
+//            listOf<ResponseHomeRecord>(
+//
+//            )
+//        )
 
         with(binding.vpHome) {
             adapter = homeViewPagerAdapter
@@ -65,6 +75,56 @@ class HomeFragment : Fragment(), LifecycleObserver {
             })
         }
     }
+
+    private fun initNetwork() {//        val requestDetail = RequestDetailDreamRecord(
+//            recordId = "62d16e7fe8b4508dbca5ead6"
+//        )
+        val recordId = "62d7b6f19669f53b6c72a89f"
+        Log.d("dddddddddd", "wddddddddd123123ddddd")
+        val call = RecordreamClient.homeService.getHomeRecord()
+
+        call.enqueueUtil(
+            onSuccess = {
+                Log.d("dddddddddd", "${it.status}")
+
+                val data = it.data
+                val recordData =
+                applyNickname(data)
+            },
+            onError = {
+                Log.d("dddddddddd", "$it")
+            }
+        )
+    }
+
+    private fun applyNickname(response: ResponseHomeItems?) {
+        if (response != null) {
+            if (response.records.size != null) {
+                binding.tvHomeHi.visibility = View.VISIBLE
+                binding.tvHomeHi2.visibility = View.VISIBLE
+                binding.tvHomeOffHi.visibility = View.INVISIBLE
+                binding.tvHomeOffHi2.visibility = View.INVISIBLE
+                if (response != null) {
+                    binding.tvHomeHi.text = "반가워요, ${response.nickname}님!"
+                }
+            } else {
+                binding.tvHomeHi.visibility = View.INVISIBLE
+                binding.tvHomeHi2.visibility = View.INVISIBLE
+                binding.tvHomeOffHi.visibility = View.VISIBLE
+                binding.tvHomeOffHi2.visibility = View.VISIBLE
+                if (response != null) {
+                    binding.tvHomeOffHi.text = "반가워요, ${response.nickname}님!"
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
 
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
@@ -107,8 +167,4 @@ class HomeFragment : Fragment(), LifecycleObserver {
 //        })
 //    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
+

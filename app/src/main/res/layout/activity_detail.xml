@@ -7,7 +7,7 @@
 
         <variable
             name="records"
-            type="and.org.recordream.data.local.Record" />
+            type="and.org.recordream.data.remote.response.ResponseDetailDreamRecord" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@
 
         <variable
             name="records"
-            type="and.org.recordream.data.local.Record" />
+            type="and.org.recordream.data.remote.response.ResponseHomeRecord" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,7 +19,6 @@
             android:id="@+id/cl_home_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@{records.dream_color}"
             tools:background="@drawable/property_1_card_main_green">
 
             <ImageView

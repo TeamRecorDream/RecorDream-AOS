@@ -61,6 +61,20 @@ class RecordreamMapping {
     fun matchEmotion(emotion: Int): Int {
         var emotionImg: Int = 7
         when (emotion) {
+            1 -> emotionImg = R.drawable.property_1_icon_smile_selected
+            2 -> emotionImg = R.drawable.property_1_icon_surprise_selected
+            3 -> emotionImg = R.drawable.property_1_icon_love_selected
+            4 -> emotionImg = R.drawable.property_1_icon_shy_selected
+            5 -> emotionImg = R.drawable.property_1_icon_sad_selected
+            6 -> emotionImg = R.drawable.property_1_icon_angry_selected
+            7 -> emotionImg = R.drawable.property_1_icon_unclassified_selected
+        }
+        return emotionImg
+    }
+
+    fun matchHomeEmotion(emotion: Int): Int {
+        var emotionImg: Int = 7
+        when (emotion) {
             1 -> emotionImg = R.drawable.icon_3_joy
             2 -> emotionImg = R.drawable.icon_3_shocked
             3 -> emotionImg = R.drawable.icon_3_love
