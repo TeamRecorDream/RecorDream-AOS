@@ -15,7 +15,7 @@ class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()
     private var mPaint: Paint = Paint()
 
-    private val CURVE_CIRCLE_RADIUS = 190 / 2
+    private val CURVE_CIRCLE_RADIUS = 190 / 2 // 움푹파이는자식
 
     private val mFirstCurveStartPoint = Point()
     private val mFirstCurveEndPoint = Point()
@@ -47,7 +47,7 @@ class CustomBottomNavigationView : BottomNavigationView {
 
     private fun init() {
         mPaint.style = Paint.Style.FILL_AND_STROKE
-        mPaint.color = ContextCompat.getColor(context, R.color.black)
+        mPaint.color = ContextCompat.getColor(context, R.color.white) // 네비게이션 색상
         setBackgroundColor(Color.TRANSPARENT)
     }
 
@@ -57,8 +57,8 @@ class CustomBottomNavigationView : BottomNavigationView {
         mNavigationBarWidth = width
         mNavigationBarHeight = height
 
-        mFirstCurveStartPoint.set(
-            mNavigationBarWidth / 2 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3,
+        mFirstCurveStartPoint.set( // CURVE_CIRCLE_RADIUS 굴곡담당
+            (mNavigationBarWidth / 2 - CURVE_CIRCLE_RADIUS * 1.5 - CURVE_CIRCLE_RADIUS / 3).toInt(),
             0
         )
         mFirstCurveEndPoint.set(
@@ -67,7 +67,7 @@ class CustomBottomNavigationView : BottomNavigationView {
         )
         mSecondCurveStartPoint = mFirstCurveEndPoint
         mSecondCurveEndPoint.set(
-            mNavigationBarWidth / 2 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3,
+            (mNavigationBarWidth / 2 + CURVE_CIRCLE_RADIUS * 1.5 + CURVE_CIRCLE_RADIUS / 3).toInt(),
             0
         )
 

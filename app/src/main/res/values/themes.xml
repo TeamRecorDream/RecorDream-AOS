@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Recordream" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:windowBackground">@color/dark_blue01_000119</item>
+        <item name="android:windowBackground"></item>
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
