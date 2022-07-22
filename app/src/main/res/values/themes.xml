@@ -162,7 +162,14 @@
 
 <!--         inactive thumb color -->
 <!--        <item name="colorSwitchThumbNormal">@color/white01_FFFFFF</item>-->
+    </style>
+    <!--bottomsheet-->
+    <style name="BottomSheetDialog.Style" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Modal.Style</item>
+    </style>
 
+    <style name="Modal.Style" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rectangle_radius_18dp_mypage_top</item>
     </style>
 
 </resources>

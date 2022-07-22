@@ -29,8 +29,8 @@ class MyFireBaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(message)
         if (message.data.isNotEmpty()) {
             sendNotification(
-                message.notification?.title,
-                message.notification?.body!!
+                message.data["title"].toString(),
+                message.data["body"].toString()
             )
         } else {
 
