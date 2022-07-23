@@ -101,7 +101,7 @@ class RecordreamMapping {
         return emotionImg
     }
 
-    fun matchHomeColor(dream_color: Int): Int? {
+    fun matchHomeColor(dream_color: Int): Int {
         var colorHomeImg: Int = 0
         when (dream_color) {
             0 -> colorHomeImg = R.drawable.property_1_card_main_black

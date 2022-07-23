@@ -45,7 +45,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
             val applyTextColor = response.let { recorDreamMapping.matchTextColor(it.dream_color) }
             val applyGenre = response.let { recorDreamMapping.genreMapping(it.genre) }
             val applyCardImage =
-                response.let { recorDreamMapping.matchDetailColor(it.dream_color) }
+                response.let { recorDreamMapping.matchHomeColor(it.dream_color) }
 
 //        context?.let { ContextCompat.getDrawable(it, R.drawable.logo) }
 //          ?.let { binding.ivDetailDreamColor.background = it }

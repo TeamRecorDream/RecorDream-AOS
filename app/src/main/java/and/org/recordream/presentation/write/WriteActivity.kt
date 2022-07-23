@@ -22,24 +22,24 @@ class WriteActivity : AppCompatActivity() {
     private lateinit var detailBottomSheet: FragmentDetailBottomSheetBinding
     private val voiceFragment = VoiceRecordFragment()
 
-    var tmp: Int = 0
+    var emt: Int = 0
     var dreamcolor: Int = 0
     var dreamgnre = mutableSetOf<Int>(10)
+    var dreamgnreTest = mutableSetOf<Int>(10, 3, 5)
     var gnrecount = 0
     val currenttime = LocalDateTime.now()
     var dateString = ""
-
-    var idStr: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWriteBinding.inflate(layoutInflater)
 
-        clickSave()
+        clickSave("1") //저장버튼
         voiceClick()
         checkTunderExplanation()
         emotionClick()
         colorClick()
+//        clickEmotion()
         dateClick()
         dreamgnre()
         backClick()
@@ -63,7 +63,7 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickSave() {   //저장버튼 클릭 시
+    private fun clickSave(id: String) {   //저장버튼 클릭 시
         binding.btnWriteSave.setOnClickListener {
             if (!binding.btnWriteSave.isSelected) {
                 Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
@@ -72,9 +72,9 @@ class WriteActivity : AppCompatActivity() {
                 writeInitNetwork()
                 val intent = Intent(this@WriteActivity, DetailActivity::class.java)
                 intent.apply {
-                    putExtra("id", idStr)
+                    putExtra("id", id)
                 }
-                Log.d("id값 찍어", idStr)
+                Log.d("id", "$id")
                 startActivity(intent)
                 finish()
             }
@@ -142,9 +142,9 @@ class WriteActivity : AppCompatActivity() {
             title = binding.tvWriteEditdream.text.toString(),
             date = "$currenttime",
             content = binding.etWriteContent.text.toString(),
-            emotion = tmp,
-            dream_color = dreamcolor,
-            genre = mutableSetOf(1, 2, 3),
+            emotion = emt,
+            dream_color = 3,
+            genre = mutableSetOf(1, 2, 4),
             note = binding.etWriteNotecontent.text.toString(),
             voice = "62cdb868c3032f2b7af76531",
             writer = "62c9cf068094605c781a2fb9"
@@ -156,33 +156,12 @@ class WriteActivity : AppCompatActivity() {
         )
         call.enqueueUtil(
             onSuccess = {
-                Log.d("datadatadatadatadatadata안녕안녕나는지수야", "${it.status}")
+                Log.d("여기 wirte임 data", "${it.status}")
             },
             onError = {
-                Log.d("error안녕안녕 나는에러야", "writeInitNetwork: ")
+                Log.d("write error", "writeInitNetwork: ")
             }
         )
-    }
-
-    private fun clickEmotion() {    //서버 전달을 위한 감정 수
-        binding.ivEmotionJoy.setOnClickListener {
-            tmp = 1
-        }
-        binding.ivEmotionShocked.setOnClickListener {
-            tmp = 2
-        }
-        binding.ivEmotionLove.setOnClickListener {
-            tmp = 3
-        }
-        binding.ivEmotionShy.setOnClickListener {
-            tmp = 4
-        }
-        binding.ivEmotionSad.setOnClickListener {
-            tmp = 5
-        }
-        binding.ivEmotionAngry.setOnClickListener {
-            tmp = 6
-        }
     }
 
     private fun dreamgnre() {   //장르 서버 연동
@@ -195,66 +174,138 @@ class WriteActivity : AppCompatActivity() {
             gnrecount++
         }
         binding.btnWriteRomense.setOnClickListener {
-            dreamgnre.add(1)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(1)
+                binding.btnWriteRomense.isSelected = true
+            } else {
+                dreamgnre.remove(1)
+                binding.btnWriteRomense.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteAction.setOnClickListener {
-            dreamgnre.add(2)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(2)
+                binding.btnWriteAction.isSelected = true
+            } else {
+                dreamgnre.remove(2)
+                binding.btnWriteAction.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteThrill.setOnClickListener {
-            dreamgnre.add(3)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(3)
+                binding.btnWriteThrill.isSelected = true
+            } else {
+                dreamgnre.remove(3)
+                binding.btnWriteThrill.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteMystery.setOnClickListener {
-            dreamgnre.add(4)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(4)
+                binding.btnWriteMystery.isSelected = true
+            } else {
+                dreamgnre.remove(4)
+                binding.btnWriteMystery.isSelected = false
+            }
             gnrecount++
             if (gnrecount > 4) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteFear.setOnClickListener {
-            dreamgnre.add(5)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(5)
+                binding.btnWriteFear.isSelected = true
+            } else {
+                dreamgnre.remove(5)
+                binding.btnWriteFear.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.btnWriteSf.setOnClickListener {
-            dreamgnre.add(6)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(6)
+                binding.btnWriteSf.isSelected = true
+            } else {
+                dreamgnre.remove(6)
+                binding.btnWriteSf.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteFantasy.setOnClickListener {
-            dreamgnre.add(7)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(7)
+                binding.btnWriteFantasy.isSelected = true
+            } else {
+                dreamgnre.remove(7)
+                binding.btnWriteFantasy.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteFamily.setOnClickListener {
-            dreamgnre.add(8)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(8)
+                binding.btnWriteFamily.isSelected = true
+            } else {
+                dreamgnre.remove(8)
+                binding.btnWriteFamily.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnWriteEtc.setOnClickListener {
-            dreamgnre.add(9)
+            var emotion = 0
+            emotion++
+            if (emotion % 2 == 1) {
+                dreamgnre.add(9)
+                binding.btnWriteEtc.isSelected = true
+            } else {
+                dreamgnre.remove(9)
+                binding.btnWriteEtc.isSelected = false
+            }
             gnrecount++
-            if (gnrecount > 4) {
+            if (gnrecount > 2) {
                 Toast.makeText(this, "꿈의 장르는 최대 3개까지만 선택할 수 있어요.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -271,6 +322,7 @@ class WriteActivity : AppCompatActivity() {
                 ivEmotionShy.isSelected = false
                 ivEmotionSad.isSelected = false
                 ivEmotionAngry.isSelected = false
+                emt = 1
             }
             ivEmotionShocked.setOnClickListener {
                 ivEmotionJoy.isSelected = false
@@ -279,6 +331,7 @@ class WriteActivity : AppCompatActivity() {
                 ivEmotionShy.isSelected = false
                 ivEmotionSad.isSelected = false
                 ivEmotionAngry.isSelected = false
+                emt = 2
             }
             ivEmotionLove.setOnClickListener {
                 ivEmotionJoy.isSelected = false
@@ -287,6 +340,7 @@ class WriteActivity : AppCompatActivity() {
                 ivEmotionShy.isSelected = false
                 ivEmotionSad.isSelected = false
                 ivEmotionAngry.isSelected = false
+                emt = 3
             }
             ivEmotionShy.setOnClickListener {
                 ivEmotionJoy.isSelected = false
@@ -295,6 +349,7 @@ class WriteActivity : AppCompatActivity() {
                 ivEmotionShy.isSelected = true
                 ivEmotionSad.isSelected = false
                 ivEmotionAngry.isSelected = false
+                emt = 4
             }
             ivEmotionSad.setOnClickListener {
                 ivEmotionJoy.isSelected = false
@@ -303,6 +358,7 @@ class WriteActivity : AppCompatActivity() {
                 ivEmotionShy.isSelected = false
                 ivEmotionSad.isSelected = true
                 ivEmotionAngry.isSelected = false
+                emt = 5
             }
             ivEmotionAngry.setOnClickListener {
                 ivEmotionJoy.isSelected = false
@@ -311,6 +367,7 @@ class WriteActivity : AppCompatActivity() {
                 ivEmotionShy.isSelected = false
                 ivEmotionSad.isSelected = false
                 ivEmotionAngry.isSelected = true
+                emt = 6
             }
         }
     }

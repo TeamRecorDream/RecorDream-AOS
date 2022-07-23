@@ -26,8 +26,7 @@ class ListTypeFragment : Fragment() {
     ): View? {
         _binding = FragmentListTypeBinding.inflate(layoutInflater, container, false)
 
-        binding.textView.setOnClickListener { initNetwork() }
-
+        initNetwork()
         initAdapter()
         return binding.root
     }

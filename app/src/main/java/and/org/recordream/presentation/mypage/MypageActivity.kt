@@ -38,7 +38,8 @@ class MypageActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         pushSwitchClick()
         showDialog()
-        editClick()
+        clickTime()
+        editEditNickname()
         backClick()
         firebase()
     }
@@ -49,7 +50,6 @@ class MypageActivity : AppCompatActivity() {
 
     private fun pushSwitchClick() {
         binding.scMypageSwitchbtn.setOnCheckedChangeListener { compoundButton, onSwitch ->
-
             //  스위치가 켜지면
             if (onSwitch) {
                 createBottomSheet()
@@ -58,6 +58,20 @@ class MypageActivity : AppCompatActivity() {
             } else {
                 viewModel.setIsShow(false)
             }
+        }
+    }
+
+    private fun clickTime() {
+        binding.clMypageSettingcountBack.setOnClickListener {
+            binding.scMypageSwitchbtn.setOnCheckedChangeListener { compoundButton, onSwitch ->
+                //  스위치가 켜지면
+                if (onSwitch) { //시간 부분 클릭 했을 때
+                    createBottomSheet()
+                } else {
+                    binding.clMypageSettingcountBack.isClickable = false
+                }
+            }
+
         }
     }
 
@@ -74,7 +88,7 @@ class MypageActivity : AppCompatActivity() {
         binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
             var handled = false
             if (action == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard(binding.edMypageEditnickname)
+//                hideKeyboard(binding.edMypageEditnickname)
                 nickname = binding.edMypageEditnickname.text.toString()
                 handled = true
                 binding.edMypageEditnickname.text = str
@@ -83,21 +97,14 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun hideKeyboard(view: View) {  //키보드 숨기기
-        val inputMethodManager =
-            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    private fun editClick() {   //이름 수정
-        initNicknameNetwork()
-        binding.ivMypageEdit.setOnClickListener {
+    private fun editEditNickname() {
+        binding.tvMypageNickname.setOnClickListener {
+            initNicknameNetwork()
             binding.edMypageEditnickname.visibility = View.VISIBLE
             binding.tvMypageNickname.visibility = View.INVISIBLE
             focusEditText()
             clickEnter()
         }
-//        binding.edMypageEditnickname.visibility =
     }
 
     private fun focusEditText() {
@@ -129,7 +136,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun initNetwork() {
         val requestMypagePutTime = RequestMypagePutTime(
-            token = "00000",
+            token = "c5TOohRtSMavGcdWJUp6fT:APA91bGIo1M_S_fw-IsYQiXRkvjgdD8xq6Gfkm0EEykuzudch-ELUYJPADZa1p2szGgE0MThqJjM06W9jEj-lN9NQ4VSdZA_ljqREgDlTtATF4gSVWA2VGl9LoBn-e4aosInEor6QDxO",
             time = "PM 03:10"
         )
         val call = RecordreamClient.mypageService.postPushTime(
@@ -139,6 +146,9 @@ class MypageActivity : AppCompatActivity() {
         call.enqueueUtil(
             onSuccess = {
                 Log.d("data", "${it.status}")
+            },
+            onError = {
+                Log.d("error", "error  ")
             }
         )
     }
@@ -154,6 +164,35 @@ class MypageActivity : AppCompatActivity() {
         )
     }
 }
+
+/*
+닉네임 입력
+private fun clickEnter() {  //엔터로 입력
+        val str = SpannableStringBuilder("")
+        binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
+            var handled = false
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard(binding.edMypageEditnickname)
+                nickname = binding.edMypageEditnickname.text.toString()
+                handled = true
+                binding.edMypageEditnickname.text = str
+            }
+            handled
+        }
+    }
+
+    private fun hideKeyboard(view: View) {  //키보드 숨기기
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    private fun focusEditText() {
+//       binding.edMypageEditnickname.focusable = 1
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.edMypageEditnickname, 0)
+    }
+ */
 
 //private fun clickEnter() {
 //        binding.edMypageEditnickname.setOnEditorActionListener { textView, action, event ->
