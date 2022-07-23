@@ -8,16 +8,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel : ViewModel() {
     private val _detailResponse = MutableLiveData<ResponseDetailDreamRecord>()
     val detailResponse: LiveData<ResponseDetailDreamRecord> get() = _detailResponse
 
     fun getData(id: String) {
-        val call = RecordreamClient.recorDreamServicee.getDetailRecord(id)
+        val call = RecordreamClient.recorDreamServicee.getDetailRecord("62d7b6f19669f53b6c72a89f")
 
         call.enqueueUtil(
             onSuccess = { responseWrapper ->
-                Log.d("dddddddddd", "${responseWrapper.status}")
+                Log.d("디테일뷰모델입니다ㅏㅏㅏ", "${responseWrapper.status}")
 
                 val data = responseWrapper.data
                 data?.let {
@@ -25,7 +25,7 @@ class DetailViewModel: ViewModel() {
                 }
             },
             onError = {
-                Log.d("dddddddddd", "$it")
+                Log.d("내가 500이니..?", "$it")
             }
         )
     }

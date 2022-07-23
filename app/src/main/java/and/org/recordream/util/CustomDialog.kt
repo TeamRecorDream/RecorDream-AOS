@@ -21,6 +21,7 @@ class CustomDialog(context: Context) {
         if (!::inflater.isInitialized)
             inflater = LayoutInflater.from(context)
     }
+
     fun showDeleteDialog(@LayoutRes layout: Int) {
         bindingDelete = DetailDeleteDialogBinding.inflate(inflater)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -56,7 +57,6 @@ class CustomDialog(context: Context) {
         }
         dialog.show()
     }
-
 
 
 }

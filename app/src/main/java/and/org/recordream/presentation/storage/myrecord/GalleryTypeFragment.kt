@@ -37,14 +37,17 @@ class GalleryTypeFragment : Fragment() {
     private fun initNetwork() {
         val selectedEmotion = arguments?.getInt("emotion")
 
-        Log.d("q2fsfqlnekhqhkvhklwvhwlkvhwv", "$selectedEmotion")
+        Log.d("******Gallery_selectedEmotion******", "$selectedEmotion")
 
-        selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it) }?.enqueueUtil(
-            onSuccess = {
-                it.data?.let { _it -> addItemList(_it.records) }
-                Log.d("******status******", "${it.status}")
-
-            })
+        selectedEmotion?.let { RecordreamClient.storageService.getMyGalleryRecord(it) }
+            ?.enqueueUtil(
+                onSuccess = {
+                    it.data?.let { _it -> addItemList(_it.records) }
+                    Log.d("******ListTypeFragment_status******", "${it.status}")
+                }, onError = {
+                    Log.d("******ListTypeFragment_status******", "$it")
+                }
+            )
     }
 
 

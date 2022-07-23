@@ -89,7 +89,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
         call.enqueueUtil(
             onSuccess = {
-                Log.d("dddddddddd", "${it.data.toString()}")
+                Log.d("홈프래그먼트, status", "${it.status}")
 
                 val data = it.data
                 val recordData =

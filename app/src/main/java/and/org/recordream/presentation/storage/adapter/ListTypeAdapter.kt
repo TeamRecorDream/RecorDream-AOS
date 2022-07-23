@@ -2,13 +2,14 @@ package and.org.recordream.presentation.storage.adapter
 
 import and.org.recordream.data.remote.response.Record
 import and.org.recordream.databinding.ItemStorageListBinding
+import and.org.recordream.util.RecordreamMapping
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class ListTypeAdapter(private val itemClick: (Record) -> Unit) :
     RecyclerView.Adapter<ListTypeAdapter.ListTypeViewHolder>() {
-    val listRecords = mutableListOf<Record>()
+    var listRecords = mutableListOf<Record>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListTypeViewHolder {
         val binding = ItemStorageListBinding.inflate(
@@ -33,9 +34,10 @@ class ListTypeAdapter(private val itemClick: (Record) -> Unit) :
         fun onBind(data: Record) {
             with(binding) {
                 recordlist = data
-                itemClick(data)
+                val img = RecordreamMapping().emotionImgMapping(data.emotion)
+                binding.ivStorageEmotionlist.setBackgroundResource(img)
                 itemView.setOnClickListener {
-
+                    itemClick(data)
                 }
             }
         }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -32,7 +31,7 @@ class VoiceRecordFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun saveClick(){
+    private fun saveClick() {
         binding.tvVoiceSave.setOnClickListener {
             dismiss()
         }

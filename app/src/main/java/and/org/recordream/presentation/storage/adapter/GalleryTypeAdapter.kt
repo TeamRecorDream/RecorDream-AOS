@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-class GalleryTypeAdapter(
-    private val itemClick: (Record) -> Unit
-) :
+class GalleryTypeAdapter(private val itemClick: (Record) -> Unit) :
     RecyclerView.Adapter<GalleryTypeAdapter.GalleryTypeViewHolder>() {
     var galleryRecords = mutableListOf<Record>()
-    val recordreamMapping = RecordreamMapping()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryTypeViewHolder {
         val binding = ItemStorageGalleryBinding.inflate(

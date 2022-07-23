@@ -1,9 +1,7 @@
 package and.org.recordream.presentation.detail
 
-import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.ResponseDetailDreamRecord
 import and.org.recordream.databinding.FragmentDreamRecordBinding
-import and.org.recordream.util.enqueueUtil
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Bundle

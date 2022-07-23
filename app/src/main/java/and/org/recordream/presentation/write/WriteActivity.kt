@@ -15,7 +15,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Calendar
 
 class WriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWriteBinding
@@ -25,7 +25,7 @@ class WriteActivity : AppCompatActivity() {
     var emt: Int = 0
     var dreamcolor: Int = 0
     var dreamgnre = mutableSetOf<Int>(10)
-    var dreamgnreTest = mutableSetOf<Int>(10,3,5)
+    var dreamgnreTest = mutableSetOf<Int>(10, 3, 5)
     var gnrecount = 0
     val currenttime = LocalDateTime.now()
     var dateString = ""
@@ -144,7 +144,7 @@ class WriteActivity : AppCompatActivity() {
             content = binding.etWriteContent.text.toString(),
             emotion = emt,
             dream_color = 3,
-            genre = mutableSetOf(1,2,4,),
+            genre = mutableSetOf(1, 2, 4),
             note = binding.etWriteNotecontent.text.toString(),
             voice = "62cdb868c3032f2b7af76531",
             writer = "62c9cf068094605c781a2fb9"

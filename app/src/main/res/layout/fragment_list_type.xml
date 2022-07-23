@@ -20,4 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="8"
         tools:listitem="@layout/item_storage_list" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

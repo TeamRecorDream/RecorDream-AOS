@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="12dp"
+                android:text="@{recordlist.date}"
                 android:textAppearance="@style/M10"
                 app:layout_constraintStart_toEndOf="@+id/iv_storage_emotionlist"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +47,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_2_shocked" />
+                tools:srcCompat="@drawable/icon_2_shocked" />
 
             <TextView
                 android:id="@+id/tv_storage_title"

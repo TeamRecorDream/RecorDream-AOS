@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MyPageViewModel: ViewModel() {
+class MyPageViewModel : ViewModel() {
     private val _amOrPm = MutableLiveData<String>("AM")
     val amOrPm: LiveData<String> get() = _amOrPm
     private val _hour = MutableLiveData<String>("00")

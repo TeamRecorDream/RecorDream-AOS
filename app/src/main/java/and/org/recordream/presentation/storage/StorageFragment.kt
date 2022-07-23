@@ -36,7 +36,6 @@ class StorageFragment : Fragment() {
     }
 
 
-
     private fun initNetwork(selected: Int) {
 
         val call = RecordreamClient.storageService.getMyRecord(selected)
@@ -44,7 +43,7 @@ class StorageFragment : Fragment() {
         call.enqueueUtil(
             onSuccess = {
                 binding.tvStorageCount.text = it.data?.recordTotal.toString()
-                Log.d("******status******", "${it.status}")
+                Log.d("******StorageFragment_status******", "${it.status}")
             })
     }
 

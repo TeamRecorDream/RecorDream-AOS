@@ -1,11 +1,9 @@
 package and.org.recordream.presentation.detail
 
-import and.org.recordream.data.remote.RecordreamClient
 import and.org.recordream.data.remote.response.ResponseDetailDreamRecord
 import and.org.recordream.databinding.ActivityDetailBinding
 import and.org.recordream.util.CustomDialog
 import and.org.recordream.util.RecordreamMapping
-import and.org.recordream.util.enqueueUtil
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,7 +29,8 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val recordId = intent.getStringExtra("id") ?: error("record Id 안 넘어옴 (승현)")
-        Log.i("iiii", recordId.toString())
+        Log.i("ii235347208973089720893750925720894375934275092345ii", recordId)
+
         // btnShowBottomSheet = binding.ivDotsMore
 
 
@@ -91,8 +90,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun applyData(response: ResponseDetailDreamRecord) {
         Log.i("iiii", "applyData")
-        val applyEmotion = response?.emotion?.let { recorDreamMapping.matchEmotion(it) }
-        val applyTextColor = response?.let {
+        val applyEmotion = response.emotion?.let { recorDreamMapping.matchEmotion(it) }
+        val applyTextColor = response.let {
             it.dream_color?.let { it1 ->
                 recorDreamMapping.matchTextColor(
                     it1
@@ -101,7 +100,7 @@ class DetailActivity : AppCompatActivity() {
         }
         val applyGenre = RecordreamMapping().genreMapping(response.genre)
         Log.d("ddddddddddddddddddddddd", "$applyGenre")
-        val applyCardImage = response?.let {
+        val applyCardImage = response.let {
             it.dream_color?.let { it1 ->
                 recorDreamMapping.matchDetailColor(
                     it1
@@ -118,7 +117,7 @@ class DetailActivity : AppCompatActivity() {
         if (applyEmotion != null) {
             binding.ivProfile.setBackgroundResource(applyEmotion)
         }
-        binding.tvRecordTitle.text = response?.title
+        binding.tvRecordTitle.text = response.title
 
         applyEmotion?.let {
             binding.ivProfile.setImageResource(it)
@@ -127,16 +126,16 @@ class DetailActivity : AppCompatActivity() {
         if (response != null) {
             binding.tvRecordDate.text = response.date
             if (response.genre.size == 1) {
-                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
+                binding.tvHomeGenre1.text = "#${applyGenre.get(0)}"
             }
             if (response.genre.size == 2) {
-                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
+                binding.tvHomeGenre1.text = "#${applyGenre.get(0)}"
+                binding.tvHomeGenre2.text = "#${applyGenre.get(1)}"
             }
             if (response.genre.size == 3) {
-                binding.tvHomeGenre1.text = "#${applyGenre?.get(0)}"
-                binding.tvHomeGenre2.text = "#${applyGenre?.get(1)}"
-                binding.tvHomeGenre3.text = "#${applyGenre?.get(2)}"
+                binding.tvHomeGenre1.text = "#${applyGenre.get(0)}"
+                binding.tvHomeGenre2.text = "#${applyGenre.get(1)}"
+                binding.tvHomeGenre3.text = "#${applyGenre.get(2)}"
             }
             when (response.genre.size) {
                 1 -> {

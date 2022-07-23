@@ -15,7 +15,7 @@ interface MypageService {
     //푸시알림
     @POST("/notice")
     fun postPushTime(
-        @Header("userId") userId:Int = 1,
+        @Header("userId") userId: Int = 1,
         @Body body: RequestMypagePutTime
     ): Call<ResponseWrapper<ResponseMypagePutTime>>
 
