@@ -43,7 +43,7 @@ class StorageFragment : Fragment() {
         call.enqueueUtil(
             onSuccess = {
                 binding.tvStorageCount.text = it.data?.recordTotal.toString()
-                Log.d("******status******", "${it.status}")
+                Log.d("******StorageFragment_status******", "${it.status}")
             })
     }
 

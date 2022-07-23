@@ -36,10 +36,9 @@ class ListTypeFragment : Fragment() {
         val selectedEmotion = arguments?.getInt("emotion")
 
         Log.d("******selectedEmotion*******", "$selectedEmotion")
+        val call = RecordreamClient.storageService.getMyListRecord(0)
 
-        val call = selectedEmotion?.let { RecordreamClient.storageService.getMyListRecord(0) }
-
-        call?.enqueueUtil(
+        call.enqueueUtil(
             onSuccess = {
                 it.data?.let { _it -> addItemList(_it.records) }
                 Log.d("******ListTypeFragment_status******", "${it.status}")
