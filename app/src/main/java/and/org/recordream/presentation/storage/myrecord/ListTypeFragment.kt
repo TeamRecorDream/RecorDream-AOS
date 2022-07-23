@@ -26,7 +26,8 @@ class ListTypeFragment : Fragment() {
     ): View? {
         _binding = FragmentListTypeBinding.inflate(layoutInflater, container, false)
 
-        initNetwork()
+        binding.textView.setOnClickListener { initNetwork() }
+
         initAdapter()
         return binding.root
     }
@@ -36,12 +37,17 @@ class ListTypeFragment : Fragment() {
 
         Log.d("******selectedEmotion*******", "$selectedEmotion")
 
-        selectedEmotion?.let { RecordreamClient.storageService.getMyRecord(it) }?.enqueueUtil(
+        val call = selectedEmotion?.let { RecordreamClient.storageService.getMyListRecord(0) }
+
+        call?.enqueueUtil(
             onSuccess = {
                 it.data?.let { _it -> addItemList(_it.records) }
-                Log.d("******status******", "${it.status}")
+                Log.d("******ListTypeFragment_status******", "${it.status}")
+            }, onError = {
+                Log.d("******ListTypeFragment_status******", "$it")
+            }
+        )
 
-            })
     }
 
 
@@ -58,7 +64,7 @@ class ListTypeFragment : Fragment() {
     }
 
 
-    private fun toDetailView(id: String) {
+    private fun toDetailView(id: String) { // DetatilActivity로 id값 intent 전달
         val intent = Intent(requireContext(), DetailActivity::class.java)
         intent.apply {
             putExtra("id", id)

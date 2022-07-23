@@ -20,4 +20,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="8"
         tools:listitem="@layout/item_storage_list" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white01_FFFFFF"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
