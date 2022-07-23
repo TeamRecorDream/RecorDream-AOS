@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ListTypeAdapter(private val itemClick: (Record) -> Unit) :
     RecyclerView.Adapter<ListTypeAdapter.ListTypeViewHolder>() {
-    val listRecords = mutableListOf<Record>()
+    var listRecords = mutableListOf<Record>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListTypeViewHolder {
         val binding = ItemStorageListBinding.inflate(

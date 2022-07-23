@@ -22,14 +22,22 @@ class SearchActivity : AppCompatActivity() {
 
 
         initAdapter()
-        binding.ivSearchBackbtn.setOnClickListener {
-            finish()
+        clickListener()
+
+    }
+
+    private fun clickListener() {
+        with(binding) {
+            ivSearchBackbtn.setOnClickListener {
+                finish()
+            }
+
+            ivSearchSearchbtn.setOnClickListener {
+                val keyword = etSearchEnter.text.toString()
+                initNetwork(keyword)
+            }
         }
 
-        binding.ivSearchSearchbtn.setOnClickListener {
-            val keyword = binding.etSearchEnter.text.toString()
-            initNetwork(keyword)
-        }
     }
 
     private fun initNetwork(search: String) {
@@ -56,7 +64,6 @@ class SearchActivity : AppCompatActivity() {
             toDetailView(it.id)
         }
         binding.rvSearchResult.adapter = searchAdapter
-
     }
 
     private fun addItemList(data: List<Record>) {
