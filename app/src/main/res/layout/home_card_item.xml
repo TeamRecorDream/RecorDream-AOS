@@ -95,7 +95,7 @@
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
                 android:textAppearance="@style/B14"
-                
+
                 app:layout_constraintStart_toEndOf="@id/tv_home_genre2"
                 app:layout_constraintTop_toTopOf="@id/tv_home_genre1"
                 tools:text="#로맨스"
