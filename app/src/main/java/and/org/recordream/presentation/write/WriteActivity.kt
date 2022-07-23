@@ -29,11 +29,13 @@ class WriteActivity : AppCompatActivity() {
     val currenttime = LocalDateTime.now()
     var dateString = ""
 
+    var idStr: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWriteBinding.inflate(layoutInflater)
 
-        clickSave("1") //저장버튼
+        clickSave()
         voiceClick()
         checkTunderExplanation()
         emotionClick()
@@ -61,7 +63,7 @@ class WriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickSave(id: String) {   //저장버튼 클릭 시
+    private fun clickSave() {   //저장버튼 클릭 시
         binding.btnWriteSave.setOnClickListener {
             if (!binding.btnWriteSave.isSelected) {
                 Toast.makeText(this@WriteActivity, "꿈의 제목을 입력주세요.", Toast.LENGTH_SHORT).show()
@@ -70,9 +72,9 @@ class WriteActivity : AppCompatActivity() {
                 writeInitNetwork()
                 val intent = Intent(this@WriteActivity, DetailActivity::class.java)
                 intent.apply {
-                    putExtra("id", id)
+                    putExtra("id", idStr)
                 }
-                Log.d("id값 찍어", "$id")
+                Log.d("id값 찍어", idStr)
                 startActivity(intent)
                 finish()
             }
@@ -154,10 +156,10 @@ class WriteActivity : AppCompatActivity() {
         )
         call.enqueueUtil(
             onSuccess = {
-                Log.d("data", "${it.status}")
+                Log.d("datadatadatadatadatadata안녕안녕나는지수야", "${it.status}")
             },
             onError = {
-                Log.d("error", "writeInitNetwork: ")
+                Log.d("error안녕안녕 나는에러야", "writeInitNetwork: ")
             }
         )
     }

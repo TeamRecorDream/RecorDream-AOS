@@ -29,7 +29,8 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val recordId = intent.getStringExtra("id") ?: error("record Id 안 넘어옴 (승현)")
-        Log.i("iiii", recordId.toString())
+        Log.i("ii235347208973089720893750925720894375934275092345ii", recordId)
+
         // btnShowBottomSheet = binding.ivDotsMore
 
 
