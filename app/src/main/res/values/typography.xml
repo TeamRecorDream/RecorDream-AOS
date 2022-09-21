@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Typography" parent="Theme.RecorDream" />
+
+    <style name="B28">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">28dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B24">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B18">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="R24">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B16">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="R16">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B14">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B12">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B10">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="B8">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">8dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="R10">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="M14">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="M12">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="M10">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="SB14">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="R14">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="R12">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+</resources>
