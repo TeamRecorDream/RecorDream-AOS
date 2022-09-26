@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment2"
+        android:icon="@drawable/icn_homestorage"
+        android:title="@string/bnv_main_home"
+        />
+
+    <item
+        android:id="@+id/menu_empty"
+        android:checkable="false"
+        android:title="@string/bnv_main_write" />
+
+    <item
+        android:id="@+id/storageFragment2"
+        android:icon="@drawable/icn_storage"
+        android:title="@string/bnv_main_storage" />
+
+</menu>
