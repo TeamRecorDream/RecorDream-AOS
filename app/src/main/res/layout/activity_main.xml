@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/home_background" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,8 +31,8 @@
         android:theme="@style/B12"
         app:itemIconTint="@color/white01_FFFFFF"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_main_bnv"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_main_bnv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
