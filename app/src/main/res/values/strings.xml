@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RecorDream</string>
+
+
+    <!-- 바텀네비게이션 -->
+    <string name="bnv_main_home">홈</string>
+    <string name="bnv_main_write">기록하기</string>
+    <string name="bnv_main_storage">보관하기</string>
 </resources>
