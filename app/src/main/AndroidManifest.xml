@@ -28,7 +28,7 @@
         android:theme="@style/Theme.RecorDream"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.HomeActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
