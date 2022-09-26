@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.HomeActivity">
+    tools:context=".presentation.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,6 +15,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.example.recordream.util.CustomBottomNavigationView
+        android:id="@+id/bnv_main_customnav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="3dp"
+        android:theme="@style/B12"
+        app:itemIconTint="@color/white01_FFFFFF"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_main_bnv"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
