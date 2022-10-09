@@ -12,4 +12,7 @@
     <font
         android:font="@font/pretendard_semibold"
         android:fontWeight="600" />
+    <font
+        android:font="@font/pretendard_extralight"
+        android:fontWeight="200"/>
 </font-family>
