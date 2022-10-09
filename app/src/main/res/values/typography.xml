@@ -104,4 +104,10 @@
         <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/white01_FFFFFF</item>
     </style>
+
+    <style name="EL18">
+        <item name="fontFamily">@font/pretendard_extralight</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
 </resources>
