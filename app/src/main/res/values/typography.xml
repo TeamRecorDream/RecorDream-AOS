@@ -104,4 +104,9 @@
         <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/white01_FFFFFF</item>
     </style>
+
+    <style name="R12">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12dp</item>
+    </style>
 </resources>
