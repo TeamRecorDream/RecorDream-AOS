@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment2"
-        android:icon="@drawable/icn_homestorage"
+        android:icon="@drawable/icn_home"
         android:title="@string/bnv_main_home"
         />
 
