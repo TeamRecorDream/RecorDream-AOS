@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.example.recordream.presentation.home.HomeViewModel" />
+            type="com.recodream_aos.recordream.presentation.home.HomeViewModel" />
     </data>
 
 
@@ -25,7 +25,7 @@
             android:background="@drawable/bottom_shadow"
             app:layout_constraintBottom_toTopOf="@id/bnv_main_customnav" />
 
-        <com.example.recordream.util.CustomBottomNavigationView
+        <com.recodream_aos.recordream.util.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
             android:layout_width="match_parent"
             android:layout_height="100dp"
