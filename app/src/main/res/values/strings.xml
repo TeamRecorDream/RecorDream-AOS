@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">RecorDream</string>
 
-
+    <!--메인뷰-->
+    <string name="tv_main_welcoming">반가워요, 드림님!</string>
+    <string name="tv_main_welcoming2">그동안 어떤 꿈을 꾸셨나요?</string>
     <!-- 바텀네비게이션 -->
     <string name="bnv_main_home">홈</string>
     <string name="bnv_main_write">기록하기</string>
