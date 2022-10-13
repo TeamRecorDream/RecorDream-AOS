@@ -17,5 +17,8 @@
         android:fontWeight="600" />
     <font
         android:font="@font/pretendard_extralight"
-        android:fontWeight="200"/>
+        android:fontWeight="200" />
+    <font
+        android:font="@font/pretendard_regular"
+        android:fontWeight="400" />
 </font-family>
