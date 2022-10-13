@@ -49,11 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="그동안 어떤 꿈을 꾸셨나요?"
+            android:text="@string/tv_main_welcoming2"
             android:textAppearance="@style/EL18"
             app:layout_constraintStart_toStartOf="@id/tv_home_hi1"
             app:layout_constraintTop_toBottomOf="@id/tv_home_hi1"
-            tools:text="그동안 어떤 꿈을 꾸셨나요?" />
+            tools:text="@string/tv_main_welcoming2" />
 
         <ImageView
             android:id="@+id/iv_main_search"
