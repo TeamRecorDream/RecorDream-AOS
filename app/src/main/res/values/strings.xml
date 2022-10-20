@@ -6,7 +6,12 @@
     <string name="bnv_main_home">홈</string>
     <string name="bnv_main_write">기록하기</string>
     <string name="bnv_main_storage">보관하기</string>
-    
+
+
+    <!-- 로그인 뷰 -->
+    <string name="tv_login_kakaobtn">카카오로 시작하기</string>
+    <string name="tv_login_guide">로그인 후 이용이 가능합니다.</string>
+
     <!--보관함 뷰-->
     <string name="store_myemotion">나의 감정</string>
 </resources>

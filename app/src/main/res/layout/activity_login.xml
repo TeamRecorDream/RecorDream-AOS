@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_background"
+    tools:context=".presentation.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="275dp"
+        android:layout_marginBottom="299dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rd_splash_rogo" />
+
+    <TextView
+        android:id="@+id/tv_login_kakaobtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/rectangle_border_12dp_white05"
+        android:paddingStart="105dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="105dp"
+        android:paddingBottom="15dp"
+        android:text="@string/tv_login_kakaobtn"
+        android:textAppearance="@style/M14"
+        android:textColor="@color/white01_FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/tv_login_guide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_login_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="62dp"
+        android:text="@string/tv_login_guide"
+        android:textAppearance="@style/R12"
+        android:textColor="@color/white03_66FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_login_kakaobtn"
+        app:layout_constraintStart_toStartOf="@+id/tv_login_kakaobtn"
+        app:layout_constraintTop_toTopOf="@+id/tv_login_kakaobtn"
+        app:srcCompat="@drawable/icn_kakaotalk" />
+</androidx.constraintlayout.widget.ConstraintLayout>
