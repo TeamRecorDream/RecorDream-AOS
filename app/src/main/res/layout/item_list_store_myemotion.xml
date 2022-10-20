@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="myemotion"
+            type="com.recodream_aos.recordream.data.local.StoreMyemotion" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_sotre_list_emotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@{myemotion.image}"
+            tools:src="@drawable/feeling_xs_all"
+
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{myemotion.emotion}"
+            android:theme=""
+            app:layout_constraintTop_toBottomOf="@id/iv_sotre_list_emotion"
+            tools:text="전체"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

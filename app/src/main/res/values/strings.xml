@@ -6,4 +6,7 @@
     <string name="bnv_main_home">홈</string>
     <string name="bnv_main_write">기록하기</string>
     <string name="bnv_main_storage">보관하기</string>
+    
+    <!--보관함 뷰-->
+    <string name="store_myemotion">나의 감정</string>
 </resources>
