@@ -45,7 +45,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintBottom_toBottomOf="fg_store_list"
         app:layout_constraintTop_toBottomOf="@+id/cl_store_logo">
 
         <TextView
@@ -58,13 +57,25 @@
             app:layout_constraintStart_toStartOf="@id/cl_store_myemotion"
             app:layout_constraintTop_toTopOf="@id/cl_store_myemotion" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/cl_store_myemotion"
+            app:layout_constraintStart_toStartOf="@id/cl_store_myemotion"
+            app:layout_constraintTop_toBottomOf="@id/tv_store_myemotion"
+            tools:itemCount="7"
+            tools:listitem="@layout/item_list_store_myemotion" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fg_store_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_store_myemotion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

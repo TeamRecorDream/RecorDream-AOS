@@ -14,4 +14,6 @@
 
     <!--보관함 뷰-->
     <string name="store_myemotion">나의 감정</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
