@@ -28,6 +28,10 @@
         <item name="fontFamily">@font/pretendard_medium</item>
         <item name="android:textSize">14dp</item>
     </style>
+    <style name="M16">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">16dp</item>
+    </style>
 
     <style name="M22">
         <item name="fontFamily">@font/pretendard_medium</item>
