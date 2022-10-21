@@ -3,6 +3,12 @@
 
     <style name="Typography" parent="Theme.RecorDream" />
 
+    <style name="B18">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/white01_FFFFFF</item>
+    </style>
+
     <style name="B28">
         <item name="fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">28dp</item>
