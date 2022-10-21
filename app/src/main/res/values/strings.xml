@@ -17,4 +17,16 @@
     <string name="store_description">오늘 친구들이랑 피자 먹고 너무 좋았는데 어쭈구리 쭈굴..</string>
     <string name="store_day">2022/06/26 SUN</string>
     <string name="store_no_record">아직 기록된 꿈이 없어요.</string>
+    .
+    <!--마이페이지 뷰-->
+    <string name="mypage">마이페이지</string>
+    <string name="mypage_name">12345678</string>
+    <string name="mypage_emial">123456678@naevr.com</string>
+    <string name="mypage_dream_push">꿈 푸시알림</string>
+    <string name="mypage_setting_time">시간 설정</string>
+    <string name="mypage_setting_description">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
+    <string name="mypage_logout">로그아웃</string>
+    <string name="mypage_delete_account">탈퇴하기</string>
+    <string name="mypage_bottom_cancle">취소</string>
+    <string name="mypage_bottom_save">저장</string>
 </resources>
