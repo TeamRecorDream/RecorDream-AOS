@@ -14,6 +14,5 @@
 
     <!--보관함 뷰-->
     <string name="store_myemotion">나의 감정</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="store_description">오늘 친구들이랑 피자 먹고 너무 좋았는데 어쭈구리 쭈굴..</string>
 </resources>

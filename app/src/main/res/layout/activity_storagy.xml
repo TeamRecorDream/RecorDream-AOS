@@ -71,11 +71,54 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/tv_store_emotion_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:theme="@style/Sb12"
+        app:layout_constraintStart_toStartOf="@id/cl_store_myemotion"
+        app:layout_constraintTop_toBottomOf="@id/cl_store_myemotion"
+        tools:text="8개의 기록" />
+
+    <ImageView
+        android:id="@+id/iv_store_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/icn_list_off"
+        app:layout_constraintBottom_toBottomOf="@id/tv_store_emotion_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_store_emotion_count" />
+
+    <ImageView
+        android:id="@+id/iv_gallery_menu_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/gallery_list_line"
+        app:layout_constraintBottom_toBottomOf="@id/iv_store_list"
+        app:layout_constraintEnd_toStartOf="@id/iv_store_list"
+        app:layout_constraintTop_toTopOf="@id/iv_store_list" />
+
+    <ImageView
+        android:id="@+id/tv_store_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/icn_gallery_on"
+        app:layout_constraintBottom_toBottomOf="@id/iv_store_list"
+        app:layout_constraintEnd_toStartOf="@+id/iv_gallery_menu_line"
+        app:layout_constraintTop_toTopOf="@id/iv_store_list" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fg_store_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="17dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_store_myemotion" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_store_emotion_count" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
