@@ -27,7 +27,7 @@
         android:theme="@style/Theme.RecorDream"
         tools:targetApi="31">
         <activity
-            android:name=".MypageActivity"
+            android:name=".presentation.mypage.MypageActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
