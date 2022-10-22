@@ -31,4 +31,6 @@
     <string name="mypage_delete_account"><u>탈퇴하기</u></string>
     <string name="mypage_bottom_cancle">취소</string>
     <string name="mypage_bottom_save">저장</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
