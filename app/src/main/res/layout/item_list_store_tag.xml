@@ -12,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_store_tag"
@@ -23,18 +22,19 @@
             android:theme="@style/M8"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{tag.tag}"
-
             android:theme="@style/M8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_store_tag"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="가족" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
