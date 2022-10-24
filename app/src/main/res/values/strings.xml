@@ -28,9 +28,10 @@
     <string name="mypage_setting_time">시간 설정</string>
     <string name="mypage_setting_description">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
     <string name="mypage_logout">로그아웃</string>
-    <string name="mypage_delete_account"><u>탈퇴하기</u></string>
+    <string name="mypage_delete_account_line"><u>탈퇴하기</u></string>
+    <string name="mypage_delete_account">탈퇴하기</string>
     <string name="mypage_bottom_cancle">취소</string>
     <string name="mypage_bottom_save">저장</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mypage_delete_description">탈퇴 시 저장된 기록은 복구되지 않습니다.\n 정말로 탈퇴하시겠습니까?</string>
+    <string name="mypage_delete">탈퇴</string>
 </resources>
