@@ -25,19 +25,27 @@
         android:theme="@style/Sb14"
         app:layout_constraintBottom_toBottomOf="@id/iv_mypage_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toEndOf="@id/iv_mypage_back"
         app:layout_constraintTop_toTopOf="@id/iv_mypage_back" />
+
+    <View
+        android:id="@+id/v_mypage_myapge_Line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white05_1AFFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
 
     <ImageView
         android:id="@+id/tv_mypage_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/icn_mypage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
+        app:layout_constraintTop_toBottomOf="@id/v_mypage_myapge_Line" />
 
     <TextView
         android:id="@+id/tv_mypage_name"
@@ -95,6 +103,7 @@
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_mypage_push"
             app:layout_constraintEnd_toEndOf="@id/cl_mypage_dreamPush"
             app:layout_constraintTop_toTopOf="@id/tv_mypage_push" />
@@ -108,7 +117,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/recatangle_radius_15dp_mypage"
-        android:backgroundTint="@color/white05_1AFFFFFF"
+        android:backgroundTint="@color/white06_0DFFFFFF"
         app:layout_constraintTop_toBottomOf="@id/cl_mypage_dreamPush">
 
         <TextView
@@ -117,7 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="22dp"
             android:layout_marginStart="20dp"
-            android:text="@string/mypage_dream_push"
+            android:text="@string/mypage_setting_time"
+            android:textColor="@color/white03_66FFFFFF"
             android:theme="@style/Sb16"
             app:layout_constraintBottom_toBottomOf="@id/cl_mypage_settingTime"
             app:layout_constraintStart_toStartOf="@id/cl_mypage_settingTime"
