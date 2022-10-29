@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.presentation
+package com.recodream_aos.recordream.presentation // ktlint-disable package-name
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
