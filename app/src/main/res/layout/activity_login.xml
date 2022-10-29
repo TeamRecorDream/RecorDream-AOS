@@ -23,7 +23,9 @@
         android:id="@+id/cl_login_kakaobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_login_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -34,20 +36,22 @@
             android:layout_height="match_parent"
             android:background="@drawable/rectangle_border_12dp_white05"
             android:paddingStart="105dp"
-            android:paddingTop="14dp"
+            android:paddingTop="15dp"
             android:paddingEnd="105dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="14dp"
             android:text="@string/tv_login_kakaobtn"
             android:textAppearance="@style/M14"
             android:textColor="@color/white01_FFFFFF" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_login_kakaologo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icn_kakaotalk"
-            tools:layout_editor_absoluteX="33dp" />
+            app:srcCompat="@drawable/icn_kakaotalk" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -55,6 +59,7 @@
         android:id="@+id/tv_login_guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="61dp"
         android:text="@string/tv_login_guide"
         android:textAppearance="@style/R12"
         android:textColor="@color/white03_66FFFFFF"
