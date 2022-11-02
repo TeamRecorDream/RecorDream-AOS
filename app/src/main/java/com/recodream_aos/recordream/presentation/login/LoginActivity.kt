@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         KakaoSdk.init(this, this.getString(R.string.appKey_init_kakao))
         checkUserToken()
         clickKakaoBtn()
+
     }
 
     private fun clickKakaoBtn() {
