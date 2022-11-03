@@ -1,6 +1,6 @@
 package com.recodream_aos.recordream.data.remote.response
 
-class ResponseHome(
+data class ResponseHome(
 
     val _id: String,
     val date: String,

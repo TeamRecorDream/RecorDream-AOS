@@ -33,10 +33,13 @@
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.storagy.StoragyActivity"
+            android:name=".presentation.mypage.MypageActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.MainActivity"
+            android:name=".presentation.storagy.StoragyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

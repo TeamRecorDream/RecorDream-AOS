@@ -13,4 +13,25 @@
     <!-- 로그인 뷰 -->
     <string name="tv_login_kakaobtn">카카오로 시작하기</string>
     <string name="tv_login_guide">로그인 후 이용이 가능합니다.</string>
+
+    <!--보관함 뷰-->
+    <string name="store_myemotion">나의 감정</string>
+    <string name="store_description">오늘 친구들이랑 피자 먹고 너무 좋았는데 어쭈구리 쭈굴..</string>
+    <string name="store_day">2022/06/26 SUN</string>
+    <string name="store_no_record">아직 기록된 꿈이 없어요.</string>
+
+    <!--마이페이지 뷰-->
+    <string name="mypage">마이페이지</string>
+    <string name="mypage_name">12345678</string>
+    <string name="mypage_email">123456678@naevr.com</string>
+    <string name="mypage_dream_push">꿈 푸시알림</string>
+    <string name="mypage_setting_time">시간 설정</string>
+    <string name="mypage_setting_description">설정한 시간에 푸시알림을 통해 꿈을 바로 기록할 수 있어요!</string>
+    <string name="mypage_logout">로그아웃</string>
+    <string name="mypage_delete_account_line"><u>탈퇴하기</u></string>
+    <string name="mypage_delete_account">탈퇴하기</string>
+    <string name="mypage_bottom_cancle">취소</string>
+    <string name="mypage_bottom_save">저장</string>
+    <string name="mypage_delete_description">탈퇴 시 저장된 기록은 복구되지 않습니다.\n 정말로 탈퇴하시겠습니까?</string>
+    <string name="mypage_delete">탈퇴</string>
 </resources>
