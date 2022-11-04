@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.presentation
+package com.recodream_aos.recordream.presentation.document
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

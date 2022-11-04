@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.recodream_aos.recordream.databinding.FragmentHomeBinding
-import com.recodream_aos.recordream.presentation.DocumentActivity
+import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.RecordreamMapping
 import com.recodream_aos.recordream.util.ZoomOutPageTransformer
 
