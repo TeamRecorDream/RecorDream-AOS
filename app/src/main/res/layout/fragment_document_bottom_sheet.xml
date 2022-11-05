@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.document.DocumentBottomSheetFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_draggable="true"
+    app:behavior_hideable="true"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="0dp"
+        app:layout_constraintStart_toStartOf="parent">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_document_bottom_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_document_dialog_top_radius_15"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:text="공유하기"
+            android:textAppearance="@style/B12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/v_document_bottom_sheet_line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_document_bottom_edit"
+            app:layout_constraintTop_toBottomOf="@id/tv_document_bottom_share" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_document_bottom_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey01_222222"
+            android:paddingVertical="15dp"
+            android:text="수정하기"
+            android:textAppearance="@style/B12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_document_bottom_share" />
+
+        <View
+            android:id="@+id/v_document_bottom_sheet_line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_document_bottom_edit" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_document_bottom_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_document_dialog_bottom_radius_15"
+            android:paddingVertical="15dp"
+            android:text="삭제하기"
+            android:textAppearance="@style/B12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_document_bottom_sheet_line2" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_document_bottom_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rectangle_document_dialog_all_radius_15"
+            android:paddingVertical="15dp"
+            android:text="취소"
+            android:textAppearance="@style/Sb14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_document_bottom_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
