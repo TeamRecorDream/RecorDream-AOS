@@ -54,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error -> // TODO : 토큰 활용부분
+            // TODO : 토큰 난독화처리하기
             if (error != null) {
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
