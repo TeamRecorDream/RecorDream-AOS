@@ -79,12 +79,11 @@
                     android:layout_marginTop="12dp"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="9.8sp"
-                    android:text="@{detail_dreamrecord.content}"
+                    android:text="우리 학교 앞에 떡볶이집이 하나있음 그래서 군것질이나 할 겸 그 가게에 갔는데 메뉴들이 엄청 맛있어보였음. 막 호떡, 핫도그, 떡볶이, 오뎅 뭐가 많았는데 갑자기 내가 식욕이 터지는거임. 분식집 아줌마는 여유롭게 스몰토크 하면서 핫도그 튀기고 있고. 초조한 시간과 지금이라도 버리고 타야되나? 이런 생각을 했음. 고민하면서 시간은 흐르고, 굉장히 긴박한 상황에서 드디어 핫도그가 나왔음.\n명랑핫도그마냥 소스를 마음대로 뿌리라길래 근본조합인 설탕+케챱+머스타드를 뿌리고(아니 소스 조합이 너무 선명하게 기억남"
                     android:textAppearance="@style/R12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cl_document_audio_player"
-                    tools:text="우리 학교 앞에 떡볶이집이 하나있음 그래서 군것질이나 할 겸 그 가게에 갔는데 메뉴들이 엄청 맛있어보였음. 막 호떡, 핫도그, 떡볶이, 오뎅 뭐가 많았는데 갑자기 내가 식욕이 터지는거임. 분식집 아줌마는 여유롭게 스몰토크 하면서 핫도그 튀기고 있고. 초조한 시간과 지금이라도 버리고 타야되나? 이런 생각을 했음. 고민하면서 시간은 흐르고, 굉장히 긴박한 상황에서 드디어 핫도그가 나왔음.\n명랑핫도그마냥 소스를 마음대로 뿌리라길래 근본조합인 설탕+케챱+머스타드를 뿌리고(아니 소스 조합이 너무 선명하게 기억남" />
+                    app:layout_constraintTop_toBottomOf="@id/cl_document_audio_player" />
 
                 <ImageView
                     android:id="@+id/iv_note_logo"
