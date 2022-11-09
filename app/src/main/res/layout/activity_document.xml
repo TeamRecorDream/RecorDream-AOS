@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@{records.date}"
+            android:text="2022/06/26 SUN"
             android:textAppearance="@style/Sb14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,13 +89,12 @@
             android:ellipsize="end"
             android:maxLength="25"
             android:scrollHorizontally="false"
-            android:text="@{records.title}"
+            android:text="오늘 친구들이랑 피자도 먹고 진짜 재밌는 일이 많은 꿈을 꿨다."
             android:textAppearance="@style/Sb18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_record_date"
-            tools:text="오늘 친구들이랑 피자도 먹고 진짜 재밌는 일이 많은 꿈을 꿨다." />
+            app:layout_constraintTop_toBottomOf="@id/tv_record_date" />
 
         <TextView
             android:id="@+id/tv_home_genre1"
