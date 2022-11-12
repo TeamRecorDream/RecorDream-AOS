@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.login // ktlint-disable packag
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -17,6 +18,7 @@ import com.recodream_aos.recordream.presentation.MainActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
         KakaoSdk.init(this, this.getString(R.string.appKey_init_kakao))
         checkUserToken()
         clickKakaoBtn()
-
     }
 
     private fun clickKakaoBtn() {
