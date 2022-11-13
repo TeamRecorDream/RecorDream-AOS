@@ -121,6 +121,7 @@ class LoginActivity : AppCompatActivity() {
     }
 }
 
+
 /*
     private fun kakaoLogout() {
         // 로그아웃
