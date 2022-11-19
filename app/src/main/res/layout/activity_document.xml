@@ -7,21 +7,21 @@
 
         <!--        <variable-->
         <!--            name="records"-->
-        <!--            type="and.org.recordream.data.remote.response.ResponseDetailDreamRecord" />-->
+        <!--            type="and.org.recordream.data.remote.response.ResponsedocumentDreamRecord" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_detail"
+        android:id="@+id/activity_document"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.detail.DetailActivity">
+        tools:context=".presentation.document.documentActivity">
 
         <ImageView
-            android:id="@+id/iv_detail_dream_color"
+            android:id="@+id/iv_document_dream_color"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitXY"
-            app:layout_constraintBottom_toTopOf="@id/tl_detail"
+            app:layout_constraintBottom_toTopOf="@id/tl_document"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_detail_page_name"
+            android:id="@+id/tv_document_page_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="기록 상세보기"
@@ -63,10 +63,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="47dp"
+            android:src="@drawable/feeling_l_joy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_page_name"
-            tools:src="@drawable/feeling_l_joy" />
+            app:layout_constraintTop_toBottomOf="@id/tv_document_page_name" />
 
         <TextView
             android:id="@+id/tv_record_date"
@@ -140,7 +140,7 @@
             tools:textColor="@color/white01_FFFFFF" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_detail"
+            android:id="@+id/tl_document"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
@@ -158,14 +158,14 @@
             app:tabTextColor="@color/white02_80FFFFFF" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_detail"
+            android:id="@+id/vp_document"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/dark01_02040F"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tl_detail"
-            app:layout_constraintStart_toStartOf="@id/tl_detail"
-            app:layout_constraintTop_toBottomOf="@+id/tl_detail" />
+            app:layout_constraintEnd_toEndOf="@id/tl_document"
+            app:layout_constraintStart_toStartOf="@id/tl_document"
+            app:layout_constraintTop_toBottomOf="@+id/tl_document" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
