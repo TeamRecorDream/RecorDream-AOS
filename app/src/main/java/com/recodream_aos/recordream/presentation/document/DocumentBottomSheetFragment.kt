@@ -30,6 +30,7 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         initDialog()
         clickShare()
         clickEvent()
+        clickCancel()
         return binding.root
     }
 
@@ -54,6 +55,12 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         binding.tvDocumentBottomDelete.setOnClickListener {
             dialogDelete = CustomDialog(requireActivity())
             dialogDelete.showDeleteDialog(R.layout.document_delete_dialog)
+        }
+    }
+
+    private fun clickCancel() {
+        binding.btnDocumentBottomCancel.setOnClickListener {
+            dismiss()
         }
     }
 }
