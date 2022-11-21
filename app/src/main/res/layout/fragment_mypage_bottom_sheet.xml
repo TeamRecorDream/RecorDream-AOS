@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle_radius_10_mypage"
-    android:backgroundTint="@color/grey01_222222"
-    tools:context=".MypageBottomSheetFragment">
+
+    tools:context=".presentation.mypage.MypageBottomSheetFragment">
 
     <TextView
         android:id="@+id/tv_mypage_bottom_settingTime"
@@ -23,7 +23,8 @@
         android:id="@+id/np_mypage_bottom_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/Sb26"
+        android:selectionDividerHeight="0dp"
+        android:theme="@style/NumberpickerStyle"
         app:layout_constraintBottom_toBottomOf="@+id/np_mypage_bottom_hour"
         app:layout_constraintEnd_toStartOf="@+id/np_mypage_bottom_hour"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,7 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:theme="@style/Sb26"
+        android:selectionDividerHeight="0dp"
+        android:theme="@style/NumberpickerStyle"
         app:layout_constraintEnd_toStartOf="@+id/tv_mypage_bottom_colon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/np_mypage_bottom_day"
@@ -57,7 +59,8 @@
         android:id="@+id/np_mypage_bottom_minute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/Sb26"
+        android:selectionDividerHeight="0dp"
+        android:theme="@style/NumberpickerStyle"
         app:layout_constraintBottom_toBottomOf="@+id/np_mypage_bottom_hour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -68,7 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="54dp"
         android:orientation="horizontal"
         app:constraint_referenced_ids="btn_mypage_cancle,btn_mypage_save"
         app:flow_horizontalGap="30dp"
@@ -81,7 +84,7 @@
         android:id="@+id/btn_mypage_cancle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_radius_10_mypage"
+        android:background="@drawable/rectangle_radius_10dp_mypage_btn"
         android:backgroundTint="@color/grey02_373737"
         android:paddingHorizontal="50dp"
         android:text="@string/mypage_bottom_cancle" />
@@ -90,7 +93,7 @@
         android:id="@+id/btn_mypage_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_radius_10_mypage"
+        android:background="@drawable/rectangle_radius_10dp_mypage_btn"
         android:backgroundTint="@color/purple_7F75EE"
         android:paddingHorizontal="50dp"
         android:text="@string/mypage_bottom_save" />

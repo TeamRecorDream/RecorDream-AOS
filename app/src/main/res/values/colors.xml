@@ -18,6 +18,10 @@
     <color name="white04_33FFFFFF">#33FFFFFF</color>
     <color name="white05_1AFFFFFF">#1AFFFFFF</color>
     <color name="white06_0DFFFFFF">#0DFFFFFF</color>
+    <!--mypage에 들어가는 color-->
+    <color name="white08_32343D">#32343D</color>
+    <color name="white09_1B1D27">#1B1D27</color>
+    <color name="white10_OCOE19">#OCOE19</color>
 
     <color name="grey01_222222">#222222</color>
     <color name="grey02_373737">#373737</color>
