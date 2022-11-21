@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
-import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
+import com.recodream_aos.recordream.presentation.mypage.MypageBottomSheetFragment
+import com.recodream_aos.recordream.presentation.mypage.MypageViewModel
 import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.shortToast
 
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
-//    private val mypageViewModel by viewModels<MypageViewModel>()
+    private val mypageViewModel by viewModels<MypageViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
@@ -24,7 +25,7 @@ class MypageActivity : AppCompatActivity() {
 
     }
 
-    private val firebaseToken: TextView by lazy { findViewById(R.id.) }
+    private val firebaseToken: TextView by lazy { findViewById(R.id.tv_fire) }
 
     private fun initFirebase() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -52,7 +53,7 @@ class MypageActivity : AppCompatActivity() {
     private fun showNicknameWarning() {
         if (binding.edtMypageName.text.isNullOrBlank()) {
             // TODO: 이거 왜 int값임?
-            shortToast("1~8자까지 가능합니다.")
+           shortToast("1~8자까지 가능합니다.")
         }
     }
 
@@ -82,4 +83,3 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 }
-
