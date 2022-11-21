@@ -1,170 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.mypage.MypageActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_mypage_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="31dp"
-        android:src="@drawable/icn_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_mypage_mypage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="146dp"
-        android:text="@string/mypage"
-        android:theme="@style/Sb14"
-        app:layout_constraintBottom_toBottomOf="@id/iv_mypage_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
-        app:layout_constraintStart_toEndOf="@id/iv_mypage_back"
-        app:layout_constraintTop_toTopOf="@id/iv_mypage_back" />
-
-    <View
-        android:id="@+id/v_mypage_myapge_Line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/white05_1AFFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
-
-    <ImageView
-        android:id="@+id/tv_mypage_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:src="@drawable/icn_mypage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_mypage_myapge_Line" />
-
-    <EditText
-        android:id="@+id/edt_mypage_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:theme="@style/Sb14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile"
-        tools:text="@string/mypage_name" />
-
-    <ImageView
-        android:id="@+id/iv_mypage_editName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icn_edit"
-        app:layout_constraintBottom_toBottomOf="@id/edt_mypage_name"
-        app:layout_constraintStart_toEndOf="@id/edt_mypage_name"
-        app:layout_constraintTop_toTopOf="@id/edt_mypage_name" />
-
-    <TextView
-        android:id="@+id/tv_mypage_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mypage_email"
-        android:textColor="@color/white02_80FFFFFF"
-        android:theme="@style/M10"
-        app:layout_constraintEnd_toEndOf="@+id/edt_mypage_name"
-        app:layout_constraintStart_toStartOf="@+id/edt_mypage_name"
-        app:layout_constraintTop_toBottomOf="@id/iv_mypage_editName" />
+        <variable
+            name="mypageViewModel"
+            type="com.recodream_aos.recordream.presentation.mypage.MypageViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_mypage_dreamPush"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/recatangle_radius_15dp_mypage"
-        android:backgroundTint="@color/white05_1AFFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tv_mypage_email">
+        android:layout_height="match_parent"
+        tools:context=".MypageActivity">
+
+        <EditText
+            android:id="@+id/tv_fire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_mypage_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="31dp"
+            android:src="@drawable/icn_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_mypage_push"
+            android:id="@+id/tv_mypage_mypage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="22dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/mypage_dream_push"
-            android:theme="@style/Sb16"
-            app:layout_constraintBottom_toBottomOf="@id/cl_mypage_dreamPush"
-            app:layout_constraintStart_toStartOf="@id/cl_mypage_dreamPush"
-            app:layout_constraintTop_toTopOf="@id/cl_mypage_dreamPush" />
+            android:text="@string/mypage"
+            android:theme="@style/Sb14"
+            app:layout_constraintBottom_toBottomOf="@id/iv_mypage_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_mypage_back" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <View
+            android:id="@+id/v_mypage_myapge_Line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypage" />
+
+        <ImageView
+            android:id="@+id/tv_mypage_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_mypage_push"
-            app:layout_constraintEnd_toEndOf="@id/cl_mypage_dreamPush"
-            app:layout_constraintTop_toTopOf="@id/tv_mypage_push" />
+            android:layout_marginTop="36dp"
+            android:src="@drawable/icn_mypage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_mypage_myapge_Line" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/edt_mypage_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:enabled="false"
+            android:maxLength="8"
+            android:text="@={mypageViewModel.userName}"
+            android:textColor="@color/white"
+            android:theme="@style/Sb14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile"
+            tools:text="@string/mypage_name" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_mypage_settingTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/recatangle_radius_15dp_mypage"
-        android:backgroundTint="@color/white06_0DFFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/cl_mypage_dreamPush">
+        <ImageView
+            android:id="@+id/iv_mypage_editName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icn_edit"
+            app:layout_constraintBottom_toBottomOf="@id/edt_mypage_name"
+            app:layout_constraintStart_toEndOf="@id/edt_mypage_name"
+            app:layout_constraintTop_toTopOf="@id/edt_mypage_name" />
 
         <TextView
-            android:id="@+id/tv_mypage_settingTime"
+            android:id="@+id/tv_mypage_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="22dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/mypage_setting_time"
+            android:text="@string/mypage_email"
+            android:textColor="@color/white02_80FFFFFF"
+            android:theme="@style/M10"
+            app:layout_constraintEnd_toEndOf="@+id/edt_mypage_name"
+            app:layout_constraintStart_toStartOf="@+id/edt_mypage_name"
+            app:layout_constraintTop_toBottomOf="@id/iv_mypage_editName" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_dreamPush"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/recatangle_radius_15dp_mypage"
+            android:backgroundTint="@color/white09_1B1D27"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_email">
+
+            <TextView
+                android:id="@+id/tv_mypage_push"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="22dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/mypage_dream_push"
+                android:theme="@style/Sb16"
+                app:layout_constraintBottom_toBottomOf="@id/cl_mypage_dreamPush"
+                app:layout_constraintStart_toStartOf="@id/cl_mypage_dreamPush"
+                app:layout_constraintTop_toTopOf="@id/cl_mypage_dreamPush" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_mypage_pushAlam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textOff=""
+                android:textOn=""
+                android:thumb="@drawable/setting_switch_thumb"
+                android:thumbTextPadding="15dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_push"
+                app:layout_constraintEnd_toEndOf="@id/cl_mypage_dreamPush"
+                app:layout_constraintTop_toTopOf="@id/tv_mypage_push"
+                app:switchMinWidth="0dp"
+                app:track="@drawable/setting_switch_selector" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_mypage_settingTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/recatangle_radius_15dp_mypage"
+            android:backgroundTint="@color/white06_0DFFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/cl_mypage_dreamPush">
+
+            <TextView
+                android:id="@+id/tv_mypage_settingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="22dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/mypage_setting_time"
+                android:textColor="@color/white03_66FFFFFF"
+                android:theme="@style/Sb16"
+                app:layout_constraintBottom_toBottomOf="@id/cl_mypage_settingTime"
+                app:layout_constraintStart_toStartOf="@id/cl_mypage_settingTime"
+                app:layout_constraintTop_toTopOf="@id/cl_mypage_settingTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/mypage_setting_description"
             android:textColor="@color/white03_66FFFFFF"
+            android:theme="@style/R12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_mypage_settingTime" />
+
+        <Button
+            android:id="@+id/btn_mypage_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/recatangle_radius_15dp_mypage"
+            android:backgroundTint="@color/purple_7F75EE"
+            android:text="@string/mypage_logout"
             android:theme="@style/Sb16"
-            app:layout_constraintBottom_toBottomOf="@id/cl_mypage_settingTime"
-            app:layout_constraintStart_toStartOf="@id/cl_mypage_settingTime"
-            app:layout_constraintTop_toTopOf="@id/cl_mypage_settingTime" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_mypage_delete_account" />
+
+        <TextView
+            android:id="@+id/tv_mypage_delete_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:text="@string/mypage_delete_account_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/mypage_setting_description"
-        android:textColor="@color/white03_66FFFFFF"
-        android:theme="@style/R12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_mypage_settingTime" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_mypage_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/recatangle_radius_15dp_mypage"
-        android:backgroundTint="@color/purple_7F75EE"
-        android:text="@string/mypage_logout"
-        android:theme="@style/Sb16"
-        app:layout_constraintBottom_toTopOf="@+id/tv_mypage_delete_account" />
-
-    <TextView
-        android:id="@+id/tv_mypage_delete_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:text="@string/mypage_delete_account_line"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
