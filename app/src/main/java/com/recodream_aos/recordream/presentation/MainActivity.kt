@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 //                val intent = Intent(this@MainActivity, MypageActivity::class.java)
 //                startActivity(intent)
 //            }
-//
+
 //            ivMainWritebtn.setOnClickListener {
 //                val intent = Intent(this@MainActivity, WriteActivity::class.java)
 //                startActivity(intent)
@@ -38,4 +38,5 @@ class MainActivity : AppCompatActivity() {
 //                startActivity(intent)
 //            }
 //        }
+//    }
 }

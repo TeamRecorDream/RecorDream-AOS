@@ -20,13 +20,13 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/approgo"
+        android:icon="@drawable/approgog"
         android:label="@string/app_name"
         android:roundIcon="@drawable/approgo"
         android:supportsRtl="true"
         android:theme="@style/Theme.RecorDream"
         tools:targetApi="31">
-      
+
         <activity
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
             android:exported="false" />
