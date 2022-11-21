@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.tasks.OnCompleteListener
@@ -36,6 +35,9 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    private fun getChannelId(category: String) =
+        getSummaryId(category).toString() + getString(R.string.app_name)
+
     private fun sendNotification(title: String?, body: String) {
 //        val intent = Intent(this, MainActivity::class.java)
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // 액티비티 중복 생성 방지
@@ -43,8 +45,8 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 //            this, 0, intent,
 //            PendingIntent.FLAG_ONE_SHOT
 //        ) // 일회성
-
-        val channelId = "default_messaging_channel" // 채널 아이디
+// TODO: channerl id 입력해야됨
+        val channelId = getChannelId(""  ) // 채널 아이디
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) // 소리
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -74,17 +76,23 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    private fun getSummaryId(category: String) = when (category) {
+        NotificationCategory.CERTIFICATION.category -> NotificationCategory.CERTIFICATION.summaryId
+        NotificationCategory.RECORED.category -> NotificationCategory.RECORED.summaryId
+        else -> throw IllegalArgumentException("FCM category 필드 오류")
+    }
+
     companion object {
         fun getDeviceToken() {
             FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Log.d("TokenTest", "Fetching FCM registration token failed", task.exception)
+                    Timber.d("TokenTest", "Fetching FCM registration token failed", task.exception)
                     return@OnCompleteListener
                 }
 
                 // Get new FCM registration token
                 val token = task.result
-                Log.d("TokenTest", token!!)
+                Timber.d("TokenTest", token!!)
             })
         }
 
