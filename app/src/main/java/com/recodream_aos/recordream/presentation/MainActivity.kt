@@ -1,8 +1,11 @@
 package com.recodream_aos.recordream.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.recodream_aos.recordream.MypageActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        clickEvent()
 //        initNav()
+        setOnClick()
     }
 
 //    private fun initNav() {
@@ -22,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 //        )
 //    }
 
-//    private fun clickEvent() {
+    //    private fun clickEvent() {
 //        with(binding) {
 //            ivMainMypage.setOnClickListener {
 //                val intent = Intent(this@MainActivity, MypageActivity::class.java)
@@ -38,4 +42,10 @@ class MainActivity : AppCompatActivity() {
 //                startActivity(intent)
 //            }
 //        }
+    private fun setOnClick() {
+        binding.ivMainMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }

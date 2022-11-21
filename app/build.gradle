@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -37,8 +38,8 @@ android {
 }
 
 dependencies {
-    //circleimageview를 위한
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //timber를 위한
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     // NavigationComponent
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
@@ -65,7 +66,25 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
+//firebase 연동
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
 
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Declare the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    // Declare the dependencies for any other desired Firebase products
+    // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    //viewModel
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation "androidx.activity:activity-ktx:1.5.1"
+    implementation("io.coil-kt:coil:2.0.0-rc03")
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
