@@ -1,8 +1,10 @@
 package com.recodream_aos.recordream.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.databinding.ActivityMainBinding
+import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 
 class MainActivity : AppCompatActivity() {
 
