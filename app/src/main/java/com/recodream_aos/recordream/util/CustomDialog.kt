@@ -7,10 +7,12 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
 import androidx.annotation.LayoutRes
+import com.recodream_aos.recordream.databinding.CustomMypageDialogBinding
 import com.recodream_aos.recordream.databinding.DocumentDeleteDialogBinding
 
 class CustomDialog(context: Context) {
     private lateinit var deleteBinding: DocumentDeleteDialogBinding
+    private lateinit var mypageBinding: CustomMypageDialogBinding
     private val dialog = Dialog(context)
 
     private lateinit var inflater: LayoutInflater
@@ -34,6 +36,23 @@ class CustomDialog(context: Context) {
         }
         deleteBinding.tvDocumentDelete.setOnClickListener {
             dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    fun mypageShowDeleteDialog(@LayoutRes layout: Int) {
+        mypageBinding = CustomMypageDialogBinding.inflate(inflater)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(mypageBinding.root)
+            setCancelable(false)
+        }
+        mypageBinding.btnMypageDialogCancle.setOnClickListener {
+            dialog.dismiss()
+        }
+        mypageBinding.btnMypageDialogDelete.setOnClickListener {
+//            (context as OpenThunderDetailActivity).finish()
         }
         dialog.show()
     }
