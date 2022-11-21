@@ -42,7 +42,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/rectangle_radius_8_document_record"
-                    android:visibility="gone"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_dream_record_title">
