@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rectangle_radius_20_document_dialog">
+
+    <View
+        android:id="@+id/v_document_dialog_line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#19ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/tv_document_cancel"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_document_delete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="16dp"
+        android:text="삭제"
+        android:textAppearance="@style/Sb14"
+        android:textColor="#ff5f5f"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_document_cancel" />
+
+    <TextView
+        android:id="@+id/tv_document_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="16dp"
+        android:text="취소"
+        android:textAppearance="@style/Sb14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_document_delete"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/v_document_dialog_line2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#19ffffff"
+        app:layout_constraintBottom_toBottomOf="@id/tv_document_cancel"
+        app:layout_constraintEnd_toStartOf="@id/tv_document_delete"
+        app:layout_constraintStart_toEndOf="@id/tv_document_cancel"
+        app:layout_constraintTop_toTopOf="@id/tv_document_cancel" />
+
+    <TextView
+        android:id="@+id/tv_document_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="23dp"
+        android:text="삭제하기"
+        android:textAppearance="@style/Sb14"
+        app:layout_constraintBottom_toTopOf="@+id/tv_document_dialog_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_document_dialog_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="꿈 기록을 삭제하시겠습니까?"
+        android:textAppearance="@style/M14"
+        app:layout_constraintBottom_toTopOf="@+id/v_document_dialog_line2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
