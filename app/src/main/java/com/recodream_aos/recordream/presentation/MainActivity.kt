@@ -2,7 +2,10 @@ package com.recodream_aos.recordream.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.recodream_aos.recordream.MypageActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
 
