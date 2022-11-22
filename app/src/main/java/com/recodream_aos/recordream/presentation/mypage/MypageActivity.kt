@@ -11,11 +11,13 @@ import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.presentation.mypage.MypageBottomSheetFragment
 import com.recodream_aos.recordream.presentation.mypage.MypageViewModel
 import com.recodream_aos.recordream.util.CustomDialog
+import com.recodream_aos.recordream.util.RecorDreamFireBaseMessagingService
 import com.recodream_aos.recordream.util.shortToast
 
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
+    private val firebase = RecorDreamFireBaseMessagingService()
     private val mypageViewModel by viewModels<MypageViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +55,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun showNicknameWarning() {
         if (binding.edtMypageName.text.isNullOrBlank()) {
-            // TODO: 이거 왜 int값임?
-           shortToast("1~8자까지 가능합니다.")
+            shortToast(R.string.mypage_name_warning)
         }
     }
 
@@ -77,6 +78,7 @@ class MypageActivity : AppCompatActivity() {
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
             if (onSwitch) {
+                firebase
                 createBottomSheet()
             } else {
 
