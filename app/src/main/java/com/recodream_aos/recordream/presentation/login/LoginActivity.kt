@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserToken() {
-        // 로그인 정보 확인
+        // 로그인 정보 확인, 뷰모델 및 팀버로 이동
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
                 Log.d("*****checkUserToken*****", "토큰 정보 보기 실패")
