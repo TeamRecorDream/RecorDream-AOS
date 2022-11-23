@@ -24,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val keyHash = Utility.getKeyHash(this)
         Log.d("*****HASHKEY*****", "$keyHash")
         KakaoSdk.init(this, this.getString(R.string.appKey_init_kakao))
@@ -39,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkUserToken() {
         // 로그인 정보 확인, 뷰모델 및 팀버로 이동
+        // 에러 이프 함수1, 토큰인포함수2 , 뷰모델변수에 트루보냄
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
                 Log.d("*****checkUserToken*****", "토큰 정보 보기 실패")
