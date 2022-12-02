@@ -58,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error -> // TODO : 토큰 활용부분
             // TODO : 토큰 난독화처리하기
+
             if (error != null) {
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
@@ -90,6 +91,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             } else if (token != null) {
                 // TODO: 최종적으로 카카오로그인 및 유저정보 가져온 결과
+
                 UserApiClient.instance.me { user, error ->
                     Log.d("카카오계정으로 로그인 성공", "token: ${token.accessToken} \n\n + me : $user")
                     val intent = Intent(this, MainActivity::class.java)
