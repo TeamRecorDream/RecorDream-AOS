@@ -15,38 +15,44 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityLoginBinding
 import com.recodream_aos.recordream.presentation.MainActivity
+import timber.log.Timber
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
 
-        val keyHash = Utility.getKeyHash(this)
-        Log.d("*****HASHKEY*****", keyHash)
-        KakaoSdk.init(this, this.getString(R.string.appKey_init_kakao))
-        checkUserToken()
+        initViewModel()
+        initKakaoSdk()
+        successKaKaoLogin()
         clickKakaoBtn()
+    }
+
+    private fun initViewModel() {
+        binding.viewModel = loginViewModel
+        binding.lifecycleOwner = this
+    }
+
+    private fun successKaKaoLogin() {
+        if (loginViewModel.checkUserToken()) {
+            val loginToMain = Intent(this, MainActivity::class.java)
+            startActivity(loginToMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            finish()
+        }
+    }
+
+    private fun initKakaoSdk() {
+        KakaoSdk.init(
+            this,
+            this.getString(R.string.appKey_init_kakao)
+        )
     }
 
     private fun clickKakaoBtn() {
         binding.clLoginKakaobtn.setOnClickListener {
             kakaoLogin()
-        }
-    }
-
-    private fun checkUserToken() {
-        // 로그인 정보 확인, 뷰모델 및 팀버로 이동
-        // 에러 이프 함수1, 토큰인포함수2 , 뷰모델변수에 트루보냄
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Log.d("*****checkUserToken*****", "토큰 정보 보기 실패")
-            } else if (tokenInfo != null) {
-                Log.d("*****checkUserToken*****", "토큰 정보 보기 성공")
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
         }
     }
 
