@@ -17,6 +17,7 @@ import com.recodream_aos.recordream.databinding.ActivityLoginBinding
 import com.recodream_aos.recordream.presentation.MainActivity
 
 class LoginActivity : AppCompatActivity() {
+
     // 전체 개편, 뷰모델 분리 mvvm 코루틴 레포지토리패턴
 
 
