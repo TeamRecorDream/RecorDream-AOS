@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.AuthErrorCause
@@ -13,21 +12,15 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityLoginBinding
 import com.recodream_aos.recordream.presentation.MainActivity
 
-class LoginActivity : AppCompatActivity() {
-
-    // 전체 개편, 뷰모델 분리 mvvm 코루틴 레포지토리패턴
-
-
-    private lateinit var binding: ActivityLoginBinding
+class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         val keyHash = Utility.getKeyHash(this)
         Log.d("*****HASHKEY*****", keyHash)
@@ -55,8 +48,6 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-
     }
 
     private fun kakaoLogin() {
@@ -130,7 +121,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
-
 
 /*
     private fun kakaoLogout() {
