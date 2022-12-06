@@ -35,6 +35,11 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="M16">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
     <style name="M22">
         <item name="fontFamily">@font/pretendard_medium</item>
         <item name="android:textSize">22dp</item>
@@ -80,6 +85,11 @@
         <item name="android:textSize">20dp</item>
     </style>
 
+    <style name="Sb26">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">26dp</item>
+    </style>
+
     <style name="El18">
         <item name="fontFamily">@font/pretandard_extralight</item>
         <item name="android:textSize">18dp</item>
@@ -114,5 +124,10 @@
     <style name="R12">
         <item name="fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="R14">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14dp</item>
     </style>
 </resources>
