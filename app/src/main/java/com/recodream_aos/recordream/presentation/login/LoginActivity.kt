@@ -28,6 +28,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initKakaoSdk()
         successKaKaoLogin()
         clickKakaoBtn()
+
+        loginViewModel.initNetwork()
     }
 
     private fun initViewModel() {
