@@ -2,17 +2,16 @@ package com.recodream_aos.recordream.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.recodream_aos.recordream.MypageActivity
+import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
+import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
 //        clickEvent()
 //        initNav()
         setOnClick()
