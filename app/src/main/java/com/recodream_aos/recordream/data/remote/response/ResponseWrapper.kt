@@ -6,4 +6,3 @@ data class ResponseWrapper<T>(
     val message: String,
     val data: T? = null
 )
-

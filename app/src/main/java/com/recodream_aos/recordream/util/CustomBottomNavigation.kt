@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.recodream_aos.recordream.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.recodream_aos.recordream.R
 
 class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()

@@ -7,8 +7,6 @@ class MypageViewModel : ViewModel() {
 
     val userName = MutableLiveData<String>()
 
-     fun editNickName(){
-
+    fun editNickName() {
     }
-
 }

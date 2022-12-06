@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.R
 
-
 class StoragyGridFragment : Fragment() {
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -22,8 +21,6 @@ class StoragyGridFragment : Fragment() {
     companion object {
 
         fun newInstance() {
-
         }
-
     }
 }

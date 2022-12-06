@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.recodream_aos.recordream.MypageActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

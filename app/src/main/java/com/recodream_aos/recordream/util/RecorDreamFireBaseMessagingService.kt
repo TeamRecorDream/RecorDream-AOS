@@ -46,7 +46,7 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 //            PendingIntent.FLAG_ONE_SHOT
 //        ) // 일회성
 // TODO: channerl id 입력해야됨
-        val channelId = getChannelId(""  ) // 채널 아이디
+        val channelId = getChannelId("") // 채널 아이디
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) // 소리
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -84,24 +84,25 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 
     companion object {
         fun getDeviceToken() {
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Timber.d("TokenTest", "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Timber.d("TokenTest", "Fetching FCM registration token failed", task.exception)
+                        return@OnCompleteListener
+                    }
 
-                // Get new FCM registration token
-                val token = task.result
-                Timber.d("TokenTest", token!!)
-            })
+                    // Get new FCM registration token
+                    val token = task.result
+                    Timber.d("TokenTest", token!!)
+                }
+            )
         }
 
         private const val TAG = "MyFirebaseMsgService"
     }
 
-    private fun sendRegistrationToServer(token: String) {    //토큰 갱신을 위한
+    private fun sendRegistrationToServer(token: String) { // 토큰 갱신을 위한
 //        val body = RequestRefreshToken(token)
-//서버한테 토큰이 바뀌었다는 것을 또 알려줘야 되는거 작성해야됨
+// 서버한테 토큰이 바뀌었다는 것을 또 알려줘야 되는거 작성해야됨
     }
-
 }

@@ -23,7 +23,6 @@ class MypageActivity : AppCompatActivity() {
         setContentView(binding.root)
         setOnClick()
         initFirebase()
-
     }
 
     private val firebaseToken: TextView by lazy { findViewById(R.id.tv_fire) }
@@ -42,7 +41,6 @@ class MypageActivity : AppCompatActivity() {
         binding.ivMypageEditName.setOnClickListener { editName() }
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
-
     }
 
     private fun editName() {
@@ -54,7 +52,7 @@ class MypageActivity : AppCompatActivity() {
     private fun showNicknameWarning() {
         if (binding.edtMypageName.text.isNullOrBlank()) {
             // TODO: 이거 왜 int값임?
-           shortToast("1~8자까지 가능합니다.")
+            shortToast("1~8자까지 가능합니다.")
         }
     }
 
@@ -79,9 +77,7 @@ class MypageActivity : AppCompatActivity() {
             if (onSwitch) {
                 createBottomSheet()
             } else {
-
             }
         }
     }
 }
-
