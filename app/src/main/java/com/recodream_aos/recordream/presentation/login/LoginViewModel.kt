@@ -1,11 +1,17 @@
 package com.recodream_aos.recordream.presentation.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.AccessTokenInfo
+import com.recodream_aos.recordream.data.remote.ServciePool
+import com.recodream_aos.recordream.data.remote.api.LoginService
+import com.recodream_aos.recordream.data.remote.request.RequestLogin
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class LoginViewModel : ViewModel() {
+    private val loginService: LoginService = ServciePool.loginService
 
     fun checkUserToken(): Boolean {
         var validUserToken = false
@@ -31,5 +37,22 @@ class LoginViewModel : ViewModel() {
             return true
         }
         return false
+    }
+
+    fun initNetwork() {
+        viewModelScope.launch {
+            runCatching {
+                loginService.postLogin(
+                    RequestLogin(
+                        "dd",
+                        "dd"
+                    )
+                )
+            }.onSuccess {
+                Timber.d("success")
+            }.onFailure {
+                Timber.d(it)
+            }
+        }
     }
 }
