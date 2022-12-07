@@ -20,7 +20,6 @@ class LoginActivity : AppCompatActivity() {
 
     // 전체 개편, 뷰모델 분리 mvvm 코루틴 레포지토리패턴
 
-
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -35,12 +34,19 @@ class LoginActivity : AppCompatActivity() {
         clickKakaoBtn()
     }
 
+    private fun button(){
+        binding.clLoginKakaobtn.setOnClickListener {
+            startActivity(Intent())
+        }
+    }
+
     private fun clickKakaoBtn() {
         binding.clLoginKakaobtn.setOnClickListener {
             kakaoLogin()
         }
     }
 
+    // 카카오 통신 코루틴구현 소셜록읹
     private fun checkUserToken() {
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -53,8 +59,6 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-
     }
 
     private fun kakaoLogin() {
@@ -126,7 +130,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
-
 
 /*
     private fun kakaoLogout() {
