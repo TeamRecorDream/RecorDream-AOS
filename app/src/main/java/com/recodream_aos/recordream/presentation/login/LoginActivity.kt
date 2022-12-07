@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         checkUserToken()
         clickKakaoBtn()
     }
-    
+
 
     private fun clickKakaoBtn() {
         binding.clLoginKakaobtn.setOnClickListener {
