@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="card"
+            type="com.recodream_aos.recordream.data.remote.response.ResponseStoreCard" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_red">
+
+        <ImageView
+            android:id="@+id/iv_store_list_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="21dp"
+            android:layout_marginStart="26dp"
+            android:src="@drawable/feeling_s_shy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_store_list_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="12dp"
+            android:text="@{card.day}"
+            app:layout_constraintStart_toEndOf="@id/iv_store_list_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/store_day" />
+
+        <TextView
+            android:id="@+id/tv_store_list_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:text="@{card.description}"
+            app:layout_constraintStart_toStartOf="@+id/tv_store_list_day"
+            app:layout_constraintTop_toBottomOf="@id/tv_store_list_day"
+            tools:text="@string/store_description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="11dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="@id/tv_store_list_day"
+            app:layout_constraintTop_toBottomOf="@id/tv_store_list_description"
+            tools:itemCount="3" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

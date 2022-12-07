@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="card"
+            type="com.recodream_aos.recordream.data.remote.response.ResponseStoreCard" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_store_grid_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_s_purple">
+
+            <ImageView
+                android:id="@+id/iv_store_grid_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/feeling_m_shy"
+                app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
+                app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
+                app:layout_constraintTop_toTopOf="@id/cl_store_grid_background" />
+
+            <TextView
+                android:id="@+id/tv_store_grid_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="@{card.day}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
+                app:layout_constraintTop_toBottomOf="@+id/iv_store_grid_icon"
+                tools:text="@string/app_name" />
+
+            <TextView
+                android:id="@+id/tv_store_grid_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLength="25"
+                android:text="@{card.description}"
+                app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
+                app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_grid_day"
+                tools:text="@string/store_description" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="22dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/cl_store_grid_background"
+                app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
+                app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_grid_description"
+                tools:itemCount="3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
