@@ -41,10 +41,5 @@
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
 
-    <!-- Kakao-init에서 사용 -->
-    <string name="appKey_init_kakao">317a92407fff808ba151e92dc727bd1c</string>
-
-    <!-- AndroidManifest.xml에서 사용 -->
-    <string name="appKey_manifest_kakao">kakao317a92407fff808ba151e92dc727bd1c</string>
 
 </resources>
