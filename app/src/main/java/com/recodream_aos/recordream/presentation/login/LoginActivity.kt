@@ -4,63 +4,78 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityLoginBinding
 import com.recodream_aos.recordream.presentation.MainActivity
+import com.recodream_aos.recordream.util.extension.loginWithKakao
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
-class LoginActivity : AppCompatActivity() {
-
-    // 전체 개편, 뷰모델 분리 mvvm 코루틴 레포지토리패턴
-
-    private lateinit var binding: ActivityLoginBinding
+@AndroidEntryPoint
+class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val keyHash = Utility.getKeyHash(this)
-        Log.d("*****HASHKEY*****", keyHash)
-        KakaoSdk.init(this, this.getString(R.string.appKey_init_kakao))
-        checkUserToken()
+        Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
+
+        initViewModel()
+        // successKaKaoLogin()
         clickKakaoBtn()
+
+        // loginViewModel.initNetwork()
     }
 
+//    private fun initServer() {
+//        lifecycleScope.launch {
+//            try {
+//                // 서비스 코드에서는 간단하게 로그인 요청하고 oAuthToken 을 받아올 수 있다.
+//                val oAuthToken = UserApiClient.loginWithKakao(this@LoginActivity)
+//                Log.d("MainActivity", "beanbean > $oAuthToken")
+//            } catch (error: Throwable) {
+//                if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+//                    Log.d("MainActivity", "사용자가 명시적으로 취소")
+//                } else {
+//                    Log.e("MainActivity", "인증 에러 발생", error)
+//                }
+//            }
+//        }
+//    }
 
     private fun clickKakaoBtn() {
         binding.clLoginKakaobtn.setOnClickListener {
-            kakaoLogin()
+            initServer()
         }
     }
 
-    // 카카오 통신 코루틴구현 소셜록읹
-    private fun checkUserToken() {
-        // 로그인 정보 확인
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Log.d("*****checkUserToken*****", "토큰 정보 보기 실패")
-            } else if (tokenInfo != null) {
-                Log.d("*****checkUserToken*****", "토큰 정보 보기 성공")
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
-        }
+    private fun initViewModel() {
+        binding.viewModel = loginViewModel
+        binding.lifecycleOwner = this
     }
+
+//    private fun successKaKaoLogin() {
+//        if (loginViewModel.checkUserToken()) {
+//            val loginToMain = Intent(this, MainActivity::class.java)
+//            startActivity(loginToMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//            finish()
+//        }
+//    }
 
     private fun kakaoLogin() {
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error -> // TODO : 토큰 활용부분
             // TODO : 토큰 난독화처리하기
+
             if (error != null) {
                 when {
                     error.toString() == AuthErrorCause.AccessDenied.toString() -> {
@@ -93,7 +108,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             } else if (token != null) {
                 // TODO: 최종적으로 카카오로그인 및 유저정보 가져온 결과
+                // token.accessToken 접근 가능
                 UserApiClient.instance.me { user, error ->
+                    // 토큰
                     Log.d("카카오계정으로 로그인 성공", "token: ${token.accessToken} \n\n + me : $user")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
