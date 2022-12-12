@@ -1,5 +1,6 @@
 package com.recodream_aos.recordream.presentation.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.user.UserApiClient
@@ -7,10 +8,15 @@ import com.kakao.sdk.user.model.AccessTokenInfo
 import com.recodream_aos.recordream.data.remote.ServciePool
 import com.recodream_aos.recordream.data.remote.api.LoginService
 import com.recodream_aos.recordream.data.remote.request.RequestLogin
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val kakaoLogin: KakaoLogin
+) : ViewModel() {
     private val loginService: LoginService = ServciePool.loginService
 
     fun checkUserToken(): Boolean {
@@ -49,8 +55,10 @@ class LoginViewModel : ViewModel() {
                     )
                 )
             }.onSuccess {
+                Log.d("qwdqdqdwqddwddqddqwd","qwdqdwdqwdqwdqwdqwdqd")
                 Timber.d("success")
             }.onFailure {
+                Log.d("qwdqdqdwqddwddqddqwd", it.toString())
                 Timber.d(it)
             }
         }
