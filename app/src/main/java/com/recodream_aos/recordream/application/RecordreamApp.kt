@@ -4,9 +4,11 @@ import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.util.TimberDebugTree
+import dagger.hilt.android.HiltAndroidApp
 import io.grpc.android.BuildConfig
 import timber.log.Timber
 
+@HiltAndroidApp
 class RecordreamApp : Application() {
     override fun onCreate() {
         super.onCreate()
