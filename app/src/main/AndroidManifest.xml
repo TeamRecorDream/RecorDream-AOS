@@ -22,12 +22,12 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:usesCleartextTraffic="true"
         android:icon="@drawable/approgo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/approgo"
         android:supportsRtl="true"
         android:theme="@style/Theme.RecorDream"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <activity
@@ -52,7 +52,8 @@
         <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
