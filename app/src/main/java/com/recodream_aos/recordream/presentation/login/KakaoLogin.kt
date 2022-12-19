@@ -15,7 +15,7 @@ class KakaoLogin @Inject constructor(@ActivityContext context: Context) {
     // 1. 힐트 주입받은 외부클래스는 코루틴적용이 안되는가
     // 2. 뷰모델로 연결, 뷰는 뷰모델로 컨텍스트 전달
     // 3. 뷰모델로 연결하는 것은 안좋은가? 쉐어드 프리퍼런스처럼
-    // 4. ㅇㅇ
+
 
     fun initServer() {
 
