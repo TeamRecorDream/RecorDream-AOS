@@ -15,6 +15,7 @@ class KakaoLogin @Inject constructor(@ActivityContext context: Context) {
     fun initServer() {
 
 
+
         lifecycleScope.launch {
             try {
                 // 서비스 코드에서는 간단하게 로그인 요청하고 oAuthToken 을 받아올 수 있다.
