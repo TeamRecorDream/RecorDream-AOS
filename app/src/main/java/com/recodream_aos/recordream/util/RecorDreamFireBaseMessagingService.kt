@@ -71,7 +71,6 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
                 notify(1000, notificationBuilder.build())
             }
         } else {
-
             notificationManager.notify(0, notificationBuilder.build()) // 알림 생성
         }
     }
@@ -87,7 +86,11 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
             FirebaseMessaging.getInstance().token.addOnCompleteListener(
                 OnCompleteListener { task ->
                     if (!task.isSuccessful) {
-                        Timber.d("TokenTest", "Fetching FCM registration token failed", task.exception)
+                        Timber.d(
+                            "TokenTest",
+                            "Fetching FCM registration token failed",
+                            task.exception
+                        )
                         return@OnCompleteListener
                     }
 

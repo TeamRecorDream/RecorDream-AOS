@@ -41,7 +41,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun amOrpmSettiing() {
-
         val str = arrayOf<String>("AM", "PM")
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
@@ -55,7 +54,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun hourSettiing() {
-
         binding.npMypageBottomHour.minValue = 0
         binding.npMypageBottomHour.maxValue = 12
         binding.npMypageBottomHour.setFormatter { String.format("%02d", it) }
