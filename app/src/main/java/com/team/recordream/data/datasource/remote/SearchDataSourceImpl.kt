@@ -1,11 +1,11 @@
 package com.team.recordream.data.datasource.remote
 
+import com.team.recordream.data.api.SearchService
+import com.team.recordream.data.entity.remote.response.ResponseSearchDto
 import com.team.recordream.domain.util.CustomResult
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.domain.util.Error
-import com.team.recordream.data.api.SearchService
-import com.team.recordream.data.entity.remote.response.ResponseSearchDto
 import javax.inject.Inject
 
 class SearchDataSourceImpl @Inject constructor(

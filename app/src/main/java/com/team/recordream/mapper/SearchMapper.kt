@@ -17,4 +17,4 @@ fun ResponseSearchedRecordDto.toDomain(): SearchedRecord = SearchedRecord(
     genre = this.genre,
     title = this.title,
 
-)
+    )

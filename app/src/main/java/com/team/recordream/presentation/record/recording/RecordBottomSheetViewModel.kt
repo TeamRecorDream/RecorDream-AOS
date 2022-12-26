@@ -3,10 +3,10 @@ package com.team.recordream.presentation.record.recording // ktlint-disable pack
 import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.team.recordream.domain.util.CustomResult.FAIL
-import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.domain.model.VoiceRecordId
 import com.team.recordream.domain.repository.RecordRepository
+import com.team.recordream.domain.util.CustomResult.FAIL
+import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID

@@ -1,7 +1,7 @@
 package com.team.recordream.domain.repository
 
-import com.team.recordream.domain.util.CustomResult
 import com.team.recordream.domain.model.SearchResult
+import com.team.recordream.domain.util.CustomResult
 
 // ktlint-disable package-name
 

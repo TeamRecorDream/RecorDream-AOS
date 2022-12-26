@@ -3,10 +3,10 @@ package com.team.recordream.presentation.record // ktlint-disable package-name
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.team.recordream.domain.util.CustomResult.FAIL
-import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.domain.model.Record
 import com.team.recordream.domain.repository.RecordRepository
+import com.team.recordream.domain.util.CustomResult.FAIL
+import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.presentation.record.uistate.Genre
 import com.team.recordream.util.State
 import com.team.recordream.util.State.DISCONNECT

@@ -2,11 +2,11 @@ package com.team.recordream.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.team.recordream.domain.util.CustomResult.FAIL
-import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.domain.model.SearchResult
 import com.team.recordream.domain.model.SearchedRecord
 import com.team.recordream.domain.repository.SearchRepository
+import com.team.recordream.domain.util.CustomResult.FAIL
+import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.presentation.search.uistate.SearchedRecordUiState
 import com.team.recordream.util.State
 import com.team.recordream.util.State.DISCONNECT
