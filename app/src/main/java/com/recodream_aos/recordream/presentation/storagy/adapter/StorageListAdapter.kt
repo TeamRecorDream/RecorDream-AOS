@@ -1,15 +1,15 @@
-package com.recodream_aos.recordream.presentation.storagy
+package com.recodream_aos.recordream.presentation.storagy.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.recodream_aos.recordream.data.remote.response.ResponseStoreCard
+import com.recodream_aos.recordream.data.remote.response.storage.StoreCard
 import com.recodream_aos.recordream.databinding.ItemListStoreListBinding
 import com.recodream_aos.recordream.util.DiffUtilItemCallback
 
-class StorageListAdapter(private val itemClick: (ResponseStoreCard) -> (Unit)) :
-    ListAdapter<ResponseStoreCard, StorageListAdapter.StorageViewHolder>(diffUtil) {
+class StorageListAdapter(private val itemClick: (StoreCard) -> (Unit)) :
+    ListAdapter<StoreCard, StorageListAdapter.StorageViewHolder>(diffUtil) {
 //    private var listCard = emptyList<ResponseStoreCard>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StorageViewHolder {
@@ -24,10 +24,10 @@ class StorageListAdapter(private val itemClick: (ResponseStoreCard) -> (Unit)) :
 
     class StorageViewHolder(
         private val binding: ItemListStoreListBinding,
-        private val itemClick: (ResponseStoreCard) -> (Unit)
+        private val itemClick: (StoreCard) -> (Unit)
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: ResponseStoreCard) {
+        fun onBind(data: StoreCard) {
             binding.card = data
             binding.root.setOnClickListener {
                 itemClick(data)
@@ -36,7 +36,7 @@ class StorageListAdapter(private val itemClick: (ResponseStoreCard) -> (Unit)) :
     }
 
     companion object {
-        val diffUtil = DiffUtilItemCallback<ResponseStoreCard>(
+        val diffUtil = DiffUtilItemCallback<StoreCard>(
             onItemsTheSame = { old, new -> old.id == new.id },
             onContentsTheSame = { old, new -> old == new }
         )
