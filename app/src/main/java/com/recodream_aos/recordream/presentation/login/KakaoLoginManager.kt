@@ -15,6 +15,7 @@ class KakaoLoginManager @Inject constructor(@ActivityContext context: Context) {
 
 
 
+
     suspend fun UserApiClient.Companion.loginWithKakao(context: Context): OAuthToken {
         return if (instance.isKakaoTalkLoginAvailable(context)) {
             try {
