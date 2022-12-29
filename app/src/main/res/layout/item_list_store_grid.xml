@@ -7,7 +7,7 @@
 
         <variable
             name="card"
-            type="com.recodream_aos.recordream.data.remote.response.ResponseStoreCard" />
+            type="com.recodream_aos.recordream.data.remote.response.storage.StoreCard" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="@{card.day}"
+                android:text="@{card.date}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
                 app:layout_constraintTop_toBottomOf="@+id/iv_store_grid_icon"
