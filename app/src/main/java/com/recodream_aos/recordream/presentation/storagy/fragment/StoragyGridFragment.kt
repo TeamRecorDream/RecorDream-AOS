@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.databinding.FragmentStoragyGridBinding
-import com.recodream_aos.recordream.presentation.storagy.StorageGridAdapter
+import com.recodream_aos.recordream.presentation.storagy.adapter.StorageGridAdapter
 
 
 class StoragyGridFragment : Fragment() {

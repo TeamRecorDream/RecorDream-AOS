@@ -1,13 +1,17 @@
 package com.recodream_aos.recordream.presentation.storagy.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentStoragyListBinding
-import com.recodream_aos.recordream.presentation.storagy.StorageListAdapter
+import com.recodream_aos.recordream.presentation.document.DocumentActivity
+import com.recodream_aos.recordream.presentation.storagy.MyDecoration
+import com.recodream_aos.recordream.presentation.storagy.adapter.StorageListAdapter
 import com.recodream_aos.recordream.presentation.storagy.StorageListViewModel
 
 class StoragyListFragment : Fragment() {
@@ -26,10 +30,18 @@ class StoragyListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        storageListAdapter = StorageListAdapter()
+        storageListAdapter = StorageListAdapter {
+            val intent = Intent(requireContext(), DocumentActivity::class.java)
+        }
         binding.rvStorageList.adapter = storageListAdapter
-        storageListAdapter.setRepoList(viewModel.mockHomelist)
+        storageListAdapter.submitList(viewModel.)
+        initItemDecoration()
+    }
 
+    private fun initItemDecoration() {
+        binding.rvStorageList.addItemDecoration(
+            MyDecoration(resources.getDimensionPixelOffset(R.dimen.margin_15), 1)
+        )
     }
 
     override fun onDestroyView() {

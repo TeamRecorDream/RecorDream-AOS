@@ -18,6 +18,9 @@ class StoragyActivity : AppCompatActivity() {
         displayFragment()
 
     }
+    private fun initEmotionAdapter(){
+
+    }
 
     private fun displayFragment() {
         val listFragment = StoragyListFragment()
