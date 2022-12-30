@@ -64,8 +64,11 @@ dependencies {
 
     //뷰페이저2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
+
+    //홈뷰 새로고침
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 //firebase 연동
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
 

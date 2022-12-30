@@ -16,7 +16,6 @@
         android:background="@drawable/home_back_down"
         tools:context=".presentation.home.HomeFragment">
 
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_home"
             android:layout_width="match_parent"
@@ -27,6 +26,5 @@
             android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
