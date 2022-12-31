@@ -8,5 +8,5 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val kakaoLoginManager: KakaoLoginManager
 ) : ViewModel() {
-    private val
+
 }
