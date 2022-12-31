@@ -13,12 +13,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class KakaoLoginManager @Inject constructor(@ActivityContext context: Context) {
 
-
-
-
-
-
-
     suspend fun UserApiClient.Companion.loginWithKakao(context: Context): OAuthToken {
         return if (instance.isKakaoTalkLoginAvailable(context)) {
             try {
@@ -36,7 +30,6 @@ class KakaoLoginManager @Inject constructor(@ActivityContext context: Context) {
             UserApiClient.loginWithKakaoAccount(context)
         }
     }
-
 
     /**
      * 카카오톡으로 로그인 시도
