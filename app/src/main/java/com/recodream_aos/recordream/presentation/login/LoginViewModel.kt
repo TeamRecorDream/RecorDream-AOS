@@ -9,4 +9,5 @@ class LoginViewModel @Inject constructor(
     private val kakaoLoginManager: KakaoLoginManager
 ) : ViewModel() {
 
+
 }
