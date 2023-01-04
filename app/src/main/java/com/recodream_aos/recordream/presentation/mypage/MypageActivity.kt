@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream
+package com.recodream_aos.recordream.presentation.mypage
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,9 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.messaging.FirebaseMessaging
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
-import com.recodream_aos.recordream.presentation.mypage.MypageBottomSheetFragment
-import com.recodream_aos.recordream.presentation.mypage.MypageViewModel
 import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.shortToast
 
@@ -23,7 +22,6 @@ class MypageActivity : AppCompatActivity() {
         setContentView(binding.root)
         setOnClick()
         initFirebase()
-
     }
 
     private val firebaseToken: TextView by lazy { findViewById(R.id.tv_fire) }
@@ -42,7 +40,6 @@ class MypageActivity : AppCompatActivity() {
         binding.ivMypageEditName.setOnClickListener { editName() }
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
-
     }
 
     private fun editName() {
@@ -54,7 +51,7 @@ class MypageActivity : AppCompatActivity() {
     private fun showNicknameWarning() {
         if (binding.edtMypageName.text.isNullOrBlank()) {
             // TODO: 이거 왜 int값임?
-           shortToast("1~8자까지 가능합니다.")
+            shortToast("1~8자까지 가능합니다.")
         }
     }
 
@@ -79,9 +76,7 @@ class MypageActivity : AppCompatActivity() {
             if (onSwitch) {
                 createBottomSheet()
             } else {
-
             }
         }
     }
 }
-

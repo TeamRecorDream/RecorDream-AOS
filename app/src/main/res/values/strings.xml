@@ -37,4 +37,9 @@
     <string name="mypage_name_warning">1~8자까지 가능합니다.</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--BASE ERROR-->
+    <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
+
+
 </resources>

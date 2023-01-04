@@ -176,6 +176,7 @@ $RECYCLE.BIN/
 *.ipr
 *~
 *.swp
+kakao_strings.xml
 
 # Android Patch
 

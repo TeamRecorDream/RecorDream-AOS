@@ -15,7 +15,8 @@ class MypageDialogFragment : Fragment() {
         get() = requireNotNull(binding) { "binding이 초기화되지 않았습니다." }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = CustomMypageDialogBinding.inflate(inflater, container, false)
@@ -29,11 +30,6 @@ class MypageDialogFragment : Fragment() {
     private fun deleteAccount() {
         val intent = Intent(context, LoginActivity::class.java)
         startActivity(intent)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
     }
 
     companion object {

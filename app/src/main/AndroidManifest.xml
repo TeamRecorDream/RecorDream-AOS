@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.recodream_aos.recordream">
+
     <!-- Permissions of internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,6 +18,7 @@
         android:value="false" />
 
     <application
+        android:name=".application.RecordreamApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,25 +27,45 @@
         android:roundIcon="@drawable/approgo"
         android:supportsRtl="true"
         android:theme="@style/Theme.RecorDream"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-      
+
+        <activity
+            android:name="com.recodream_aos.recordream.presentation.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.recodream_aos.recordream.presentation.storagy.StoragyActivity"
+            android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.mypage.MypageActivity"
-
-            android:exported="false" />
-        <activity
-            android:name=".presentation.storagy.StoragyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Kakao 로그인 -->
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <!-- scheme-example: "kakao{NATIVE_APP_KEY}" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/appKey_manifest_kakao" />
+
             </intent-filter>
         </activity>
     </application>
