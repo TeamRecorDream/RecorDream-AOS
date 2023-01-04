@@ -20,7 +20,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         super.onCreate(savedInstanceState)
         Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
         initViewModel()
-        loginViewModel.getKaKaoCallback()
         clickLoginBtn()
     }
 
