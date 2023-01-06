@@ -7,7 +7,7 @@
 
         <variable
             name="myemotion"
-            type="com.recodream_aos.recordream.data.remote.response.ResponseStoreMyemotion" />
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStoreMyemotion" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
