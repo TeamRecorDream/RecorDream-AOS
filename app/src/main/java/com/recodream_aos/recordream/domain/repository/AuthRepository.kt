@@ -3,6 +3,6 @@ package com.recodream_aos.recordream.domain.repository // ktlint-disable package
 interface AuthRepository {
     suspend fun postLogin(
         kakaoToken: String,
-        fcmToken: String = "temp"
+        fcmToken: String
     ): Boolean
 }
