@@ -21,6 +21,20 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getNewAccessToken(): String? {
+        val refreshToken = sharedPreferenceDataSource.getRefreshToken() ?: return null
+        val accessToken = sharedPreferenceDataSource.getAccessToken() ?: return null
+        val newTokens = authDataSource.getNewToken(accessToken, refreshToken)
+        saveTokens(newTokens.accessToken, newTokens.refreshToken)
+
+        return newTokens.accessToken
+    }
+
+    override suspend fun getAccessToken(): String? {
+        // ??
+        return sharedPreferenceDataSource.getAccessToken()
+    }
+
     private fun saveTokens(accessToken: String, refreshToken: String) {
         sharedPreferenceDataSource.setAccessToken(accessToken)
         sharedPreferenceDataSource.setRefreshToken(refreshToken)

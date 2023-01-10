@@ -5,4 +5,7 @@ interface AuthRepository {
         kakaoToken: String,
         fcmToken: String
     ): Boolean
+
+    suspend fun getNewAccessToken(): String?
+    suspend fun getAccessToken(): String?
 }
