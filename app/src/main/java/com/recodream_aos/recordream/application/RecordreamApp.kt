@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.application // ktlint-disable package-name
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.data.datasource.local.RecordreamSharedPreference
 import com.recodream_aos.recordream.util.TimberDebugTree
 import dagger.hilt.android.HiltAndroidApp
 import io.grpc.android.BuildConfig
@@ -14,6 +15,7 @@ class RecordreamApp : Application() {
         super.onCreate()
         initTimber()
         initKakaoSdk()
+        initSharedPreferences()
     }
 
     private fun initTimber() {
@@ -27,5 +29,9 @@ class RecordreamApp : Application() {
             this,
             this.getString(R.string.appKey_init_kakao)
         )
+    }
+
+    private fun initSharedPreferences() {
+        RecordreamSharedPreference.init(applicationContext)
     }
 }

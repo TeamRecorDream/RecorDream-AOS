@@ -4,21 +4,23 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.auth.model.OAuthToken
-import com.recodream_aos.recordream.data.remote.ServciePool
-import com.recodream_aos.recordream.data.remote.api.LoginService
-import com.recodream_aos.recordream.data.remote.request.RequestLogin
+import com.recodream_aos.recordream.domain.repository.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel() : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
     private val _signUpSuccess = MutableStateFlow(false)
     val signUpSuccess: StateFlow<Boolean> get() = _signUpSuccess
-    private val loginService: LoginService = ServciePool.loginService
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (token != null) {
             Log.d("*****KAKAOLOGIN/SUCCESS*****", "카카오계정 로그인 성공")
-            getNewToken(token.accessToken)
+            getUserToken(token.accessToken)
         } else if (error != null) {
             Log.d("*****KAKAOLOGIN/FAILURE*****", "$error")
         }
@@ -36,20 +38,14 @@ class LoginViewModel() : ViewModel() {
         _signUpSuccess.value = false
     }
 
-    private fun getNewToken(kakaoToken: String) {
+    private fun getUserToken(kakaoToken: String) {
         viewModelScope.launch {
-            runCatching {
-                loginService.postLogin(
-                    RequestLogin(
-                        kakaoToken,
-                        "temp"
-                    )
+            if (authRepository.postLogin(
+                    kakaoToken,
+                    "temp"
                 )
-            }.onSuccess {
-                isSignUpSuccess()
-            }.onFailure {
-                isSignUpFailure()
-            }
+            ) isSignUpSuccess() else isSignUpFailure()
+            // 트라이-캐치 분기처리
         }
     }
 }
