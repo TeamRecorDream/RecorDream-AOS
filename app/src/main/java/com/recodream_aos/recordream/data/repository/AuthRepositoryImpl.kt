@@ -14,11 +14,20 @@ class AuthRepositoryImpl @Inject constructor(
         return try {
             val tokens = authDataSource.postLogin(kakaoToken, fcmToken) ?: return false
             saveTokens(tokens.accessToken, tokens.refreshToken)
+            saveKakaoToken(kakaoToken)
             Log.d("LOGIN_SUCCESS", tokens.accessToken)
             true
         } catch (e: Exception) {
             false
         }
+    }
+
+    override suspend fun tryLogin(): Boolean {
+        val localKakaoToken = sharedPreferenceDataSource.getKakaoToken()
+        val tempToken = "temp"
+        val isLogin = authDataSource.tryLogin(localKakaoToken, tempToken)
+        if (isLogin.success) return true
+        return false
     }
 
     override suspend fun getNewAccessToken(): String? {
@@ -38,5 +47,9 @@ class AuthRepositoryImpl @Inject constructor(
     private fun saveTokens(accessToken: String, refreshToken: String) {
         sharedPreferenceDataSource.setAccessToken(accessToken)
         sharedPreferenceDataSource.setRefreshToken(refreshToken)
+    }
+
+    private fun saveKakaoToken(kakaoToken: String) {
+        sharedPreferenceDataSource.setKakaoToken(kakaoToken)
     }
 }
