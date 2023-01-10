@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RequestLogin(
-    val kakaoToken: String,
+    val kakaoToken: String?,
     val fcmToken: String
 )
