@@ -20,7 +20,7 @@ class AuthDataSourceImpl @Inject constructor(
         kakaoToken: String?,
         fcmToken: String
     ): ResponseWrapper<ResponseLogin> {
-        return authService.postLogin(RequestLogin(kakaoToken, fcmToken))
+        return authService.tryLogin(RequestLogin(kakaoToken, fcmToken))
     }
 
     override suspend fun getNewToken(accessToken: String, refreshToken: String): ResponseNewToken {

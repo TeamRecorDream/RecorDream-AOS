@@ -1,5 +1,5 @@
 package com.recodream_aos.recordream.presentation.login // ktlint-disable package-name
-
+// 로직 문제 없음
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +30,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initViewModel()
         clickLoginBtn()
         binding.ivLoginLogo.setOnClickListener {
-            //  kakaoUnlink()
+            kakaoUnlink()
             // 토큰재확인용
         }
     }

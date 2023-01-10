@@ -7,7 +7,6 @@ interface AuthRepository {
     ): Boolean
 
     suspend fun tryLogin(): Boolean
-
     suspend fun getNewAccessToken(): String?
     suspend fun getAccessToken(): String?
 }

@@ -12,12 +12,12 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
     override suspend fun postLogin(kakaoToken: String, fcmToken: String): Boolean {
         return try {
-            val tokens = authDataSource.postLogin(kakaoToken, fcmToken) ?: return false
+            val tokens = authDataSource.postLogin(kakaoToken, fcmToken)
             saveTokens(tokens.accessToken, tokens.refreshToken)
             saveKakaoToken(kakaoToken)
-            Log.d("LOGIN_SUCCESS", tokens.accessToken)
             true
         } catch (e: Exception) {
+            Log.d("LOGIN_FAILURE", e.toString())
             false
         }
     }

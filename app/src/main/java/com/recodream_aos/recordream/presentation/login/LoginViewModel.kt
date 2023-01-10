@@ -1,5 +1,5 @@
 package com.recodream_aos.recordream.presentation.login // ktlint-disable package-name
-
+// 로직 문제 없음
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,22 +34,13 @@ class LoginViewModel @Inject constructor(
         _signUpSuccess.value = true
     }
 
-    private fun isSignUpFailure() {
-        _signUpSuccess.value = false
-    }
-
     private fun getUserToken(kakaoToken: String) {
         viewModelScope.launch {
             if (authRepository.postLogin(
                     kakaoToken,
                     "temp"
                 )
-            ) isSignUpSuccess() else isSignUpFailure()
-            // 트라이-캐치 분기처리
+            ) isSignUpSuccess()
         }
     }
 }
-
-// 인터셉트 진행
-// 토큰관리
-// 자동로그인하면 완료 !

@@ -14,6 +14,11 @@ interface AuthService {
         @Body requestLogin: RequestLogin
     ): ResponseWrapper<ResponseLogin>
 
+    @POST("/auth/login")
+    suspend fun tryLogin(
+        @Body requestLogin: RequestLogin
+    ): ResponseWrapper<ResponseLogin>
+
     @POST("/auth/token")
     suspend fun postNewToken(
         @Body requestNewToken: RequestNewToken
