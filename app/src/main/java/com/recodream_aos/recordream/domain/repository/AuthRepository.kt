@@ -6,7 +6,6 @@ interface AuthRepository {
         fcmToken: String
     ): Boolean
 
-    suspend fun tryLogin(): Boolean
-    suspend fun getNewAccessToken(): String?
-    suspend fun getAccessToken(): String?
+    suspend fun postToken(): Boolean
+    suspend fun getAccessToken(): String
 }

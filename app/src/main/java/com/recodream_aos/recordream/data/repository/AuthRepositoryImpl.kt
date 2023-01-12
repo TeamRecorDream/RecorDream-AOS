@@ -1,9 +1,11 @@
 package com.recodream_aos.recordream.data.repository // ktlint-disable package-name
 
-import android.util.Log
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
+import com.recodream_aos.recordream.data.entity.remote.response.ResponseNewToken
+import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 import com.recodream_aos.recordream.domain.repository.AuthRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -14,33 +16,27 @@ class AuthRepositoryImpl @Inject constructor(
         return try {
             val tokens = authDataSource.postLogin(kakaoToken, fcmToken)
             saveTokens(tokens.accessToken, tokens.refreshToken)
-            saveKakaoToken(kakaoToken)
             true
-        } catch (e: Exception) {
-            Log.d("LOGIN_FAILURE", e.toString())
+        } catch (exceptionMessage: Exception) {
+            Timber.d(exceptionMessage.toString())
             false
         }
     }
 
-    override suspend fun tryLogin(): Boolean {
-        val localKakaoToken = sharedPreferenceDataSource.getKakaoToken()
-        val tempToken = "temp"
-        val isLogin = authDataSource.tryLogin(localKakaoToken, tempToken)
-        if (isLogin.success) return true
-        return false
+    override suspend fun postToken(): Boolean {
+        return try {
+            val localAccessToken = sharedPreferenceDataSource.getAccessToken()
+            val localRefreshToken = sharedPreferenceDataSource.getRefreshToken()
+            val postTokenInfo =
+                authDataSource.postToken(localAccessToken, localRefreshToken)
+            tryLogin(postTokenInfo)
+        } catch (exceptionMessage: Exception) {
+            Timber.d(exceptionMessage.toString())
+            false
+        }
     }
 
-    override suspend fun getNewAccessToken(): String? {
-        val refreshToken = sharedPreferenceDataSource.getRefreshToken() ?: return null
-        val accessToken = sharedPreferenceDataSource.getAccessToken() ?: return null
-        val newTokens = authDataSource.getNewToken(accessToken, refreshToken)
-        saveTokens(newTokens.accessToken, newTokens.refreshToken)
-
-        return newTokens.accessToken
-    }
-
-    override suspend fun getAccessToken(): String? {
-        // ??
+    override suspend fun getAccessToken(): String {
         return sharedPreferenceDataSource.getAccessToken()
     }
 
@@ -49,7 +45,26 @@ class AuthRepositoryImpl @Inject constructor(
         sharedPreferenceDataSource.setRefreshToken(refreshToken)
     }
 
-    private fun saveKakaoToken(kakaoToken: String) {
-        sharedPreferenceDataSource.setKakaoToken(kakaoToken)
+    private fun tryLogin(postTokenInfo: ResponseWrapper<ResponseNewToken>): Boolean {
+        val newAccessToken = postTokenInfo.data.accessToken
+        val refreshToken = postTokenInfo.data.refreshToken
+        return when (postTokenInfo.status) {
+            EXPIRED_ACCESS_TOKEN -> {
+                saveTokens(newAccessToken, refreshToken)
+                true
+            }
+            NO_TOKEN -> false
+            EXPIRED_REFRESH_TOKEN -> false
+            USABLE_TOKENS -> true
+            else -> false
+        }
+    }
+
+    companion object {
+        const val EXPIRED_ACCESS_TOKEN = 200
+        const val NO_TOKEN = 400
+        const val EXPIRED_REFRESH_TOKEN = 401
+        const val USABLE_TOKENS = 403
+        const val SERVER_ERROR = 500
     }
 }
