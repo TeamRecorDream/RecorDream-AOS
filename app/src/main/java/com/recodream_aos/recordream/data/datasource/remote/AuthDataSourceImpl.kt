@@ -2,7 +2,6 @@ package com.recodream_aos.recordream.data.datasource.remote // ktlint-disable pa
 
 import com.recodream_aos.recordream.data.api.AuthService
 import com.recodream_aos.recordream.data.entity.remote.request.RequestLogin
-import com.recodream_aos.recordream.data.entity.remote.request.RequestNewToken
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseLogin
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseNewToken
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
@@ -16,15 +15,10 @@ class AuthDataSourceImpl @Inject constructor(
         return requireNotNull(responseLogin.data)
     }
 
-    override suspend fun tryLogin(
-        kakaoToken: String?,
-        fcmToken: String
-    ): ResponseWrapper<ResponseLogin> {
-        return authService.tryLogin(RequestLogin(kakaoToken, fcmToken))
-    }
-
-    override suspend fun getNewToken(accessToken: String, refreshToken: String): ResponseNewToken {
-        val responseNewToken = authService.postNewToken(RequestNewToken(accessToken, refreshToken))
-        return requireNotNull(responseNewToken.data)
+    override suspend fun postToken(
+        accessToken: String,
+        refreshToken: String
+    ): ResponseWrapper<ResponseNewToken> {
+        return authService.postToken(accessToken, refreshToken)
     }
 }
