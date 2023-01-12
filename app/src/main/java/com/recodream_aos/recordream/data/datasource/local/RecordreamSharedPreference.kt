@@ -9,11 +9,11 @@ import javax.inject.Singleton
 
 @Singleton
 object RecordreamSharedPreference {
-    private lateinit var recordreamPref: SharedPreferences
+    private lateinit var recordreamStorage: SharedPreferences
     private const val DEFAULT_VALUE = ""
 
     fun init(context: Context) {
-        recordreamPref = EncryptedSharedPreferences.create(
+        recordreamStorage = EncryptedSharedPreferences.create(
             "encryptedShared",
             masterKeyAlias,
             context,
@@ -25,11 +25,11 @@ object RecordreamSharedPreference {
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
     fun setValue(key: String, value: String) {
-        recordreamPref.edit {
+        recordreamStorage.edit {
             putString(key, value)
             apply()
         }
     }
 
-    fun getValue(key: String): String? = recordreamPref.getString(key, DEFAULT_VALUE)
+    fun getValue(key: String): String? = recordreamStorage.getString(key, DEFAULT_VALUE)
 }
