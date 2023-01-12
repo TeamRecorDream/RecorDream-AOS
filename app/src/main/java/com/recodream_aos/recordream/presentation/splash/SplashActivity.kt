@@ -3,8 +3,6 @@ package com.recodream_aos.recordream.presentation.splash // ktlint-disable packa
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.recodream_aos.recordream.R
@@ -13,7 +11,9 @@ import com.recodream_aos.recordream.databinding.ActivitySplashBinding
 import com.recodream_aos.recordream.presentation.MainActivity
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
@@ -26,7 +26,7 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
         // overridePendingTransition(R.anim.none, R.anim.horizon_exit)
 
         initViewModel()
-        handleSplash()
+        isLoginAble()
     }
 
     private fun initViewModel() {
@@ -34,22 +34,14 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
         binding.lifecycleOwner = this
     }
 
-    private fun handleSplash() {
-        val splashHandler = Handler(Looper.getMainLooper())
-        splashHandler.postDelayed(
-            {
-                isLoginAble()
-                finish()
-            },
-            NINE_HUNDRED
-        )
-    }
-
     private fun isLoginAble() {
         splashViewModel.tryLogin()
         lifecycleScope.launchWhenStarted {
-            splashViewModel.isLoginSuccess.collectLatest {
-                if (it) startMainActivity() else startLoginActivity()
+            delay(NINE_HUNDRED)
+            launch {
+                splashViewModel.isLoginSuccess.collectLatest {
+                    if (it) startMainActivity() else startLoginActivity()
+                }
             }
         }
     }
@@ -57,11 +49,13 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
     private fun startMainActivity() {
         val intentToMain = Intent(this, MainActivity::class.java)
         startActivity(intentToMain)
+        finish()
     }
 
     private fun startLoginActivity() {
         val intentToLogin = Intent(this, LoginActivity::class.java)
         startActivity(intentToLogin)
+        finish()
     }
 
     companion object {

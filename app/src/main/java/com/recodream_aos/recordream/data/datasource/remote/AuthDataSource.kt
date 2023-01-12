@@ -10,13 +10,8 @@ interface AuthDataSource {
         fcmToken: String
     ): ResponseLogin
 
-    suspend fun tryLogin(
-        kakaoToken: String?,
-        fcmToken: String
-    ): ResponseWrapper<ResponseLogin>
-
-    suspend fun getNewToken(
+    suspend fun postToken(
         accessToken: String,
         refreshToken: String
-    ): ResponseNewToken
+    ): ResponseWrapper<ResponseNewToken>
 }

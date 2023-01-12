@@ -22,7 +22,7 @@ class SplashViewModel @Inject constructor(
 
     fun tryLogin() {
         viewModelScope.launch {
-            if (authRepository.tryLogin()) isLoginSuccess()
+            if (authRepository.postToken()) isLoginSuccess()
         }
     }
 }
