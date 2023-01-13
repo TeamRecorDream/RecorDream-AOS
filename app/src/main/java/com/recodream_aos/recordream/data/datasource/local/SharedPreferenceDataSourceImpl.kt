@@ -6,12 +6,12 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
     private val recordreamSharedPreference: RecordreamSharedPreference
 ) : SharedPreferenceDataSource {
 
-    override fun setAccessToken(accessToken: String) {
-        recordreamSharedPreference.setValue(ACCESS_TOKEN, accessToken)
+    override fun setAccessToken(accessToken: String?) {
+        recordreamSharedPreference.setValue(ACCESS_TOKEN, accessToken ?: "")
     }
 
-    override fun setRefreshToken(refreshToken: String) {
-        recordreamSharedPreference.setValue(REFRESH_TOKEN, refreshToken)
+    override fun setRefreshToken(refreshToken: String?) {
+        recordreamSharedPreference.setValue(REFRESH_TOKEN, refreshToken ?: "")
     }
 
     override fun getAccessToken(): String =
