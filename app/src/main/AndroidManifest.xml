@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.recodream_aos.recordream">
-
     <!-- Permissions of internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -34,14 +33,18 @@
             android:name="com.recodream_aos.recordream.presentation.MainActivity"
             android:exported="false" />
         <activity
+            android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
             android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.storagy.StoragyActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
-            android:exported="true">
+            android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,7 +68,6 @@
                 <data
                     android:host="oauth"
                     android:scheme="@string/appKey_manifest_kakao" />
-
             </intent-filter>
         </activity>
     </application>

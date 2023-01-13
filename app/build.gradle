@@ -16,12 +16,17 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        buildConfigField("String", "RECORDREAM_BASE_URL", "recordreamBaseUrl")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "RECORDREAM_BASE_URL", recordreamBaseUrl)
+        }
         release {
+            buildConfigField("String", "RECORDREAM_BASE_URL", recordreamBaseUrl)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -60,6 +65,7 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
 
     // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp-urlconnection")
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 

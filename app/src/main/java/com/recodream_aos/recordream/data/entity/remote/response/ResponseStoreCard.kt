@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.data.remote.response
+package com.recodream_aos.recordream.data.entity.remote.response
 
 import androidx.annotation.DrawableRes
 

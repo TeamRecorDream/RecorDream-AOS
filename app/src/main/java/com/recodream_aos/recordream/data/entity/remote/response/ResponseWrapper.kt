@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.data.remote.response
+package com.recodream_aos.recordream.data.entity.remote.response // ktlint-disable package-name
 
 import kotlinx.serialization.Serializable
 

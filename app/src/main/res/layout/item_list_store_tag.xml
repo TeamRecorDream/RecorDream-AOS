@@ -7,7 +7,7 @@
 
         <variable
             name="tag"
-            type="com.recodream_aos.recordream.data.remote.response.ResponseStoreTag" />
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStoreTag" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
