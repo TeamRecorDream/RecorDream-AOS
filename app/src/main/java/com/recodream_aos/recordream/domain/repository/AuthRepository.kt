@@ -8,7 +8,7 @@ interface AuthRepository {
 
     suspend fun postToken(): Boolean
 
-    //suspend fun getNewAccessToken(): String
+    suspend fun getNewAccessToken(): String
 
     suspend fun getAccessToken(): String
 }
