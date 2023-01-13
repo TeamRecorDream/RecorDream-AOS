@@ -3,9 +3,10 @@ package com.recodream_aos.recordream.presentation.splash // ktlint-disable packa
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivitySplashBinding
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
@@ -36,16 +38,22 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
     }
 
     private fun isLoginAble() {
-        //  splashViewModel.tryLogin()
-        lifecycleScope.launchWhenStarted {
-            launch {
-                splashViewModel.isLoginSuccess.collectLatest {
-                    Log.d("안녕", "ㄴㅇㅂㄴㅂㅇ 액티비티요")
-                    delay(3000)
-                    Log.d("안녕", "$it 액티비티요")
-                    if (it) startMainActivity() else startLoginActivity()
+        lifecycleScope.launch {
+            delay(NINE_HUNDRED)
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                splashViewModel.isLoginSuccess.collectLatest { isLoginSuccess ->
+                    Timber.e("SplashActivity1 : $isLoginSuccess")
+                    tryLogin(isLoginSuccess)
                 }
             }
+        }
+    }
+
+    private fun tryLogin(isLoginSuccess: SplashViewModel.LoginState) {
+        when (isLoginSuccess) {
+            SplashViewModel.LoginState.SUCCESS -> startMainActivity()
+            SplashViewModel.LoginState.FAIL -> startLoginActivity()
+            SplashViewModel.LoginState.IDLE -> Timber.e("IDLE")
         }
     }
 
