@@ -1,5 +1,6 @@
 package com.recodream_aos.recordream.data.datasource.remote // ktlint-disable package-name
 
+import android.util.Log
 import com.recodream_aos.recordream.data.api.AuthService
 import com.recodream_aos.recordream.data.entity.remote.request.RequestLogin
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseLogin
@@ -19,6 +20,9 @@ class AuthDataSourceImpl @Inject constructor(
         accessToken: String,
         refreshToken: String
     ): ResponseWrapper<ResponseNewToken> {
-        return authService.postToken(accessToken, refreshToken)
+        val token = authService.postToken(accessToken, "refrweshToken")
+        Log.d("안녕", "${token.message}AuthDataSource")
+        Log.d("안녕", token.success.toString())
+        return token
     }
 }
