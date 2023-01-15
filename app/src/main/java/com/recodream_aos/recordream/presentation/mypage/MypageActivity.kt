@@ -71,7 +71,8 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun createBottomSheet() {
-        myPageBottomSheetFragment.show(supportFragmentManager, myPageBottomSheetFragment.tag)
+        myPageBottomSheetFragment.show(supportFragmentManager)
+        //.show(supportFragmentManager, myPageBottomSheetFragment.tag)
     }
 
     private fun switchOnClick() {

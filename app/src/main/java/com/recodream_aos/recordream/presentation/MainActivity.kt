@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.recodream_aos.recordream.MypageActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
+import com.recodream_aos.recordream.presentation.storagy.StoragyActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,31 @@ class MainActivity : AppCompatActivity() {
 //        clickEvent()
 //        initNav()
         setOnClick()
+    }
+
+    private fun displayFragment() {
+//        supportFragmentManager.beginTransaction()
+//            .add(R.id.home_container, HomeFragment())
+//            .commit()
+//
+//        binding.bnvHome.setOnItemSelectedListener {
+//            changeFragment(
+//                when(it.itemId){
+//                    R.id.home_menu -> HomeFragment()
+//                    R.id.gallery_menu -> GalleryFragment()
+//                    else -> SearchFragment()
+//                }
+//            )
+//            true
+//        }
+//        binding.bnvHome.selectedItemId = R.id.home_menu
+//    }
+//
+//    private fun changeFragment(fragment: Fragment){
+//        supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.home_container,fragment)
+//            .commit()
     }
 
 //    private fun initNav() {
@@ -47,5 +73,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
+        binding.ivMainSearch.setOnClickListener {
+            val intent = Intent(this, StoragyActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

@@ -31,7 +31,7 @@
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.mypage.MypageActivity"
+            android:name=".MypageActivity"
 
             android:exported="false" />
         <activity
