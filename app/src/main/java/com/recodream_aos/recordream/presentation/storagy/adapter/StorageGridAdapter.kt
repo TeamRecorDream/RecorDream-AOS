@@ -24,7 +24,7 @@ class StorageGridAdapter() : RecyclerView.Adapter<StorageGridAdapter.StorageGrid
     class StorageGridViewHolder(private val binding: ItemListStoreGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: StoreCard) {
-            binding.card = data
+//            binding.card = data
         }
     }
 

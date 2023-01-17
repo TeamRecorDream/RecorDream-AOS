@@ -11,14 +11,16 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentStoragyListBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.storagy.MyDecoration
-import com.recodream_aos.recordream.presentation.storagy.adapter.StorageListAdapter
 import com.recodream_aos.recordream.presentation.storagy.StorageListViewModel
+import com.recodream_aos.recordream.presentation.storagy.adapter.StorageListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StoragyListFragment : Fragment() {
     private var _binding: FragmentStoragyListBinding? = null
     private val binding get() = _binding ?: error("Binding이 초기화 되지 않았습니다.")
     private lateinit var storageListAdapter: StorageListAdapter
-    private val viewModel by viewModels<StorageListViewModel>()
+    private val storageViewModel by viewModels<StorageListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +29,7 @@ class StoragyListFragment : Fragment() {
     ): View? {
         _binding = FragmentStoragyListBinding.inflate(layoutInflater, container, false)
         initAdapter()
+        binding.viewModel = storageViewModel
         return binding.root
     }
 
@@ -35,7 +38,7 @@ class StoragyListFragment : Fragment() {
             val intent = Intent(requireContext(), DocumentActivity::class.java)
         }
         binding.rvStorageList.adapter = storageListAdapter
-        storageListAdapter.submitList(viewModel.)
+//        storageListAdapter.submitList(viewModel.)
         initItemDecoration()
     }
 

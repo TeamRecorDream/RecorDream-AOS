@@ -18,10 +18,4 @@ class StoragyGridFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_storagy_grid, container, false)
     }
 
-    companion object {
-
-        fun newInstance() {
-        }
-    }
 }
-

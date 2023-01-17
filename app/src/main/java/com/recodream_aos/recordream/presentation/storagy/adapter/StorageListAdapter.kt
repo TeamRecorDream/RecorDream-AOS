@@ -28,7 +28,7 @@ class StorageListAdapter(private val itemClick: (StoreCard) -> (Unit)) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: StoreCard) {
-            binding.card = data
+
             binding.root.setOnClickListener {
                 itemClick(data)
             }

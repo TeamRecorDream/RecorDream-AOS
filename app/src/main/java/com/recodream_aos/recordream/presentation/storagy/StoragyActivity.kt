@@ -8,7 +8,9 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityStoragyBinding
 import com.recodream_aos.recordream.presentation.storagy.fragment.StoragyGridFragment
 import com.recodream_aos.recordream.presentation.storagy.fragment.StoragyListFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StoragyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStoragyBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +20,8 @@ class StoragyActivity : AppCompatActivity() {
         displayFragment()
 
     }
-    private fun initEmotionAdapter(){
+
+    private fun initEmotionAdapter() {
 
     }
 
