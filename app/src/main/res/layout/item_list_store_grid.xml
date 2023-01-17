@@ -7,7 +7,7 @@
 
         <variable
             name="card"
-            type="com.recodream_aos.recordream.data.remote.response.storage.StoreCard" />
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStoreCard" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

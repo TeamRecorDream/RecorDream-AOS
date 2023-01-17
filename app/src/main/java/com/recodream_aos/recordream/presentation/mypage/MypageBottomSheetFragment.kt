@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.presentation.mypage//package before.forget.feature.write
+package com.recodream_aos.recordream.presentation.mypage // package before.forget.feature.write
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,7 +41,6 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun amOrpmSettiing() {
-
         val str = arrayOf<String>("AM", "PM")
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
@@ -51,12 +50,10 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
             amOrpm = str[i]
 //            viewModel.setAmOrPm(amOrpm)
             binding.npMypageBottomDay.wrapSelectorWheel = false
-
         }
     }
 
     private fun hourSettiing() {
-
         binding.npMypageBottomHour.minValue = 0
         binding.npMypageBottomHour.maxValue = 12
         binding.npMypageBottomHour.setFormatter { String.format("%02d", it) }
@@ -89,6 +86,4 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
-
 }
-

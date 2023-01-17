@@ -14,7 +14,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <!--        <item name="fontFamily">@font/pretendard</item>-->
+        <!-- <item name="fontFamily">@font/pretendard</item>-->
         <item name="android:textColor">@color/white</item>
         <item name="android:includeFontPadding">false</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialog.Style</item>
@@ -33,5 +33,12 @@
         <item name="fontFamily">@font/pretendard_semibold</item>
         <item name="android:textSize">26dp</item>
         <item name="android:editTextColor">@color/white01_FFFFFF</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 </resources>

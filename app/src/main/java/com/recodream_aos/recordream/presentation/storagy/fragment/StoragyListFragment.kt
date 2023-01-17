@@ -21,7 +21,8 @@ class StoragyListFragment : Fragment() {
     private val viewModel by viewModels<StorageListViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStoragyListBinding.inflate(layoutInflater, container, false)
