@@ -2,8 +2,11 @@ package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
+import com.recodream_aos.recordream.data.datasource.remote.StorageDateSource
 import com.recodream_aos.recordream.data.repository.AuthRepositoryImpl
+import com.recodream_aos.recordream.data.repository.StorageRepositoryImpl
 import com.recodream_aos.recordream.domain.repository.AuthRepository
+import com.recodream_aos.recordream.domain.repository.StorageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,4 +23,10 @@ object RepositoryModule {
         sharedPreferenceDataSource: SharedPreferenceDataSource,
         authDataSource: AuthDataSource
     ): AuthRepository = AuthRepositoryImpl(authDataSource, sharedPreferenceDataSource)
+
+    @Provides
+    @Singleton
+    fun providesStorageRepository(
+        storageDateSource: StorageDateSource
+    ): StorageRepository = StorageRepositoryImpl(storageDateSource)
 }
