@@ -54,7 +54,22 @@
 
     <string name="tv_record_comedy"># 코미디</string>
     <string name="tv_record_romance"># 로맨스</string>
-    <string name="tv_record_fantasy">00:00</string>
+    <string name="tv_record_fantasy"># 판타지</string>
+    <string name="tv_record_horror"># 공포</string>
+    <string name="tv_record_animal"># 동물</string>
+    <string name="tv_record_friend"># 친구</string>
+    <string name="tv_record_family"># 가족</string>
+    <string name="tv_record_food"># 음식</string>
+    <string name="tv_record_work"># 일</string>
+    <string name="tv_record_etc"># 기타</string>
+
+    <string name="tv_record_joy">기쁜</string>
+    <string name="tv_record_sad">슬픈</string>
+    <string name="tv_record_scary">무서운</string>
+    <string name="tv_record_strange">이상한</string>
+    <string name="tv_record_shy">민망한</string>
+
+
 
 
     <!--BASE ERROR-->
