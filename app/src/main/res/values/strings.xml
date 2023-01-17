@@ -55,13 +55,7 @@
     <string name="tv_record_comedy"># 코미디</string>
     <string name="tv_record_romance"># 로맨스</string>
     <string name="tv_record_fantasy">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
-    <string name="tv_record_tools_time">00:00</string>
+
 
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
