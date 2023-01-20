@@ -8,6 +8,5 @@ import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 }
