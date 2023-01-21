@@ -205,29 +205,36 @@
                         app:layout_constraintStart_toEndOf="@+id/iv_record_mic"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_record_recording_time"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_record_record_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="21dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="21dp"
-                        android:textAppearance="@style/M14"
-                        android:textColor="@color/white01_FFFFFF"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_record_voice"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/tv_record_tools_time" />
-
-                    <ImageView
-                        android:id="@+id/iv_record_voice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icn_rd_voice" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_record_recording_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:textAppearance="@style/M14"
+                            android:textColor="@color/white01_FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_record_voice"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_record_voice"
+                            app:layout_constraintTop_toTopOf="@+id/iv_record_voice"
+                            tools:text="@string/tv_record_tools_time" />
+
+                        <ImageView
+                            android:id="@+id/iv_record_voice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icn_rd_voice" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -267,29 +274,36 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/icn_calendar" />
 
-                    <TextView
-                        android:id="@+id/tv_record_date_num"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_record_date_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="21dp"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginBottom="21dp"
-                        android:textAppearance="@style/M14"
-                        android:textColor="@color/white01_FFFFFF"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_record_arrow"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/tv_record_tools_date" />
-
-                    <ImageView
-                        android:id="@+id/iv_record_arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icn_arrow" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_record_date_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:textAppearance="@style/M14"
+                            android:textColor="@color/white01_FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_record_arrow"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/tv_record_tools_date" />
+
+                        <ImageView
+                            android:id="@+id/iv_record_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icn_arrow" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <EditText
