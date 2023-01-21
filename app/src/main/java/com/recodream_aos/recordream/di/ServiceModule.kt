@@ -21,7 +21,7 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun providesStorgaeService(
+    fun providesStorageService(
         retrofit: Retrofit
     ): StorageService = retrofit.create(StorageService::class.java)
 }
