@@ -13,7 +13,7 @@ data class ResponseStorage(
     @Serializable
     data class Record(
         @SerialName("_id")
-        val _id: String,
+        val id: String,
         @SerialName("date")
         val date: String,
         @SerialName("emotion")
