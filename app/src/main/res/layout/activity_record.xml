@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.recodream_aos.recordream.presentation.record.RecordViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -279,6 +282,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
+                        android:onClick="showDatePickerDialog"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -290,6 +294,7 @@
                             android:layout_marginEnd="6dp"
                             android:textAppearance="@style/M14"
                             android:textColor="@color/white01_FFFFFF"
+                            android:text="@{viewModel.date}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/iv_record_arrow"
                             app:layout_constraintTop_toTopOf="parent"
