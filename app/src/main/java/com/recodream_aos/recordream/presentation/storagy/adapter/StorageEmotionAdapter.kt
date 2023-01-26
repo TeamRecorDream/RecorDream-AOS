@@ -2,7 +2,6 @@ package com.recodream_aos.recordream.presentation.storagy.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.recodream_aos.recordream.data.remote.response.storage.StoreCard
 import com.recodream_aos.recordream.databinding.ItemListStoreMyemotionBinding
 
 class StorageEmotionAdapter : RecyclerView.Adapter<StorageEmotionAdapter.EmotionViewHolder>() {
@@ -23,8 +22,8 @@ class StorageEmotionAdapter : RecyclerView.Adapter<StorageEmotionAdapter.Emotion
 
     class EmotionViewHolder(private val binding: ItemListStoreMyemotionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: StoreCard) {
-
-        }
+//        fun onBind(data: ) {
+//
+//        }
     }
 }

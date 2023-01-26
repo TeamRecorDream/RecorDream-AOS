@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.databinding.FragmentStoragyGridBinding
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageGridAdapter
 
-
 class StoragyGridFragment : Fragment() {
     private var _binding: FragmentStoragyGridBinding? = null
     private val binding get() = _binding ?: error("Binding이 연결되지 않았습니다.")
@@ -30,12 +29,7 @@ class StoragyGridFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        fun newInstance() {
-        }
+        super.onDestroyView()
     }
 }

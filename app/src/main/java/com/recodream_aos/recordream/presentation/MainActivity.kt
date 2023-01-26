@@ -6,7 +6,7 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
-import com.recodream_aos.recordream.presentation.storagy.StoragyActivity
+import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -72,8 +72,8 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             startActivity(intent)
         }
         binding.ivMainSearch.setOnClickListener {
-            val intent = Intent(this, StoragyActivity::class.java)
-            startActivity(intent)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fcv_main_navhostfragment, StorageFragment()).commit()
         }
 
     }

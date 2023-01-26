@@ -5,5 +5,5 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 
 interface StorageRepository {
 
-    suspend fun getStorage(): ResponseWrapper<ResponseStorage>?
+    suspend fun getStorage(emotionId:Int): ResponseWrapper<ResponseStorage>?
 }
