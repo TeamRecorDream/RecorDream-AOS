@@ -3,23 +3,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rectangle_radius_16dp_dialog"
     tools:context=".presentation.record.RecordBottomSheetFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <ImageView
+        android:id="@+id/iv_recording_mic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="TextView"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/icn_mic_m"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recording_record" />
+
+
+    <TextView
+        android:id="@+id/tv_recording_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/tv_recording_record"
+        android:textAppearance="@style/Sb16"
+        android:textColor="@color/white01_FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
+
+    <TextView
+        android:id="@+id/tv_recoding_progress_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:text="00:00"
+        android:textAppearance="@style/M14"
+        android:textColor="@color/white01_FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="6dp"
+        android:maxHeight="6dp"
+        android:minHeight="6dp"
+        android:progressDrawable="@drawable/seek_bar_record"
+        android:splitTrack="false"
+        android:thumbTint="@color/transparent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_recoding_record_time"
+        app:layout_constraintStart_toEndOf="@+id/tv_recoding_progress_time"
+        app:layout_constraintTop_toBottomOf="@+id/iv_recording_mic" />
+
+    <TextView
+        android:id="@+id/tv_recoding_record_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:text="03:00"
+        android:textAppearance="@style/M14"
+        android:textColor="@color/white01_FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/seekBar"
+        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+
+    <ImageView
+        android:id="@+id/iv_recoding_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="61dp"
+        android:src="@drawable/icn_mic_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <View
+        android:id="@+id/v_recording_indicator"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="171dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="171dp"
+        android:background="@drawable/rectangle_radius_10dp_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

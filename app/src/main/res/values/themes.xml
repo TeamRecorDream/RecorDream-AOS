@@ -25,7 +25,7 @@
     </style>
 
     <style name="Modal.Style" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/rectangle_radius_10_mypage</item>
+        <item name="android:background">@drawable/rectangle_radius_16dp_dialog</item>
     </style>
 
     <!--mypage numberpicker에 사용-->
