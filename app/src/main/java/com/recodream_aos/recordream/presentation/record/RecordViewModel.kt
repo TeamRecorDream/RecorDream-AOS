@@ -11,6 +11,9 @@ class RecordViewModel : ViewModel() {
     private var _date = MutableStateFlow(BLANK)
     val date: StateFlow<String> get() = _date
 
+    private var _time = MutableStateFlow(DEFAULT_TIME)
+    val time: StateFlow<String> get() = _time
+
     init {
         _date.value = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
     }
@@ -25,10 +28,11 @@ class RecordViewModel : ViewModel() {
     }
 
     companion object {
-        const val ZERO = "0"
-        const val ONE = 1
-        const val TEN = 10
-        const val BLANK = ""
-        const val DATE_PATTERN = "yyyy-MM-dd"
+        private const val ZERO = "0"
+        private const val DEFAULT_TIME = "00:00"
+        private const val ONE = 1
+        private const val TEN = 10
+        private const val BLANK = ""
+        private const val DATE_PATTERN = "yyyy-MM-dd"
     }
 }
