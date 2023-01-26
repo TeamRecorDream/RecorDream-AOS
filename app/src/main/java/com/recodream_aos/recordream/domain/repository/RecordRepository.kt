@@ -3,5 +3,5 @@ package com.recodream_aos.recordream.domain.repository // ktlint-disable package
 import android.icu.util.Calendar
 
 interface RecordRepository {
-    suspend fun getCalendar(): Calendar
+    suspend fun getCalendar(): Boolean
 }
