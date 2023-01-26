@@ -20,8 +20,16 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     private fun setClickListener() {
         with(binding) {
             clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
+            clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
         }
     }
+
+    private fun initRecordBottomSheetDialog() =
+        RecordBottomSheetFragment()
+            .show(
+                supportFragmentManager,
+                RecordBottomSheetFragment().tag
+            )
 
     private fun initDatePickerDialog() {
         val cal = Calendar.getInstance()
