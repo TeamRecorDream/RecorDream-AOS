@@ -31,10 +31,8 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
             binding.root.setOnClickListener {
                 itemClick(data)
             }
-            when(data.emotion){
-
-            }
-            binding.ivStoreListIcon
+            binding.tvStoreListDay.text = data.date
+            binding.tvStoreListDescription.text = data.title
         }
     }
 
