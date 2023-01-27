@@ -28,7 +28,9 @@
         android:theme="@style/Theme.RecorDream"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
+            android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.MainActivity"
             android:exported="false" />
@@ -47,9 +49,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Kakao 로그인 -->
+        </activity> <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
