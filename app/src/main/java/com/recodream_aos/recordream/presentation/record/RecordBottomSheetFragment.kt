@@ -19,6 +19,8 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         _binding = FragmentRecordBottomSheetBinding.inflate(layoutInflater)
         return binding.root
+
+        // 뷰모델 연결
     }
 
     override fun onDestroyView() {
