@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="vm"
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage.Record" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_store_tag"
+            android:id="@+id/tv_store_hash_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#"
@@ -19,15 +26,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_store_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/M8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_store_tag"
+            app:layout_constraintStart_toEndOf="@+id/tv_store_hash_tag"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="가족" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
