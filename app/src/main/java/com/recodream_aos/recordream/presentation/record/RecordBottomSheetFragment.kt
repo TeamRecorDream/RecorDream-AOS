@@ -6,15 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.databinding.FragmentRecordBottomSheetBinding
 
 class RecordBottomSheetFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentRecordBottomSheetBinding? = null
+    val binding get() = _binding ?: error(R.string.error_basefragment)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_record_bottom_sheet, container, false)
+        _binding = FragmentRecordBottomSheetBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }
