@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.recodream_aos.recordream.presentation.storagy.StorageListViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,30 +43,27 @@
 
             <TextView
                 android:id="@+id/tv_store_grid_description"
-                android:layout_width="0dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="14dp"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:ellipsize="end"
+                android:breakStrategy="simple"
                 android:maxLength="25"
+                android:textAppearance="@style/R11"
                 app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
                 app:layout_constraintTop_toBottomOf="@id/tv_store_grid_day"
                 tools:text="@string/store_description" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
+                android:id="@+id/grid_container_dream_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="22dp"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/cl_store_grid_background"
-                app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
-                app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
-                app:layout_constraintTop_toBottomOf="@id/tv_store_grid_description"
-                tools:itemCount="3" />
+                app:layout_constraintStart_toStartOf="@id/tv_store_grid_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_grid_description" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

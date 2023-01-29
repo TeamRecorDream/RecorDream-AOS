@@ -1,11 +1,13 @@
 package com.recodream_aos.recordream.presentation.storagy.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.databinding.FragmentStoragyGridBinding
+import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageGridAdapter
 
 class StoragyGridFragment : Fragment() {
@@ -23,9 +25,11 @@ class StoragyGridFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        storageGridAdapter = StorageGridAdapter()
+        storageGridAdapter =
+            StorageGridAdapter {
+                val intent = Intent(requireContext(), DocumentActivity::class.java)
+            }
         binding.rvStoreGrid.adapter = storageGridAdapter
-        storageGridAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {
