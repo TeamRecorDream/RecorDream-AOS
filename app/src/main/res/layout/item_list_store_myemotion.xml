@@ -5,10 +5,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
+        android:id="@+id/cl_store_emotion"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_sotre_list_emotion"
+            android:id="@+id/iv_store_list_emotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -16,13 +17,14 @@
             tools:src="@drawable/feeling_xs_all" />
 
         <TextView
+            android:id="@+id/tv_store_emotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:theme="@style/R12"
-            app:layout_constraintEnd_toEndOf="@+id/iv_sotre_list_emotion"
+            app:layout_constraintEnd_toEndOf="@+id/iv_store_list_emotion"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_sotre_list_emotion"
+            app:layout_constraintTop_toBottomOf="@id/iv_store_list_emotion"
             tools:text="전체" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
