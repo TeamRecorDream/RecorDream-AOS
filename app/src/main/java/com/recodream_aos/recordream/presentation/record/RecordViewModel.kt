@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
 
+
     private var _date = MutableStateFlow(BLANK)
     val date: StateFlow<String> get() = _date
 
