@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.recodream_aos.recordream.presentation.storagy.StorageListViewModel" />
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage.Record" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:text="@{viewModel.date}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
                 app:layout_constraintTop_toBottomOf="@+id/iv_store_grid_icon"
@@ -47,10 +48,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="14dp"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:ellipsize="end"
                 android:breakStrategy="simple"
+                android:ellipsize="end"
+                android:gravity="center"
                 android:maxLength="25"
+                android:text="@{viewModel.title}"
                 android:textAppearance="@style/R11"
                 app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
@@ -61,7 +63,11 @@
                 android:id="@+id/grid_container_dream_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="22dp"
                 android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_store_grid_description"
                 app:layout_constraintTop_toBottomOf="@id/tv_store_grid_description" />
 
