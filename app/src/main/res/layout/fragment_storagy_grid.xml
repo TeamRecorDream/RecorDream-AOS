@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.recodream_aos.recordream.presentation.storagy.StorageListViewModel" />
+            type="com.recodream_aos.recordream.presentation.storagy.StorageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +22,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
             tools:listitem="@layout/item_list_store_grid" />
+
+        <TextView
+            android:id="@+id/tv_storage_no_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="162dp"
+            android:text="@string/store_no_record"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
