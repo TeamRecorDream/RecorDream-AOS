@@ -9,7 +9,6 @@ import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
 
-
     private var _date = MutableStateFlow(BLANK)
     val date: StateFlow<String> get() = _date
 
@@ -17,11 +16,15 @@ class RecordViewModel : ViewModel() {
     val time: StateFlow<String> get() = _time
 
     init {
-        _date.value = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
+        initLocalDate()
     }
 
     fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->
         _date.value = "$year-${modifyDateUnits(month + ONE)}-${modifyDateUnits(day)}"
+    }
+
+    private fun initLocalDate() {
+        _date.value = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
     }
 
     private fun modifyDateUnits(month: Int): String {
