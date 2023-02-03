@@ -14,6 +14,12 @@
     <string name="tv_login_kakaobtn">카카오로 시작하기</string>
     <string name="tv_login_guide">로그인 후 이용이 가능합니다.</string>
 
+    <!-- Kakao-init에서 사용 -->
+    <string name="appKey_init_kakao">317a92407fff808ba151e92dc727bd1c</string>
+
+    <!-- AndroidManifest.xml에서 사용 -->
+    <string name="appKey_manifest_kakao">kakao317a92407fff808ba151e92dc727bd1c</string>
+
     <!--보관함 뷰-->
     <string name="store_myemotion">나의 감정</string>
     <string name="store_description">오늘 친구들이랑 피자 먹고 너무 좋았는데 어쭈구리 쭈굴..</string>
