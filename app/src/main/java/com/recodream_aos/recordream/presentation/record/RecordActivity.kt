@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
 
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
