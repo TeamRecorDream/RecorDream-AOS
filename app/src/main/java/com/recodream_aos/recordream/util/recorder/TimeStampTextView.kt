@@ -5,7 +5,7 @@ import android.os.SystemClock
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 
-class CountTimeStamp(
+class TimeStampTextView(
     context: Context,
     attributeSet: AttributeSet? = null
 ) : AppCompatTextView(context, attributeSet) {
