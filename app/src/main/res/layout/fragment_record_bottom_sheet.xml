@@ -32,33 +32,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
 
-    <TextView
+    <com.recodream_aos.recordream.util.recorder.TimeStampTextView
         android:id="@+id/tv_recoding_progress_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:text="00:00"
+        android:hint="00:00"
         android:textAppearance="@style/M14"
-        android:textColor="@color/white01_FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        android:textColorHint="@color/white01_FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
+        app:layout_constraintEnd_toStartOf="@+id/pb_recording_progress_bar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <ProgressBar
+        android:id="@+id/pb_recording_progress_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="6dp"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="6dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:maxHeight="6dp"
         android:minHeight="6dp"
         android:progressDrawable="@drawable/seek_bar_record"
-        android:splitTrack="false"
-        android:thumbTint="@color/transparent"
         app:layout_constraintEnd_toStartOf="@+id/tv_recoding_record_time"
         app:layout_constraintStart_toEndOf="@+id/tv_recoding_progress_time"
         app:layout_constraintTop_toBottomOf="@+id/iv_recording_mic" />
@@ -71,23 +70,23 @@
         android:text="03:00"
         android:textAppearance="@style/M14"
         android:textColor="@color/white01_FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/seekBar"
-        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+        app:layout_constraintStart_toEndOf="@+id/pb_recording_progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
-    <ImageView
+    <com.recodream_aos.recordream.util.recorder.RecordButton
         android:id="@+id/iv_recoding_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="61dp"
-        android:src="@drawable/icn_mic_start"
+        android:background="@drawable/icn_mic_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/pb_recording_progress_bar" />
 
     <View
         android:id="@+id/v_recording_indicator"
