@@ -8,7 +8,6 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage
 import com.recodream_aos.recordream.databinding.ItemListStoreGridBinding
 import com.recodream_aos.recordream.databinding.ItemListStoreTagBinding
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageGridAdapter.StorageGridViewHolder.Companion.diffUtil
-
 import com.recodream_aos.recordream.util.DiffUtilItemCallback
 
 class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit) :
@@ -33,9 +32,9 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
             binding.root.setOnClickListener {
                 itemClick(data)
             }
-            var dreamDescription = data.date
+            var dreamDescription = data.title
             dreamDescription = dreamDescription.replace(" ".toRegex(), "\u00A0")
-            binding.tvStoreGridDay.text = dreamDescription
+            binding.tvStoreGridDay.text = data.date
             binding.tvStoreGridDescription.text = data.title
             binding.gridContainerDreamTag.run {
                 val bindingDreamTag = {
