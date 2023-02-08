@@ -9,7 +9,7 @@ class TimeStampTextView(
     context: Context,
     attributeSet: AttributeSet? = null
 ) : AppCompatTextView(context, attributeSet) {
-    private var startTimeStamp = 0L
+    private var startTimeStamp = ZERO_LONG
 
     private val countUpAction: Runnable = object : Runnable {
         override fun run() {
@@ -17,9 +17,9 @@ class TimeStampTextView(
             val currentTimeStamp = SystemClock.elapsedRealtime()
 
             val countTimeSeconds =
-                ((currentTimeStamp - startTimeStamp) / 1000L).toInt() // 얼마의 시간 차이가 나는지
+                ((currentTimeStamp - startTimeStamp) / ONE_SECOND).toInt() // 얼마의 시간 차이가 나는지
             updateCountTime(countTimeSeconds)
-            handler?.postDelayed(this, 1000L)
+            handler?.postDelayed(this, ONE_SECOND)
         }
     }
 
@@ -33,12 +33,20 @@ class TimeStampTextView(
     }
 
     fun clearCountTime() {
-        updateCountTime(0)
+        updateCountTime(ZERO)
     }
 
     private fun updateCountTime(countTimeSeconds: Int) {
-        val minutes = countTimeSeconds / 60
-        val seconds = countTimeSeconds % 60
-        text = "%02d:%02d".format(minutes, seconds)
+        val minutes = countTimeSeconds / ONE_MINUTE
+        val seconds = countTimeSeconds % ONE_MINUTE
+        text = TIME_FORMAT.format(minutes, seconds)
+    }
+
+    companion object {
+        private const val ZERO = 0
+        private const val ZERO_LONG = 0L
+        private const val ONE_MINUTE = 60
+        private const val ONE_SECOND = 1000L
+        private const val TIME_FORMAT = "%02d:%02d"
     }
 }
