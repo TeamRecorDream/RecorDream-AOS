@@ -1,103 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/rectangle_radius_16dp_dialog"
-    tools:context=".presentation.record.RecordBottomSheetFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
+    <data>
 
-    <ImageView
-        android:id="@+id/iv_recording_mic"
-        android:layout_width="wrap_content"
+        <variable
+            name="viewModel"
+            type="com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/icn_mic_m"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_recording_record" />
+        android:background="@drawable/rectangle_radius_16dp_dialog"
+        tools:context=".presentation.record.recording.RecordBottomSheetFragment">
 
+        <ImageView
+            android:id="@+id/iv_recording_mic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/icn_mic_m"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recording_record" />
 
-    <TextView
-        android:id="@+id/tv_recording_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="@string/tv_recording_record"
-        android:textAppearance="@style/Sb16"
-        android:textColor="@color/white01_FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
+        <TextView
+            android:id="@+id/tv_recording_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/tv_recording_record"
+            android:textAppearance="@style/Sb16"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
 
-    <com.recodream_aos.recordream.util.recorder.TimeStampTextView
-        android:id="@+id/tv_recoding_progress_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:hint="00:00"
-        android:textAppearance="@style/M14"
-        android:textColorHint="@color/white01_FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
-        app:layout_constraintEnd_toStartOf="@+id/pb_recording_progress_bar"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
+        <com.recodream_aos.recordream.util.recorder.TimeStampTextView
+            android:id="@+id/tv_recording_progress_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:hint="00:00"
+            android:textAppearance="@style/M14"
+            android:textColorHint="@color/white01_FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintEnd_toStartOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
-    <ProgressBar
-        android:id="@+id/pb_recording_progress_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="6dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:maxHeight="6dp"
-        android:minHeight="6dp"
-        android:progressDrawable="@drawable/seek_bar_record"
-        app:layout_constraintEnd_toStartOf="@+id/tv_recoding_record_time"
-        app:layout_constraintStart_toEndOf="@+id/tv_recoding_progress_time"
-        app:layout_constraintTop_toBottomOf="@+id/iv_recording_mic" />
+        <ProgressBar
+            android:id="@+id/pb_recording_progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="66dp"
+            android:maxHeight="6dp"
+            android:minHeight="6dp"
+            android:progressDrawable="@drawable/seek_bar_record"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_recording_mic" />
 
-    <TextView
-        android:id="@+id/tv_recoding_record_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="22dp"
-        android:text="03:00"
-        android:textAppearance="@style/M14"
-        android:textColor="@color/white01_FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pb_recording_progress_bar"
-        app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
+        <TextView
+            android:id="@+id/tv_recording_record_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:text="03:00"
+            android:textAppearance="@style/M14"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
-    <com.recodream_aos.recordream.util.recorder.RecordButton
-        android:id="@+id/iv_recoding_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="61dp"
-        android:background="@drawable/icn_mic_start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pb_recording_progress_bar" />
+        <com.recodream_aos.recordream.util.recorder.RecordButton
+            android:id="@+id/iv_recording_record_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="61dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pb_recording_progress_bar"
+            tools:background="@drawable/icn_mic_start" />
 
-    <View
-        android:id="@+id/v_recording_indicator"
-        android:layout_width="0dp"
-        android:layout_height="3dp"
-        android:layout_marginStart="171dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="171dp"
-        android:background="@drawable/rectangle_radius_10dp_indicator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.recodream_aos.recordream.util.recorder.PlayButton
+            android:id="@+id/iv_recording_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="14dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintEnd_toStartOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar"
+            tools:background="@drawable/icn_start" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/v_recording_indicator"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="171dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="171dp"
+            android:background="@drawable/rectangle_radius_10dp_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_recording_close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginEnd="78dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_recording_record_btn"
+            app:layout_constraintEnd_toStartOf="@+id/iv_recording_record_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_recording_record_btn"
+            app:srcCompat="@drawable/icn_mic_cancel" />
+
+        <ImageView
+            android:id="@+id/iv_recording_save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="78dp"
+            android:layout_marginEnd="21dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_recording_record_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_recording_record_btn"
+            app:layout_constraintTop_toTopOf="@+id/iv_recording_record_btn"
+            app:srcCompat="@drawable/icn_mic_save" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
