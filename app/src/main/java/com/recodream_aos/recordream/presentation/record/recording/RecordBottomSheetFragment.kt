@@ -2,7 +2,6 @@ package com.recodream_aos.recordream.presentation.record.recording // ktlint-dis
 
 import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private val timeStampTextView: TimeStampTextView by lazy { binding.tvRecordingProgressTime }
     private val recordButton: RecordButton by lazy { binding.ivRecordingRecordBtn }
     private val playButton: PlayButton by lazy { binding.ivRecordingPlayBtn }
-    private var recorder = Recorder()
+    private var recorder = Recorder
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
     private lateinit var recordButtonState: RecordButtonState
     private lateinit var playButtonState: PlayButtonState
@@ -54,14 +53,8 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         recordButtonClickListener()
         playButtonClickListener()
         closeButtonClickListener()
-        recordViewModel.getRecordState = false
-
         saveButtonClickListener()
-
-        binding.ivRecordingSaveBtn.setOnClickListener {
-            Log.d("d", recorder.loadRecordingFile().toString())
-            Log.d("dd", recorder.temp().toString())
-        }
+        recordViewModel.getRecordState = false
 
         recordButtonState = RecordButtonState.BEFORE_RECORDING
         recordButton.updateIconWithState(recordButtonState)
@@ -125,8 +118,8 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
-            dismiss()
             recordViewModel.getRecordState = true
+            dismiss()
         }
     }
 
