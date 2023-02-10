@@ -15,6 +15,10 @@ class RecordViewModel : ViewModel() {
     private var _time = MutableStateFlow(DEFAULT_TIME)
     val time: StateFlow<String> get() = _time
 
+    var getRecordState = false
+
+    val filePath = ""
+
     init {
         initLocalDate()
     }

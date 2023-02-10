@@ -21,11 +21,9 @@ import com.recodream_aos.recordream.util.recorder.RecordButton
 import com.recodream_aos.recordream.util.recorder.RecordButtonState
 import com.recodream_aos.recordream.util.recorder.Recorder
 import com.recodream_aos.recordream.util.recorder.TimeStampTextView
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentRecordBottomSheetBinding? = null
     val binding get() = _binding ?: error(R.string.error_basefragment)
@@ -34,10 +32,13 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private val timeStampTextView: TimeStampTextView by lazy { binding.tvRecordingProgressTime }
     private val recordButton: RecordButton by lazy { binding.ivRecordingRecordBtn }
     private val playButton: PlayButton by lazy { binding.ivRecordingPlayBtn }
-    private val recorder = context?.let { Recorder(it) }
+    private var recorder = Recorder
     private lateinit var activityResultLauncher: ActivityResultLauncher<String>
     private lateinit var recordButtonState: RecordButtonState
     private lateinit var playButtonState: PlayButtonState
+    private var setRecordState = false
+
+    // TODO : 코드정리
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,11 +46,15 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRecordBottomSheetBinding.inflate(layoutInflater)
+        dialog?.setCanceledOnTouchOutside(false) // 한줄이면 외부막고 백버튼 가능..
         initViewModel()
+        initRecorder()
         initActivityResultLauncher()
         recordButtonClickListener()
         playButtonClickListener()
         closeButtonClickListener()
+        saveButtonClickListener()
+        recordViewModel.getRecordState = false
 
         recordButtonState = RecordButtonState.BEFORE_RECORDING
         recordButton.updateIconWithState(recordButtonState)
@@ -59,6 +64,8 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
         return binding.root
     }
+
+    private fun initRecorder() = recorder.init(requireContext())
 
     private fun initViewModel() {
         binding.viewModel = recordBottomSheetViewModel
@@ -109,6 +116,13 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun saveButtonClickListener() {
+        binding.ivRecordingSaveBtn.setOnClickListener {
+            recordViewModel.getRecordState = true
+            dismiss()
+        }
+    }
+
     private fun startPlayingRecorder() {
         playButtonState = PlayButtonState.RECORDER_STOP
         playButton.updateIconWithState(playButtonState)
@@ -129,7 +143,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun startRecording() {
         recordButtonState = RecordButtonState.ON_RECORDING
         recordButton.updateIconWithState(recordButtonState)
-        recorder?.startRecording()
+        recorder.startRecording()
         timeStampTextView.startCountUp()
         recordBottomSheetViewModel.initProgressBar()
         collectNowTimeProgress()
@@ -213,8 +227,8 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onStop() {
+        super.onStop()
         recorder?.recorderRelease()
         recorder?.playerRelease()
-        super.onStop()
     }
 }
