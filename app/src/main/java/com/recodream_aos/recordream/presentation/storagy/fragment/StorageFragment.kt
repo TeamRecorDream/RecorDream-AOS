@@ -1,6 +1,7 @@
 package com.recodream_aos.recordream.presentation.storagy.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,36 @@ import com.recodream_aos.recordream.databinding.FragmentStorageBinding
 class StorageFragment : Fragment() {
     private var _binding: FragmentStorageBinding? = null
     private val binding get() = _binding ?: error("binding not init")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
+        selectShowView()
         return binding.root
+    }
+
+    private fun selectShowView() {
+        Log.d("StorageFragment", "selectShowView: ")
+        childFragmentManager.beginTransaction().add(R.id.fc_storage_list, StoragyGridFragment())
+        binding.ivStorageSelectList.setOnClickListener {
+            changeFragment(StoragyListFragment())
+            binding.ivStorageSelectGallery.isSelected = false
+            binding.ivStorageSelectList.isSelected = true
+        }
+        binding.ivStorageSelectGallery.setOnClickListener {
+            binding.ivStorageSelectGallery.isSelected = true
+            binding.ivStorageSelectList.isSelected = false
+            changeFragment(StoragyGridFragment())
+        }
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        childFragmentManager
+            .beginTransaction()
+            .replace(R.id.fc_storage_list, fragment)
+            .commit()
     }
 
     private val storageEmotionList = listOf<StorageEmotionData>(

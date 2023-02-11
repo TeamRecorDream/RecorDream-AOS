@@ -16,10 +16,10 @@ class StorageRepositoryImpl @Inject constructor(
         //todo response 값이 오는 곳
         try {
             val response = storageDateSource.getStorage(emotionId)
-            Timber.tag("김세훈 바보").e("")
-            Log.d("babo", "getStorage: ")
+            Log.d("babo", "getStorage: $response")
             return response
         } catch (e: Exception) {
+            Log.d("babo1", "getStorage: 왜 null임 $e")
             return null
         }
     }

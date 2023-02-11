@@ -11,7 +11,6 @@ class StorageDateSourceImpl @Inject constructor(
 ) : StorageDateSource {
 
     override suspend fun getStorage(emotionId: Int): ResponseWrapper<ResponseStorage> {
-        Log.d("babo2", "getStorage: ")
         Log.d("babo3", "getStorage: ${storageService.getStorage(2)}")
         return storageService.getStorage(emotionId)
     }

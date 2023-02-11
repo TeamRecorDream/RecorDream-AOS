@@ -21,9 +21,6 @@ class StorageViewModel @Inject constructor(
     private val _recordIsEmpty = MutableLiveData<Boolean>()
     val recordIsEmpty: LiveData<Boolean> get() = _recordIsEmpty
 
-    private val _viewRecordIsEmpty = MutableLiveData<String>()
-    val viewRecordIsEmpty: LiveData<String> get() = _viewRecordIsEmpty
-
     init {
         initServer()
     }
@@ -32,13 +29,15 @@ class StorageViewModel @Inject constructor(
         Log.d("세훈바보1", "initServer: ")
         viewModelScope.launch {
             _storageRecords.value = storageRepository.getStorage(2)?.data?.records
-            _viewRecordIsEmpty.value = "1234"
-//            checkEmpty()
+            Log.d("viewModel", "initServer: ${storageRepository.getStorage(2)?.data?.records}")
+//            _viewRecordIsEmpty.value = "1234"
         }
     }
 
-    private fun checkEmpty() {
-        _recordIsEmpty.value = _storageRecords.value.isNullOrEmpty()
-        _viewRecordIsEmpty.value = "1234"
+     fun checkEmpty() {
+//        _recordIsEmpty.value = _storageRecords.value.isNullOrEmpty()
+        if(_storageRecords.value.isNullOrEmpty()){
+            _recordIsEmpty.value = false
+        }
     }
 }
