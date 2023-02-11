@@ -21,6 +21,8 @@ data class ResponseStorage(
         @SerialName("genre")
         val genre: List<Int>,
         @SerialName("title")
-        val title: String
+        val title: String,
+        @SerialName("isExistVoice")
+        val voice: Boolean
     )
 }
