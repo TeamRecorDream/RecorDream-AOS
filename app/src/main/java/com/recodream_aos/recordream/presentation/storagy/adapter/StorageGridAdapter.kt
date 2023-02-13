@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage
 import com.recodream_aos.recordream.databinding.ItemListStoreGridBinding
 import com.recodream_aos.recordream.databinding.ItemListStoreTagBinding
@@ -34,6 +35,23 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
             }
             var dreamDescription = data.title
             dreamDescription = dreamDescription.replace(" ".toRegex(), "\u00A0")
+
+            when (data.emotion) {
+                1 -> binding.clStoreGridBackground.setBackgroundResource(R.drawable.card_s_yellow)
+                2 -> binding.clStoreGridBackground.setBackgroundResource(R.drawable.card_s_blue)
+                3 -> binding.clStoreGridBackground.setBackgroundResource(R.drawable.card_s_red)
+                4 -> binding.clStoreGridBackground.setBackgroundResource(R.drawable.card_s_purple)
+                5 -> binding.clStoreGridBackground.setBackgroundResource(R.drawable.card_s_pink)
+                6 -> binding.clStoreGridBackground.setBackgroundResource(R.drawable.card_s_white)
+            }
+            when (data.emotion) {
+                1 -> binding.ivStoreGridIcon.setBackgroundResource(R.drawable.feeling_m_joy)
+                2 -> binding.ivStoreGridIcon.setBackgroundResource(R.drawable.feeling_m_sad)
+                3 -> binding.ivStoreGridIcon.setBackgroundResource(R.drawable.feeling_m_scary)
+                4 -> binding.ivStoreGridIcon.setBackgroundResource(R.drawable.feeling_m_strange)
+                5 -> binding.ivStoreGridIcon.setBackgroundResource(R.drawable.feeling_m_shy)
+                6 -> binding.ivStoreGridIcon.setBackgroundResource(R.drawable.feeling_m_blank)
+            }
             binding.tvStoreGridDay.text = data.date
             binding.tvStoreGridDescription.text = dreamDescription
             binding.gridContainerDreamTag.run {

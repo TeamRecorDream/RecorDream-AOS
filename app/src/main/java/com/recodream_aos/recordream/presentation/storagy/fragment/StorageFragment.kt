@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentStorageBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.storagy.StorageViewModel
@@ -46,20 +47,26 @@ class StorageFragment : Fragment() {
     }
 
     private fun observer() {
-        storageViewModel.storageRecords.observe(viewLifecycleOwner) {
-            Log.d("Storagy", "observerTrue: ${storageViewModel.storageRecords.value}")
-            binding.tvStorageNoList.visibility = View.INVISIBLE
-            storageGridAdapter.submitList(it)
-            storageEmotionAdapter.submitList(storageViewModel.storageList)
-            binding.rvStorage.visibility = View.VISIBLE
-        }
-        storageViewModel.recordIsEmpty.observe(viewLifecycleOwner) {
+        with(storageViewModel) {
+            storageRecords.observe(viewLifecycleOwner) {
+                Log.d("Storagy", "observerTrue: ${storageViewModel.storageRecords.value}")
+                binding.tvStorageNoList.visibility = View.INVISIBLE
+                storageGridAdapter.submitList(it)
+                storageEmotionAdapter.submitList(storageViewModel.storageList)
+                binding.rvStorage.visibility = View.VISIBLE
+            }
+            recordIsEmpty.observe(viewLifecycleOwner) {
 //            if (!it) binding.tvStorageNoRecord.visibility = View.VISIBLE
-            if (it == false) {
-                binding.tvStorageNoList.visibility = View.VISIBLE
-                Log.d("Storagy", "observerFalse: $it")
-            } else {
-                initGridAdapter()
+                if (it == false) {
+                    binding.tvStorageNoList.visibility = View.VISIBLE
+                    Log.d("Storagy", "observerFalse: $it")
+                } else {
+                    initGridAdapter()
+                }
+            }
+            storageRecordCount.observe(viewLifecycleOwner) {
+                val recordAllCount = getString(R.string.store_records_count, it)
+                binding.tvStorageRecordCount.text = recordAllCount
             }
         }
     }
@@ -84,19 +91,17 @@ class StorageFragment : Fragment() {
                 val intent = Intent(requireContext(), DocumentActivity::class.java)
             }
         binding.rvStorage.adapter = storageGridAdapter
+        binding.rvStorage.layoutManager = LinearLayoutManager(context)
     }
 
     private fun selectShowView() {
         Log.d("StorageFragment", "selectShowView: ")
         binding.ivStorageSelectList.setOnClickListener {
-            initListAdapter()
-            binding.rvStorage.layoutManager = LinearLayoutManager(context)
+
             binding.ivStorageSelectGallery.isSelected = false
             binding.ivStorageSelectList.isSelected = true
         }
         binding.ivStorageSelectGallery.setOnClickListener {
-            initGridAdapter()
-            binding.rvStorage.layoutManager = GridLayoutManager(context, 2)
             binding.ivStorageSelectGallery.isSelected = true
             binding.ivStorageSelectList.isSelected = false
         }

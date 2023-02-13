@@ -26,10 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/feeling_m_shy"
                 app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
-                app:layout_constraintTop_toTopOf="@id/cl_store_grid_background" />
+                app:layout_constraintTop_toTopOf="@id/cl_store_grid_background"
+                tools:src="@drawable/feeling_m_shy" />
 
             <TextView
                 android:id="@+id/tv_store_grid_day"
@@ -46,12 +46,12 @@
                 android:id="@+id/tv_store_grid_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="14dp"
                 android:layout_marginTop="8dp"
                 android:breakStrategy="simple"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLength="25"
+                android:paddingHorizontal="14dp"
                 android:textAppearance="@style/R11"
                 app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"

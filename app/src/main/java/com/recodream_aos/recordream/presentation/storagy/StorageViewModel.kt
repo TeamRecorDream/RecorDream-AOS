@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.storagy
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.local.StorageEmotionData
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage
 import com.recodream_aos.recordream.domain.repository.StorageRepository
-import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,12 +22,15 @@ class StorageViewModel @Inject constructor(
     private val _recordIsEmpty = MutableLiveData<Boolean>()
     val recordIsEmpty: LiveData<Boolean> get() = _recordIsEmpty
     val storageList = storageEmotionList
+    private val _storageRecordCount = MutableLiveData<Int>()
+    val storageRecordCount: LiveData<Int> get() = _storageRecordCount
 
 //    currentSelected = 0 기존꺼 는 false
 
     fun initServer(getEmotion: Int) {
         viewModelScope.launch {
             _storageRecords.value = storageRepository.getStorage(getEmotion)?.data?.records
+            _storageRecordCount.value = storageRepository.getStorage(getEmotion)?.data?.recordsCount
 //            Log.d(
 //                "viewModel",
 //                "initServer: ${storageRepository.getStorage(getEmotion)?.data?.records}"
