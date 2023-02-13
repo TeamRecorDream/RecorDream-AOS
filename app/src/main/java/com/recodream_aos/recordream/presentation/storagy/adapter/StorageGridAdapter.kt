@@ -35,7 +35,7 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
             var dreamDescription = data.title
             dreamDescription = dreamDescription.replace(" ".toRegex(), "\u00A0")
             binding.tvStoreGridDay.text = data.date
-            binding.tvStoreGridDescription.text = data.title
+            binding.tvStoreGridDescription.text = dreamDescription
             binding.gridContainerDreamTag.run {
                 val bindingDreamTag = {
                     ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))

@@ -1,3 +1,7 @@
 package com.recodream_aos.recordream.data.entity.local
 
-data class StorageEmotionData(val feeling: Int, val feelingText: String)
+data class StorageEmotionData(
+    val feeling: Int,
+    val feelingText: String,
+    val isSelected: Boolean = false
+)
