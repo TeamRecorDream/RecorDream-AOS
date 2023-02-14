@@ -17,7 +17,9 @@ class RecordViewModel : ViewModel() {
 
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
+    val note = MutableStateFlow(BLANK)
     var getRecordState = false
+        private set
 
     init {
         initLocalDate()
