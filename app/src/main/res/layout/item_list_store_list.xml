@@ -11,9 +11,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_storage_list_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_red">
+        tools:background="@drawable/list_red">
 
         <ImageView
             android:id="@+id/iv_store_list_icon"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="21dp"
             android:layout_marginStart="26dp"
-            android:src="@drawable/feeling_s_shy"
+            tools:src="@drawable/feeling_s_shy"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

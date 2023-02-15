@@ -58,8 +58,9 @@
         <View
             android:id="@+id/v_storage_divider"
             android:layout_width="1dp"
-            android:layout_height="wrap_content"
+            android:layout_height="10dp"
             android:layout_marginEnd="3dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/iv_storage_select_list"
             app:layout_constraintEnd_toStartOf="@id/iv_storage_select_list"
             app:layout_constraintTop_toTopOf="@id/iv_storage_select_list" />
@@ -76,13 +77,15 @@
 
         <TextView
             android:id="@+id/tv_storage_no_list"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="162dp"
             android:text="@string/store_no_record"
             android:textAppearance="@style/M16"
             android:textColor="@color/white03_66FFFFFF"
             android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_storage_record_count" />
 
         <androidx.recyclerview.widget.RecyclerView
