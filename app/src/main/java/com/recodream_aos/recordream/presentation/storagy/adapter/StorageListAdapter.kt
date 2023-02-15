@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage
 import com.recodream_aos.recordream.databinding.ItemListStoreListBinding
 import com.recodream_aos.recordream.databinding.ItemListStoreTagBinding
@@ -38,15 +39,17 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
                 val bindingDreamTag = {
                     ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
                 }
-
+                removeAllViews()
                 data.genre.map { item ->
                     bindingDreamTag().apply {
-                        tvStoreTag.text = item.toString()
+                        tvStoreTag.text = checkGenreList(item)
                     }
                 }.forEach {
                     addView(it.root)
                 }
             }
+            binding.clStorageListBackground.setBackgroundResource(checkEmotionBackground(data.emotion))
+            binding.ivStoreListIcon.setBackgroundResource(checkemotionIcon(data.emotion))
         }
 
         companion object {
@@ -54,6 +57,37 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
                 onItemsTheSame = { old, new -> old.id == new.id },
                 onContentsTheSame = { old, new -> old == new }
             )
+        }
+
+        fun checkemotionIcon(color: Int) = when (color) {
+            1 -> R.drawable.feeling_m_joy
+            2 -> R.drawable.feeling_m_sad
+            3 -> R.drawable.feeling_m_scary
+            4 -> R.drawable.feeling_m_strange
+            5 -> R.drawable.feeling_m_shy
+            else -> R.drawable.feeling_m_blank
+        }
+
+        fun checkEmotionBackground(color: Int) = when (color) {
+            1 -> R.drawable.card_s_yellow
+            2 -> R.drawable.card_s_blue
+            3 -> R.drawable.card_s_red
+            4 -> R.drawable.card_s_purple
+            5 -> R.drawable.card_s_pink
+            else -> R.drawable.card_s_white
+        }
+
+        fun checkGenreList(genre: Int) = when (genre) {
+            0 -> "코미디"
+            1 -> "로맨스"
+            2 -> "판타지"
+            3 -> "공포"
+            4 -> "동물"
+            5 -> "친구"
+            6 -> "가족"
+            7 -> "음식"
+            8 -> "일"
+            else -> "기타"
         }
     }
 }
