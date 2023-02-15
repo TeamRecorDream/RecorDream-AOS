@@ -115,8 +115,8 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
 // }
 //
 // private fun drawViewBitmap(): Bitmap {
-//    val imageView = binding.iv
-//    val textView = binding.tv
+//    val imageView = sharebinding.iv
+//    val textView = sharebinding.tv
 //
 //    val margin = resources.displayMetrics.density * 20
 //
