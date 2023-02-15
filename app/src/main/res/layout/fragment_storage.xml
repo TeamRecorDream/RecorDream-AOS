@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/icn_list_off"
+            android:src="@drawable/storage_setting_list_selector"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_storage_emotion" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-            android:src="@drawable/icn_gallery_on"
+            android:src="@drawable/storage_setting_grid_selector"
             app:layout_constraintBottom_toBottomOf="@id/iv_storage_select_list"
             app:layout_constraintEnd_toStartOf="@id/v_storage_divider"
             app:layout_constraintTop_toTopOf="@id/iv_storage_select_list" />
