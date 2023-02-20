@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageButton
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.util.recorder.PlayButtonState.RECORDER_PLAY
+import com.recodream_aos.recordream.util.recorder.PlayButtonState.RECORDER_STOP
 
 class PlayButton(
     context: Context,
@@ -16,8 +18,8 @@ class PlayButton(
 
     fun updateIconWithState(state: PlayButtonState) {
         when (state) {
-            PlayButtonState.RECORDER_PLAY -> setBackgroundResource(R.drawable.icn_start)
-            PlayButtonState.RECORDER_STOP -> setBackgroundResource(R.drawable.icn_stop)
+            RECORDER_PLAY -> setBackgroundResource(R.drawable.icn_start)
+            RECORDER_STOP -> setBackgroundResource(R.drawable.icn_stop)
         }
     }
 }
