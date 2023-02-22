@@ -1,5 +1,6 @@
 package com.recodream_aos.recordream.presentation.storagy
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,11 +20,12 @@ class StorageViewModel @Inject constructor(
     private val _storageRecords = MutableLiveData<List<ResponseStorage.Record>>()
     val storageRecords: LiveData<List<ResponseStorage.Record>>
         get() = _storageRecords
-    private val _recordIsEmpty = MutableLiveData<Boolean>()
-    val recordIsEmpty: LiveData<Boolean> get() = _recordIsEmpty
     val storageList = storageEmotionList
     private val _storageRecordCount = MutableLiveData<Int>()
     val storageRecordCount: LiveData<Int> get() = _storageRecordCount
+
+    private val _storageCheckList = MutableLiveData<Boolean>()
+    val storageCheckList: LiveData<Boolean> get() = _storageCheckList
 
 //    currentSelected = 0 기존꺼 는 false
 
@@ -38,11 +40,9 @@ class StorageViewModel @Inject constructor(
         }
     }
 
-    fun checkEmpty() {
-//        _recordIsEmpty.value = _storageRecords.value.isNullOrEmpty()
-        if (_storageRecords.value.isNullOrEmpty()) {
-            _recordIsEmpty.value = false
-        }
+    fun isCheckShow(show: Boolean) {
+        _storageCheckList.value = show
+        Log.d("storageViewModel", "isCheckShow: ${show}")
     }
 
     companion object {

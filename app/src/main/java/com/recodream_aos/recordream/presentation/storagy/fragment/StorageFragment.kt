@@ -23,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class StorageFragment : Fragment() {
     private var _binding: FragmentStorageBinding? = null
     private val binding get() = _binding ?: error("binding not init")
-
+    private var storageCheck = true
+    private var emotionCheck = 0
     private lateinit var storageGridAdapter: StorageGridAdapter
     private lateinit var storageListAdapter: StorageListAdapter
     private val storageViewModel by viewModels<StorageViewModel>()
@@ -33,40 +34,53 @@ class StorageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
-        emotionAdapterInit()
-        initGridAdapter()
-        binding.viewModel = storageViewModel
-        observer()
-        selectShowView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         storageViewModel.initServer(0)
+        emotionAdapterInit()
+        initGridAdapter()
+        binding.viewModel = storageViewModel
+        observer()
+        selectShowView()
     }
 
     private fun observer() {
         with(storageViewModel) {
-            storageRecords.observe(viewLifecycleOwner) {
-                Log.d("Storagy", "observerTrue: ${storageViewModel.storageRecords.value}")
-                binding.tvStorageNoList.visibility = View.INVISIBLE
-                storageGridAdapter.submitList(it)
-                storageEmotionAdapter.submitList(storageViewModel.storageList)
-                binding.rvStorage.visibility = View.VISIBLE
-            }
-            recordIsEmpty.observe(viewLifecycleOwner) {
-//            if (!it) binding.tvStorageNoRecord.visibility = View.VISIBLE
-                if (it == false) {
-                    binding.tvStorageNoList.visibility = View.VISIBLE
-                    Log.d("Storagy", "observerFalse: $it")
-                } else {
+
+            storageCheckList.observe(viewLifecycleOwner) {
+                if (it) {
+                    storageCheck = true
                     initGridAdapter()
+                    storageGridAdapter.submitList(storageViewModel.storageRecords.value)
+                } else {
+                    storageCheck = false
+                    initListAdapter()
+                    storageViewModel.initServer(emotionCheck)
+                    storageListAdapter.submitList(storageViewModel.storageRecords.value)
+
+                }
+            }
+
+            storageRecords.observe(viewLifecycleOwner) {
+                binding.tvStorageNoList.visibility = View.INVISIBLE
+                Log.d("storageFragment", "$storageCheck: ")
+                if (storageCheck) {
+                    storageGridAdapter.submitList(it)
+                    storageEmotionAdapter.submitList(storageViewModel.storageList)
+                } else {
+                    storageEmotionAdapter.submitList(storageViewModel.storageList)
+                    storageListAdapter.submitList(it)
                 }
             }
             storageRecordCount.observe(viewLifecycleOwner) {
                 val recordAllCount = getString(R.string.store_records_count, it)
                 binding.tvStorageRecordCount.text = recordAllCount
+                if (it == 0) {
+                    binding.tvStorageNoList.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -86,30 +100,37 @@ class StorageFragment : Fragment() {
     }
 
     private fun initListAdapter() {
-        storageGridAdapter =
-            StorageGridAdapter {
+        storageListAdapter =
+            StorageListAdapter {
                 val intent = Intent(requireContext(), DocumentActivity::class.java)
             }
-        binding.rvStorage.adapter = storageGridAdapter
+        binding.rvStorage.adapter = storageListAdapter
         binding.rvStorage.layoutManager = LinearLayoutManager(context)
     }
 
     private fun selectShowView() {
-        Log.d("StorageFragment", "selectShowView: ")
-        binding.ivStorageSelectList.setOnClickListener {
+        with(binding) {
+            ivStorageSelectGallery.isSelected = true
+            ivStorageSelectGallery.setOnClickListener {
+                storageViewModel.isCheckShow(true)
+                storageCheck = true
+                ivStorageSelectGallery.isSelected = true
+                ivStorageSelectList.isSelected = false
+            }
+            ivStorageSelectList.setOnClickListener {
+                storageViewModel.isCheckShow(false)
+//                Log.d("storageViewModel", "${storageViewModel.isCheckShow()} ")
+                initListAdapter()
+                ivStorageSelectGallery.isSelected = false
+                ivStorageSelectList.isSelected = true
+            }
+        }
 
-            binding.ivStorageSelectGallery.isSelected = false
-            binding.ivStorageSelectList.isSelected = true
-        }
-        binding.ivStorageSelectGallery.setOnClickListener {
-            binding.ivStorageSelectGallery.isSelected = true
-            binding.ivStorageSelectList.isSelected = false
-        }
     }
 
     private fun emotionClick(index: Int) {
         storageViewModel.initServer(index)
-        Log.d("Storagefragment", "emotionClick: $index")
+        emotionCheck = index
     }
 
     override fun onDestroyView() {
