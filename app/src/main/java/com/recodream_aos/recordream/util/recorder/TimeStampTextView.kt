@@ -42,6 +42,7 @@ class TimeStampTextView(
         text = TIME_FORMAT.format(minutes, seconds)
     }
 
+
     companion object {
         private const val ZERO = 0
         private const val ZERO_LONG = 0L
