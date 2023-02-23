@@ -87,6 +87,7 @@ class StorageFragment : Fragment() {
     private fun emotionAdapterInit() {
         binding.rvStorageEmotion.adapter = storageEmotionAdapter
         storageEmotionAdapter.submitList(storageViewModel.storageList)
+        binding.rvStorageEmotion.addItemDecoration(MyDecoration(70, 1))
     }
 
     private fun initGridAdapter() {
@@ -132,7 +133,6 @@ class StorageFragment : Fragment() {
             storageViewModel.storageList[i].isSelected = false
         }
         storageViewModel.storageList[index].isSelected = true
-        Log.d("storageemotion", "emotionClick: ${storageViewModel.storageList}")
 //        storageEmotionAdapter.submitList(storageViewModel.storageList)
         storageEmotionAdapter.notifyDataSetChanged()
     }

@@ -1,10 +1,10 @@
 package com.recodream_aos.recordream.presentation.storagy.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.local.StorageEmotionData
 import com.recodream_aos.recordream.databinding.ItemListStoreMyemotionBinding
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageEmotionAdapter.EmotionViewHolder.Companion.diffUtil
@@ -37,9 +37,10 @@ class StorageEmotionAdapter(private val emotionItemClick: (Int) -> Unit) :
             }
             if (data.isSelected) {
                 binding.ivStoreListEmotion.setImageResource(data.selectedImage)
-//                binding.tvStoreEmotion.setTextColor(R.color.black.)
+                binding.tvStoreEmotion.setTextColor(Color.WHITE)
             } else {
                 binding.ivStoreListEmotion.setImageResource(data.unSelectedImage)
+                binding.tvStoreEmotion.setTextColor(Color.GRAY)
             }
             binding.tvStoreEmotion.text = data.feelingText
 
