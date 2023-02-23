@@ -10,8 +10,8 @@
 
         <ImageView
             android:id="@+id/iv_store_list_emotion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             app:layout_constraintBottom_toTopOf="@id/tv_store_emotion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:textColor="@color/whitetrans_67686F"
             android:theme="@style/R12"
             app:layout_constraintEnd_toEndOf="@+id/iv_store_list_emotion"
             app:layout_constraintStart_toStartOf="parent"

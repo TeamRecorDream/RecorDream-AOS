@@ -22,10 +22,10 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="21dp"
             android:layout_marginStart="26dp"
-            tools:src="@drawable/feeling_s_shy"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/feeling_s_shy" />
 
         <TextView
             android:id="@+id/tv_store_list_day"
@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:layout_marginTop="12dp"
-            android:text="@{viewModel.date}"
             app:layout_constraintStart_toEndOf="@id/iv_store_list_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/store_day" />
@@ -44,7 +43,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:ellipsize="end"
-            android:text="@{viewModel.title}"
             app:layout_constraintStart_toStartOf="@+id/tv_store_list_day"
             app:layout_constraintTop_toBottomOf="@id/tv_store_list_day"
             tools:text="@string/store_description" />
