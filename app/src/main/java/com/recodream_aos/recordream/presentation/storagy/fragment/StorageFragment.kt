@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentStorageBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
+import com.recodream_aos.recordream.presentation.storagy.MyDecoration
 import com.recodream_aos.recordream.presentation.storagy.StorageViewModel
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageEmotionAdapter
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageGridAdapter
@@ -49,7 +50,6 @@ class StorageFragment : Fragment() {
 
     private fun observer() {
         with(storageViewModel) {
-
             storageCheckList.observe(viewLifecycleOwner) {
                 if (it) {
                     storageCheck = true
@@ -66,7 +66,6 @@ class StorageFragment : Fragment() {
 
             storageRecords.observe(viewLifecycleOwner) {
                 binding.tvStorageNoList.visibility = View.INVISIBLE
-                Log.d("storageFragment", "$storageCheck: ")
                 if (storageCheck) {
                     storageGridAdapter.submitList(it)
                     storageEmotionAdapter.submitList(storageViewModel.storageList)
@@ -119,18 +118,23 @@ class StorageFragment : Fragment() {
             }
             ivStorageSelectList.setOnClickListener {
                 storageViewModel.isCheckShow(false)
-//                Log.d("storageViewModel", "${storageViewModel.isCheckShow()} ")
                 initListAdapter()
                 ivStorageSelectGallery.isSelected = false
                 ivStorageSelectList.isSelected = true
             }
         }
-
     }
 
     private fun emotionClick(index: Int) {
         storageViewModel.initServer(index)
         emotionCheck = index
+        for (i in 0..6) {
+            storageViewModel.storageList[i].isSelected = false
+        }
+        storageViewModel.storageList[index].isSelected = true
+        Log.d("storageemotion", "emotionClick: ${storageViewModel.storageList}")
+//        storageEmotionAdapter.submitList(storageViewModel.storageList)
+        storageEmotionAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

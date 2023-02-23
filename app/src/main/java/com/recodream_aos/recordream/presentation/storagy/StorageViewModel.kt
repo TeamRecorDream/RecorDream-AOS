@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.storagy
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,28 +20,24 @@ class StorageViewModel @Inject constructor(
     val storageRecords: LiveData<List<ResponseStorage.Record>>
         get() = _storageRecords
     val storageList = storageEmotionList
+
+    var storageEmotion = MutableLiveData<StorageEmotionData>()
+
     private val _storageRecordCount = MutableLiveData<Int>()
     val storageRecordCount: LiveData<Int> get() = _storageRecordCount
 
     private val _storageCheckList = MutableLiveData<Boolean>()
     val storageCheckList: LiveData<Boolean> get() = _storageCheckList
 
-//    currentSelected = 0 기존꺼 는 false
-
     fun initServer(getEmotion: Int) {
         viewModelScope.launch {
             _storageRecords.value = storageRepository.getStorage(getEmotion)?.data?.records
             _storageRecordCount.value = storageRepository.getStorage(getEmotion)?.data?.recordsCount
-//            Log.d(
-//                "viewModel",
-//                "initServer: ${storageRepository.getStorage(getEmotion)?.data?.records}"
-//            )
         }
     }
 
     fun isCheckShow(show: Boolean) {
         _storageCheckList.value = show
-        Log.d("storageViewModel", "isCheckShow: ${show}")
     }
 
     companion object {
@@ -56,32 +51,39 @@ class StorageViewModel @Inject constructor(
 
         private val storageEmotionList = listOf(
             StorageEmotionData(
-                feeling = R.drawable.emotion_all_selector,
+                selectedImage = R.drawable.feeling_xs_all,
+                unSelectedImage = R.drawable.feeling_xs_all_off,
                 feelingText = ALL,
                 isSelected = true
             ),
             StorageEmotionData(
-                feeling = R.drawable.emotion_joy_selector,
-                feelingText = JOY,
+                selectedImage = R.drawable.feeling_xs_joy,
+                unSelectedImage = R.drawable.feeling_xs_joy_off,
+                feelingText = JOY
             ),
             StorageEmotionData(
-                feeling = R.drawable.emotion_sad_selector,
+                selectedImage = R.drawable.feeling_xs_sad,
+                unSelectedImage = R.drawable.feeling_xs_sad_off,
                 feelingText = SAD
             ),
             StorageEmotionData(
-                feeling = R.drawable.emotion_scary_selector,
+                selectedImage = R.drawable.feeling_xs_scary,
+                unSelectedImage = R.drawable.feeling_xs_scary_off,
                 feelingText = SCARY
             ),
             StorageEmotionData(
-                feeling = R.drawable.emotion_strange_selector,
+                selectedImage = R.drawable.feeling_xs_strange,
+                unSelectedImage = R.drawable.feeling_xs_strange_off,
                 feelingText = STRANGE
             ),
             StorageEmotionData(
-                feeling = R.drawable.feeling_xs_shy,
+                selectedImage = R.drawable.feeling_xs_shy,
+                unSelectedImage = R.drawable.feeling_xs_shy_off,
                 feelingText = SHY
             ),
             StorageEmotionData(
-                feeling = R.drawable.emotion_blank_selector,
+                selectedImage = R.drawable.feeling_xs_blank,
+                unSelectedImage = R.drawable.feeling_xs_blank_off,
                 feelingText = BLANK
             ),
         )

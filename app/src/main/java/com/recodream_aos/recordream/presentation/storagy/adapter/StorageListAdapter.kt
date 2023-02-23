@@ -35,6 +35,8 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
             }
             binding.tvStoreListDay.text = data.date
             binding.tvStoreListDescription.text = data.title
+            binding.clStorageListBackground.setBackgroundResource(checkEmotionBackground(data.emotion))
+            binding.ivStoreListIcon.setBackgroundResource(checkemotionIcon(data.emotion))
             binding.listContainerDreamTag.run {
                 val bindingDreamTag = {
                     ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
@@ -48,8 +50,6 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
                     addView(it.root)
                 }
             }
-            binding.clStorageListBackground.setBackgroundResource(checkEmotionBackground(data.emotion))
-            binding.ivStoreListIcon.setBackgroundResource(checkemotionIcon(data.emotion))
         }
 
         companion object {
