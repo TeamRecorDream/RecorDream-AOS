@@ -1,13 +1,14 @@
 package com.recodream_aos.recordream.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
 import com.recodream_aos.recordream.presentation.home.HomeFragment
+import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
-import com.recodream_aos.recordream.presentation.storagy.fragment.StoragyListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,6 +18,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         super.onCreate(savedInstanceState)
 
         initTransaction()
+        setOnClick()
     }
 
     private fun initTransaction() {
@@ -41,15 +43,10 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             .commit()
     }
 
-//    private fun setOnClick() {
-//        binding.ivMainMypage.setOnClickListener {
-//            val intent = Intent(this, MypageActivity::class.java)
-//            startActivity(intent)
-//        }
-//        binding.ivMainSearch.setOnClickListener {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.fcv_main_navhostfragment, StoragyListFragment()).commit()
-//        }
-//    }
-
+    private fun setOnClick() {
+        binding.ivMainMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }
