@@ -71,6 +71,8 @@
     <string name="tv_record_shy">민망한</string>
 
 
+    <!-- 음성녹음 뷰 -->
+    <string name="tv_recording_record">음성녹음</string>
 
 
     <!--BASE ERROR-->

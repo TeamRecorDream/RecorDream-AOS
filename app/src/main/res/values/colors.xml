@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="whitetrans_67686F">#67686F</color>
     67686F
+    <color name="transparent">#00000000</color>
 
     <!--recodreamcolor-->
     <color name="black1_000000">#000000</color>

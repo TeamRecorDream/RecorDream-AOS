@@ -10,12 +10,16 @@ import com.recodream_aos.recordream.presentation.home.HomeFragment
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
+import com.recodream_aos.recordream.presentation.record.RecordActivity
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setRecordButtonClickListener()
+//        clickEvent()
+//        initNav()
 
         initTransaction()
         setOnClick()
@@ -48,5 +52,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun setRecordButtonClickListener() {
+        binding.ivMainLogo.setOnClickListener {
+            openRecordActivity()
+        }
+    }
+
+    private fun openRecordActivity() {
+        startActivity(Intent(this, RecordActivity::class.java))
     }
 }
