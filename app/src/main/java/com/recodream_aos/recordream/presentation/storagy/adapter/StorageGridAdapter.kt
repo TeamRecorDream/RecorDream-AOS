@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage
 import com.recodream_aos.recordream.databinding.ItemListStoreGridBinding
-import com.recodream_aos.recordream.databinding.ItemListStoreTagBinding
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageGridAdapter.StorageGridViewHolder.Companion.diffUtil
 import com.recodream_aos.recordream.util.DiffUtilItemCallback
 
@@ -40,19 +39,29 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
             binding.ivStoreGridIcon.setImageResource(checkemotionIcon(data.emotion))
             binding.tvStoreGridDay.text = data.date
             binding.tvStoreGridDescription.text = dreamDescription
-            binding.gridContainerDreamTag.run {
-                val bindingDreamTag = {
-                    ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
-                }
-                removeAllViews()
-                data.genre.map { item ->
-                    bindingDreamTag().apply {
-                        tvStoreTag.text = checkGenreList(item)
-                    }
-                }.forEach {
-                    addView(it.root)
-                }
-            }
+            binding.gridContainerDreamTag.setTips(data.genre)
+
+//            binding.gridContainerDreamTag.run {
+//                val bindingDreamTag = {
+//                    ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
+//                }
+//
+//                removeAllViews()
+//                data.genre.map { item ->
+//                    bindingDreamTag().apply {
+//                        tvStoreTag.text = checkGenreList(item)
+//
+//                    }
+//                }.forEach {
+//                    val margins =
+//                        (binding.gridContainerDreamTag.layoutParams as ConstraintLayout.LayoutParams).apply {
+//                            leftMargin = 10
+//                            rightMargin = 10
+//                        }
+//
+//                    addView(it.root)
+//                }
+//            }
         }
 
         companion object {
@@ -80,32 +89,19 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
             else -> R.drawable.card_s_white
         }
 
-        fun checkGenreList(genre: Int) = when (genre) {
-            0 -> "코미디"
-            1 -> "로맨스"
-            2 -> "판타지"
-            3 -> "공포"
-            4 -> "동물"
-            5 -> "친구"
-            6 -> "가족"
-            7 -> "음식"
-            8 -> "일"
-            else -> "기타"
+        enum class MotionIcon(
+
+            val color: Int,
+
+            val icon: Int
+
+        ) {
+
+            JOY(1, R.drawable.feeling_m_joy),
+
+            SAD(2, R.drawable.feeling_m_sad)
+
         }
-    }
-
-    enum class MotionIcon(
-
-        val color: Int,
-
-        val icon: Int
-
-    ) {
-
-        JOY(1, R.drawable.feeling_m_joy),
-
-        SAD(2, R.drawable.feeling_m_sad)
 
     }
-
 }

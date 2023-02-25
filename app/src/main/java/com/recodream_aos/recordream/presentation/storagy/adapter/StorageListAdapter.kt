@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage
 import com.recodream_aos.recordream.databinding.ItemListStoreListBinding
-import com.recodream_aos.recordream.databinding.ItemListStoreTagBinding
 import com.recodream_aos.recordream.presentation.storagy.adapter.StorageListAdapter.StorageViewHolder.Companion.diffUtil
 import com.recodream_aos.recordream.util.DiffUtilItemCallback
 
@@ -37,19 +36,20 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
             binding.tvStoreListDescription.text = data.title
             binding.clStorageListBackground.setBackgroundResource(checkEmotionBackground(data.emotion))
             binding.ivStoreListIcon.setBackgroundResource(checkemotionIcon(data.emotion))
-            binding.listContainerDreamTag.run {
-                val bindingDreamTag = {
-                    ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
-                }
-                removeAllViews()
-                data.genre.map { item ->
-                    bindingDreamTag().apply {
-                        tvStoreTag.text = checkGenreList(item)
-                    }
-                }.forEach {
-                    addView(it.root)
-                }
-            }
+            binding.listContainerDreamTag.setTips(data.genre)
+//            binding.listContainerDreamTag.run {
+//                val bindingDreamTag = {
+//                    ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
+//                }
+//                removeAllViews()
+//                data.genre.map { item ->
+//                    bindingDreamTag().apply {
+//                        tvStoreTag.text = checkGenreList(item)
+//                    }
+//                }.forEach {
+//                    addView(it.root)
+//                }
+//            }
         }
 
         companion object {
@@ -75,19 +75,6 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
             4 -> R.drawable.card_s_purple
             5 -> R.drawable.card_s_pink
             else -> R.drawable.card_s_white
-        }
-
-        fun checkGenreList(genre: Int) = when (genre) {
-            0 -> "코미디"
-            1 -> "로맨스"
-            2 -> "판타지"
-            3 -> "공포"
-            4 -> "동물"
-            5 -> "친구"
-            6 -> "가족"
-            7 -> "음식"
-            8 -> "일"
-            else -> "기타"
         }
     }
 }
