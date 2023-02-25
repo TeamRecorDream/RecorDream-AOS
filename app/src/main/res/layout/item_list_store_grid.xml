@@ -6,14 +6,15 @@
     <data>
 
         <variable
-            name="card"
-            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStoreCard" />
+            name="viewModel"
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage.Record" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="158dp"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_marginHorizontal="10dp"
+        android:paddingBottom="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_store_grid_background"
@@ -26,17 +27,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:src="@drawable/feeling_m_shy"
                 app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
-                app:layout_constraintTop_toTopOf="@id/cl_store_grid_background" />
+                app:layout_constraintTop_toTopOf="@id/cl_store_grid_background"
+                tools:src="@drawable/feeling_m_shy" />
 
             <TextView
                 android:id="@+id/tv_store_grid_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="@{card.day}"
+                android:textAppearance="@style/M10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
                 app:layout_constraintTop_toBottomOf="@+id/iv_store_grid_icon"
@@ -44,31 +45,31 @@
 
             <TextView
                 android:id="@+id/tv_store_grid_description"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="14dp"
                 android:layout_marginTop="8dp"
+                android:breakStrategy="simple"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLength="25"
-                android:text="@{card.description}"
+                android:paddingHorizontal="14dp"
+                android:textAppearance="@style/R11"
                 app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
                 app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
                 app:layout_constraintTop_toBottomOf="@id/tv_store_grid_day"
                 tools:text="@string/store_description" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
+            <com.recodream_aos.recordream.presentation.storagy.HashTag
+                android:id="@+id/grid_container_dream_tag"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
+                android:layout_marginHorizontal="22dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="22dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/cl_store_grid_background"
-                app:layout_constraintEnd_toEndOf="@id/cl_store_grid_background"
-                app:layout_constraintStart_toStartOf="@id/cl_store_grid_background"
-                app:layout_constraintTop_toBottomOf="@id/tv_store_grid_description"
-                tools:itemCount="3" />
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_store_grid_description" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

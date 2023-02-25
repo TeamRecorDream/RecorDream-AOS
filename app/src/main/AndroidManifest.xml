@@ -42,9 +42,6 @@
             android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.storagy.StoragyActivity"
-            android:exported="false" />
-        <activity
             android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
