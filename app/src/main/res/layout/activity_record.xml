@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.recodream_aos.recordream.presentation.record.RecordViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.record.RecordActivity">
+
+        <TextView
+            android:id="@+id/tv_record_save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white01_FFFFFF"
+            android:gravity="center"
+            android:paddingTop="22dp"
+            android:paddingBottom="17dp"
+            android:text="@string/tv_record_save"
+            android:textAppearance="@style/B16"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_record_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:text="@string/tv_record_record"
+            android:textAppearance="@style/Sb16"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/tv_record_save_btn"
+            app:layout_constraintTop_toBottomOf="@+id/v_record_indicator"
+            tools:layout_editor_absoluteX="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_record_emotion">
+
+                    <ImageView
+                        android:id="@+id/iv_record_joy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_record_sad"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/feeling_xs_joy" />
+
+                    <ImageView
+                        android:id="@+id/iv_record_sad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_record_scary"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_joy"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/feeling_xs_sad" />
+
+                    <ImageView
+                        android:id="@+id/iv_record_scary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_record_strange"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_sad"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/feeling_xs_scary" />
+
+                    <ImageView
+                        android:id="@+id/iv_record_strange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_record_shy"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_scary"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/feeling_xs_strange" />
+
+                    <ImageView
+                        android:id="@+id/iv_record_shy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_strange"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/feeling_xs_shy" />
+
+                    <TextView
+                        android:id="@+id/tv_record_joy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tv_record_joy"
+                        android:textAppearance="@style/R10"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_record_joy"
+                        app:layout_constraintStart_toStartOf="@+id/iv_record_joy"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_record_joy" />
+
+                    <TextView
+                        android:id="@+id/tv_record_sad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_record_sad"
+                        android:textAppearance="@style/R10"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_record_sad"
+                        app:layout_constraintStart_toStartOf="@+id/iv_record_sad"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_joy" />
+
+                    <TextView
+                        android:id="@+id/tv_record_scary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_record_scary"
+                        android:textAppearance="@style/R10"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_record_scary"
+                        app:layout_constraintStart_toStartOf="@+id/iv_record_scary"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_sad" />
+
+                    <TextView
+                        android:id="@+id/tv_record_strange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_record_strange"
+                        android:textAppearance="@style/R10"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_record_strange"
+                        app:layout_constraintStart_toStartOf="@+id/iv_record_strange"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_scary" />
+
+                    <TextView
+                        android:id="@+id/tv_record_shy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_record_shy"
+                        android:textAppearance="@style/R10"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_record_shy"
+                        app:layout_constraintStart_toStartOf="@+id/iv_record_shy"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_strange" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                    <ImageView
+                        android:id="@+id/iv_record_mic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icn_mic_s" />
+
+                    <TextView
+                        android:id="@+id/tv_record_voice_recording"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginBottom="21dp"
+                        android:text="@string/tv_record_voice_record"
+                        android:textAppearance="@style/M14"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_mic"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_record_record_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_record_recording_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{viewModel.time}"
+                            android:textAppearance="@style/M14"
+                            android:textColor="@color/white01_FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_record_voice"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_record_voice"
+                            app:layout_constraintTop_toTopOf="@+id/iv_record_voice"
+                            tools:text="@string/tv_record_tools_time" />
+
+                        <ImageView
+                            android:id="@+id/iv_record_voice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icn_rd_voice" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_record_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginBottom="21dp"
+                        android:text="@string/tv_record_date"
+                        android:textAppearance="@style/M14"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_calendar"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_record_calendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icn_calendar" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_record_date_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:onClick="showDatePickerDialog"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_record_date_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:text="@{viewModel.date}"
+                            android:textAppearance="@style/M14"
+                            android:textColor="@color/white01_FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_record_arrow"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/tv_record_tools_date" />
+
+                        <ImageView
+                            android:id="@+id/iv_record_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icn_arrow" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <EditText
+                    android:id="@+id/et_record_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="15dp"
+                    android:hint="@string/tv_record_hint_title"
+                    android:paddingStart="16dp"
+                    android:paddingTop="21dp"
+                    android:paddingBottom="21dp"
+                    android:textAppearance="@style/M14"
+                    android:textColor="@color/white03_66FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                    tools:text="@string/tv_record_hint_title" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_record_genre">
+
+                    <TextView
+                        android:id="@+id/tv_record_horror"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_horror"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_fantasy"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_record_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_work"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_food"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_food" />
+
+                    <TextView
+                        android:id="@+id/tv_record_comedy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_comedy"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_record_etc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_etc"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_work"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_work" />
+
+                    <TextView
+                        android:id="@+id/tv_record_animal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_animal"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_horror"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_horror" />
+
+                    <TextView
+                        android:id="@+id/tv_record_food"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_food"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_family"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_family" />
+
+                    <TextView
+                        android:id="@+id/tv_record_romance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_romance"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_comedy"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_record_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_friend"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_record_comedy" />
+
+                    <TextView
+                        android:id="@+id/tv_record_fantasy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_fantasy"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_romance"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_record_family"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:paddingStart="6dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/tv_record_family"
+                        android:textAppearance="@style/R14"
+                        android:textColor="@color/selector_color_white_purple"
+                        app:layout_constraintStart_toEndOf="@+id/tv_record_friend"
+                        app:layout_constraintTop_toTopOf="@+id/tv_record_friend" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <EditText
+                    android:id="@+id/et_record_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="top"
+                    android:hint="@string/tv_record_hint_note"
+                    android:lineSpacingExtra="7dp"
+                    android:minLines="15"
+                    android:padding="16dp"
+                    android:scrollbars="vertical"
+                    android:textAppearance="@style/M14"
+                    android:textColor="@color/white03_66FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_record_title"
+                    tools:text="@string/tv_record_hint_note" />
+
+                <TextView
+                    android:id="@+id/tv_record_emotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_record_emotion"
+                    android:textAppearance="@style/Sb14"
+                    android:textColor="@color/white01_FFFFFF"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_record_content" />
+
+                <TextView
+                    android:id="@+id/tv_record_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_record_genre"
+                    android:textAppearance="@style/Sb14"
+                    android:textColor="@color/white01_FFFFFF"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/v_record_indicator_second" />
+
+                <View
+                    android:id="@+id/v_record_indicator_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/white05_1AFFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+                <TextView
+                    android:id="@+id/tv_record_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_record_note"
+                    android:textAppearance="@style/Sb14"
+                    android:textColor="@color/white01_FFFFFF"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="top"
+                    android:minLines="10"
+                    android:padding="16dp"
+                    android:text="@string/tv_record_hint_note"
+                    android:textAppearance="@style/M14"
+                    android:textColor="@color/white03_66FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_record_note" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <ImageView
+            android:id="@+id/iv_record_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="31dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icn_close" />
+
+        <View
+            android:id="@+id/v_record_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="19dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/tv_record_record" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

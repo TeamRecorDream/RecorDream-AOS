@@ -19,6 +19,7 @@
     <string name="store_description">오늘 친구들이랑 피자 먹고 너무 좋았는데 어쭈구리 쭈굴..</string>
     <string name="store_day">2022/06/26 SUN</string>
     <string name="store_no_record">아직 기록된 꿈이 없어요.</string>
+    <string name="store_records_count">%1$d개의 기록</string>
 
     <!--마이페이지 뷰-->
     <string name="mypage">마이페이지</string>
@@ -35,6 +36,47 @@
     <string name="mypage_delete_description">탈퇴 시 저장된 기록은 복구되지 않습니다.\n 정말로 탈퇴하시겠습니까?</string>
     <string name="mypage_delete">탈퇴</string>
     <string name="mypage_name_warning">1~8자까지 가능합니다.</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- 기록하기 뷰 -->
+    <string name="tv_record_record">기록하기</string>
+    <string name="tv_record_date">날짜</string>
+    <string name="tv_record_voice_record">음성녹음</string>
+    <string name="tv_record_hint_title">꿈의 제목을 남겨주세요.</string>
+    <string name="tv_record_content">무슨 꿈을 꾸셨나요?</string>
+    <string name="tv_record_emotion">나의 감정</string>
+    <string name="tv_record_genre">꿈의 장르</string>
+    <string name="tv_record_warning">!꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
+    <string name="tv_record_note">노트</string>
+    <string name="tv_record_hint_note">꿈에 대해 따로 기록할 게 있나요?</string>
+    <string name="tv_record_save">저장하기</string>
+    <string name="tv_record_tools_date">2022-06-27</string>
+    <string name="tv_record_tools_time">00:00</string>
+
+    <string name="tv_record_comedy"># 코미디</string>
+    <string name="tv_record_romance"># 로맨스</string>
+    <string name="tv_record_fantasy"># 판타지</string>
+    <string name="tv_record_horror"># 공포</string>
+    <string name="tv_record_animal"># 동물</string>
+    <string name="tv_record_friend"># 친구</string>
+    <string name="tv_record_family"># 가족</string>
+    <string name="tv_record_food"># 음식</string>
+    <string name="tv_record_work"># 일</string>
+    <string name="tv_record_etc"># 기타</string>
+
+    <string name="tv_record_joy">기쁜</string>
+    <string name="tv_record_sad">슬픈</string>
+    <string name="tv_record_scary">무서운</string>
+    <string name="tv_record_strange">이상한</string>
+    <string name="tv_record_shy">민망한</string>
+
+
+    <!-- 음성녹음 뷰 -->
+    <string name="tv_recording_record">음성녹음</string>
+
+
+    <!--BASE ERROR-->
+    <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
+
+
 </resources>

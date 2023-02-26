@@ -1,11 +1,15 @@
 package com.recodream_aos.recordream.util
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Point
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.recodream_aos.recordream.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.recodream_aos.recordream.R
 
 class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()
@@ -91,15 +95,21 @@ class CustomBottomNavigationView : BottomNavigationView {
         mPath.lineTo(mFirstCurveStartPoint.x.toFloat(), mFirstCurveStartPoint.y.toFloat())
 
         mPath.cubicTo(
-            mFirstCurveControlPoint1.x.toFloat(), mFirstCurveControlPoint1.y.toFloat(),
-            mFirstCurveControlPoint2.x.toFloat(), mFirstCurveControlPoint2.y.toFloat(),
-            mFirstCurveEndPoint.x.toFloat(), mFirstCurveEndPoint.y.toFloat()
+            mFirstCurveControlPoint1.x.toFloat(),
+            mFirstCurveControlPoint1.y.toFloat(),
+            mFirstCurveControlPoint2.x.toFloat(),
+            mFirstCurveControlPoint2.y.toFloat(),
+            mFirstCurveEndPoint.x.toFloat(),
+            mFirstCurveEndPoint.y.toFloat()
         )
 
         mPath.cubicTo(
-            mSecondCurveControlPoint1.x.toFloat(), mSecondCurveControlPoint1.y.toFloat(),
-            mSecondCurveControlPoint2.x.toFloat(), mSecondCurveControlPoint2.y.toFloat(),
-            mSecondCurveEndPoint.x.toFloat(), mSecondCurveEndPoint.y.toFloat()
+            mSecondCurveControlPoint1.x.toFloat(),
+            mSecondCurveControlPoint1.y.toFloat(),
+            mSecondCurveControlPoint2.x.toFloat(),
+            mSecondCurveControlPoint2.y.toFloat(),
+            mSecondCurveEndPoint.x.toFloat(),
+            mSecondCurveEndPoint.y.toFloat()
         )
 
         mPath.lineTo(mNavigationBarWidth.toFloat(), 0F)

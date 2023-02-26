@@ -3,15 +3,15 @@
     android:height="54dp"
     android:viewportWidth="54"
     android:viewportHeight="54">
-  <path
-      android:pathData="M27,27m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
-      android:fillColor="#fff"
-      android:fillAlpha="0.1"/>
-  <path
-      android:pathData="m15.587,25.701 l8.714,9.632c0.187,0.207 0.511,0.21 0.702,0.006l13.953,-14.884"
-      android:strokeLineJoin="round"
-      android:strokeWidth="2.862"
-      android:fillColor="#00000000"
-      android:strokeColor="#fff"
-      android:strokeLineCap="round"/>
+    <path
+        android:fillAlpha="0.1"
+        android:fillColor="#fff"
+        android:pathData="M27,27m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="m15.587,25.701 l8.714,9.632c0.187,0.207 0.511,0.21 0.702,0.006l13.953,-14.884"
+        android:strokeWidth="2.862"
+        android:strokeColor="#fff"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
 </vector>

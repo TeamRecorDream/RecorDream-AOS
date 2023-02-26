@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.presentation.home
+package com.recodream_aos.recordream.presentation.home // ktlint-disable filename
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.R
-import com.recodream_aos.recordream.data.remote.response.ResponseHome
+import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.HomeCardItemBinding
 import com.recodream_aos.recordream.util.RecordreamMapping
 
