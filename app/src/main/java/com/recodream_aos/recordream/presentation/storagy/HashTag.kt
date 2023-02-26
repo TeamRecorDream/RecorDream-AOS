@@ -2,7 +2,6 @@ package com.recodream_aos.recordream.presentation.storagy
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.recodream_aos.recordream.R
@@ -10,6 +9,15 @@ import com.recodream_aos.recordream.databinding.ItemHashTagBinding
 
 class HashTag(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
     private var binding: ItemHashTagBinding? = null
+
+    private lateinit var inflater: LayoutInflater
+
+    init {
+        if (!::inflater.isInitialized)
+            inflater = LayoutInflater.from(context)
+    }
+
+
     fun setTips(tag: List<Int>) {
         this.removeAllViews()
         for (i in tag.indices) {
@@ -17,12 +25,8 @@ class HashTag(context: Context, attrs: AttributeSet? = null) : LinearLayout(cont
                 ItemHashTagBinding.inflate(LayoutInflater.from(context), this, false).apply {
                     tvStoragHashTag.setText(checkGenreList(tag[i]))
                 }
-            // FIXME 마지막 아이템 제외, bottom 패딩 적용 안됨
-//            if (i < adviseList.size) {
-//                binding.apply { setPadding(0, 0, 0, 16) } // TODO
             addView(binding?.root)
         }
-
     }
 
     fun checkGenreList(genre: Int) = when (genre) {

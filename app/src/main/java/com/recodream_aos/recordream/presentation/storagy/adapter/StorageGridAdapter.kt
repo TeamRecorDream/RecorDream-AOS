@@ -98,8 +98,11 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
         ) {
 
             JOY(1, R.drawable.feeling_m_joy),
-
-            SAD(2, R.drawable.feeling_m_sad)
+            SAD(2, R.drawable.feeling_m_sad),
+            SCARY(3, R.drawable.feeling_m_scary),
+            STRANGE(4, R.drawable.feeling_m_strange),
+            SHY(5, R.drawable.feeling_m_shy),
+            BLANK(6, R.drawable.feeling_m_blank)
 
         }
 

@@ -10,6 +10,7 @@ import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.shortToast
 
+
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
@@ -56,8 +57,7 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun createBottomSheet() {
-//        myPageBottomSheetFragment.show(supportFragmentManager)
-        //.show(supportFragmentManager, myPageBottomSheetFragment.tag)
+        myPageBottomSheetFragment.show(supportFragmentManager, myPageBottomSheetFragment.tag)
     }
 
     private fun switchOnClick() {

@@ -69,12 +69,12 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
         }
 
         fun checkEmotionBackground(color: Int) = when (color) {
-            1 -> R.drawable.card_s_yellow
-            2 -> R.drawable.card_s_blue
-            3 -> R.drawable.card_s_red
-            4 -> R.drawable.card_s_purple
-            5 -> R.drawable.card_s_pink
-            else -> R.drawable.card_s_white
+            1 -> R.drawable.list_yellow
+            2 -> R.drawable.list_blue
+            3 -> R.drawable.list_red
+            4 -> R.drawable.list_purple
+            5 -> R.drawable.list_pink
+            else -> R.drawable.list_white
         }
     }
 }

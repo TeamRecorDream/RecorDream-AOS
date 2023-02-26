@@ -21,11 +21,11 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 //        clickEvent()
 //        initNav()
 
-        initTransaction()
+        clickBottomMenu()
         setOnClick()
     }
 
-    private fun initTransaction() {
+    private fun clickBottomMenu() {
         supportFragmentManager.beginTransaction().add(R.id.fcv_main_navhostfragment, HomeFragment())
             .commit()
         binding.bnvMainCustomnav.setOnItemSelectedListener { item ->
