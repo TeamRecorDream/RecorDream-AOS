@@ -23,7 +23,6 @@ class RecordViewModel : ViewModel() {
 
     init {
         initLocalDate()
-
     }
 
     fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->
