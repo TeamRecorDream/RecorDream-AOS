@@ -20,7 +20,12 @@ class MypageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClick()
+        showSettingTime()
     }
+
+//    private fun mypageDataObserver(){
+//        mypageViewModel.hour.observe(
+//    }
 
     private fun setOnClick() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
@@ -29,6 +34,16 @@ class MypageActivity : AppCompatActivity() {
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
 
+    }
+
+    private fun showSettingTime() {
+        val settingTime = getString(
+            R.string.mypage_setting_time_description,
+            mypageViewModel.amOrPm,
+            mypageViewModel.hour,
+            mypageViewModel.minute
+        )
+        binding.tvMypageSettitngTimeDescription.text = settingTime
     }
 
     private fun editName() {
@@ -64,6 +79,7 @@ class MypageActivity : AppCompatActivity() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
             if (onSwitch) {
                 createBottomSheet()
+                binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
             } else {
             }
         }

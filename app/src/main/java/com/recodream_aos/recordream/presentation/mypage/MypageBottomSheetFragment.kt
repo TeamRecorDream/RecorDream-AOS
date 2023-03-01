@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,20 +16,23 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private var amOrpm = ""
     private var hourvalue = 0
     private var minvalue = 0
-
+    private val viewModel by activityViewModels<MypageViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMypageBottomSheetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        clickBtn()
         amOrpmSettiing()
         hourSettiing()
         minuteSettiing()
-        clickBtn()
         initDialog()
-
-        return binding.root
     }
 
     private fun clickBtn() {
@@ -41,14 +45,14 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun amOrpmSettiing() {
-        val str = arrayOf<String>("AM", "PM")
+        val str = arrayOf("AM", "PM")
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
         binding.npMypageBottomDay.displayedValues = str
         binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
             amOrpm = str[i]
-//            viewModel.setAmOrPm(amOrpm)
+            viewModel.setAmOrPm(amOrpm)
             binding.npMypageBottomDay.wrapSelectorWheel = false
         }
     }
@@ -60,7 +64,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
             hourvalue = i
-//            viewModel.setHour(hourvalue)
+            viewModel.setHour(hourvalue)
             binding.npMypageBottomHour.wrapSelectorWheel = false
         }
     }
@@ -75,7 +79,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
             minvalue = i
-//            viewModel.setMinute(minvalue)
+            viewModel.setMinute(minvalue)
             binding.npMypageBottomMinute.wrapSelectorWheel = false
         }
     }
