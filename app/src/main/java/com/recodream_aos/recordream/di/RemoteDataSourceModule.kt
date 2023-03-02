@@ -1,11 +1,9 @@
 package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 import com.recodream_aos.recordream.data.api.AuthService
+import com.recodream_aos.recordream.data.api.MypageService
 import com.recodream_aos.recordream.data.api.StorageService
-import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
-import com.recodream_aos.recordream.data.datasource.remote.AuthDataSourceImpl
-import com.recodream_aos.recordream.data.datasource.remote.StorageDateSource
-import com.recodream_aos.recordream.data.datasource.remote.StorageDateSourceImpl
+import com.recodream_aos.recordream.data.datasource.remote.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,4 +25,10 @@ object RemoteDataSourceModule {
     fun providesStorageDataSourceImpl(
         storageService: StorageService
     ): StorageDateSource = StorageDateSourceImpl(storageService)
+
+    @Provides
+    @Singleton
+    fun providesMypageUserDataSourceImpl(
+        mypageUserService: MypageService
+    ): MypageDateSource = MypageUserDateSourceImpl(mypageUserService)
 }
