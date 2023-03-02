@@ -2,15 +2,17 @@ package com.recodream_aos.recordream.presentation.mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.util.CustomDialog
-import com.recodream_aos.recordream.util.shortToast
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
@@ -20,12 +22,25 @@ class MypageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClick()
-        showSettingTime()
+        mypageDataObserver()
+        mypageViewModel.getUser()
     }
 
-//    private fun mypageDataObserver(){
-//        mypageViewModel.hour.observe(
-//    }
+    private fun mypageDataObserver() {
+        with(mypageViewModel) {
+            isShow.observe(this@MypageActivity, Observer { item ->
+//                showSettingTime()
+                binding.tvMypageSettitngTimeDescription.text = item
+            })
+            userName.observe(this@MypageActivity, Observer { name ->
+                binding.edtMypageName.setText(name)
+            })
+            userEmail.observe(this@MypageActivity, Observer { email ->
+                binding.tvMypageEmail.text = email
+                Log.d("mypageactivity", "mypageDataObserver: $email")
+            })
+        }
+    }
 
     private fun setOnClick() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
@@ -37,25 +52,24 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun showSettingTime() {
-        val settingTime = getString(
-            R.string.mypage_setting_time_description,
-            mypageViewModel.amOrPm,
-            mypageViewModel.hour,
-            mypageViewModel.minute
+//        val settingTime = getString(
+//            R.string.mypage_setting_time_description,
+//            mypageViewModel.amOrPm.value,
+//            mypageViewModel.hour.value,
+//            mypageViewModel.minute.value
+//        )
+//        _hour.value = String.format("%02d", h)
+        binding.tvMypageSettitngTimeDescription.text = String.format(
+            "%02d %02d:%02d",
+            mypageViewModel.amOrPm.value,
+            mypageViewModel.hour.value,
+            mypageViewModel.minute.value
         )
-        binding.tvMypageSettitngTimeDescription.text = settingTime
     }
 
     private fun editName() {
         binding.ivMypageEditName.setOnClickListener {
             binding.edtMypageName.isEnabled
-        }
-    }
-
-    private fun showNicknameWarning() {
-        if (binding.edtMypageName.text.isNullOrBlank()) {
-            // TODO: 이거 왜 int값임?
-            shortToast(R.string.mypage_name_warning)
         }
     }
 
@@ -80,7 +94,9 @@ class MypageActivity : AppCompatActivity() {
             if (onSwitch) {
                 createBottomSheet()
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
+                binding.clMypageDreamPush.setOnClickListener { createBottomSheet() }
             } else {
+                binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
             }
         }
     }

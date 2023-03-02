@@ -15,7 +15,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding ?: error("binding이 초기화 되지 않았습니다.")
     private var amOrpm = ""
     private var hourvalue = 0
-    private var minvalue = 0
+    private var minuteValue = 0
     private val viewModel by activityViewModels<MypageViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +37,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun clickBtn() {
         binding.btnMypageSave.setOnClickListener {
+            viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {
@@ -52,7 +53,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
             amOrpm = str[i]
-            viewModel.setAmOrPm(amOrpm)
+//            viewModel.setAmOrPm(amOrpm)
             binding.npMypageBottomDay.wrapSelectorWheel = false
         }
     }
@@ -64,7 +65,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
             hourvalue = i
-            viewModel.setHour(hourvalue)
+//            viewModel.setHour(hourvalue)
             binding.npMypageBottomHour.wrapSelectorWheel = false
         }
     }
@@ -78,8 +79,8 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            minvalue = i
-            viewModel.setMinute(minvalue)
+            minuteValue = i
+//            viewModel.setMinute(minvalue)
             binding.npMypageBottomMinute.wrapSelectorWheel = false
         }
     }
