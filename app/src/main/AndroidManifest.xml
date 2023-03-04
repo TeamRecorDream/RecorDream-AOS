@@ -33,7 +33,7 @@
             android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.MainActivity"
-            android:exported="false" />
+            android:exported="false"></activity>
         <activity
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
             android:exported="false" />
@@ -44,31 +44,41 @@
             android:name="com.recodream_aos.recordream.presentation.storagy.StoragyActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
-            android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:name="com.recodream_aos.recordream.presentation.document.DocumentActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity> <!-- Kakao 로그인 -->
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+            <!--&lt;!&ndash;                <category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
+            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
-                <!-- scheme-example: "kakao{NATIVE_APP_KEY}" -->
-                <data
-                    android:host="oauth"
-                    android:scheme="@string/appKey_manifest_kakao" />
-            </intent-filter>
+            <!--                &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt;-->
+            <!--                &lt;!&ndash; scheme-example: "kakao{NATIVE_APP_KEY}" &ndash;&gt;-->
+            <!--                <data-->
+            <!--                    android:host="oauth"-->
+            <!--                    android:scheme="@string/appKey_manifest_kakao" />-->
+            <!--            </intent-filter>-->
         </activity>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
