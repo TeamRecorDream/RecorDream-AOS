@@ -142,7 +142,7 @@ class RecordBottomSheetViewModel @Inject constructor(
     }
 
     private fun initRealTimer() {
-        realTimer = timer(period = ONE_SECOND, initialDelay = ONE_SECOND) {
+        realTimer = timer(period = ONE_SECOND) {
             recordingTime++
         }
     }
