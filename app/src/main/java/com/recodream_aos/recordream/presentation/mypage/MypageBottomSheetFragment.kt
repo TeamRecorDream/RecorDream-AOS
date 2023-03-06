@@ -80,7 +80,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
             minuteValue = i
-//            viewModel.setMinute(minvalue)
+//            viewModel.setMinute(minuteValue)
             binding.npMypageBottomMinute.wrapSelectorWheel = false
         }
     }

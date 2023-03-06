@@ -49,13 +49,13 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
     }
 
     fun setIsShow(day: String, h: Int, m: Int) {
+        var formatHour = String.format("%02d", h)
+        var formatMinute = String.format("%02d", m)
         _isShow.value = String.format(
             //todo %02s로 하면 왜 안됨?
             "%s %s:%s",
-            //%2$s %2$s:%2s
-            day, h, m
+            day, formatHour, formatMinute
         )
-        Log.d("mypageViewmodel", "setIsShow: ${isShow}")
     }
 
     fun editNickName() {
