@@ -21,17 +21,6 @@ class MypageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClick()
-        initFirebase()
-    }
-
-    private val firebaseToken: TextView by lazy { findViewById(R.id.tv_fire) }
-
-    private fun initFirebase() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                firebaseToken.text = task.result
-            }
-        }
     }
 
     private fun setOnClick() {
