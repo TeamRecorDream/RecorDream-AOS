@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.mypage
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,17 +35,18 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
         }
     }
 
-    fun setAmOrPm(str: String) {
-        _amOrPm.value = str
-    }
-
-    fun setHour(h: Int) {
-        _hour.value = String.format("%02d", h)
-    }
-
-    fun setMinute(m: Int) {
-        _minute.value = String.format("%02d", m)
-    }
+//
+//    fun setAmOrPm(str: String) {
+//        _amOrPm.value = str
+//    }
+//
+//    fun setHour(h: Int) {
+//        _hour.value = String.format("%02d", h)
+//    }
+//
+//    fun setMinute(m: Int) {
+//        _minute.value = String.format("%02d", m)
+//    }
 
     fun setIsShow(day: String, h: Int, m: Int) {
         var formatHour = String.format("%02d", h)
