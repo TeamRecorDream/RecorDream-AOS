@@ -19,7 +19,7 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
-    private val _amOrPm = MutableLiveData<String>("AM")
+    private val _amOrPm = MutableLiveData<String>()
     val amOrPm: LiveData<String> get() = _amOrPm
     private val _hour = MutableLiveData<String>("00")
     val hour: LiveData<String> get() = _hour

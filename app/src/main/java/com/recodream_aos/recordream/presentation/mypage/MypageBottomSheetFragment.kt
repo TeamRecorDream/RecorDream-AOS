@@ -13,7 +13,7 @@ import com.recodream_aos.recordream.databinding.FragmentMypageBottomSheetBinding
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentMypageBottomSheetBinding? = null
     private val binding get() = _binding ?: error("binding이 초기화 되지 않았습니다.")
-    private var amOrpm = ""
+    private var amOrpm = "AM"
     private var hourvalue = 0
     private var minuteValue = 0
     private val viewModel by activityViewModels<MypageViewModel>()

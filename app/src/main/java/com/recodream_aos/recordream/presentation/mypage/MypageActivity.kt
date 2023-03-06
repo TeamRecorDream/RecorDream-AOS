@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.mypage
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -60,7 +61,7 @@ class MypageActivity : AppCompatActivity() {
 //        )
 //        _hour.value = String.format("%02d", h)
         binding.tvMypageSettitngTimeDescription.text = String.format(
-            "%02d %02d:%02d",
+            "%s %d:%d",
             mypageViewModel.amOrPm.value,
             mypageViewModel.hour.value,
             mypageViewModel.minute.value
@@ -97,6 +98,7 @@ class MypageActivity : AppCompatActivity() {
                 binding.clMypageDreamPush.setOnClickListener { createBottomSheet() }
             } else {
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
+                binding.tvMypageSettitngTimeDescription.visibility = View.GONE
             }
         }
     }

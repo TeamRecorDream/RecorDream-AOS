@@ -83,7 +83,7 @@
             android:id="@+id/tv_mypage_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mypage_email"
+            tools:text="@string/mypage_email"
             android:textColor="@color/white02_80FFFFFF"
             android:theme="@style/M10"
             app:layout_constraintEnd_toEndOf="@+id/edt_mypage_name"
@@ -159,7 +159,7 @@
 
                 android:textAppearance="@style/M16"
                 android:textColor="@color/white01_FFFFFF"
-                android:visibility="gone"
+
                 app:layout_constraintEnd_toEndOf="@id/cl_mypage_settingTime"
                 app:layout_constraintTop_toTopOf="@id/cl_mypage_settingTime" />
 
