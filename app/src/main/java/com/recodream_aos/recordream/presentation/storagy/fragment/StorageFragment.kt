@@ -2,7 +2,6 @@ package com.recodream_aos.recordream.presentation.storagy.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,14 +43,14 @@ class StorageFragment : Fragment() {
         emotionAdapterInit()
         initGridAdapter()
         binding.viewModel = storageViewModel
-        observer()
+        StorageDataObserver()
         selectShowView()
     }
 
-    private fun observer() {
+    private fun StorageDataObserver() {
         with(storageViewModel) {
-            storageCheckList.observe(viewLifecycleOwner) {
-                if (it) {
+            storageCheckList.observe(viewLifecycleOwner) { showView ->
+                if (showView) {
                     storageCheck = true
                     initGridAdapter()
                     storageGridAdapter.submitList(storageViewModel.storageRecords.value)
@@ -64,20 +63,20 @@ class StorageFragment : Fragment() {
                 }
             }
 
-            storageRecords.observe(viewLifecycleOwner) {
+            storageRecords.observe(viewLifecycleOwner) { records ->
                 binding.tvStorageNoList.visibility = View.INVISIBLE
                 if (storageCheck) {
-                    storageGridAdapter.submitList(it)
+                    storageGridAdapter.submitList(records)
                     storageEmotionAdapter.submitList(storageViewModel.storageList)
                 } else {
                     storageEmotionAdapter.submitList(storageViewModel.storageList)
-                    storageListAdapter.submitList(it)
+                    storageListAdapter.submitList(records)
                 }
             }
-            storageRecordCount.observe(viewLifecycleOwner) {
-                val recordAllCount = getString(R.string.store_records_count, it)
+            storageRecordCount.observe(viewLifecycleOwner) { count ->
+                val recordAllCount = getString(R.string.store_records_count, count)
                 binding.tvStorageRecordCount.text = recordAllCount
-                if (it == 0) {
+                if (count == 0) {
                     binding.tvStorageNoList.visibility = View.VISIBLE
                 }
             }

@@ -2,13 +2,16 @@ package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
+import com.recodream_aos.recordream.data.datasource.remote.MypageDateSource
 import com.recodream_aos.recordream.data.datasource.remote.StorageDateSource
 import com.recodream_aos.recordream.data.repository.AuthRepositoryImpl
-import com.recodream_aos.recordream.data.repository.StorageRepositoryImpl
+import com.recodream_aos.recordream.data.repository.MypageUserRepositoryImpl
 import com.recodream_aos.recordream.data.repository.RecordRepositoryImpl
+import com.recodream_aos.recordream.data.repository.StorageRepositoryImpl
 import com.recodream_aos.recordream.domain.repository.AuthRepository
-import com.recodream_aos.recordream.domain.repository.StorageRepository
+import com.recodream_aos.recordream.domain.repository.MypageUserRepository
 import com.recodream_aos.recordream.domain.repository.RecordRepository
+import com.recodream_aos.recordream.domain.repository.StorageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +34,12 @@ object RepositoryModule {
     fun providesStorageRepository(
         storageDateSource: StorageDateSource
     ): StorageRepository = StorageRepositoryImpl(storageDateSource)
+
+    @Provides
+    @Singleton
+    fun providesMypageUserRepository(
+        mypageDataSource: MypageDateSource
+    ): MypageUserRepository = MypageUserRepositoryImpl(mypageDataSource)
 
     @Provides
     @Singleton

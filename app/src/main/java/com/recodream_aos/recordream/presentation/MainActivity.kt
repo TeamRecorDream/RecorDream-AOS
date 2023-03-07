@@ -8,9 +8,9 @@ import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
 import com.recodream_aos.recordream.presentation.home.HomeFragment
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
+import com.recodream_aos.recordream.presentation.record.RecordActivity
 import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
-import com.recodream_aos.recordream.presentation.record.RecordActivity
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -21,11 +21,11 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 //        clickEvent()
 //        initNav()
 
-        initTransaction()
+        clickBottomMenu()
         setOnClick()
     }
 
-    private fun initTransaction() {
+    private fun clickBottomMenu() {
         supportFragmentManager.beginTransaction().add(R.id.fcv_main_navhostfragment, HomeFragment())
             .commit()
         binding.bnvMainCustomnav.setOnItemSelectedListener { item ->
