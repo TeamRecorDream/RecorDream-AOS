@@ -20,5 +20,6 @@ class AuthDataSourceImpl @Inject constructor(
         refreshToken: String
     ): ResponseWrapper<ResponseNewToken> {
         return authService.postToken(accessToken, refreshToken)
+
     }
 }
