@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -12,27 +13,31 @@ import com.recodream_aos.recordream.databinding.FragmentMypageBottomSheetBinding
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentMypageBottomSheetBinding? = null
     private val binding get() = _binding ?: error("binding이 초기화 되지 않았습니다.")
-    private var amOrpm = ""
+    private var amOrpm = "AM"
     private var hourvalue = 0
-    private var minvalue = 0
-
+    private var minuteValue = 0
+    private val viewModel by activityViewModels<MypageViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMypageBottomSheetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        clickBtn()
         amOrpmSettiing()
         hourSettiing()
         minuteSettiing()
-        clickBtn()
         initDialog()
-
-        return binding.root
     }
 
     private fun clickBtn() {
         binding.btnMypageSave.setOnClickListener {
+            viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {
@@ -41,7 +46,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun amOrpmSettiing() {
-        val str = arrayOf<String>("AM", "PM")
+        val str = arrayOf("AM", "PM")
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
         binding.npMypageBottomDay.displayedValues = str
@@ -74,8 +79,8 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            minvalue = i
-//            viewModel.setMinute(minvalue)
+            minuteValue = i
+//            viewModel.setMinute(minuteValue)
             binding.npMypageBottomMinute.wrapSelectorWheel = false
         }
     }

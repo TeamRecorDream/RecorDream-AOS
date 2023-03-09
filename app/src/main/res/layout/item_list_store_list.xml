@@ -6,14 +6,17 @@
     <data>
 
         <variable
-            name="card"
-            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStoreCard" />
+            name="viewModel"
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage.Record" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_storage_list_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/list_red">
+        android:layout_height="88dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        tools:background="@drawable/list_red">
 
         <ImageView
             android:id="@+id/iv_store_list_icon"
@@ -21,10 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="21dp"
             android:layout_marginStart="26dp"
-            android:src="@drawable/feeling_s_shy"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/feeling_s_shy" />
 
         <TextView
             android:id="@+id/tv_store_list_day"
@@ -32,33 +35,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:layout_marginTop="12dp"
-            android:text="@{card.day}"
+            android:textAppearance="@style/M10"
             app:layout_constraintStart_toEndOf="@id/iv_store_list_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/store_day" />
 
         <TextView
             android:id="@+id/tv_store_list_description"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:ellipsize="end"
-            android:text="@{card.description}"
+            android:layout_marginEnd="28dp"
+            android:textAppearance="@style/R11"
+            app:layout_constraintEnd_toEndOf="@id/cl_storage_list_background"
             app:layout_constraintStart_toStartOf="@+id/tv_store_list_day"
             app:layout_constraintTop_toBottomOf="@id/tv_store_list_day"
             tools:text="@string/store_description" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
+        <com.recodream_aos.recordream.presentation.storagy.HashTag
+            android:id="@+id/list_container_dream_tag"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="11dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_store_list_day"
-            app:layout_constraintTop_toBottomOf="@id/tv_store_list_description"
-            tools:itemCount="3" />
+            app:layout_constraintStart_toStartOf="@+id/tv_store_list_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_store_list_description" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

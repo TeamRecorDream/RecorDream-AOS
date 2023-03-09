@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.tasks.OnCompleteListener
@@ -18,7 +19,6 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         sendRegistrationToServer(token)
-        Timber.tag("fcm token").d(token)
     }
 
     override fun onMessageReceived(message: RemoteMessage) {

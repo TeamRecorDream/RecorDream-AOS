@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle_radius_16dp_dialog"
-
     tools:context=".presentation.mypage.MypageBottomSheetFragment">
 
     <TextView
@@ -49,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=":"
+        android:textAppearance="@style/Sb26"
         app:layout_constraintBottom_toBottomOf="@+id/np_mypage_bottom_hour"
         app:layout_constraintEnd_toStartOf="@+id/np_mypage_bottom_minute"
         app:layout_constraintHorizontal_bias="0.5"

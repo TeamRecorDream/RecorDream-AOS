@@ -29,6 +29,7 @@
         android:theme="@style/Theme.RecorDream"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
             android:exported="true" />
@@ -37,12 +38,10 @@
             android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
+
             android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.recodream_aos.recordream.presentation.storagy.StoragyActivity"
             android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
