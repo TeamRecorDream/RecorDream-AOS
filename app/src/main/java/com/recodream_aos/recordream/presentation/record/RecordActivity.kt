@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
@@ -19,10 +20,29 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         setClickListener()
     }
 
+    private fun initViewModel() {
+        binding.viewModel = recordViewModel
+        binding.lifecycleOwner = this
+    }
+
     private fun setClickListener() {
         with(binding) {
             clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
             clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
+        }
+        setEmotionClickListener()
+    }
+
+    private fun setEmotionClickListener() = Emotion.values().map { emotion ->
+        clickEmotionSettingValue(emotion)
+    }
+
+    private fun clickEmotionSettingValue(emotion: Emotion) {
+        binding.root.findViewById<ImageView>(emotion.viewId).apply {
+            setOnClickListener {
+                recordViewModel.emotion.value = emotion.emotionID
+                recordViewModel.selectEmotionEvent()
+            }
         }
     }
 
@@ -43,10 +63,5 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH)
         ).show()
-    }
-
-    private fun initViewModel() {
-        binding.viewModel = recordViewModel
-        binding.lifecycleOwner = this
     }
 }

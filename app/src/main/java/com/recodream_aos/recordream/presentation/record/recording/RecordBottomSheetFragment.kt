@@ -73,12 +73,12 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun initActivityResultLauncher() {
-        initRecordPermission()
         val contract = ActivityResultContracts.RequestPermission()
         activityResultLauncher =
             registerForActivityResult(contract) { isGranted ->
                 checkPermission(isGranted)
             }
+        initRecordPermission()
     }
 
     private fun checkPermission(isGranted: Boolean) {

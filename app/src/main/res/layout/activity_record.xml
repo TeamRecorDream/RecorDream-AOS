@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="emotion"
+            type="com.recodream_aos.recordream.presentation.record.Emotion" />
+
+        <variable
             name="viewModel"
             type="com.recodream_aos.recordream.presentation.record.RecordViewModel" />
     </data>
@@ -65,20 +69,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
+                        android:src="@{viewModel.isJoyButtonChecked ? @drawable/feeling_xs_joy : @drawable/feeling_xs_joy_off}"
                         app:layout_constraintEnd_toStartOf="@+id/iv_record_sad"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/feeling_xs_joy" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_record_sad"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:src="@{viewModel.isSadButtonChecked ? @drawable/feeling_xs_sad : @drawable/feeling_xs_sad_off}"
                         app:layout_constraintEnd_toStartOf="@+id/iv_record_scary"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_record_joy"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/feeling_xs_sad" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_record_scary"
@@ -86,32 +90,32 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
+                        android:src="@{viewModel.isScaryButtonChecked ? @drawable/feeling_xs_scary : @drawable/feeling_xs_scary_off}"
                         app:layout_constraintEnd_toStartOf="@+id/iv_record_strange"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_record_sad"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/feeling_xs_scary" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_record_strange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:src="@{viewModel.isStrangeButtonChecked ? @drawable/feeling_xs_strange : @drawable/feeling_xs_strange_off}"
                         app:layout_constraintEnd_toStartOf="@+id/iv_record_shy"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_record_scary"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/feeling_xs_strange" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_record_shy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:src="@{viewModel.isShyButtonChecked ? @drawable/feeling_xs_shy : @drawable/feeling_xs_shy_off}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_record_strange"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/feeling_xs_shy" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_record_joy"
@@ -568,10 +572,10 @@
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="15dp"
                     android:gravity="top"
-                    android:text="@={viewModel.note}"
                     android:hint="@string/tv_record_hint_note"
                     android:minLines="10"
                     android:padding="16dp"
+                    android:text="@={viewModel.note}"
                     android:textAppearance="@style/M14"
                     android:textColor="@color/white03_66FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
