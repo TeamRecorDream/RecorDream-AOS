@@ -73,12 +73,12 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun initActivityResultLauncher() {
+        initRecordPermission()
         val contract = ActivityResultContracts.RequestPermission()
         activityResultLauncher =
             registerForActivityResult(contract) { isGranted ->
                 checkPermission(isGranted)
             }
-        initRecordPermission()
     }
 
     private fun checkPermission(isGranted: Boolean) {
@@ -119,6 +119,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
             recordViewModel.getRecordState = true
+
             dismiss()
         }
     }
@@ -127,7 +128,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         playButtonState = PlayButtonState.RECORDER_STOP
         playButton.updateIconWithState(playButtonState)
         recordBottomSheetViewModel.clearReplayProgressBar()
-        recorder?.startPlaying()
+        recorder.startPlaying()
         recordBottomSheetViewModel.replayProgressBar()
         collectReplayTimeProgress()
         timeStampTextView.startCountUp()
@@ -136,7 +137,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun stopPlayingRecorder() {
         playButtonState = PlayButtonState.RECORDER_PLAY
         playButton.updateIconWithState(playButtonState)
-        recorder?.stopPlaying()
+        recorder.stopPlaying()
         recordBottomSheetViewModel.stopReplayProgressBar()
     }
 
@@ -152,7 +153,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun stopRecording() {
         recordButtonState = RecordButtonState.AFTER_RECORDING
         recordButton.updateIconWithState(recordButtonState)
-        recorder?.stopRecording()
+        recorder.stopRecording()
         timeStampTextView.stopCountUp()
         recordBottomSheetViewModel.stopProgressBar()
         recordBottomSheetViewModel.setFullProgressBar()
@@ -165,7 +166,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun resetRecording() {
-        recorder?.stopPlaying()
+        recorder.stopPlaying()
         recordButtonState = RecordButtonState.BEFORE_RECORDING
         recordButton.updateIconWithState(recordButtonState)
         timeStampTextView.stopCountUp()
