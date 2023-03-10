@@ -41,7 +41,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.root.findViewById<ImageView>(emotion.viewId).apply {
             setOnClickListener {
                 recordViewModel.emotion.value = emotion.emotionID
-                recordViewModel.selectEmotionEvent()
+                recordViewModel.isEmotionSelected()
             }
         }
     }

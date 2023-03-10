@@ -34,7 +34,7 @@ class RecordViewModel : ViewModel() {
 //        emotion.value
 //    } 서버연결메서드
 
-    fun selectEmotionEvent() {
+    fun isEmotionSelected() {
         isJoyButtonChecked.value = emotion.value == Emotion.JOY.emotionID
         isSadButtonChecked.value = emotion.value == Emotion.SAD.emotionID
         isShyButtonChecked.value = emotion.value == Emotion.SHY.emotionID
