@@ -31,6 +31,7 @@ class RecordViewModel : ViewModel() {
     }
 
 
+
 //    fun saveRecordingMyDream() {
 //        emotion.value
 //    } 서버연결메서드
