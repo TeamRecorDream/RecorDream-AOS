@@ -38,6 +38,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private fun clickBtn() {
         binding.btnMypageSave.setOnClickListener {
             viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
+            viewModel.postPushAlam()
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {

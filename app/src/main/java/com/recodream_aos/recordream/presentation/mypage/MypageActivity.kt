@@ -36,6 +36,10 @@ class MypageActivity : AppCompatActivity() {
         with(mypageViewModel) {
             isShow.observe(this@MypageActivity) { item ->
                 binding.tvMypageSettitngTimeDescription.text = item
+//                viewModelScope.launch {
+//                    mypageUserRepository.postPushAlam(  RequestPushAlam("PM 03:10"))
+////                MypageUserRepository
+//                }
             }
             userName.observe(this@MypageActivity) { name ->
                 binding.edtMypageName.setText(name)
@@ -50,7 +54,6 @@ class MypageActivity : AppCompatActivity() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
         binding.btnMypageLogout.setOnClickListener { outLogin() }
         binding.ivMypageEditName.setOnClickListener { editName() }
-//        clickEnter()
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
 
@@ -80,31 +83,6 @@ class MypageActivity : AppCompatActivity() {
             Log.d("mypage", "editName: 3")
             true
         })
-    }
-
-    private fun clickEnter() {  //엔터로 입력
-        binding.edtMypageName.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-            val inputMethodManager =
-                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            binding.edtMypageName.isEnabled = true
-            binding.edtMypageName.requestFocus()
-            inputMethodManager.showSoftInput(binding.edtMypageName, 0)
-//            binding.edtMypageName.clearFocus()
-
-            when (actionId) {
-                EditorInfo.IME_ACTION_SEARCH -> {}
-                else ->                 // 기본 엔터키 동작
-                    return@OnEditorActionListener false
-            }
-            true
-        })
-//        val inputMethodManager =
-//            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        with(binding) {
-//            edtMypageName.isEnabled = true
-//            edtMypageName.requestFocus()
-//            inputMethodManager.showSoftInput(edtMypageName, 0)
-//            edtMypageName.clearFocus()
     }
 
 
