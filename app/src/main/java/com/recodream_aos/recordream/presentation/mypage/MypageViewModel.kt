@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
 import com.recodream_aos.recordream.domain.repository.MypageUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,12 +21,9 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
-    private val _amOrPm = MutableLiveData<String>()
-    val amOrPm: LiveData<String> get() = _amOrPm
-    private val _hour = MutableLiveData<String>("00")
-    val hour: LiveData<String> get() = _hour
-    private val _minute = MutableLiveData<String>("00")
-    val minute: LiveData<String> get() = _minute
+    private val _alamToggle = MutableLiveData<Boolean>()
+    val alamToggle: LiveData<Boolean> get() = _alamToggle
+
     private val _isShow = MutableLiveData<String>()
     val isShow: LiveData<String> get() = _isShow
 
@@ -45,18 +43,15 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
         }
     }
 
-//
-//    fun setAmOrPm(str: String) {
-//        _amOrPm.value = str
-//    }
-//
-//    fun setHour(h: Int) {
-//        _hour.value = String.format("%02d", h)
-//    }
-//
-//    fun setMinute(m: Int) {
-//        _minute.value = String.format("%02d", m)
-//    }
+    fun patchAlamToggle(alamToggle: Boolean) {
+        viewModelScope.launch {
+            mypageUserRepository.patchAlamToggle(RequestAlamToggle(alamToggle))
+        }
+    }
+
+    fun checkAlamToggle(isActive: Boolean) {
+        _alamToggle.value = isActive
+    }
 
     fun setIsShow(day: String, h: Int, m: Int) {
         var formatHour = String.format("%02d", h)

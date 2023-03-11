@@ -22,7 +22,7 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
     private val mypageViewModel by viewModels<MypageViewModel>()
-
+    private var nickname: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
@@ -36,16 +36,15 @@ class MypageActivity : AppCompatActivity() {
         with(mypageViewModel) {
             isShow.observe(this@MypageActivity) { item ->
                 binding.tvMypageSettitngTimeDescription.text = item
-//                viewModelScope.launch {
-//                    mypageUserRepository.postPushAlam(  RequestPushAlam("PM 03:10"))
-////                MypageUserRepository
-//                }
             }
             userName.observe(this@MypageActivity) { name ->
                 binding.edtMypageName.setText(name)
             }
             userEmail.observe(this@MypageActivity) { email ->
                 binding.tvMypageEmail.text = email
+            }
+            alamToggle.observe(this@MypageActivity) { toggle ->
+                patchAlamToggle(toggle)
             }
         }
     }
@@ -69,13 +68,14 @@ class MypageActivity : AppCompatActivity() {
 
         }
         binding.edtMypageName.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-            Log.d("mypage", "editName: 1")
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     binding.edtMypageName.clearFocus()
                     inputMethodManager.hideSoftInputFromWindow(binding.edtMypageName.windowToken, 0)
                     binding.edtMypageName.isEnabled = false
+                    nickname = binding.edtMypageName.text.toString()
                     Log.d("mypage", "2editName: enter클릭했다")
+                    Log.d("mypage", "editName: $nickname")
                 }
                 else ->                 // 기본 엔터키 동작
                     return@OnEditorActionListener false
@@ -104,6 +104,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
+            mypageViewModel.checkAlamToggle(onSwitch)
             if (onSwitch) {
                 createBottomSheet()
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
