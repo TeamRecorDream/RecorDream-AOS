@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_setting_time_description"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -61,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:enabled="false"
-            android:inputType="text"
             android:imeOptions="actionDone"
+            android:inputType="text"
             android:maxLength="8"
             android:maxLines="1"
             android:textColor="@color/white"
@@ -158,10 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:layout_marginEnd="20dp"
-
                 android:textAppearance="@style/M16"
                 android:textColor="@color/white01_FFFFFF"
-
                 app:layout_constraintEnd_toEndOf="@id/cl_mypage_settingTime"
                 app:layout_constraintTop_toTopOf="@id/cl_mypage_settingTime" />
 
