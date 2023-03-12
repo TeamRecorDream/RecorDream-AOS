@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.data.repository
 import android.util.Log
 import com.recodream_aos.recordream.data.datasource.remote.MypageDateSource
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
+import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
 import com.recodream_aos.recordream.data.entity.remote.response.NoDataResponse
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseAlamToggle
@@ -41,6 +42,15 @@ class MypageUserRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.d("MypageUserRepositoryImpl", "patchAlamToggle: $e")
             return null
+        }
+    }
+
+    override suspend fun putNickName(nickName: RequestNickName): Result<NoDataResponse> {
+        return kotlin.runCatching {
+            mypageUserDataSource.putUserName(nickName)
+        }.onFailure {
+            Log.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
+            it.message
         }
     }
 

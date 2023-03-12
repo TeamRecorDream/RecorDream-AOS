@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.data.datasource.remote
 import android.util.Log
 import com.recodream_aos.recordream.data.api.MypageService
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
+import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
 import com.recodream_aos.recordream.data.entity.remote.response.NoDataResponse
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseAlamToggle
@@ -29,6 +30,12 @@ class MypageUserDateSourceImpl @Inject constructor(
         Log.d("MypageUserDateSourceImpl", "patchAlamToggle: ${mypageService.patchToggle(isActive)}")
         Log.d("MypageUserDateSourceImpl", "안녕3")
         return mypageService.patchToggle(isActive)
+    }
+
+    override suspend fun putUserName(nickName: RequestNickName): NoDataResponse {
+        Log.d("MypageUserDateSourceImpl", "postPushAlam: ${mypageService.putUserName(nickName)}")
+        Log.d("MypageUserDateSourceImpl", "안녕2")
+        return mypageService.putUserName(nickName)
     }
 
 }

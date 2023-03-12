@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.mypage
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +20,12 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
+    private val _settingTime = MutableLiveData<String?>()
+    val settingTime: MutableLiveData<String?> get() = _settingTime
+
+    private val _toggleActive = MutableLiveData<Boolean>()
+    val toggleActive: MutableLiveData<Boolean> get() = _toggleActive
+
     private val _alamToggle = MutableLiveData<Boolean>()
     val alamToggle: LiveData<Boolean> get() = _alamToggle
 
@@ -32,14 +37,14 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
+            _settingTime.value = mypageUserRepository.getUser()?.data?.time
+            _toggleActive.value = mypageUserRepository.getUser()?.data?.isActive
         }
     }
 
     fun postPushAlam() {
         viewModelScope.launch {
             mypageUserRepository.postPushAlam(RequestPushAlam(isShow.value.toString()))
-//                MypageUserRepository
-            Log.d("mypageviewmodel", "postPushAlam: ")
         }
     }
 
