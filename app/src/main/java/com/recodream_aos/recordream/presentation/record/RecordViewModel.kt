@@ -30,8 +30,6 @@ class RecordViewModel : ViewModel() {
         initLocalDate()
     }
 
-
-
 //    fun saveRecordingMyDream() {
 //        emotion.value
 //    } 서버연결메서드
