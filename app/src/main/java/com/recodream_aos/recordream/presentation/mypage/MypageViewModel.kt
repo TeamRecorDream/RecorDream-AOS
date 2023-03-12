@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
+import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
 import com.recodream_aos.recordream.domain.repository.MypageUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,6 +50,20 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
         }
     }
 
+    fun putUserName() {
+        viewModelScope.launch {
+            mypageUserRepository.putNickName(RequestNickName(userName.value.toString()))
+        }
+    }
+
+//    fun editNickName(nickName: String) {
+//        if (nickName.isNullOrBlank()) {
+//            userName.value = NICKNAME_BALNK.toString()
+//        } else {
+//            userName.value = nickName
+//        }
+//    }
+
     fun patchAlamToggle(alamToggle: Boolean) {
         viewModelScope.launch {
             mypageUserRepository.patchAlamToggle(RequestAlamToggle(alamToggle))
@@ -68,13 +84,7 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
         )
     }
 
-    fun editNickName() {
+    companion object {
+        const val NICKNAME_BALNK = R.string.mypage_name_warning
     }
-
-//    private fun showNicknameWarning() {
-//        if (binding.edtMypageName.text.isNullOrBlank()) {
-//            // TODO: 이거 왜 int값임?
-//            shortToast(R.string.mypage_name_warning)
-//        }
-//    }
 }

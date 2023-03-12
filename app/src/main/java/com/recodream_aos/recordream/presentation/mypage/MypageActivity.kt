@@ -8,6 +8,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.recodream_aos.recordream.R
@@ -38,7 +39,17 @@ class MypageActivity : AppCompatActivity() {
                 binding.tvMypageSettitngTimeDescription.text = item
             }
             userName.observe(this@MypageActivity) { name ->
-                binding.edtMypageName.setText(name)
+                Log.d("userName", "observe: $name")
+                if (name.toString().isNullOrBlank()) {
+                    Toast.makeText(
+                        this@MypageActivity,
+                        R.string.mypage_name_warning,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    binding.edtMypageName.setText(name)
+                    putUserName()
+                }
             }
             userEmail.observe(this@MypageActivity) { email ->
                 binding.tvMypageEmail.text = email
@@ -46,8 +57,20 @@ class MypageActivity : AppCompatActivity() {
             alamToggle.observe(this@MypageActivity) { toggle ->
                 patchAlamToggle(toggle)
             }
+            settingTime.observe(this@MypageActivity) { time ->
+                binding.tvMypageSettitngTimeDescription.text = time
+            }
+            toggleActive.observe(this@MypageActivity) { active ->
+                toggleActive(active)
+            }
         }
     }
+
+//    private fun checkNameNull(name: String) {
+//        when (name.isNullOrBlank()) {
+//
+//        }
+//    }
 
     private fun setOnClick() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
@@ -65,7 +88,6 @@ class MypageActivity : AppCompatActivity() {
             edtMypageName.isEnabled = true
             edtMypageName.requestFocus()
             inputMethodManager.showSoftInput(edtMypageName, 0)
-
         }
         binding.edtMypageName.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             when (actionId) {
@@ -73,9 +95,10 @@ class MypageActivity : AppCompatActivity() {
                     binding.edtMypageName.clearFocus()
                     inputMethodManager.hideSoftInputFromWindow(binding.edtMypageName.windowToken, 0)
                     binding.edtMypageName.isEnabled = false
-                    nickname = binding.edtMypageName.text.toString()
+                    mypageViewModel.userName.value = binding.edtMypageName.text.toString()
+//                    mypageViewModel.editNickName(binding.edtMypageName.text.toString())
                     Log.d("mypage", "2editName: enter클릭했다")
-                    Log.d("mypage", "editName: $nickname")
+
                 }
                 else ->                 // 기본 엔터키 동작
                     return@OnEditorActionListener false
@@ -106,12 +129,26 @@ class MypageActivity : AppCompatActivity() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
             mypageViewModel.checkAlamToggle(onSwitch)
             if (onSwitch) {
-                createBottomSheet()
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
-                binding.clMypageDreamPush.setOnClickListener { createBottomSheet() }
+                binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
             } else {
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
                 binding.tvMypageSettitngTimeDescription.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun toggleActive(isActive: Boolean) {
+        with(binding) {
+            when (isActive) {
+                true -> {
+                    switchMypagePushAlam.isChecked = true
+                    clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
+                    Log.d("toggleActive", "toggleActive: $isActive")
+                }
+                else -> {
+                    Log.d("toggleActive", "toggleActive: $isActive")
+                }
             }
         }
     }
