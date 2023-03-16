@@ -16,6 +16,7 @@ class PlayButton(
         setBackgroundResource(R.drawable.icn_start)
     }
 
+
     fun updateIconWithState(state: PlayButtonState) {
         when (state) {
             RECORDER_PLAY -> setBackgroundResource(R.drawable.icn_start)
