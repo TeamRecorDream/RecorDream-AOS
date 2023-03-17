@@ -15,26 +15,18 @@ class MypageUserDateSourceImpl @Inject constructor(
     private val mypageService: MypageService
 ) : MypageDateSource {
     override suspend fun getUser(): ResponseWrapper<ResponseMypageUser> {
-        Log.d("MypageUserDateSourceImpl", "getUser: ${mypageService.getUser()}")
-        Log.d("MypageUserDateSourceImpl", "안녕")
         return mypageService.getUser()
     }
 
     override suspend fun postPushAlam(alamTime: RequestPushAlam): NoDataResponse {
-        Log.d("MypageUserDateSourceImpl", "postPushAlam: ${mypageService.postPushAlam(alamTime)}")
-        Log.d("MypageUserDateSourceImpl", "안녕2")
         return mypageService.postPushAlam(alamTime)
     }
 
     override suspend fun patchAlamToggle(isActive: RequestAlamToggle): ResponseWrapper<ResponseAlamToggle> {
-        Log.d("MypageUserDateSourceImpl", "patchAlamToggle: ${mypageService.patchToggle(isActive)}")
-        Log.d("MypageUserDateSourceImpl", "안녕3")
         return mypageService.patchToggle(isActive)
     }
 
     override suspend fun putUserName(nickName: RequestNickName): NoDataResponse {
-        Log.d("MypageUserDateSourceImpl", "postPushAlam: ${mypageService.putUserName(nickName)}")
-        Log.d("MypageUserDateSourceImpl", "안녕2")
         return mypageService.putUserName(nickName)
     }
 

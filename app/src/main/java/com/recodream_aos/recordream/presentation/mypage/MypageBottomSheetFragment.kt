@@ -51,9 +51,9 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
         binding.npMypageBottomDay.displayedValues = str
-        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, i, i2 ->
-            val i = numberPicker.value
-            amOrpm = str[i]
+        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, i2 ->
+            val day = numberPicker.value
+            amOrpm = str[day]
 //            viewModel.setAmOrPm(amOrpm)
             binding.npMypageBottomDay.wrapSelectorWheel = false
         }

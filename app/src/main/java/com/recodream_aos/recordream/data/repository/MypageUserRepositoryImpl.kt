@@ -17,12 +17,12 @@ class MypageUserRepositoryImpl @Inject constructor(
 ) : MypageUserRepository {
 
     override suspend fun getUser(): ResponseWrapper<ResponseMypageUser>? {
-        try {
+        return try {
             val response = mypageUserDataSource.getUser()
-            return response
+            response
         } catch (e: Exception) {
             Log.d("MypageUserRepositoryImpl", "getUser: $e")
-            return null
+            null
         }
     }
 
