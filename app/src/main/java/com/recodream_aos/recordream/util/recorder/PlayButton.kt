@@ -9,13 +9,12 @@ import com.recodream_aos.recordream.util.recorder.PlayButtonState.RECORDER_STOP
 
 class PlayButton(
     context: Context,
-    attributeSet: AttributeSet? = null
+    attributeSet: AttributeSet? = null,
 ) : AppCompatImageButton(context, attributeSet) {
 
     init {
         setBackgroundResource(R.drawable.icn_start)
     }
-
 
     fun updateIconWithState(state: PlayButtonState) {
         when (state) {
