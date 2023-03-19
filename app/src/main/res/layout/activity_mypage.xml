@@ -185,6 +185,7 @@
             android:layout_marginBottom="12dp"
             android:background="@drawable/recatangle_radius_15dp_mypage"
             android:backgroundTint="@color/purple_7F75EE"
+            android:onClick="@{()->mypageViewModel.userLogout()"
             android:text="@string/mypage_logout"
             android:theme="@style/Sb16"
             app:layout_constraintBottom_toTopOf="@+id/tv_mypage_delete_account" />
@@ -194,6 +195,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="22dp"
+            android:paddingHorizontal="20dp"
             android:text="@string/mypage_delete_account_line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
