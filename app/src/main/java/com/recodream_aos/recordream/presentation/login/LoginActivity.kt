@@ -44,7 +44,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         binding.clLoginKakaobtn.setOnClickListener {
             initKaKaoLogin()
             collectSignUpResult()
-            loginViewModel.getFCMToken()
         }
     }
 

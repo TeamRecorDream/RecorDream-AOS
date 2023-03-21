@@ -1,7 +1,6 @@
 package com.recodream_aos.recordream.presentation.login // ktlint-disable package-name
 // 로직 문제 없음
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,6 +28,10 @@ class LoginViewModel @Inject constructor(
         } else if (error != null) {
             Log.d("*****KAKAOLOGIN/FAILURE*****", "$error")
         }
+    }
+
+    init {
+        getFCMToken()
     }
 
     fun getKaKaoCallback(): (OAuthToken?, Throwable?) -> Unit {
