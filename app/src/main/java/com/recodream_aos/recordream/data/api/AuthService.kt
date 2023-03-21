@@ -1,12 +1,9 @@
 package com.recodream_aos.recordream.data.api // ktlint-disable package-name
 
+import com.recodream_aos.recordream.data.entity.remote.request.RequestFcmToken
 import com.recodream_aos.recordream.data.entity.remote.request.RequestLogin
-import com.recodream_aos.recordream.data.entity.remote.response.ResponseLogin
-import com.recodream_aos.recordream.data.entity.remote.response.ResponseNewToken
-import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
+import com.recodream_aos.recordream.data.entity.remote.response.*
+import retrofit2.http.*
 
 interface AuthService {
     @POST("/auth/login")
@@ -19,4 +16,11 @@ interface AuthService {
         @Header("access") access: String,
         @Header("refresh") refresh: String
     ): ResponseWrapper<ResponseNewToken>
+
+    @DELETE("user")
+    suspend fun deleteUser(): NoDataResponse
+
+    @PATCH("auth/logout")
+    suspend fun patchLogout(@Body fcmToken: RequestFcmToken): NoDataResponse
+
 }
