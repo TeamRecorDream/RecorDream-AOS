@@ -20,5 +20,6 @@ interface AuthRepository {
     suspend fun getFcmToken(getFcmToken: (String) -> Unit)
 
     suspend fun patchSignOut(fcmToken: RequestFcmToken): Result<NoDataResponse>
+
     suspend fun deleteUser(): Result<NoDataResponse>
 }
