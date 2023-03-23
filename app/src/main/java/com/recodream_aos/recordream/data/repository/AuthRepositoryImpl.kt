@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.data.repository // ktlint-disable package-n
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.kakao.sdk.user.UserApiClient
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
 import com.recodream_aos.recordream.data.entity.remote.request.RequestFcmToken
@@ -53,6 +54,18 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun getAccessToken(): String {
         return sharedPreferenceDataSource.getAccessToken()
+    }
+
+    override fun unLinkKakaoAccount(initSuccessWithdraw: (Boolean) -> Unit) {
+        UserApiClient.instance.unlink { error ->
+            if (error != null) {
+                Timber.tag("kakao").e(error, "연결 끊기 실패")
+                initSuccessWithdraw(false)
+            } else {
+                Timber.tag("kakao").d("연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                initSuccessWithdraw(true)
+            }
+        }
     }
 
     private fun saveNewTokens(postTokenInfo: ResponseWrapper<ResponseNewToken>) {
