@@ -20,6 +20,7 @@ class RecordViewModel : ViewModel() {
     val isStrangeButtonChecked = MutableStateFlow<Boolean>(false)
     val isShyButtonChecked = MutableStateFlow<Boolean>(false)
 
+    var genre = listOf<Int>()
     var emotion = MutableStateFlow(0)
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
