@@ -14,12 +14,10 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentDocumentBottomSheetBinding
-import com.recodream_aos.recordream.databinding.InstagramShareTemplateBinding
 import com.recodream_aos.recordream.util.CustomDialog
 
 class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDocumentBottomSheetBinding
-    private lateinit var shareBinding: InstagramShareTemplateBinding
     private lateinit var dialogDelete: CustomDialog
 
     override fun onCreateView(
