@@ -16,6 +16,8 @@
         android:name="firebase_analytics_collection_enabled"
         android:value="false" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".application.RecordreamApp"
         android:allowBackup="true"
@@ -29,11 +31,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="com.recodream_aos.recordream.presentation.document.InstagramActivity"
+            android:exported="false" />
+        <activity
             android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
             android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
             android:exported="false" />
@@ -46,40 +51,56 @@
         <activity
             android:name="com.recodream_aos.recordream.presentation.document.DocumentActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity> <!-- Kakao 로그인 -->
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
             android:launchMode="singleTask">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.VIEW" />-->
 
-            <!--&lt;!&ndash;                <category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
-            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-            <!--                &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt;-->
-            <!--                &lt;!&ndash; scheme-example: "kakao{NATIVE_APP_KEY}" &ndash;&gt;-->
-            <!--                <data-->
-            <!--                    android:host="oauth"-->
-            <!--                    android:scheme="@string/appKey_manifest_kakao" />-->
-            <!--            </intent-filter>-->
+
+            <!-- &lt;!&ndash;                <category android:name="android.intent.category.DEFAULT" />&ndash;&gt; -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+
+
+            <!-- &lt;!&ndash; Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" &ndash;&gt; -->
+            <!-- &lt;!&ndash; scheme-example: "kakao{NATIVE_APP_KEY}" &ndash;&gt; -->
+            <!-- <data -->
+            <!-- android:host="oauth" -->
+            <!-- android:scheme="@string/appKey_manifest_kakao" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <!-- 외부 저장소 사용을 위한 FileProvider auth 추가. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.khs.instagramshareexampleproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/path">
+
+            </meta-data>
+        </provider>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>
