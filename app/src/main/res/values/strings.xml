@@ -76,8 +76,6 @@
     <string name="tv_record_shy">민망한</string>
 
 
-
-
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
 
