@@ -1,111 +1,134 @@
 package com.recodream_aos.recordream.util
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.presentation.login.LoginActivity
 import timber.log.Timber
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        sendRegistrationToServer(token)
+        Log.d("fcm", "onNewToken: $token")
     }
 
-    override fun onMessageReceived(message: RemoteMessage) {
-        super.onMessageReceived(message)
-        if (message.data.isNotEmpty()) {
-            sendNotification(
-                message.data["title"].toString(),
-                message.data["body"].toString()
-            )
-        } else {
-            message.notification?.let {
-                sendNotification(it.title.toString(), it.body.toString())
-            }
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+        if (remoteMessage.data.isNotEmpty()) {
+            val title = remoteMessage.data[TITLE] ?: ""
+            val body = remoteMessage.data[BODY] ?: ""
+            sendNotification(title, body)
         }
     }
 
-    private fun getChannelId(category: String) =
-        getSummaryId(category).toString() + getString(R.string.app_name)
-
-    private fun sendNotification(title: String?, body: String) {
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // 액티비티 중복 생성 방지
-//        val pendingIntent = PendingIntent.getActivity(
-//            this, 0, intent,
-//            PendingIntent.FLAG_ONE_SHOT
-//        ) // 일회성
-// TODO: channerl id 입력해야됨
-        val channelId = getChannelId("") // 채널 아이디
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) // 소리
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+    private fun sendNotification(title: String, body: String) {
+        createNotificationChannel()
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val notificationBuilder = Notification.Builder(this, CHANNEL_ID)
+            .setContentTitle(title)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(title) // 제목
-            .setContentText(body) // 내용
-            .setPriority(NotificationManagerCompat.IMPORTANCE_HIGH)
-            .setSound(defaultSoundUri)
-//            .setContentIntent(pendingIntent)
+            .setContentIntent(pendingIntent)
+            .setContentText(body)
+            .setAutoCancel(true)
 
+        with(NotificationManagerCompat.from(this)) {
+            notify(NOTIFICATION_ID, notificationBuilder.build())
+        }
+    }
+
+    private fun createNotificationChannel() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // 오레오 버전 예외처리
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                channelId,
-                NotificationManager.IMPORTANCE_HIGH
+        val channel =
+            NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
             )
-            notificationManager.createNotificationChannel(channel)
-            with(NotificationManagerCompat.from(this)) {
-                notify(1000, notificationBuilder.build())
-            }
-        } else {
-            notificationManager.notify(0, notificationBuilder.build()) // 알림 생성
-        }
+
+        notificationManager.createNotificationChannel(channel)
     }
 
-    private fun getSummaryId(category: String) = when (category) {
-        NotificationCategory.CERTIFICATION.category -> NotificationCategory.CERTIFICATION.summaryId
-        NotificationCategory.RECORED.category -> NotificationCategory.RECORED.summaryId
-        else -> throw IllegalArgumentException("FCM category 필드 오류")
-    }
-
-    companion object {
-        fun getDeviceToken() {
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(
-                OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        Timber.d(
-                            "TokenTest",
-                            "Fetching FCM registration token failed",
-                            task.exception
-                        )
-                        return@OnCompleteListener
-                    }
-
-                    // Get new FCM registration token
-                    val token = task.result
-                    Timber.d("TokenTest", token!!)
-                }
-            )
-        }
-
-        private const val TAG = "MyFirebaseMsgService"
-    }
+//    companion object {
+//        fun getDeviceToken() {  //현재 토큰을 가져오는 곳
+//            FirebaseMessaging.getInstance().token.addOnCompleteListener(
+//                OnCompleteListener { task ->
+//                    if (!task.isSuccessful) {
+//                        Timber.d(
+//                            "TokenTest",
+//                            "Fetching FCM registration token failed",
+//                            task.exception
+//                        )
+//                        return@OnCompleteListener
+//                    }
+//
+//                    // Get new FCM registration token
+//                    val token = task.result
+//                    Timber.d("TokenTest", token!!)
+//                }
+//            )
+//        }
+//
+//        private const val TAG = "MyFirebaseMsgService"
+//    }
 
     private fun sendRegistrationToServer(token: String) { // 토큰 갱신을 위한
-//        val body = RequestRefreshToken(token)
-// 서버한테 토큰이 바뀌었다는 것을 또 알려줘야 되는거 작성해야됨
+//        val call: Call<ResponsePushToken> = ServiceCreator.bumService.getPushToken(body)
+//        call.enqueueUtil(
+//            onSuccess = {
+//                Log.d("tag", "pushTokenSuccess?: ${it.success}")
+//            }
+//        )
+//        Log.d("token", "sendToken: $$token")
+    }
+    // Declare the launcher at the top of your Activity/Fragment:
+//    private val requestPermissionLauncher = registerForActivityResult(
+//        ActivityResultContracts.RequestPermission()
+//    ) { isGranted: Boolean ->
+//        if (isGranted) {
+//            // FCM SDK (and your app) can post notifications.
+//        } else {
+//            // TODO: Inform user that that your app will not show notifications.
+//        }
+//    }
+//
+//    private fun askNotificationPermission() {
+//        // This is only necessary for API level >= 33 (TIRAMISU)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+//                PackageManager.PERMISSION_GRANTED
+//            ) {
+//                // FCM SDK (and your app) can post notifications.
+//            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+//                // TODO: display an educational UI explaining to the user the features that will be enabled
+//                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+//                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+//                //       If the user selects "No thanks," allow the user to continue without notifications.
+//            } else {
+//                // Directly ask for the permission
+//                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+//            }
+//        }
+//    }
+    companion object {
+        const val CHANNEL_ID = "recordDream_channel"
+        const val NOTIFICATION_ID = 1
+        const val CHANNEL_NAME = "recordDream_channel_name"
+        const val TITLE = "title"
+        const val BODY = "body"
     }
 }
