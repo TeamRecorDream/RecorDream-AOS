@@ -56,6 +56,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         }
     }
 
+
     private fun initRecordBottomSheetDialog() =
         RecordBottomSheetFragment()
             .show(
