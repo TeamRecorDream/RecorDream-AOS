@@ -1,8 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
 }
 
 android {
@@ -14,12 +16,17 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        buildConfigField("String", "RECORDREAM_BASE_URL", "recordreamBaseUrl")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "RECORDREAM_BASE_URL", recordreamBaseUrl)
+        }
         release {
+            buildConfigField("String", "RECORDREAM_BASE_URL", recordreamBaseUrl)
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -38,8 +45,12 @@ android {
 }
 
 dependencies {
-    //timber를 위한
-    implementation 'com.jakewharton.timber:timber:5.0.1'
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-android-compiler:2.44"
+
+    // EncryptedSharedPreferences
+    implementation "androidx.security:security-crypto:1.0.0"
 
     // NavigationComponent
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
@@ -50,26 +61,41 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
+    // define a BOM and its version
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp-urlconnection")
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
     // 서버 연결을 위한 Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
-    // Retrofit2에서 gson 사용을 위한 컨버터
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Retrofit2_serialization_converter
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
 
-    // gson _ 오픈소스 컨버터
+    // Retrofit2_gson_converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    // coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 
     // 카드뷰
     implementation "androidx.cardview:cardview:1.0.0"
 
     //뷰페이저2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+
+    implementation "com.squareup.okhttp3:okhttp:4.10.0"
 
     //홈뷰 새로고침
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
-//firebase 연동
+    //firebase 연동
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
 
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -84,10 +110,17 @@ dependencies {
 
     //LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
     //viewModel
     implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation "androidx.activity:activity-ktx:1.5.1"
     implementation("io.coil-kt:coil:2.0.0-rc03")
+
+    // Kakao-SDK
+    implementation "com.kakao.sdk:v2-user:2.9.0"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -96,4 +129,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
 }

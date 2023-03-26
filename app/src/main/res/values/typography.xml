@@ -115,6 +115,11 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="B16">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
     <style name="L18">
         <item name="fontFamily">@font/pretendard_light</item>
         <item name="android:textSize">18dp</item>
@@ -126,10 +131,13 @@
         <item name="android:textColor">@color/white01_FFFFFF</item>
     </style>
 
-    <style name="EL24">
-        <item name="fontFamily">@font/pretendard_extralight</item>
-        <item name="android:textSize">24dp</item>
-        <item name="android:textColor">@color/white01_FFFFFF</item>
+    <style name="R10">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+    <style name="R11">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">11dp</item>
     </style>
 
     <style name="R12">

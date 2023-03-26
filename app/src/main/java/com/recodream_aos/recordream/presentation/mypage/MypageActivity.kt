@@ -1,37 +1,47 @@
-package com.recodream_aos.recordream
+package com.recodream_aos.recordream.presentation.mypage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
+import android.util.Log
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.messaging.FirebaseMessaging
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
-import com.recodream_aos.recordream.presentation.mypage.MypageBottomSheetFragment
-import com.recodream_aos.recordream.presentation.mypage.MypageViewModel
 import com.recodream_aos.recordream.util.CustomDialog
-import com.recodream_aos.recordream.util.shortToast
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val myPageBottomSheetFragment = MypageBottomSheetFragment()
     private val mypageViewModel by viewModels<MypageViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClick()
-        initFirebase()
-
+        mypageDataObserver()
+        mypageViewModel.getUser()
     }
 
-    private val firebaseToken: TextView by lazy { findViewById(R.id.tv_fire) }
-
-    private fun initFirebase() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                firebaseToken.text = task.result
+    private fun mypageDataObserver() {
+        with(mypageViewModel) {
+            isShow.observe(this@MypageActivity) { item ->
+                binding.tvMypageSettitngTimeDescription.text = item
+            }
+            userName.observe(this@MypageActivity) { name ->
+                binding.edtMypageName.setText(name)
+            }
+            userEmail.observe(this@MypageActivity) { email ->
+                binding.tvMypageEmail.text = email
             }
         }
     }
@@ -40,23 +50,63 @@ class MypageActivity : AppCompatActivity() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
         binding.btnMypageLogout.setOnClickListener { outLogin() }
         binding.ivMypageEditName.setOnClickListener { editName() }
+//        clickEnter()
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
 
     }
 
     private fun editName() {
-        binding.ivMypageEditName.setOnClickListener {
-            binding.edtMypageName.isEnabled
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        with(binding) {
+            edtMypageName.isEnabled = true
+            edtMypageName.requestFocus()
+            inputMethodManager.showSoftInput(edtMypageName, 0)
+
         }
+        binding.edtMypageName.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            Log.d("mypage", "editName: 1")
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    binding.edtMypageName.clearFocus()
+                    inputMethodManager.hideSoftInputFromWindow(binding.edtMypageName.windowToken, 0)
+                    binding.edtMypageName.isEnabled = false
+                    Log.d("mypage", "2editName: enter클릭했다")
+                }
+                else ->                 // 기본 엔터키 동작
+                    return@OnEditorActionListener false
+            }
+            Log.d("mypage", "editName: 3")
+            true
+        })
     }
 
-    private fun showNicknameWarning() {
-        if (binding.edtMypageName.text.isNullOrBlank()) {
-            // TODO: 이거 왜 int값임?
-           shortToast("1~8자까지 가능합니다.")
-        }
+    private fun clickEnter() {  //엔터로 입력
+        binding.edtMypageName.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            val inputMethodManager =
+                this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            binding.edtMypageName.isEnabled = true
+            binding.edtMypageName.requestFocus()
+            inputMethodManager.showSoftInput(binding.edtMypageName, 0)
+//            binding.edtMypageName.clearFocus()
+
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {}
+                else ->                 // 기본 엔터키 동작
+                    return@OnEditorActionListener false
+            }
+            true
+        })
+//        val inputMethodManager =
+//            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        with(binding) {
+//            edtMypageName.isEnabled = true
+//            edtMypageName.requestFocus()
+//            inputMethodManager.showSoftInput(edtMypageName, 0)
+//            edtMypageName.clearFocus()
     }
+
 
     private fun showDialog() {
         val dialog: CustomDialog
@@ -78,10 +128,12 @@ class MypageActivity : AppCompatActivity() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
             if (onSwitch) {
                 createBottomSheet()
+                binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
+                binding.clMypageDreamPush.setOnClickListener { createBottomSheet() }
             } else {
-
+                binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
+                binding.tvMypageSettitngTimeDescription.visibility = View.GONE
             }
         }
     }
 }
-
