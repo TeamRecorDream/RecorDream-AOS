@@ -98,7 +98,8 @@ class AuthRepositoryImpl @Inject constructor(
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             getFcmToken(requireNotNull(task.result))
             Log.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
-        })
+        }
+        )
     }
 
     override suspend fun patchSignOut(): Result<NoDataResponse> {
