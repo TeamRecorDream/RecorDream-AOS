@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.data.api // ktlint-disable package-name
 
-import com.recodream_aos.recordream.data.entity.remote.request.RequestFcmToken
 import com.recodream_aos.recordream.data.entity.remote.request.RequestLogin
 import com.recodream_aos.recordream.data.entity.remote.response.*
 import retrofit2.http.*
@@ -20,7 +19,7 @@ interface AuthService {
     @DELETE("user")
     suspend fun deleteUser(): NoDataResponse
 
-    @PATCH("auth/logout")
-    suspend fun patchLogout(@Body fcmToken: RequestFcmToken): NoDataResponse
+    @POST("auth/logout")
+    suspend fun patchLogout(): NoDataResponse
 
 }

@@ -2,7 +2,6 @@ package com.recodream_aos.recordream.data.datasource.remote // ktlint-disable pa
 
 import android.util.Log
 import com.recodream_aos.recordream.data.api.AuthService
-import com.recodream_aos.recordream.data.entity.remote.request.RequestFcmToken
 import com.recodream_aos.recordream.data.entity.remote.request.RequestLogin
 import com.recodream_aos.recordream.data.entity.remote.response.NoDataResponse
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseLogin
@@ -25,8 +24,8 @@ class AuthDataSourceImpl @Inject constructor(
         return authService.postToken(accessToken, refreshToken)
     }
 
-    override suspend fun patchSignOut(fcmToken: RequestFcmToken): NoDataResponse {
-        return authService.patchLogout(fcmToken)
+    override suspend fun patchSignOut(): NoDataResponse {
+        return authService.patchLogout()
     }
 
     override suspend fun deleteUser(): NoDataResponse {
