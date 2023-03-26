@@ -188,7 +188,7 @@ class InstagramActivity : BindingActivity<ActivityInstagramBinding>(R.layout.act
     }
 
     private fun shareInsta(bgUri: Uri?, viewUri: Uri?) {
-        val sourceApplication = "com.recordream_aos.android"
+        val sourceApplication = "4432324493558166"
         val intent = Intent("com.instagram.share.ADD_TO_STORY")
         val backgroundAssetUri = Uri.parse("app/src/main/res/drawable/home_background.xml")
         val stickerAssetUri: Uri = Uri.parse("app/src/main/res/layout/activity_instagram.xml")
