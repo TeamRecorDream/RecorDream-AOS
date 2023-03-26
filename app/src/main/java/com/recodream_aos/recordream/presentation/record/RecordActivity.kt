@@ -32,17 +32,21 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
         }
         setEmotionClickListener()
+        setGenreClickListener()
     }
 
     private fun setEmotionClickListener() = Emotion.values().map { emotion ->
         clickEmotionSettingValue(emotion)
     }
 
+    private fun setGenreClickListener() = Genre.values().map { genre ->
+        clickGenreSettingValue(genre)
+    }
+
     private fun clickEmotionSettingValue(emotion: Emotion) {
         binding.root.findViewById<ImageView>(emotion.viewId).apply {
             setOnClickListener {
-                recordViewModel.emotion.value = emotion.emotionID
-                recordViewModel.isEmotionSelected()
+                recordViewModel.getSelectedEmotionId(emotion.emotionID)
             }
         }
     }
@@ -50,12 +54,10 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     private fun clickGenreSettingValue(genre: Genre) {
         binding.root.findViewById<TextView>(genre.viewId).apply {
             setOnClickListener {
-                recordViewModel.genre.value = genre.emotionID
-                recordViewModel.isEmotionSelected()
+                recordViewModel.getSelectedGenreId(genre.genreId)
             }
         }
     }
-
 
     private fun initRecordBottomSheetDialog() =
         RecordBottomSheetFragment()
