@@ -3,35 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="myemotion"
-            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStoreMyemotion" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_store_emotion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_sotre_list_emotion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@{myemotion.image}"
+            android:id="@+id/iv_store_list_emotion"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_store_emotion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/feeling_xs_all" />
 
         <TextView
+            android:id="@+id/tv_store_emotion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{myemotion.emotion}"
+            android:textColor="@color/whitetrans_67686F"
             android:theme="@style/R12"
-            app:layout_constraintEnd_toEndOf="@+id/iv_sotre_list_emotion"
+            app:layout_constraintEnd_toEndOf="@+id/iv_store_list_emotion"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_sotre_list_emotion"
+            app:layout_constraintTop_toBottomOf="@id/iv_store_list_emotion"
             tools:text="전체" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

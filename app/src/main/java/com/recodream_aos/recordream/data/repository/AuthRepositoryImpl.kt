@@ -1,7 +1,12 @@
 package com.recodream_aos.recordream.data.repository // ktlint-disable package-name
 
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
+import com.recodream_aos.recordream.data.entity.remote.request.RequestFcmToken
+import com.recodream_aos.recordream.data.entity.remote.response.NoDataResponse
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseNewToken
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 import com.recodream_aos.recordream.domain.repository.AuthRepository
@@ -74,6 +79,25 @@ class AuthRepositoryImpl @Inject constructor(
         }
         return false
     }
+
+    override suspend fun getFcmToken(getFcmToken: (String) -> Unit) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            getFcmToken(requireNotNull(task.result))
+        })
+    }
+
+    override suspend fun patchSignOut(fcmToken: RequestFcmToken): Result<NoDataResponse> {
+        return kotlin.runCatching {
+            authDataSource.patchSignOut(fcmToken)
+        }.onFailure {
+            Log.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
+            it.message
+        }
+    }
+
+    override suspend fun deleteUser(): Result<NoDataResponse> =
+        kotlin.runCatching { authDataSource.deleteUser() }
+            .onFailure { Log.d("delete", "deleteUser: fail") }
 
     companion object {
         const val NO_TOKEN = 400

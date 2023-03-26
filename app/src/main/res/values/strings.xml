@@ -25,6 +25,7 @@
     <string name="store_description">오늘 친구들이랑 피자 먹고 너무 좋았는데 어쭈구리 쭈굴..</string>
     <string name="store_day">2022/06/26 SUN</string>
     <string name="store_no_record">아직 기록된 꿈이 없어요.</string>
+    <string name="store_records_count">%1$d개의 기록</string>
 
     <!--마이페이지 뷰-->
     <string name="mypage">마이페이지</string>
@@ -42,6 +43,7 @@
     <string name="mypage_delete">탈퇴</string>
     <string name="mypage_name_warning">1~8자까지 가능합니다.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mypage_setting_time_description">%2$s %2$s:%2s</string>
 
     <!-- 기록하기 뷰 -->
     <string name="tv_record_record">기록하기</string>
@@ -74,6 +76,10 @@
     <string name="tv_record_scary">무서운</string>
     <string name="tv_record_strange">이상한</string>
     <string name="tv_record_shy">민망한</string>
+
+
+    <!-- 음성녹음 뷰 -->
+    <string name="tv_recording_record">음성녹음</string>
 
 
     <!--BASE ERROR-->

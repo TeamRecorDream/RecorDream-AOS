@@ -130,6 +130,10 @@
         <item name="fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">10dp</item>
     </style>
+    <style name="R11">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">11dp</item>
+    </style>
 
     <style name="R12">
         <item name="fontFamily">@font/pretendard_regular</item>
