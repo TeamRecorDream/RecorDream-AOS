@@ -134,14 +134,12 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun showDialog() {
-        Log.d("showDialog", "showDialog: ")
         val dialog = CustomDialog(this@MypageActivity)
         dialog.mypageShowDeleteDialog(R.layout.custom_mypage_dialog)
         dialog.setOnClickedListener {
-            Log.d("showDialog", "showDialog: 1")
             mypageViewModel.deleteUser()
+            finishAffinity()
         }
-        Intent(this, LoginActivity::class.java)
     }
 
     private fun outLogin() {
