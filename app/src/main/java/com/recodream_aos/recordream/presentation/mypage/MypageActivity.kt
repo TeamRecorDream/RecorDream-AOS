@@ -40,19 +40,16 @@ class MypageActivity : AppCompatActivity() {
                     }
                     map[DENIED]?.let {
                         // 단순히 권한이 거부 되었을 때
-                        Log.d("mypage", ": 단순히 권한이 거부 되었을 때")
-                        shortToast("단순히 권한이 거부 되었을 때")
+                        shortToast("권한이 거부되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.")
                     }
                     map[EXPLAINED]?.let {
                         // 권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)
-                        Log.d("mypage", ": 권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)")
-                        shortToast("권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)")
+                        shortToast("권한 요청이 중단되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.")
                     }
                 }
                 else -> {
                     // 모든 권한이 허가 되었을 때
-                    Log.d("mypage", ": 모든 권한이 허가 되었을 때")
-                    shortToast("모든 권한이 허가 되었을 때")
+                    shortToast("권한이 허가되어 푸시알림 기능을 이용하실 수 있습니다. ")
                 }
             }
         }
@@ -103,7 +100,7 @@ class MypageActivity : AppCompatActivity() {
 
 
     private fun setOnClick() {
-//        binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
+        binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
         binding.btnMypageLogout.setOnClickListener { outLogin() }
         binding.ivMypageEditName.setOnClickListener { editName() }
         switchOnClick()
@@ -136,46 +133,16 @@ class MypageActivity : AppCompatActivity() {
         })
     }
 
-    //    private fun showDeleteDialog() {
-//        val title = "정말 동아리를\n탈퇴하시겠어요?"
-//        val dialog = CustomDialogSon(this)
-//        val view = DialogYesNoBinding.inflate(layoutInflater)
-//        dialog.setContentView(view.root)
-//
-//        dialog.window?.setLayout(
-//            WindowManager.LayoutParams.MATCH_PARENT,
-//            WindowManager.LayoutParams.WRAP_CONTENT
-//        )
-//        dialog.window?.setBackgroundDrawableResource(R.drawable.inset_horizontal_58)
-//        dialog.show()
-//
-//        with(view) {
-//            tvDialogTitle.text = title
-//            tvDialogNo.setOnClickListener {
-//                dialog.dismiss()
-//            }
-//            tvDialogYes.setOnClickListener {
-//                //todo 동아리 탈퇴 API 연결
-//                deleteExecute()
-//                with(userInfoViewModel) {
-//                    isDelete.observe(this@DeleteMyCrewActivity) {
-//                        if (it) {
-//                            showConfirmDialog(dialog)
-//                        }
-//                    }
-//                }
-//                dialog.dismiss()
-//            }
-//        }
-
-//    private fun showDialog() {
-//        val dialog = CustomDialog(this@MypageActivity)
-//        dialog.mypageShowDeleteDialog(R.layout.custom_mypage_dialog)
-//        //val view = dialog.inflate(layoutInflater)
-//        //접자 접어!!!!!! 네들이 알아서해라!!!!!!!!!!!!!!!!!!
-//        Intent(this, MypageDialogFragment()::class.java)
-//        MypageDialogFragment(
-//    }
+    private fun showDialog() {
+        Log.d("showDialog", "showDialog: ")
+        val dialog = CustomDialog(this@MypageActivity)
+        dialog.mypageShowDeleteDialog(R.layout.custom_mypage_dialog)
+        dialog.setOnClickedListener {
+            Log.d("showDialog", "showDialog: 1")
+            mypageViewModel.deleteUser()
+        }
+        Intent(this, LoginActivity::class.java)
+    }
 
     private fun outLogin() {
         mypageViewModel.userLogout()

@@ -1,4 +1,5 @@
 package com.recodream_aos.recordream.util
+
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -6,24 +7,23 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.activityViewModels
 import com.recodream_aos.recordream.databinding.CustomMypageDialogBinding
 import com.recodream_aos.recordream.databinding.DocumentDeleteDialogBinding
-import com.recodream_aos.recordream.presentation.mypage.MypageActivity
-import com.recodream_aos.recordream.presentation.mypage.MypageViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
 
-class CustomDialog(context: Context) : Dialog(context) {
+class CustomDialog(context: Context) {
     private lateinit var deleteBinding: DocumentDeleteDialogBinding
     private lateinit var mypageBinding: CustomMypageDialogBinding
     private val dialog = Dialog(context)
     private lateinit var inflater: LayoutInflater
     private lateinit var onClickedListener: ButtonClickListener
 
-
     fun interface ButtonClickListener {
-        fun onClicked(num: Int)
+        fun onClicked()
+    }
+
+    fun setOnClickedListener(listener: ButtonClickListener) {
+        onClickedListener = listener
     }
 
     init {
@@ -61,7 +61,7 @@ class CustomDialog(context: Context) : Dialog(context) {
             dialog.dismiss()
         }
         mypageBinding.btnMypageDialogDelete.setOnClickListener {
-            //onClickedListener.onClicked(1)
+            onClickedListener.onClicked()
             dialog.dismiss()
             //(context as MypageActivity).finish()
 
@@ -69,26 +69,5 @@ class CustomDialog(context: Context) : Dialog(context) {
         dialog.show()
     }
 
-
-//    fun showConfirmDialog(title: String) {
-//        val binding = CustomMypageDialogBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//        show()
-//        window?.setLayout(
-//            WindowManager.LayoutParams.MATCH_PARENT,
-//            WindowManager.LayoutParams.WRAP_CONTENT
-//        )
-//        window?.setBackgroundDrawableResource(R.drawable.inset_horizontal_58)
-//        binding.tvDialogCheck.setOnClickListener {
-//            onClickedListener.onClicked(1)
-//            dismiss()
-//            (context as ThunderDetailActivity).finish()
-//        }
-////        findViewById<TextView>(R.id.tv_dialog_check).setOnClickListener {
-////            onClickedListener.onClicked(1)
-////            dismiss()
-////            (context as ThunderDetailActivity).finish()
-////        }
-//    }
 
 }
