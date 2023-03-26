@@ -1,52 +1,86 @@
 package com.recodream_aos.recordream.presentation.mypage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
+import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
+import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
+import com.recodream_aos.recordream.domain.repository.AuthRepository
 import com.recodream_aos.recordream.domain.repository.MypageUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MypageViewModel @Inject constructor(private val mypageUserRepository: MypageUserRepository) :
-    ViewModel() {
+class MypageViewModel @Inject constructor(
+    private val mypageUserRepository: MypageUserRepository,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     val userName = MutableLiveData<String>()
 
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
-    private val _amOrPm = MutableLiveData<String>()
-    val amOrPm: LiveData<String> get() = _amOrPm
-    private val _hour = MutableLiveData<String>("00")
-    val hour: LiveData<String> get() = _hour
-    private val _minute = MutableLiveData<String>("00")
-    val minute: LiveData<String> get() = _minute
+    private val _settingTime = MutableLiveData<String?>()
+    val settingTime: MutableLiveData<String?> get() = _settingTime
+
+    private val _toggleActive = MutableLiveData<Boolean>()
+    val toggleActive: MutableLiveData<Boolean> get() = _toggleActive
+
+    private val _alamToggle = MutableLiveData<Boolean>()
+    val alamToggle: LiveData<Boolean> get() = _alamToggle
+
     private val _isShow = MutableLiveData<String>()
     val isShow: LiveData<String> get() = _isShow
 
+    private val _isSuccessWithdraw = MutableLiveData<Boolean>()
+    val isSuccessWithdraw: LiveData<Boolean> = _isSuccessWithdraw
 
     fun getUser() {
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
+            _settingTime.value = mypageUserRepository.getUser()?.data?.time
+            _toggleActive.value = mypageUserRepository.getUser()?.data?.isActive
         }
     }
 
-//
-//    fun setAmOrPm(str: String) {
-//        _amOrPm.value = str
+    fun postPushAlam() {
+        viewModelScope.launch {
+            mypageUserRepository.postPushAlam(RequestPushAlam(isShow.value.toString()))
+        }
+    }
+
+
+
+    fun putUserName() {
+        viewModelScope.launch {
+            mypageUserRepository.putNickName(RequestNickName(userName.value.toString()))
+        }
+    }
+
+//    fun editNickName(nickName: String) {
+//        if (nickName.isNullOrBlank()) {
+//            userName.value = NICKNAME_BALNK.toString()
+//        } else {
+//            userName.value = nickName
+//        }
 //    }
-//
-//    fun setHour(h: Int) {
-//        _hour.value = String.format("%02d", h)
-//    }
-//
-//    fun setMinute(m: Int) {
-//        _minute.value = String.format("%02d", m)
-//    }
+
+    fun patchAlamToggle(alamToggle: Boolean) {
+        viewModelScope.launch {
+            mypageUserRepository.patchAlamToggle(RequestAlamToggle(alamToggle))
+        }
+    }
+
+    fun checkAlamToggle(isActive: Boolean) {
+        _alamToggle.value = isActive
+    }
 
     fun setIsShow(day: String, h: Int, m: Int) {
         var formatHour = String.format("%02d", h)
@@ -58,13 +92,31 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
         )
     }
 
-    fun editNickName() {
+
+    fun userLogout() {
+        authRepository.unLinkKakaoAccount { isSuccess -> initIsSuccessWithdraw(isSuccess) }
+        postSignOut()
     }
 
-//    private fun showNicknameWarning() {
-//        if (binding.edtMypageName.text.isNullOrBlank()) {
-//            // TODO: 이거 왜 int값임?
-//            shortToast(R.string.mypage_name_warning)
-//        }
-//    }
+    private fun initIsSuccessWithdraw(isSuccess: Boolean) {
+        _isSuccessWithdraw.postValue(isSuccess)
+    }
+
+    private fun postSignOut() {
+        viewModelScope.launch {
+            authRepository.patchSignOut()
+        }
+    }
+
+    fun deleteUser() {
+        Log.d("deleteUser1", "deleteUser: ")
+        viewModelScope.launch {
+            Log.d("deleteUser", "deleteUser: ")
+            authRepository.deleteUser()
+        }
+    }
+
+    companion object {
+        const val NICKNAME_BALNK = R.string.mypage_name_warning
+    }
 }
