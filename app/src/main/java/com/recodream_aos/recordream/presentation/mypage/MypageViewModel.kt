@@ -1,5 +1,6 @@
 package com.recodream_aos.recordream.presentation.mypage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,14 +9,17 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
 import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
+import com.recodream_aos.recordream.domain.repository.AuthRepository
 import com.recodream_aos.recordream.domain.repository.MypageUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MypageViewModel @Inject constructor(private val mypageUserRepository: MypageUserRepository) :
-    ViewModel() {
+class MypageViewModel @Inject constructor(
+    private val mypageUserRepository: MypageUserRepository,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     val userName = MutableLiveData<String>()
 
@@ -34,6 +38,8 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
     private val _isShow = MutableLiveData<String>()
     val isShow: LiveData<String> get() = _isShow
 
+    private val _isSuccessWithdraw = MutableLiveData<Boolean>()
+    val isSuccessWithdraw: LiveData<Boolean> = _isSuccessWithdraw
 
     fun getUser() {
         viewModelScope.launch {
@@ -49,6 +55,8 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
             mypageUserRepository.postPushAlam(RequestPushAlam(isShow.value.toString()))
         }
     }
+
+
 
     fun putUserName() {
         viewModelScope.launch {
@@ -82,6 +90,30 @@ class MypageViewModel @Inject constructor(private val mypageUserRepository: Mypa
             "%s %s:%s",
             day, formatHour, formatMinute
         )
+    }
+
+
+    fun userLogout() {
+        authRepository.unLinkKakaoAccount { isSuccess -> initIsSuccessWithdraw(isSuccess) }
+        postSignOut()
+    }
+
+    private fun initIsSuccessWithdraw(isSuccess: Boolean) {
+        _isSuccessWithdraw.postValue(isSuccess)
+    }
+
+    private fun postSignOut() {
+        viewModelScope.launch {
+            authRepository.patchSignOut()
+        }
+    }
+
+    fun deleteUser() {
+        Log.d("deleteUser1", "deleteUser: ")
+        viewModelScope.launch {
+            Log.d("deleteUser", "deleteUser: ")
+            authRepository.deleteUser()
+        }
     }
 
     companion object {

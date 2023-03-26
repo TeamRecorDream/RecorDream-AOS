@@ -29,10 +29,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
         initViewModel()
         clickLoginBtn()
-        binding.ivLoginLogo.setOnClickListener {
-            kakaoUnlink()
-            // 토큰재확인용
-        }
+//        binding.ivLoginLogo.setOnClickListener {
+//            kakaoUnlink()
+//            // 토큰재확인용
+//        }
     }
 
     private fun initViewModel() {
@@ -44,7 +44,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         binding.clLoginKakaobtn.setOnClickListener {
             initKaKaoLogin()
             collectSignUpResult()
-            loginViewModel.getFCMToken()
         }
     }
 
