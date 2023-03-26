@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
-import com.recodream_aos.recordream.data.entity.remote.request.RequestFcmToken
 import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
 import com.recodream_aos.recordream.domain.repository.AuthRepository
@@ -42,8 +41,6 @@ class MypageViewModel @Inject constructor(
     private val _isSuccessWithdraw = MutableLiveData<Boolean>()
     val isSuccessWithdraw: LiveData<Boolean> = _isSuccessWithdraw
 
-    private val fcmToken = MutableLiveData<String>()
-
     fun getUser() {
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
@@ -59,11 +56,7 @@ class MypageViewModel @Inject constructor(
         }
     }
 
-    fun getFCMToken() {
-        viewModelScope.launch {
-            authRepository.getFcmToken { getFcmToken -> fcmToken.value = getFcmToken }
-        }
-    }
+
 
     fun putUserName() {
         viewModelScope.launch {
@@ -102,20 +95,21 @@ class MypageViewModel @Inject constructor(
 
     fun userLogout() {
         authRepository.unLinkKakaoAccount { isSuccess -> initIsSuccessWithdraw(isSuccess) }
-        patchSignOut()
+        postSignOut()
     }
 
     private fun initIsSuccessWithdraw(isSuccess: Boolean) {
         _isSuccessWithdraw.postValue(isSuccess)
     }
 
-    private fun patchSignOut() {
+    private fun postSignOut() {
         viewModelScope.launch {
-            authRepository.patchSignOut(RequestFcmToken(fcmToken.value.toString()))
+            authRepository.patchSignOut()
         }
     }
 
     fun deleteUser() {
+        Log.d("deleteUser1", "deleteUser: ")
         viewModelScope.launch {
             Log.d("deleteUser", "deleteUser: ")
             authRepository.deleteUser()

@@ -5,9 +5,7 @@
 
     <data>
 
-        <variable
-            name="mypageViewModel"
-            type="com.recodream_aos.recordream.presentation.mypage.MypageViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +81,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/grey01_222222"
-            android:onClick="@{()->mypageViewModel.deleteUser()}"
             android:text="@string/mypage_delete"
             android:textColor="@color/red_FF5F5F"
             android:theme="@style/Sb14"
