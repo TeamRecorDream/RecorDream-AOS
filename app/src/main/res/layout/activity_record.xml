@@ -124,7 +124,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/tv_record_joy"
                         android:textAppearance="@style/R10"
-                        android:textColor="@color/white01_FFFFFF"
+                        android:textColor="@{viewModel.isJoyButtonChecked ? @color/white01_FFFFFF : @color/white03_66FFFFFF}"
                         app:layout_constraintEnd_toEndOf="@+id/iv_record_joy"
                         app:layout_constraintStart_toStartOf="@+id/iv_record_joy"
                         app:layout_constraintTop_toBottomOf="@+id/iv_record_joy" />
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv_record_sad"
                         android:textAppearance="@style/R10"
-                        android:textColor="@color/white01_FFFFFF"
+                        android:textColor="@{viewModel.isSadButtonChecked ? @color/white01_FFFFFF : @color/white03_66FFFFFF}"
                         app:layout_constraintEnd_toEndOf="@+id/iv_record_sad"
                         app:layout_constraintStart_toStartOf="@+id/iv_record_sad"
                         app:layout_constraintTop_toTopOf="@+id/tv_record_joy" />
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv_record_scary"
                         android:textAppearance="@style/R10"
-                        android:textColor="@color/white01_FFFFFF"
+                        android:textColor="@{viewModel.isScaryButtonChecked ? @color/white01_FFFFFF : @color/white03_66FFFFFF}"
                         app:layout_constraintEnd_toEndOf="@+id/iv_record_scary"
                         app:layout_constraintStart_toStartOf="@+id/iv_record_scary"
                         app:layout_constraintTop_toTopOf="@+id/tv_record_sad" />
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv_record_strange"
                         android:textAppearance="@style/R10"
-                        android:textColor="@color/white01_FFFFFF"
+                        android:textColor="@{viewModel.isStrangeButtonChecked ? @color/white01_FFFFFF : @color/white03_66FFFFFF}"
                         app:layout_constraintEnd_toEndOf="@+id/iv_record_strange"
                         app:layout_constraintStart_toStartOf="@+id/iv_record_strange"
                         app:layout_constraintTop_toTopOf="@+id/tv_record_scary" />
@@ -168,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv_record_shy"
                         android:textAppearance="@style/R10"
-                        android:textColor="@color/white01_FFFFFF"
+                        android:textColor="@{viewModel.isShyButtonChecked ? @color/white01_FFFFFF : @color/white03_66FFFFFF}"
                         app:layout_constraintEnd_toEndOf="@+id/iv_record_shy"
                         app:layout_constraintStart_toStartOf="@+id/iv_record_shy"
                         app:layout_constraintTop_toTopOf="@+id/tv_record_strange" />
@@ -385,6 +385,7 @@
                         android:paddingBottom="5dp"
                         android:text="@string/tv_record_comedy"
                         android:textAppearance="@style/R14"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:textColor="@color/selector_color_white_purple"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
