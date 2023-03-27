@@ -109,7 +109,6 @@ class MypageViewModel @Inject constructor(
     }
 
     fun deleteUser() {
-        Log.d("deleteUser1", "deleteUser: ")
         viewModelScope.launch {
             Log.d("deleteUser", "deleteUser: ")
             authRepository.deleteUser()
