@@ -3,14 +3,14 @@ package com.recodream_aos.recordream.util.customview
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Point
-import android.graphics.Shader
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.recodream_aos.recordream.R
 
 class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()
@@ -55,8 +55,8 @@ class CustomBottomNavigationView : BottomNavigationView {
     }
 
     private fun init() {
-        mPaint.style = Paint.Style.FILL
-
+        mPaint.style = Paint.Style.FILL_AND_STROKE
+        mPaint.color = ContextCompat.getColor(context, R.color.grey03_18191D) // 네비게이션 색상
         setBackgroundColor(Color.TRANSPARENT)
     }
 
@@ -131,26 +131,6 @@ class CustomBottomNavigationView : BottomNavigationView {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val startColor = Color.parseColor("#FFFFFF") // 그라데이션 시작 색상
-        val endColor = Color.parseColor("#02040F") // 그라데이션 끝 색상
-
-        // 그라데이션을 그리는 영역을 제외한 부분을 투명하게 설정
-        gradientDrawable.setBounds(0, CURVE_CIRCLE_RADIUS, width, height)
-        gradientDrawable.alpha = 0
-        gradientDrawable.draw(canvas)
-
-        // 움푹 파인 부분에 그라데이션 그리기
-        val gradient = LinearGradient(
-            0f,
-            0f,
-            0f,
-            CURVE_CIRCLE_RADIUS.toFloat(),
-            startColor,
-            endColor,
-            Shader.TileMode.CLAMP,
-        )
-
-        mPaint.shader = gradient
         canvas.drawPath(mPath, mPaint)
     }
 }
