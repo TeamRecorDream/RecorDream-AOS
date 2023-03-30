@@ -93,6 +93,7 @@ class StorageFragment : Fragment() {
         storageGridAdapter =
             StorageGridAdapter {
                 val intent = Intent(requireContext(), DocumentActivity::class.java)
+                startActivity(intent)
             }
         binding.rvStorage.adapter = storageGridAdapter
         binding.rvStorage.layoutManager = GridLayoutManager(context, 2)
@@ -102,6 +103,7 @@ class StorageFragment : Fragment() {
         storageListAdapter =
             StorageListAdapter {
                 val intent = Intent(requireContext(), DocumentActivity::class.java)
+                startActivity(intent)
             }
         binding.rvStorage.adapter = storageListAdapter
         binding.rvStorage.layoutManager = LinearLayoutManager(context)
