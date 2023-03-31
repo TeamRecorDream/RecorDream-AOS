@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.splash // ktlint-disable package-name
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.domain.repository.AuthRepository
