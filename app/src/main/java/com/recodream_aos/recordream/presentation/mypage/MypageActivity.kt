@@ -99,9 +99,9 @@ class MypageActivity : AppCompatActivity() {
             settingTime.observe(this@MypageActivity) { time ->
                 binding.tvMypageSettitngTimeDescription.text = time
             }
-            toggleActive.observe(this@MypageActivity) { active ->
-                toggleActive(active)
-            }
+//            toggleActive.observe(this@MypageActivity) { active ->
+//                toggleActive(active)
+//            }
             isSuccessWithdraw.observe(this@MypageActivity) { success ->
 
             }
@@ -166,12 +166,12 @@ class MypageActivity : AppCompatActivity() {
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
-            sendSdkNotify()
+//            sendSdkNotify()
             mypageViewModel.checkAlamToggle(onSwitch)
             switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
             if (onSwitch) {
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
-                binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
+//                binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
             } else {
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
                 binding.tvMypageSettitngTimeDescription.visibility = View.GONE
