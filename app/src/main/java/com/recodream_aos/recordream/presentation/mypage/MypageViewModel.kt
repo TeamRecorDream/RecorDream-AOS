@@ -57,7 +57,6 @@ class MypageViewModel @Inject constructor(
     }
 
 
-
     fun putUserName() {
         viewModelScope.launch {
             mypageUserRepository.putNickName(RequestNickName(userName.value.toString()))
@@ -110,7 +109,6 @@ class MypageViewModel @Inject constructor(
 
     fun deleteUser() {
         viewModelScope.launch {
-            Log.d("deleteUser", "deleteUser: ")
             authRepository.deleteUser()
         }
     }

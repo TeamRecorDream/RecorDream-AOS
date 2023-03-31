@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.mypage
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
@@ -28,6 +30,7 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val mypageViewModel by viewModels<MypageViewModel>()
     private var nickname: String = ""
+    lateinit var switch: SharedPreferences
 
     // 권한 요청용 Activity Callback 객체 만들기
     private val registerForActivityResult =
@@ -40,16 +43,16 @@ class MypageActivity : AppCompatActivity() {
                     }
                     map[DENIED]?.let {
                         // 단순히 권한이 거부 되었을 때
-                        shortToast("권한이 거부되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.")
+                        shortToast(R.string.mypage_alarm_No)
                     }
                     map[EXPLAINED]?.let {
                         // 권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)
-                        shortToast("권한 요청이 중단되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.")
+                        shortToast(R.string.mypage_alarm_else)
                     }
                 }
                 else -> {
                     // 모든 권한이 허가 되었을 때
-                    shortToast("권한이 허가되어 푸시알림 기능을 이용하실 수 있습니다. ")
+                    shortToast(R.string.mypage_alarm_yes)
                 }
             }
         }
@@ -61,7 +64,14 @@ class MypageActivity : AppCompatActivity() {
         setOnClick()
         mypageDataObserver()
         mypageViewModel.getUser()
+        switch = getSharedPreferences(SWITCH, MODE_PRIVATE)
     }
+
+    override fun onStart() {
+        super.onStart()
+        saveValueLoad()
+    }
+
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
@@ -158,6 +168,7 @@ class MypageActivity : AppCompatActivity() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
             sendSdkNotify()
             mypageViewModel.checkAlamToggle(onSwitch)
+            switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
             if (onSwitch) {
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
                 binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
@@ -177,7 +188,13 @@ class MypageActivity : AppCompatActivity() {
         RecorDreamFireBaseMessagingService()
     }
 
+    //서버에서 받아온 스위치 true/false처리
     private fun toggleActive(isActive: Boolean) {
+//        val switchActive = switch.getBoolean(ALARM, false)
+//        if (switchActive != isActive) {
+//            binding.switchMypagePushAlam.isChecked = isActive
+//            switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
+//        }
         with(binding) {
             when (isActive) {
                 true -> {
@@ -192,9 +209,14 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveValueLoad() {
+        binding.switchMypagePushAlam.isChecked = switch.getBoolean(ALARM, false)
+    }
 
     companion object {
         const val DENIED = "denied"
         const val EXPLAINED = "explained"
+        const val ALARM = "ALARM"
+        const val SWITCH = "SWITCH"
     }
 }
