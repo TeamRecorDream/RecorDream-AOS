@@ -8,6 +8,11 @@ import com.recodream_aos.recordream.databinding.ItemRecordFoundBinding
 class SearchViewHolder(
     private val binding: ItemRecordFoundBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
+    private val tagAdapter: TagAdapter by lazy { TagAdapter() }
+
+    init {
+        binding.rvItemRecordTag.adapter = tagAdapter
+    }
 
     fun bind(i: Int) {
     }
