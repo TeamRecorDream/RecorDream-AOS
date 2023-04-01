@@ -11,7 +11,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -65,13 +64,15 @@ class MypageActivity : AppCompatActivity() {
         mypageDataObserver()
         mypageViewModel.getUser()
         switch = getSharedPreferences(SWITCH, MODE_PRIVATE)
+        saveSwitchActive()
     }
 
     override fun onStart() {
         super.onStart()
-        saveValueLoad()
+        if (binding.tvMypageSettingTime.text.isNullOrBlank()) {
+            binding.switchMypagePushAlam.isChecked = false
+        }
     }
-
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
@@ -80,11 +81,7 @@ class MypageActivity : AppCompatActivity() {
             }
             userName.observe(this@MypageActivity) { name ->
                 if (name.toString().isNullOrBlank()) {
-                    Toast.makeText(
-                        this@MypageActivity,
-                        R.string.mypage_name_warning,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    shortToast(R.string.mypage_name_warning)
                 } else {
                     binding.edtMypageName.setText(name)
                     putUserName()
@@ -94,9 +91,15 @@ class MypageActivity : AppCompatActivity() {
                 binding.tvMypageEmail.text = email
             }
             alamToggle.observe(this@MypageActivity) { toggle ->
-                patchAlamToggle(toggle)
+//                if (toggle == true and binding.tvMypageSettitngTimeDescription.text.isNullOrBlank()) {
+//                    binding.switchMypagePushAlam.isChecked = false
+//                    patchAlamToggle(false)
+//                }else{
+                    patchAlamToggle(toggle)
+//                }
             }
             settingTime.observe(this@MypageActivity) { time ->
+                binding.switchMypagePushAlam.isChecked = true
                 binding.tvMypageSettitngTimeDescription.text = time
             }
 //            toggleActive.observe(this@MypageActivity) { active ->
@@ -162,19 +165,25 @@ class MypageActivity : AppCompatActivity() {
     private fun createBottomSheet() {
         val myPageBottomSheetFragment = MypageBottomSheetFragment()
         myPageBottomSheetFragment.show(supportFragmentManager, myPageBottomSheetFragment.tag)
+        myPageBottomSheetFragment.isCancelable = false
     }
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
-//            sendSdkNotify()
             mypageViewModel.checkAlamToggle(onSwitch)
+            if (!switch.getBoolean(ALARM, false)) {
+                sendSdkNotify()
+                createBottomSheet()
+            }
             switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
             if (onSwitch) {
+                binding.tvMypageSettingTime.setTextColor(getColor(R.color.white))
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
-//                binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
+                binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
             } else {
                 binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
                 binding.tvMypageSettitngTimeDescription.visibility = View.GONE
+                Log.d("mypage", "switchOnClick2: ${switch.getBoolean(ALARM, false)}")
             }
         }
     }
@@ -188,28 +197,7 @@ class MypageActivity : AppCompatActivity() {
         RecorDreamFireBaseMessagingService()
     }
 
-    //서버에서 받아온 스위치 true/false처리
-    private fun toggleActive(isActive: Boolean) {
-//        val switchActive = switch.getBoolean(ALARM, false)
-//        if (switchActive != isActive) {
-//            binding.switchMypagePushAlam.isChecked = isActive
-//            switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-//        }
-        with(binding) {
-            when (isActive) {
-                true -> {
-                    switchMypagePushAlam.isChecked = true
-                    clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
-                    Log.d("toggleActive", "toggleActive: $isActive")
-                }
-                else -> {
-                    Log.d("toggleActive", "toggleActive: $isActive")
-                }
-            }
-        }
-    }
-
-    private fun saveValueLoad() {
+    private fun saveSwitchActive() {
         binding.switchMypagePushAlam.isChecked = switch.getBoolean(ALARM, false)
     }
 

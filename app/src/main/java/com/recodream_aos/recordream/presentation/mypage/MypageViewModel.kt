@@ -28,8 +28,8 @@ class MypageViewModel @Inject constructor(
     private val _settingTime = MutableLiveData<String?>()
     val settingTime: MutableLiveData<String?> get() = _settingTime
 
-    private val _toggleActive = MutableLiveData<Boolean>()
-    val toggleActive: MutableLiveData<Boolean> get() = _toggleActive
+//    private val _toggleActive = MutableLiveData<Boolean>()
+//    val toggleActive: MutableLiveData<Boolean> get() = _toggleActive
 
     private val _alamToggle = MutableLiveData<Boolean>()
     val alamToggle: LiveData<Boolean> get() = _alamToggle
@@ -45,7 +45,7 @@ class MypageViewModel @Inject constructor(
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
             _settingTime.value = mypageUserRepository.getUser()?.data?.time
-            _toggleActive.value = mypageUserRepository.getUser()?.data?.isActive
+//            _toggleActive.value = mypageUserRepository.getUser()?.data?.isActive
         }
     }
 
@@ -54,7 +54,6 @@ class MypageViewModel @Inject constructor(
             mypageUserRepository.postPushAlam(RequestPushAlam(isShow.value.toString()))
         }
     }
-
 
     fun putUserName() {
         viewModelScope.launch {
@@ -89,7 +88,6 @@ class MypageViewModel @Inject constructor(
             day, formatHour, formatMinute
         )
     }
-
 
     fun userLogout() {
         authRepository.unLinkKakaoAccount { isSuccess -> initIsSuccessWithdraw(isSuccess) }
