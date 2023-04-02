@@ -376,6 +376,7 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_record_food" />
 
 
+
                     <TextView
                         android:id="@+id/tv_record_comedy"
                         android:layout_width="wrap_content"
