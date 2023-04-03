@@ -375,19 +375,17 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_record_food"
                         app:layout_constraintTop_toTopOf="@+id/tv_record_food" />
 
-
-
                     <TextView
                         android:id="@+id/tv_record_comedy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
                         android:paddingBottom="5dp"
                         android:text="@string/tv_record_comedy"
                         android:textAppearance="@style/R14"
-                        android:background="@drawable/rectangle_radius_1dp"
                         android:textColor="@color/selector_color_white_purple"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
