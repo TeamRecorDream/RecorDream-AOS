@@ -95,19 +95,23 @@ class MypageActivity : AppCompatActivity() {
 //                    binding.switchMypagePushAlam.isChecked = false
 //                    patchAlamToggle(false)
 //                }else{
-                    patchAlamToggle(toggle)
+//                patchAlamToggle(toggle)
 //                }
             }
             settingTime.observe(this@MypageActivity) { time ->
-                binding.switchMypagePushAlam.isChecked = true
+//                binding.switchMypagePushAlam.isChecked = true
                 binding.tvMypageSettitngTimeDescription.text = time
             }
 //            toggleActive.observe(this@MypageActivity) { active ->
 //                toggleActive(active)
 //            }
-            isSuccessWithdraw.observe(this@MypageActivity) { success ->
-
-            }
+            isSuccessWithdraw.observe(this@MypageActivity) { success -> }
+//            saveTime.observe(this@MypageActivity) { save ->
+//                if (save) {
+//                    binding.switchMypagePushAlam.isChecked = true
+//                    switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
+//                }
+//            }
         }
     }
 
@@ -170,21 +174,44 @@ class MypageActivity : AppCompatActivity() {
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
-            mypageViewModel.checkAlamToggle(onSwitch)
-            if (!switch.getBoolean(ALARM, false)) {
-                sendSdkNotify()
+            val storeSwitch = switch.getBoolean(ALARM, false)
+//            mypageViewModel.checkAlamToggle(onSwitch)
+
+            //켜져있을 때
+            if (storeSwitch && onSwitch) {
+                return@setOnCheckedChangeListener
+            }
+//            setBackGround(storeSwitch)
+            //켜짐 -> 꺼짐
+            if (storeSwitch && !onSwitch) {
+                switch.edit { putBoolean(ALARM, false) }
+                Log.d("switch turn", "$storeSwitch: ")
+                return@setOnCheckedChangeListener
+            }
+            //꺼짐 -> 켜짐
+            if (!storeSwitch && onSwitch) {
                 createBottomSheet()
+                Log.d("onSwitch1", "switchOnClick: $onSwitch")
+                mypageViewModel.saveTime.observe(this@MypageActivity) { save ->
+                    if (save == true) {
+                        switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
+                        return@observe
+                        Log.d("onSwitch2", "switchOnClick: $onSwitch")
+                    }
+                }
+//                return@setOnCheckedChangeListener
             }
-            switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-            if (onSwitch) {
-                binding.tvMypageSettingTime.setTextColor(getColor(R.color.white))
-                binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
-                binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
-            } else {
-                binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
-                binding.tvMypageSettitngTimeDescription.visibility = View.GONE
-                Log.d("mypage", "switchOnClick2: ${switch.getBoolean(ALARM, false)}")
-            }
+//            binding.switchMypagePushAlam.toggle()
+        }
+    }
+
+    private fun setBackGround(onSwitch: Boolean) {
+        if (onSwitch) {
+            binding.tvMypageSettingTime.setTextColor(getColor(R.color.white))
+            binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
+        } else {
+            binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
+            binding.tvMypageSettitngTimeDescription.visibility = View.GONE
         }
     }
 

@@ -1,5 +1,6 @@
 package com.recodream_aos.recordream.presentation.mypage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,6 +41,9 @@ class MypageViewModel @Inject constructor(
     private val _isSuccessWithdraw = MutableLiveData<Boolean>()
     val isSuccessWithdraw: LiveData<Boolean> = _isSuccessWithdraw
 
+    private val _saveTime = MutableLiveData<Boolean?>()
+    val saveTime: LiveData<Boolean?> = _saveTime
+
     fun getUser() {
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
@@ -59,6 +63,16 @@ class MypageViewModel @Inject constructor(
         viewModelScope.launch {
             mypageUserRepository.putNickName(RequestNickName(userName.value.toString()))
         }
+    }
+
+    fun clickSaveTime(saveBtn: Boolean) {
+//        if (saveTime.value == false) {
+//            _saveTime.value = null
+//            Log.d("switch mypage0", "clickSaveTime:저저장? $saveBtn and ${saveTime.value}")
+//            return
+//        }
+        _saveTime.value = saveBtn
+        Log.d("switch mypage1", "clickSaveTime:저저장? $saveBtn and ${saveTime.value}")
     }
 
 //    fun editNickName(nickName: String) {
