@@ -67,13 +67,6 @@ class MypageActivity : AppCompatActivity() {
         saveSwitchActive()
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (binding.tvMypageSettingTime.text.isNullOrBlank()) {
-            binding.switchMypagePushAlam.isChecked = false
-        }
-    }
-
     private fun mypageDataObserver() {
         with(mypageViewModel) {
             isShow.observe(this@MypageActivity) { item ->
@@ -91,27 +84,30 @@ class MypageActivity : AppCompatActivity() {
                 binding.tvMypageEmail.text = email
             }
             alamToggle.observe(this@MypageActivity) { toggle ->
-//                if (toggle == true and binding.tvMypageSettitngTimeDescription.text.isNullOrBlank()) {
-//                    binding.switchMypagePushAlam.isChecked = false
-//                    patchAlamToggle(false)
-//                }else{
-//                patchAlamToggle(toggle)
-//                }
+                if (toggle) {
+                    binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
+                }
             }
             settingTime.observe(this@MypageActivity) { time ->
-//                binding.switchMypagePushAlam.isChecked = true
                 binding.tvMypageSettitngTimeDescription.text = time
             }
 //            toggleActive.observe(this@MypageActivity) { active ->
 //                toggleActive(active)
 //            }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
-//            saveTime.observe(this@MypageActivity) { save ->
-//                if (save) {
-//                    binding.switchMypagePushAlam.isChecked = true
-//                    switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-//                }
-//            }
+            saveTime.observe(this@MypageActivity) { save ->
+                if (save == true) {
+                    setBackGround(true)
+                    switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
+                    mypageViewModel.patchAlamToggle(true)
+                } else {
+                    if (switch.getBoolean(ALARM, false)) {
+                        return@observe
+                    }
+                    binding.switchMypagePushAlam.isChecked = false
+                    mypageViewModel.patchAlamToggle(false)
+                }
+            }
         }
     }
 
@@ -175,33 +171,16 @@ class MypageActivity : AppCompatActivity() {
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
             val storeSwitch = switch.getBoolean(ALARM, false)
-//            mypageViewModel.checkAlamToggle(onSwitch)
-
-            //켜져있을 때
-            if (storeSwitch && onSwitch) {
-                return@setOnCheckedChangeListener
-            }
-//            setBackGround(storeSwitch)
-            //켜짐 -> 꺼짐
-            if (storeSwitch && !onSwitch) {
+            if (!onSwitch) {
                 switch.edit { putBoolean(ALARM, false) }
-                Log.d("switch turn", "$storeSwitch: ")
+                setBackGround(false)
+            }
+            if (storeSwitch) {
                 return@setOnCheckedChangeListener
             }
-            //꺼짐 -> 켜짐
-            if (!storeSwitch && onSwitch) {
+            if (onSwitch) {
                 createBottomSheet()
-                Log.d("onSwitch1", "switchOnClick: $onSwitch")
-                mypageViewModel.saveTime.observe(this@MypageActivity) { save ->
-                    if (save == true) {
-                        switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-                        return@observe
-                        Log.d("onSwitch2", "switchOnClick: $onSwitch")
-                    }
-                }
-//                return@setOnCheckedChangeListener
             }
-//            binding.switchMypagePushAlam.toggle()
         }
     }
 
@@ -213,6 +192,26 @@ class MypageActivity : AppCompatActivity() {
             binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
             binding.tvMypageSettitngTimeDescription.visibility = View.GONE
         }
+    }
+
+    private fun stash() {
+        //켜져있을 때
+//        if (storeSwitch && onSwitch) {
+//            return@setOnCheckedChangeListener
+//        }
+//        //켜짐 -> 꺼짐
+//        if (storeSwitch && !onSwitch) {
+//            switch.edit { putBoolean(ALARM, false) }
+//            setBackGround(onSwitch)
+//            mypageViewModel.patchAlamToggle(false)
+//            return@setOnCheckedChangeListener
+//        }
+//        //꺼짐 -> 켜짐
+//        if (!storeSwitch && onSwitch) {
+////                sendSdkNotify()
+//            createBottomSheet()
+//        }
+////            binding.switchMypagePushAlam.isChecked = storeSwitch
     }
 
     private fun sendSdkNotify() {

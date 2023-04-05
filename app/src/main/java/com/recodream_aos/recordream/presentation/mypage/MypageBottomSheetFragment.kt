@@ -43,7 +43,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {
-//            viewModel.clickSaveTime(false)
+            viewModel.clickSaveTime(false)
             this.dismiss()
         }
     }

@@ -41,8 +41,8 @@ class MypageViewModel @Inject constructor(
     private val _isSuccessWithdraw = MutableLiveData<Boolean>()
     val isSuccessWithdraw: LiveData<Boolean> = _isSuccessWithdraw
 
-    private val _saveTime = MutableLiveData<Boolean?>()
-    val saveTime: LiveData<Boolean?> = _saveTime
+    val saveTime = MutableLiveData<Boolean?>()
+//    val saveTime: LiveData<Boolean?> = _saveTime
 
     fun getUser() {
         viewModelScope.launch {
@@ -71,7 +71,7 @@ class MypageViewModel @Inject constructor(
 //            Log.d("switch mypage0", "clickSaveTime:저저장? $saveBtn and ${saveTime.value}")
 //            return
 //        }
-        _saveTime.value = saveBtn
+        saveTime.value = saveBtn
         Log.d("switch mypage1", "clickSaveTime:저저장? $saveBtn and ${saveTime.value}")
     }
 
