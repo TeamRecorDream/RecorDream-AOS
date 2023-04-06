@@ -65,11 +65,13 @@ class MypageActivity : AppCompatActivity() {
         mypageViewModel.getUser()
         switch = getSharedPreferences(SWITCH, MODE_PRIVATE)
         saveSwitchActive()
+        setBackGround(binding.switchMypagePushAlam.isChecked)
     }
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
             isShow.observe(this@MypageActivity) { item ->
+                binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
                 binding.tvMypageSettitngTimeDescription.text = item
             }
             userName.observe(this@MypageActivity) { name ->
@@ -89,11 +91,13 @@ class MypageActivity : AppCompatActivity() {
                 }
             }
             settingTime.observe(this@MypageActivity) { time ->
-                binding.tvMypageSettitngTimeDescription.text = time
+                if (binding.switchMypagePushAlam.isChecked) {
+                    binding.tvMypageSettitngTimeDescription.text = time
+                    setBackGround(true)
+                } else {
+                    setBackGround(false)
+                }
             }
-//            toggleActive.observe(this@MypageActivity) { active ->
-//                toggleActive(active)
-//            }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
             saveTime.observe(this@MypageActivity) { save ->
                 if (save == true) {
@@ -192,26 +196,6 @@ class MypageActivity : AppCompatActivity() {
             binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
             binding.tvMypageSettitngTimeDescription.visibility = View.GONE
         }
-    }
-
-    private fun stash() {
-        //켜져있을 때
-//        if (storeSwitch && onSwitch) {
-//            return@setOnCheckedChangeListener
-//        }
-//        //켜짐 -> 꺼짐
-//        if (storeSwitch && !onSwitch) {
-//            switch.edit { putBoolean(ALARM, false) }
-//            setBackGround(onSwitch)
-//            mypageViewModel.patchAlamToggle(false)
-//            return@setOnCheckedChangeListener
-//        }
-//        //꺼짐 -> 켜짐
-//        if (!storeSwitch && onSwitch) {
-////                sendSdkNotify()
-//            createBottomSheet()
-//        }
-////            binding.switchMypagePushAlam.isChecked = storeSwitch
     }
 
     private fun sendSdkNotify() {

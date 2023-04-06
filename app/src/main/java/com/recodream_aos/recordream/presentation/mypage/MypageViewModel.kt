@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.mypage
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,9 +28,6 @@ class MypageViewModel @Inject constructor(
     private val _settingTime = MutableLiveData<String?>()
     val settingTime: MutableLiveData<String?> get() = _settingTime
 
-//    private val _toggleActive = MutableLiveData<Boolean>()
-//    val toggleActive: MutableLiveData<Boolean> get() = _toggleActive
-
     private val _alamToggle = MutableLiveData<Boolean>()
     val alamToggle: LiveData<Boolean> get() = _alamToggle
 
@@ -42,14 +38,12 @@ class MypageViewModel @Inject constructor(
     val isSuccessWithdraw: LiveData<Boolean> = _isSuccessWithdraw
 
     val saveTime = MutableLiveData<Boolean?>()
-//    val saveTime: LiveData<Boolean?> = _saveTime
 
     fun getUser() {
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
             _settingTime.value = mypageUserRepository.getUser()?.data?.time
-//            _toggleActive.value = mypageUserRepository.getUser()?.data?.isActive
         }
     }
 
@@ -66,13 +60,7 @@ class MypageViewModel @Inject constructor(
     }
 
     fun clickSaveTime(saveBtn: Boolean) {
-//        if (saveTime.value == false) {
-//            _saveTime.value = null
-//            Log.d("switch mypage0", "clickSaveTime:저저장? $saveBtn and ${saveTime.value}")
-//            return
-//        }
         saveTime.value = saveBtn
-        Log.d("switch mypage1", "clickSaveTime:저저장? $saveBtn and ${saveTime.value}")
     }
 
 //    fun editNickName(nickName: String) {
@@ -87,10 +75,6 @@ class MypageViewModel @Inject constructor(
         viewModelScope.launch {
             mypageUserRepository.patchAlamToggle(RequestAlamToggle(alamToggle))
         }
-    }
-
-    fun checkAlamToggle(isActive: Boolean) {
-        _alamToggle.value = isActive
     }
 
     fun setIsShow(day: String, h: Int, m: Int) {
