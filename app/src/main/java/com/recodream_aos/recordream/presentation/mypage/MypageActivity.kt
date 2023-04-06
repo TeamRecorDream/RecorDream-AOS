@@ -85,11 +85,6 @@ class MypageActivity : AppCompatActivity() {
             userEmail.observe(this@MypageActivity) { email ->
                 binding.tvMypageEmail.text = email
             }
-            alamToggle.observe(this@MypageActivity) { toggle ->
-                if (toggle) {
-                    binding.clSettingTimeDescription.setOnClickListener { createBottomSheet() }
-                }
-            }
             settingTime.observe(this@MypageActivity) { time ->
                 if (binding.switchMypagePushAlam.isChecked) {
                     binding.tvMypageSettitngTimeDescription.text = time
@@ -114,7 +109,6 @@ class MypageActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun setOnClick() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
@@ -192,9 +186,19 @@ class MypageActivity : AppCompatActivity() {
         if (onSwitch) {
             binding.tvMypageSettingTime.setTextColor(getColor(R.color.white))
             binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
+            binding.tvMypageSettingTime.setOnClickListener {
+                it.isClickable = true
+                createBottomSheet()
+            }
+            binding.tvMypageSettitngTimeDescription.setOnClickListener {
+                it.isClickable = true
+                createBottomSheet()
+            }
         } else {
             binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage)
             binding.tvMypageSettitngTimeDescription.visibility = View.GONE
+            binding.tvMypageSettingTime.setOnClickListener { it.isClickable = false }
+            binding.tvMypageSettitngTimeDescription.setOnClickListener { it.isClickable = false }
         }
     }
 

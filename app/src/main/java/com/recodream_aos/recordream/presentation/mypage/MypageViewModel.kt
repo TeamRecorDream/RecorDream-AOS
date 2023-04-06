@@ -28,9 +28,6 @@ class MypageViewModel @Inject constructor(
     private val _settingTime = MutableLiveData<String?>()
     val settingTime: MutableLiveData<String?> get() = _settingTime
 
-    private val _alamToggle = MutableLiveData<Boolean>()
-    val alamToggle: LiveData<Boolean> get() = _alamToggle
-
     private val _isShow = MutableLiveData<String>()
     val isShow: LiveData<String> get() = _isShow
 
