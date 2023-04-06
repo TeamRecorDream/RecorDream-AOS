@@ -75,8 +75,8 @@ class MypageViewModel @Inject constructor(
     }
 
     fun setIsShow(day: String, h: Int, m: Int) {
-        var formatHour = String.format("%02d", h)
-        var formatMinute = String.format("%02d", m)
+        val formatHour = String.format("%02d", h)
+        val formatMinute = String.format("%02d", m)
         _isShow.value = String.format(
             //todo %02s로 하면 왜 안됨?
             "%s %s:%s",
