@@ -23,13 +23,13 @@
             android:id="@+id/tv_record_save_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/grey01_222222"
+            android:background="@color/selector_color_grey_purple"
             android:gravity="center"
             android:paddingTop="22dp"
             android:paddingBottom="17dp"
             android:text="@string/tv_record_save"
             android:textAppearance="@style/B16"
-            android:textColor="@color/white01_FFFFFF"
+            android:textColor="@color/selector_color_white03_white01"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
@@ -335,7 +335,7 @@
                     tools:text="@string/tv_record_hint_title" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout4"
+                    android:id="@+id/cl_record_genre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -350,6 +350,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -365,6 +366,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -396,6 +398,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -411,6 +414,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -426,6 +430,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -441,6 +446,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -456,6 +462,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -471,6 +478,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -486,6 +494,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
+                        android:background="@drawable/rectangle_radius_1dp"
                         android:paddingStart="6dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="6dp"
@@ -564,7 +573,7 @@
                     android:textAppearance="@style/Sb14"
                     android:textColor="@color/white01_FFFFFF"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+                    app:layout_constraintTop_toBottomOf="@+id/cl_record_genre" />
 
                 <EditText
                     android:id="@+id/editTextTextPersonName"

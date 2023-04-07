@@ -45,7 +45,6 @@ class RecordViewModel : ViewModel() {
             return
         }
         genre.value.add(genreId)
-        Log.d("listlist", "${genre.value}")
     }
 
     fun getSelectedEmotionId(emotionID: Int) {

@@ -53,8 +53,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun clickGenreSettingValue(genre: Genre) {
         binding.root.findViewById<TextView>(genre.viewId).apply {
-            setOnClickListener {
+            setOnClickListener { view ->
+                if (recordViewModel.genre.value.size == 3) {
+                    if (view.isSelected) view.isSelected = false
+                    recordViewModel.getSelectedGenreId(genre.genreId)
+                    return@setOnClickListener
+                }
                 recordViewModel.getSelectedGenreId(genre.genreId)
+                view.isSelected = !view.isSelected
             }
         }
     }
