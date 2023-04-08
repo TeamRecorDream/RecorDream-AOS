@@ -1,9 +1,11 @@
 package com.recodream_aos.recordream.presentation.mypage // package before.forget.feature.write
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -39,9 +41,11 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.btnMypageSave.setOnClickListener {
             viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
             viewModel.postPushAlam()
+            viewModel.clickSaveTime(true)
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {
+            viewModel.clickSaveTime(false)
             this.dismiss()
         }
     }
@@ -91,5 +95,10 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetDialog.behavior.saveFlags = BottomSheetBehavior.SAVE_FIT_TO_CONTENTS
+    }
+
+    companion object {
+        const val AM = "AM"
     }
 }

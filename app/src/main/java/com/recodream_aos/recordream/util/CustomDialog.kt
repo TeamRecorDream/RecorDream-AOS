@@ -10,7 +10,6 @@ import android.view.Window
 import androidx.annotation.LayoutRes
 import com.recodream_aos.recordream.databinding.CustomMypageDialogBinding
 import com.recodream_aos.recordream.databinding.DocumentDeleteDialogBinding
-import com.recodream_aos.recordream.presentation.MainActivity
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 
@@ -22,18 +21,18 @@ class CustomDialog(private val context: Context) {
     private lateinit var inflater: LayoutInflater
     private lateinit var onClickedListener: ButtonClickListener
 
+    init {
+        if (!::inflater.isInitialized) {
+            inflater = LayoutInflater.from(context)
+        }
+    }
+
     fun interface ButtonClickListener {
         fun onClicked()
     }
 
     fun setOnClickedListener(listener: ButtonClickListener) {
         onClickedListener = listener
-    }
-
-    init {
-        if (!::inflater.isInitialized) {
-            inflater = LayoutInflater.from(context)
-        }
     }
 
     fun showDeleteDialog(@LayoutRes layout: Int) {
@@ -49,7 +48,6 @@ class CustomDialog(private val context: Context) {
         }
         deleteBinding.tvDocumentDelete.setOnClickListener {
             dialog.dismiss()
-
         }
         dialog.show()
     }
@@ -69,7 +67,6 @@ class CustomDialog(private val context: Context) {
             onClickedListener.onClicked()
             dialog.dismiss()
             (context as MypageActivity).finish()
-//            (context as MainActivity).finish()
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
         }
