@@ -1,19 +1,15 @@
 package com.recodream_aos.recordream.presentation.record // ktlint-disable package-name
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
-import com.recodream_aos.recordream.util.shortToast
 
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
@@ -22,8 +18,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
         initViewModel()
-        // setClickListener()
-        test()
+        setClickListener()
     }
 
     private fun initViewModel() {
@@ -49,10 +44,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun clickEmotionSettingValue(emotion: Emotion) {
-        binding.root.findViewById<ImageView>(emotion.viewId).apply {
+        binding.root.findViewById<ConstraintLayout>(emotion.viewId).apply {
             setOnClickListener { view ->
-                recordViewModel.getSelectedEmotionId(emotion.emotionID)
-                view.isSelected = !view.isSelected
+//                recordViewModel.getSelectedEmotionId(emotion.emotionID)
+//                if (recordViewModel.emotion.value != emotion.emotionID) {
+//                    if (view.isSelected) view.isSelected = false
+//                }
+//                view.isSelected = !view.isSelected
+                // 하나만 눌리게해야함
             }
         }
     }
@@ -67,17 +66,6 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 }
                 recordViewModel.getSelectedGenreId(genre.genreId)
                 view.isSelected = !view.isSelected
-            }
-        }
-    }
-
-    @SuppressLint("ResourceType")
-    private fun test() {
-        binding.root.findViewById<ConstraintLayout>(R.id.cl_record_record_btn).apply {
-            this.children.iterator().forEach {
-                it.setOnClickListener {
-                    shortToast("시간임")
-                }
             }
         }
     }
