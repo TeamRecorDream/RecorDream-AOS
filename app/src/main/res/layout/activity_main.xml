@@ -28,7 +28,7 @@
 
         <ImageView
             android:id="@+id/iv_main_bottom"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_bottom_navibar"
             app:itemIconTint="@color/white01_FFFFFF"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="35dp"
             android:theme="@style/B12"
             app:itemIconTint="@color/white01_FFFFFF"
             app:labelVisibilityMode="labeled"
@@ -51,7 +51,7 @@
             android:id="@+id/iv_navi_write_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="85dp"
+            android:layout_marginBottom="78dp"
             android:src="@drawable/ic_navibar_btn_record"
             app:layout_constraintBottom_toBottomOf="@id/iv_main_bottom"
             app:layout_constraintEnd_toEndOf="@id/iv_main_bottom"
