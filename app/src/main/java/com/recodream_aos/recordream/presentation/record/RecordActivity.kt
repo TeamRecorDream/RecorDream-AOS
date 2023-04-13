@@ -3,6 +3,8 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -44,14 +46,19 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun clickEmotionSettingValue(emotion: Emotion) {
+        var before: View = binding.clRecordEmotion
         binding.root.findViewById<ConstraintLayout>(emotion.viewId).apply {
             setOnClickListener { view ->
-//                recordViewModel.getSelectedEmotionId(emotion.emotionID)
-//                if (recordViewModel.emotion.value != emotion.emotionID) {
-//                    if (view.isSelected) view.isSelected = false
-//                }
-//                view.isSelected = !view.isSelected
+                Log.d("Dwqdqwdwdq", view.toString())
+
+                if (before != view) {
+                    Log.d("Aqadad", before?.isSelected.toString())
+                    before.isSelected = false
+                }
+                recordViewModel.getSelectedEmotionId(emotion.emotionID)
+                view.isSelected = !view.isSelected
                 // 하나만 눌리게해야함
+                before = view
             }
         }
     }
