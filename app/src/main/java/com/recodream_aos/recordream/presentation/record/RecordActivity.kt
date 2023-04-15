@@ -1,15 +1,22 @@
 package com.recodream_aos.recordream.presentation.record // ktlint-disable package-name
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
@@ -19,6 +26,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
         initViewModel()
         setClickListener()
+        //  collectStateEmotion()
     }
 
     private fun initViewModel() {
@@ -43,10 +51,31 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         clickGenreSettingValue(genre)
     }
 
+    @SuppressLint("ResourceType")
     private fun clickEmotionSettingValue(emotion: Emotion) {
-        var selectedEmotion: Emotion? = null
+        var temp = 0
         binding.root.findViewById<ConstraintLayout>(emotion.viewId).apply {
             setOnClickListener { view ->
+                recordViewModel.getSelectedEmotionId(emotion.emotionID)
+                findViewById<ConstraintLayout>(1000090).isSelected = false
+                view.isSelected = !view.isSelected
+
+                temp = emotion.viewId
+                //  recordViewModel.getSelectedEmotionViewId(emotion.viewId)
+            }
+        }
+    }
+
+    private fun collectStateEmotion() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                recordViewModel.emotionViewId.collectLatest { selectedEmotion ->
+                    Log.d("123123", selectedEmotion.toString())
+
+                    val view = binding.root.findViewById<ConstraintLayout>(selectedEmotion)
+
+                    if (view != null) view.isSelected = true
+                }
             }
         }
     }
