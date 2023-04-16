@@ -1,7 +1,6 @@
 package com.recodream_aos.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,14 +14,15 @@ class RecordViewModel : ViewModel() {
     private var _time = MutableStateFlow(DEFAULT_TIME)
     val time: StateFlow<String> get() = _time
 
-    val isJoyButtonChecked = MutableStateFlow<Boolean>(false)
-    val isSadButtonChecked = MutableStateFlow<Boolean>(false)
-    val isScaryButtonChecked = MutableStateFlow<Boolean>(false)
-    val isStrangeButtonChecked = MutableStateFlow<Boolean>(false)
-    val isShyButtonChecked = MutableStateFlow<Boolean>(false)
+    private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
+    val genre: StateFlow<List<Int>> get() = _genre
 
-    val genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
-    var emotion = MutableStateFlow(0)
+    private val _emotionId: MutableStateFlow<Int> = MutableStateFlow(NOTHING)
+    val emotionId: StateFlow<Int> get() = _emotionId
+
+    private val _emotionViewId: MutableStateFlow<Int> = MutableStateFlow(NOTHING)
+    val emotionViewId: StateFlow<Int> get() = _emotionViewId
+
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
     val note = MutableStateFlow(BLANK)
@@ -33,31 +33,34 @@ class RecordViewModel : ViewModel() {
     }
 
 //    fun saveRecordingMyDream() {
-//        emotion.value
+//        _emotion.value
 //    } 서버연결메서드
 
     fun getSelectedGenreId(genreId: Int) {
-        if (genre.value.contains(genreId)) {
-            genre.value.remove(genreId)
+        if (_genre.value.contains(genreId)) {
+            _genre.value.remove(genreId)
             return
         }
-        if (genre.value.size == 3) {
+        if (_genre.value.size == 3) {
             return
         }
-        genre.value.add(genreId)
+        _genre.value.add(genreId)
     }
 
     fun getSelectedEmotionId(emotionID: Int) {
-        emotion.value = emotionID
-        isEmotionSelected()
+        if (_emotionId.value == emotionID) {
+            _emotionId.value = NOTHING
+            return
+        }
+        _emotionId.value = emotionID
     }
 
-    private fun isEmotionSelected() {
-        isJoyButtonChecked.value = emotion.value == Emotion.JOY.emotionID
-        isSadButtonChecked.value = emotion.value == Emotion.SAD.emotionID
-        isShyButtonChecked.value = emotion.value == Emotion.SHY.emotionID
-        isScaryButtonChecked.value = emotion.value == Emotion.SCARY.emotionID
-        isStrangeButtonChecked.value = emotion.value == Emotion.STRANGE.emotionID
+    fun getSelectedEmotionViewId(viewId: Int) {
+        if (_emotionViewId.value == viewId) {
+            _emotionViewId.value = NOTHING
+            return
+        }
+        _emotionViewId.value = viewId
     }
 
     fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->
@@ -74,6 +77,7 @@ class RecordViewModel : ViewModel() {
     }
 
     companion object {
+        private const val NOTHING = 0
         private const val ZERO = "0"
         private const val DEFAULT_TIME = "00:00"
         private const val ONE = 1
