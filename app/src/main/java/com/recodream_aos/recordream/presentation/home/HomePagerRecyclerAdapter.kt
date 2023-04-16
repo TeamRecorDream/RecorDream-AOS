@@ -1,8 +1,10 @@
 package com.recodream_aos.recordream.presentation.home // ktlint-disable filename
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,37 +12,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.HomeCardItemBinding
+import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.RecordreamMapping
 
 class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     RecyclerView.Adapter<HomeViewPagerAdapter.PagerViewHolder>() {
     private val asyncDiffer = AsyncListDiffer(this, diffResult)
-//
-//    private var homeCardList = mutableListOf<ResponseHome>()
 
-//    fun updateList(list: MutableList<ResponseHome>) {
+    private var homeCardList = mutableListOf<ResponseHome>()
+
+    fun updateList(list: MutableList<ResponseHome.Record>) {
 //        Log.i("list.size", homeCardList.size.toString())
 //        homeCardList = list
 //        this.notifyDataSetChanged()
-//        asyncDiffer.submitList(list)
-//    }
+        asyncDiffer.submitList(list)
+    }
 
     class PagerViewHolder(
         private val binding: HomeCardItemBinding,
         private val itemClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: ResponseHome) {
+        fun onBind(data: ResponseHome.Record) {
             binding.tvHomeDate.text = data.date
             binding.tvHomeCardTitle.text = data.title
             applyData(data)
 
             binding.root.setOnClickListener {
-                itemClick(data._id)
+                itemClick(data.id)
             }
         }
 
         val recorDreamMapping = RecordreamMapping()
-        private fun applyData(response: ResponseHome) {
+        private fun applyData(response: ResponseHome.Record) {
             val applyEmotion = response.let { recorDreamMapping.matchHomeEmotion(it.emotion) }
             val applyGenre = response.let { recorDreamMapping.genreMapping(it.genre) }
             val applyCardImage =
@@ -95,11 +98,11 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         holder.onBind(asyncDiffer.currentList[position])
-//
-//        holder.itemView.setOnClickListener {
-//            val intent = Intent(holder.itemView?.context, DetailActivity::class.java)
-//            ContextCompat.startActivity(holder.itemView.context, intent, null)
-//        }
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView?.context, DocumentActivity::class.java)
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -107,17 +110,17 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     }
 
     companion object {
-        private val diffResult = object : DiffUtil.ItemCallback<ResponseHome>() {
+        private val diffResult = object : DiffUtil.ItemCallback<ResponseHome.Record>() {
             override fun areItemsTheSame(
-                oldItem: ResponseHome,
-                newItem: ResponseHome
+                oldItem: ResponseHome.Record,
+                newItem: ResponseHome.Record
             ): Boolean {
-                return oldItem._id == newItem._id
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: ResponseHome,
-                newItem: ResponseHome
+                oldItem: ResponseHome.Record,
+                newItem: ResponseHome.Record
             ): Boolean {
                 return oldItem == newItem
             }
