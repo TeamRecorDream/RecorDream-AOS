@@ -20,9 +20,6 @@ class RecordViewModel : ViewModel() {
     private val _emotionId: MutableStateFlow<Int> = MutableStateFlow(NOTHING)
     val emotionId: StateFlow<Int> get() = _emotionId
 
-    private val _emotionViewId: MutableStateFlow<Int> = MutableStateFlow(NOTHING)
-    val emotionViewId: StateFlow<Int> get() = _emotionViewId
-
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
     val note = MutableStateFlow(BLANK)
@@ -48,19 +45,11 @@ class RecordViewModel : ViewModel() {
     }
 
     fun getSelectedEmotionId(emotionID: Int) {
-        if (_emotionId.value == emotionID) {
+        if (_emotionId.value == emotionID + 1) {
             _emotionId.value = NOTHING
             return
         }
-        _emotionId.value = emotionID
-    }
-
-    fun getSelectedEmotionViewId(viewId: Int) {
-        if (_emotionViewId.value == viewId) {
-            _emotionViewId.value = NOTHING
-            return
-        }
-        _emotionViewId.value = viewId
+        _emotionId.value = emotionID + 1
     }
 
     fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->
