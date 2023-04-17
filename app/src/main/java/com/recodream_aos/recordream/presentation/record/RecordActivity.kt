@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.children
@@ -44,8 +45,16 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.clRecordEmotion.children.forEachIndexed { emotionIndex, view ->
             view.setOnClickListener { emotion ->
                 recordViewModel.getSelectedEmotionId(emotionIndex)
+
+                if (emotionIndex == beforeState) {
+                    emotion.isSelected = !emotion.isSelected
+                    beforeState = emotionIndex
+                    return@setOnClickListener
+                }
                 binding.clRecordEmotion.getChildAt(beforeState).isSelected = false
-                emotion.isSelected = !emotion.isSelected
+                emotion.isSelected = true
+
+                Log.d("123123", recordViewModel.emotionId.value.toString())
 
                 beforeState = emotionIndex
             }
