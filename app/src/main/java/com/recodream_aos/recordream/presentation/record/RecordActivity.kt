@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -53,28 +54,32 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     @SuppressLint("ResourceType")
     private fun clickEmotionSettingValue(emotion: Emotion) {
-        var temp = 0
+        var beforeState = 2131296406
         binding.root.findViewById<ConstraintLayout>(emotion.viewId).apply {
             setOnClickListener { view ->
                 recordViewModel.getSelectedEmotionId(emotion.emotionID)
-                findViewById<ConstraintLayout>(1000090).isSelected = false
+                Log.d("123123", emotion.viewId.toString())
+                binding.root.findViewById<ConstraintLayout>(beforeState).isSelected = false
+                Log.d("123123", R.id.cl_record_joy.toString())
                 view.isSelected = !view.isSelected
 
-                temp = emotion.viewId
-                //  recordViewModel.getSelectedEmotionViewId(emotion.viewId)
+                beforeState = emotion.viewId
             }
         }
     }
+
+    // binding.레이아웃.children.forEach { view ->
+    //            // 로직
+    //        }
 
     private fun collectStateEmotion() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 recordViewModel.emotionViewId.collectLatest { selectedEmotion ->
                     Log.d("123123", selectedEmotion.toString())
-
-                    val view = binding.root.findViewById<ConstraintLayout>(selectedEmotion)
-
-                    if (view != null) view.isSelected = true
+                    val view = binding.clRecordEmotion.children.map {
+                        it.isSelected = true
+                    }
                 }
             }
         }
