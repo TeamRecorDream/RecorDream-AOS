@@ -40,6 +40,13 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         clickGenreSettingValue(genre)
     }
 
+    // 텍스트박스 색깔 바꾸어줄것
+    // 장르도 똑같은 코드 적용해줄것
+    // 리팩토링한번 진행
+    // 버튼 색상바꾸어줄것
+    // 장르 3개이면 쇼트메시지 출력해줄것
+    // 멀티파트 찐 시작
+
     private fun clickEmotionSettingValue() {
         var beforeState = 0
         binding.clRecordEmotion.children.forEachIndexed { emotionIndex, view ->
@@ -91,6 +98,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH),
-        ).show()
+        ).apply { datePicker.maxDate = System.currentTimeMillis() }
+            .show()
     }
 }
