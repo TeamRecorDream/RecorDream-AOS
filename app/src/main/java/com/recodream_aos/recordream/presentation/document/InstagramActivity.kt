@@ -42,7 +42,7 @@ class InstagramActivity : BindingActivity<ActivityInstagramBinding>(R.layout.act
         super.onCreate(savedInstanceState)
         initViewModel()
         binding.tvDocumentInstaDate.text = intent.getStringExtra("date")
-//        binding.ivDocumentInstaIcon.setImageDrawable() = intent.getStringExtra("emotion")
+//        binding.ivDocumentInstaIcon.setImageDrawable(intent.getStringExtra("emotion"))
         binding.tvDocumentInstaTitle.text = intent.getStringExtra("title")
         binding.tvDocumentInstaGenre1.text = intent.getStringExtra("genre1")
         binding.tvDocumentInstaGenre2.text = intent.getStringExtra("genre2")
