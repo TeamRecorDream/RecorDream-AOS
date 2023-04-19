@@ -10,13 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
-import com.recodream_aos.recordream.data.api.HomeService
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.FragmentHomeBinding
 import com.recodream_aos.recordream.di.RetrofitModule
+import com.recodream_aos.recordream.di.ServiceModule
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.RecordreamMapping
 import com.recodream_aos.recordream.util.ZoomOutPageTransformer
+import com.recodream_aos.recordream.util.enqueueUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,8 +75,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     private fun initNetwork() {
         val recordId = RetrofitModule.providesRetrofit()
         //        Log.d("dddddddddd", "wddddddddd123123ddddd")
-        val call = RetrofitModule.providesRetrofit(retrofit.)
-//        homeService.getHomeRecord()
+        val call = ServiceModule.providesHomeService().getHomeRecord()
 
         call.enqueueUtil(
             onSuccess = {
