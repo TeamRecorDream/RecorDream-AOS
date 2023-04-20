@@ -16,14 +16,14 @@ data class ResponseHome(
         val id: String,
         @SerialName("date")
         val date: String,
-        @SerialName("dream_color")
-        val dream_color: Int,
         @SerialName("emotion")
         val emotion: Int,
         @SerialName("genre")
         val genre: List<Int>,
         @SerialName("title")
         val title: String,
+        @SerialName("content")
+        val content: String,
         @SerialName("isExistVoice")
         val voice: Boolean
     )
