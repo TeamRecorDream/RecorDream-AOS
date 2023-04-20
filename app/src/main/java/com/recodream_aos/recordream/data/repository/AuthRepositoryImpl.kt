@@ -1,8 +1,12 @@
 package com.recodream_aos.recordream.data.repository // ktlint-disable package-name
 
 import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.kakao.sdk.user.UserApiClient
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
+import com.recodream_aos.recordream.data.entity.remote.response.NoDataResponse
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseNewToken
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 import com.recodream_aos.recordream.domain.repository.AuthRepository
@@ -51,6 +55,20 @@ class AuthRepositoryImpl @Inject constructor(
         return sharedPreferenceDataSource.getAccessToken()
     }
 
+    override fun unLinkKakaoAccount(initSuccessWithdraw: (Boolean) -> Unit) {
+        UserApiClient.instance.unlink { error ->
+            if (error != null) {
+                Log.d("kakao", "unLinkKakaoAccount: 연결 끊기 실패")
+                Timber.tag("kakao").e(error, "연결 끊기 실패")
+                initSuccessWithdraw(false)
+            } else {
+                Log.d("kakao", "unLinkKakaoAccount: 연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                Timber.tag("kakao").d("연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                initSuccessWithdraw(true)
+            }
+        }
+    }
+
     private fun saveNewTokens(postTokenInfo: ResponseWrapper<ResponseNewToken>) {
         if (postTokenInfo.success) {
             val newAccessToken = postTokenInfo.data!!.accessToken
@@ -75,6 +93,26 @@ class AuthRepositoryImpl @Inject constructor(
         }
         return false
     }
+
+    override suspend fun getFcmToken(getFcmToken: (String) -> Unit) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            getFcmToken(requireNotNull(task.result))
+            Log.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
+        })
+    }
+
+    override suspend fun patchSignOut(): Result<NoDataResponse> {
+        return kotlin.runCatching {
+            authDataSource.patchSignOut()
+        }.onFailure {
+            Log.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
+            it.message
+        }
+    }
+
+    override suspend fun deleteUser(): Result<NoDataResponse> =
+        kotlin.runCatching { authDataSource.deleteUser() }
+            .onFailure { Log.d("delete", "deleteUser: fail") }
 
     companion object {
         const val NO_TOKEN = 400

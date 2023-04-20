@@ -19,9 +19,8 @@ class RecordreamApp : Application() {
     }
 
     private fun initTimber() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(TimberDebugTree())
-        }
+        if (BuildConfig.DEBUG)
+            Timber.plant(Timber.DebugTree())
     }
 
     private fun initKakaoSdk() {

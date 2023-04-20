@@ -26,18 +26,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_main_top" />
 
+        <ImageView
+            android:id="@+id/iv_main_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bottom_navibar"
+            app:itemIconTint="@color/white01_FFFFFF"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <com.recodream_aos.recordream.util.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:padding="3dp"
+            android:layout_marginBottom="35dp"
             android:theme="@style/B12"
             app:itemIconTint="@color/white01_FFFFFF"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/menu_main_bnv" />
 
+        <ImageView
+            android:id="@+id/iv_navi_write_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="78dp"
+            android:src="@drawable/ic_navibar_btn_record"
+            app:layout_constraintBottom_toBottomOf="@id/iv_main_bottom"
+            app:layout_constraintEnd_toEndOf="@id/iv_main_bottom"
+            app:layout_constraintStart_toStartOf="@id/iv_main_bottom" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_main_top"
@@ -45,7 +63,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <ImageView
                 android:id="@+id/iv_main_logo"
@@ -57,7 +74,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/rd_home_rogo" />
-
 
             <ImageView
                 android:id="@+id/iv_main_search"

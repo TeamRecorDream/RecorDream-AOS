@@ -2,6 +2,7 @@ package com.recodream_aos.recordream.util
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -9,18 +10,29 @@ import android.view.Window
 import androidx.annotation.LayoutRes
 import com.recodream_aos.recordream.databinding.CustomMypageDialogBinding
 import com.recodream_aos.recordream.databinding.DocumentDeleteDialogBinding
+import com.recodream_aos.recordream.presentation.login.LoginActivity
+import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 
-class CustomDialog(context: Context) {
+
+class CustomDialog(private val context: Context) {
     private lateinit var deleteBinding: DocumentDeleteDialogBinding
     private lateinit var mypageBinding: CustomMypageDialogBinding
     private val dialog = Dialog(context)
-
     private lateinit var inflater: LayoutInflater
+    private lateinit var onClickedListener: ButtonClickListener
 
     init {
         if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(context)
         }
+    }
+
+    fun interface ButtonClickListener {
+        fun onClicked()
+    }
+
+    fun setOnClickedListener(listener: ButtonClickListener) {
+        onClickedListener = listener
     }
 
     fun showDeleteDialog(@LayoutRes layout: Int) {
@@ -52,7 +64,11 @@ class CustomDialog(context: Context) {
             dialog.dismiss()
         }
         mypageBinding.btnMypageDialogDelete.setOnClickListener {
-//            (context as OpenThunderDetailActivity).finish()
+            onClickedListener.onClicked()
+            dialog.dismiss()
+            (context as MypageActivity).finish()
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
         }
         dialog.show()
     }

@@ -39,6 +39,9 @@
     <string name="mypage_name_warning">1~8자까지 가능합니다.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mypage_setting_time_description">%2$s %2$s:%2s</string>
+    <string name="mypage_alarm_No">권한이 거부되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.</string>
+    <string name="mypage_alarm_else">권한 요청이 중단되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.</string>
+    <string name="mypage_alarm_yes">권한이 허가되어 푸시알림 기능을 이용하실 수 있습니다.</string>
 
     <!-- 기록하기 뷰 -->
     <string name="tv_record_record">기록하기</string>
@@ -72,10 +75,8 @@
     <string name="tv_record_strange">이상한</string>
     <string name="tv_record_shy">민망한</string>
 
-
     <!-- 음성녹음 뷰 -->
     <string name="tv_recording_record">음성녹음</string>
-
 
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>

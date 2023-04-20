@@ -1,9 +1,11 @@
 package com.recodream_aos.recordream.presentation.mypage // package before.forget.feature.write
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -38,9 +40,12 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private fun clickBtn() {
         binding.btnMypageSave.setOnClickListener {
             viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
+            viewModel.postPushAlam()
+            viewModel.clickSaveTime(true)
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {
+            viewModel.clickSaveTime(false)
             this.dismiss()
         }
     }
@@ -50,9 +55,9 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
         binding.npMypageBottomDay.displayedValues = str
-        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, i, i2 ->
-            val i = numberPicker.value
-            amOrpm = str[i]
+        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, i2 ->
+            val day = numberPicker.value
+            amOrpm = str[day]
 //            viewModel.setAmOrPm(amOrpm)
             binding.npMypageBottomDay.wrapSelectorWheel = false
         }
@@ -90,5 +95,10 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetDialog.behavior.saveFlags = BottomSheetBehavior.SAVE_FIT_TO_CONTENTS
+    }
+
+    companion object {
+        const val AM = "AM"
     }
 }

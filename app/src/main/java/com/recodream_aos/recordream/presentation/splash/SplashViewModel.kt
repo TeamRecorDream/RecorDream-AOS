@@ -14,6 +14,12 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
+    sealed class LoginState {
+        object SUCCESS : LoginState()
+        object FAIL : LoginState()
+        object IDLE : LoginState()
+    }
+
     private val _isLoginSuccess = MutableStateFlow<LoginState>(LoginState.IDLE)
     val isLoginSuccess: StateFlow<LoginState> get() = _isLoginSuccess
 
@@ -34,11 +40,5 @@ class SplashViewModel @Inject constructor(
 
     private fun isLoginFailure() {
         _isLoginSuccess.value = LoginState.FAIL
-    }
-
-    sealed class LoginState {
-        object SUCCESS : LoginState()
-        object FAIL : LoginState()
-        object IDLE : LoginState()
     }
 }
