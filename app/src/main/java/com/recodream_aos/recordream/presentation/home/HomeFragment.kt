@@ -2,22 +2,19 @@ package com.recodream_aos.recordream.presentation.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.FragmentHomeBinding
-import com.recodream_aos.recordream.di.RetrofitModule
-import com.recodream_aos.recordream.di.ServiceModule
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.RecordreamMapping
 import com.recodream_aos.recordream.util.ZoomOutPageTransformer
-import com.recodream_aos.recordream.util.enqueueUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +23,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
     private val binding get() = _binding!!
     private val recorDreamMapping = RecordreamMapping()
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +31,9 @@ class HomeFragment : Fragment(), LifecycleObserver {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-
+        homeViewModel.initServer()
         initAdapterHomeCard()
-        initNetwork()
+//        initNetwork()
         return binding.root
     }
 
@@ -72,28 +70,28 @@ class HomeFragment : Fragment(), LifecycleObserver {
         }
     }
 
-    private fun initNetwork() {
-        val recordId = RetrofitModule.providesRetrofit()
-        //        Log.d("dddddddddd", "wddddddddd123123ddddd")
-        val call = ServiceModule.providesHomeService().getHomeRecord()
-
-        call.enqueueUtil(
-            onSuccess = {
-                Log.d("홈프래그먼트, status", "${it.status}")
-
-                val data = it.data
-                val recordData =
-                    applyNickname(data)
-                it.data?.let { data ->
-                    addHomeCardList(data.records)
-                    Log.d("데이터체크", "${data.records}")
-                }
-            },
-            onError = {
-                Log.d("ddddddd1234", "$it")
-            }
-        )
-    }
+//    private fun initNetwork() {
+//        val recordId = RetrofitModule.providesRetrofit()
+//        //        Log.d("dddddddddd", "wddddddddd123123ddddd")
+//        val call = HomeService.getHomeRecord()
+//
+//        call.enqueueUtil(
+//            onSuccess = {
+//                Log.d("홈프래그먼트, status", "${it.status}")
+//
+//                val data = it.data
+//                val recordData =
+//                    applyNickname(data)
+//                it.data?.let { data ->
+//                    addHomeCardList(data.records)
+//                    Log.d("데이터체크", "${data.records}")
+//                }
+//            },
+//            onError = {
+//                Log.d("ddddddd1234", "$it")
+//            }
+//        )
+//    }
 
     private fun applyNickname(response: ResponseHome?) {
         if (response != null) {

@@ -24,7 +24,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     fun updateList(list: MutableList<ResponseHome.Record>) {
 //        Log.i("list.size", homeCardList.size.toString())
 //        homeCardList = list
-//        this.notifyDataSetChanged()
+//        this.notifyDataSetChanged
         asyncDiffer.submitList(list)
     }
 
@@ -46,10 +46,10 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
         private fun applyData(response: ResponseHome.Record) {
             val applyEmotion = response.let { recorDreamMapping.matchHomeEmotion(it.emotion) }
             val applyGenre = response.let { recorDreamMapping.genreMapping(it.genre) }
-            val applyCardImage =
-                response.let { recorDreamMapping.matchHomeColor(it.dream_color) }
-
-            binding.clHomeCard.setBackgroundResource(applyCardImage)
+//            val applyCardImage =
+//                response.let { recorDreamMapping.matchHomeColor(it.dream_color) }
+//
+//            binding.clHomeCard.setBackgroundResource(applyCardImage)
             binding.ivHomeEmoticon.setBackgroundResource(applyEmotion)
             binding.tvHomeCardTitle.text = response.title
 
