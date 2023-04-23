@@ -3,7 +3,6 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.view.children
@@ -11,6 +10,7 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
+import com.recodream_aos.recordream.util.shortToastByInt
 
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
@@ -31,6 +31,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         with(binding) {
             clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
             clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
+            ivRecordClose.setOnClickListener { finish() }
         }
         clickEmotionSettingValue()
         setGenreClickListener()
@@ -61,8 +62,6 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 binding.clRecordEmotion.getChildAt(beforeState).isSelected = false
                 emotion.isSelected = true
 
-                Log.d("123123", recordViewModel.emotionId.value.toString())
-
                 beforeState = emotionIndex
             }
         }
@@ -72,6 +71,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.root.findViewById<TextView>(genre.viewId).apply {
             setOnClickListener { view ->
                 if (recordViewModel.genre.value.size == 3) {
+                    shortToastByInt(R.string.tv_record_warning_max_genre)
                     if (view.isSelected) view.isSelected = false
                     recordViewModel.getSelectedGenreId(genre.genreId)
                     return@setOnClickListener
