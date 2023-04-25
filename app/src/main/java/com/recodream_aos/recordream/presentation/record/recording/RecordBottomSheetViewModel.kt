@@ -17,11 +17,12 @@ class RecordBottomSheetViewModel : ViewModel() {
     private var _fullProgressBar = MutableStateFlow(false)
     val fullProgressBar: StateFlow<Boolean> get() = _fullProgressBar
 
+    private var _recordingTime: Int = 0
+    val recordingTime get() = _recordingTime
+
     private var firstTimer: Timer? = null
     private var replayTimer: Timer? = null
     private var realTimer: Timer? = null
-
-    private var recordingTime: Int = 0
 
     fun setFullProgressBarFalse() {
         _fullProgressBar.value = false
@@ -30,7 +31,7 @@ class RecordBottomSheetViewModel : ViewModel() {
     fun initProgressBar() {
         firstTimer = timer(
             period = ONE_PERCENT,
-            initialDelay = ONE_PERCENT
+            initialDelay = ONE_PERCENT,
         ) {
             if (_nowTime.value > HUNDRED_PERCENT) cancel()
             ++_nowTime.value
@@ -46,7 +47,7 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     fun clearProgressBar() {
         _nowTime.value = ZERO
-        recordingTime = ZERO
+        _recordingTime = ZERO
     }
 
     fun setFullProgressBar() {
@@ -55,9 +56,9 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     fun replayProgressBar() {
         replayTimer = timer(
-            period = convertMilliseconds(recordingTime) / 100
+            period = convertMilliseconds(_recordingTime) / 100,
         ) {
-            Log.d("replay", recordingTime.toLong().toString())
+            Log.d("replay", _recordingTime.toLong().toString())
             if (_replayTime.value > HUNDRED_PERCENT) {
                 cancel()
                 _fullProgressBar.value = true
@@ -76,8 +77,8 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     private fun initRealTimer() {
         realTimer = timer(period = 1000, initialDelay = 1000) {
-            recordingTime++
-            print(recordingTime)
+            _recordingTime++
+            print(_recordingTime)
         }
     }
 
