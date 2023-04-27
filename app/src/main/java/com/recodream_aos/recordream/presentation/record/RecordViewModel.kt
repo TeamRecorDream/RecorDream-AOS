@@ -33,6 +33,16 @@ class RecordViewModel : ViewModel() {
 //        _emotion.value
 //    } 서버연결메서드
 
+    fun getRecordingTime(replayTime: Int) {
+        _time.value = updateCountTime(replayTime)
+    }
+
+    private fun updateCountTime(countTimeSeconds: Int): String {
+        val minutes = countTimeSeconds / ONE_MINUTE
+        val seconds = countTimeSeconds % ONE_MINUTE
+        return TIME_FORMAT.format(minutes, seconds)
+    }
+
     fun getSelectedGenreId(genreId: Int) {
         if (_genre.value.contains(genreId)) {
             _genre.value.remove(genreId)
@@ -72,6 +82,9 @@ class RecordViewModel : ViewModel() {
         private const val ONE = 1
         private const val TEN = 10
         private const val BLANK = ""
+        private const val ONE_MINUTE = 60
+        private const val ONE_SECOND = 1000L
+        private const val TIME_FORMAT = "%02d:%02d"
         private const val DATE_PATTERN = "yyyy-MM-dd"
     }
 }
