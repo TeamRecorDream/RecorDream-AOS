@@ -27,7 +27,7 @@ class RecordreamApp : Application() {
     private fun initKakaoSdk() {
         KakaoSdk.init(
             this,
-            this.getString(R.string.appKey_init_kakao)
+            this.getString(R.string.appKey_init_kakao),
         )
     }
 
