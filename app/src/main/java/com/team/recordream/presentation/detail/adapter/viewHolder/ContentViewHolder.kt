@@ -15,7 +15,13 @@ class ContentViewHolder(
     }
 
     companion object {
-        fun getView(parent: ViewGroup, layoutInflater: LayoutInflater): ItemDetailContentBinding =
-            ItemDetailContentBinding.inflate(layoutInflater, parent, false)
+        fun from(parent: ViewGroup): ContentViewHolder =
+            ContentViewHolder(
+                ItemDetailContentBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false,
+                ),
+            )
     }
 }
