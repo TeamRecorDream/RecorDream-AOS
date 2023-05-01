@@ -24,7 +24,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_main_top" />
+            app:layout_constraintTop_toBottomOf="@+id/cl_main_top"
+            tools:layout="@layout/fragment_home"
+            />
 
         <com.recodream_aos.recordream.util.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
