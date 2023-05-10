@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
     private fun observeData() {
         homeViewModel.homeRecords.observe(viewLifecycleOwner) {
-            homeViewPagerAdapter.updateList(it)
+//            homeViewPagerAdapter.updateList(it)
         }
 
         homeViewModel.userName.observe(viewLifecycleOwner) {

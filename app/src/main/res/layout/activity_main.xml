@@ -78,7 +78,7 @@
             android:id="@+id/iv_navi_write_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="46dp"
             android:src="@drawable/navibar_btn_record"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
