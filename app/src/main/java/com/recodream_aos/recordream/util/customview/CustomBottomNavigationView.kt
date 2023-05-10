@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Point
-import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,7 +15,7 @@ class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()
     private var mPaint: Paint = Paint()
 
-    private val CURVE_CIRCLE_RADIUS = 190 / 2 // 움푹파이는자식
+    private val radiusCurve = 76 // 움푹파이는자식
 
     private val mFirstCurveStartPoint = Point()
     private val mFirstCurveEndPoint = Point()
@@ -29,14 +28,6 @@ class CustomBottomNavigationView : BottomNavigationView {
     private val mSecondCurveControlPoint2 = Point()
     private var mNavigationBarWidth: Int = 0
     private var mNavigationBarHeight: Int = 0
-
-    val startColor = Color.parseColor("#FF0000") // 시작 색상
-    val endColor = Color.parseColor("#00FF00") // 끝 색상
-
-    val gradientDrawable = GradientDrawable(
-        GradientDrawable.Orientation.TOP_BOTTOM,
-        intArrayOf(startColor, endColor),
-    )
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
         context,
@@ -68,35 +59,35 @@ class CustomBottomNavigationView : BottomNavigationView {
 
         mFirstCurveStartPoint.set(
             // CURVE_CIRCLE_RADIUS 굴곡담당
-            (mNavigationBarWidth / 1.92 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3).toInt(),
+            (mNavigationBarWidth / 2 - radiusCurve * 2 - radiusCurve / 3).toInt(),
             0,
         )
         mFirstCurveEndPoint.set(
             (mNavigationBarWidth / 2),
-            CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4,
+            radiusCurve + radiusCurve / 4,
         )
         mSecondCurveStartPoint = mFirstCurveEndPoint
         mSecondCurveEndPoint.set(
-            (mNavigationBarWidth / 2.1 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3).toInt(),
+            (mNavigationBarWidth / 2 + radiusCurve * 2 + radiusCurve / 3).toInt(),
             0,
         )
 
         mFirstCurveControlPoint1.set(
-            mFirstCurveStartPoint.x + CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4,
+            mFirstCurveStartPoint.x + radiusCurve + radiusCurve / 4,
             mFirstCurveStartPoint.y,
         )
 
         mFirstCurveControlPoint2.set(
-            (mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2.29 + CURVE_CIRCLE_RADIUS).toInt(),
+            (mFirstCurveEndPoint.x - radiusCurve * 2.29 + radiusCurve).toInt(),
             mFirstCurveEndPoint.y,
         )
 
         mSecondCurveControlPoint1.set(
-            (mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2.29 - CURVE_CIRCLE_RADIUS).toInt(),
+            (mSecondCurveStartPoint.x + radiusCurve * 2.29 - radiusCurve).toInt(),
             mSecondCurveStartPoint.y,
         )
         mSecondCurveControlPoint2.set(
-            mSecondCurveEndPoint.x - (CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4),
+            mSecondCurveEndPoint.x - (radiusCurve + radiusCurve / 4),
             mSecondCurveEndPoint.y,
         )
 
