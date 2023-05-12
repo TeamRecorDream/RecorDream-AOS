@@ -17,9 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
-import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.RecorDreamFireBaseMessagingService
-import com.recodream_aos.recordream.util.shortToast
+import com.recodream_aos.recordream.util.shortToastByString
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -41,18 +40,18 @@ class MypageActivity : AppCompatActivity() {
                     map[DENIED]?.let {
                         // 단순히 권한이 거부 되었을 때
                         Log.d("mypage", ": 단순히 권한이 거부 되었을 때")
-                        shortToast("단순히 권한이 거부 되었을 때")
+                        shortToastByString("단순히 권한이 거부 되었을 때")
                     }
                     map[EXPLAINED]?.let {
                         // 권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)
                         Log.d("mypage", ": 권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)")
-                        shortToast("권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)")
+                        shortToastByString("권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)")
                     }
                 }
                 else -> {
                     // 모든 권한이 허가 되었을 때
                     Log.d("mypage", ": 모든 권한이 허가 되었을 때")
-                    shortToast("모든 권한이 허가 되었을 때")
+                    shortToastByString("모든 권한이 허가 되었을 때")
                 }
             }
         }
