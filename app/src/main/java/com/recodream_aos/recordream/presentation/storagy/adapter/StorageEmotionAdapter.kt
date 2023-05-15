@@ -17,7 +17,7 @@ class StorageEmotionAdapter(private val emotionItemClick: (Int) -> Unit) :
             ItemListStoreMyemotionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
+                false,
             )
         return EmotionViewHolder(binding, emotionItemClick)
     }
@@ -28,7 +28,7 @@ class StorageEmotionAdapter(private val emotionItemClick: (Int) -> Unit) :
 
     class EmotionViewHolder(
         private val binding: ItemListStoreMyemotionBinding,
-        private val emotionItemClick: (Int) -> Unit
+        private val emotionItemClick: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: StorageEmotionData) {
@@ -43,13 +43,12 @@ class StorageEmotionAdapter(private val emotionItemClick: (Int) -> Unit) :
                 binding.tvStoreEmotion.setTextColor(Color.GRAY)
             }
             binding.tvStoreEmotion.text = data.feelingText
-
         }
 
         companion object {
             val diffUtil = DiffUtilItemCallback<StorageEmotionData>(
                 onItemsTheSame = { old, new -> old.isSelected == new.isSelected },
-                onContentsTheSame = { old, new -> old == new }
+                onContentsTheSame = { old, new -> old == new },
             )
         }
     }
