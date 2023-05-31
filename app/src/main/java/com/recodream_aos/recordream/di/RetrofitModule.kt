@@ -1,6 +1,7 @@
 package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 // import com.recodream_aos.recordream.util.interceptor.AuthInterceptor
+import androidx.databinding.ktx.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.recodream_aos.recordream.BuildConfig
 import com.recodream_aos.recordream.util.interceptor.AuthInterceptor
