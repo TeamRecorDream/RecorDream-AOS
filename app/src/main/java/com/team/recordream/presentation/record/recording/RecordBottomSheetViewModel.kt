@@ -132,7 +132,7 @@ class RecordBottomSheetViewModel @Inject constructor(
     }
 
     private fun initProgressBar() {
-        firstTimer = timer(period = ONE_PERCENT) {
+        firstTimer = timer(period = ONE_PERCENT, initialDelay = -ONE_SECOND) {
             if (_nowTime.value > HUNDRED_PERCENT) {
                 cancel()
                 stopRecording()
@@ -142,7 +142,7 @@ class RecordBottomSheetViewModel @Inject constructor(
     }
 
     private fun initRealTimer() {
-        realTimer = timer(period = ONE_SECOND) {
+        realTimer = timer(period = ONE_SECOND, initialDelay = -ONE_SECOND) {
             recordingTime++
         }
     }
