@@ -8,12 +8,12 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 interface AuthDataSource {
     suspend fun postLogin(
         kakaoToken: String,
-        fcmToken: String
+        fcmToken: String,
     ): ResponseLogin
 
     suspend fun postToken(
         accessToken: String,
-        refreshToken: String
+        refreshToken: String,
     ): ResponseWrapper<ResponseNewToken>
 
     suspend fun patchSignOut(): NoDataResponse

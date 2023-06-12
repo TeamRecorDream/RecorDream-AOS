@@ -24,6 +24,4 @@ interface MypageService {
 
     @PUT("user/nickname")
     suspend fun putUserName(@Body nickName: RequestNickName): NoDataResponse
-
-
 }

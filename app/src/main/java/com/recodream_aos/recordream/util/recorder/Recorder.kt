@@ -57,9 +57,9 @@ object Recorder {
             } catch (e: IllegalAccessException) {
                 e.printStackTrace()
             } catch (
-                e: InvocationTargetException
+                e: InvocationTargetException,
             ) {
-                e.targetException.printStackTrace(); // getTargetException
+                e.targetException.printStackTrace() // getTargetException
             }
         }
         recorder?.start()

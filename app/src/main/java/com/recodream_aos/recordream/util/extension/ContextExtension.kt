@@ -8,8 +8,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.roundToInt
 
-private const val TWO_SECONDS = 2000
-
 fun Context.shortToastByString(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

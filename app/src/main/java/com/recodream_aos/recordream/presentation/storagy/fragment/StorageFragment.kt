@@ -30,8 +30,9 @@ class StorageFragment : Fragment() {
     private val storageViewModel by viewModels<StorageViewModel>()
     private val storageEmotionAdapter = StorageEmotionAdapter(::emotionClick)
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -59,7 +60,6 @@ class StorageFragment : Fragment() {
                     initListAdapter()
                     storageViewModel.initServer(emotionCheck)
                     storageListAdapter.submitList(storageViewModel.storageRecords.value)
-
                 }
             }
 

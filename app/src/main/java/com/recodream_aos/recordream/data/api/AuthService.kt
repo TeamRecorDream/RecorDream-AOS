@@ -7,13 +7,13 @@ import retrofit2.http.*
 interface AuthService {
     @POST("/auth/login")
     suspend fun postLogin(
-        @Body requestLogin: RequestLogin
+        @Body requestLogin: RequestLogin,
     ): ResponseWrapper<ResponseLogin>
 
     @POST("/auth/token")
     suspend fun postToken(
         @Header("access") access: String,
-        @Header("refresh") refresh: String
+        @Header("refresh") refresh: String,
     ): ResponseWrapper<ResponseNewToken>
 
     @DELETE("user")
@@ -21,5 +21,4 @@ interface AuthService {
 
     @POST("auth/logout")
     suspend fun patchLogout(): NoDataResponse
-
 }

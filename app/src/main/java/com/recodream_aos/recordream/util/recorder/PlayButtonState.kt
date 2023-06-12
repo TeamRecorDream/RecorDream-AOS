@@ -2,5 +2,5 @@ package com.recodream_aos.recordream.util.recorder // ktlint-disable package-nam
 
 enum class PlayButtonState {
     RECORDER_PLAY,
-    RECORDER_STOP
+    RECORDER_STOP,
 }

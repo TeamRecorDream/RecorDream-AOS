@@ -3,5 +3,5 @@ package com.recodream_aos.recordream.util.recorder // ktlint-disable package-nam
 enum class RecordButtonState {
     BEFORE_RECORDING,
     ON_RECORDING,
-    AFTER_RECORDING
+    AFTER_RECORDING,
 }

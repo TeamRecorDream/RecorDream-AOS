@@ -229,7 +229,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onStop() {
         super.onStop()
-        recorder?.recorderRelease()
-        recorder?.playerRelease()
+        recorder.recorderRelease()
+        recorder.playerRelease()
     }
 }

@@ -20,7 +20,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentMypageBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,9 +39,11 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.btnMypageSave.setOnClickListener {
             viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
             viewModel.postPushAlam()
+            viewModel.clickSaveTime(true)
             this.dismiss()
         }
         binding.btnMypageCancle.setOnClickListener {
+            viewModel.clickSaveTime(false)
             this.dismiss()
         }
     }
@@ -91,5 +93,10 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetDialog.behavior.saveFlags = BottomSheetBehavior.SAVE_FIT_TO_CONTENTS
+    }
+
+    companion object {
+        const val AM = "AM"
     }
 }

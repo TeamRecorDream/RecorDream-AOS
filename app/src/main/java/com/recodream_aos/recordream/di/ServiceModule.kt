@@ -17,18 +17,18 @@ object ServiceModule {
     @Provides
     @Singleton
     fun providesLoginService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): AuthService = retrofit.create(AuthService::class.java)
 
     @Provides
     @Singleton
     fun providesStorageService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): StorageService = retrofit.create(StorageService::class.java)
 
     @Provides
     @Singleton
     fun providesMypageUserService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): MypageService = retrofit.create(MypageService::class.java)
 }
