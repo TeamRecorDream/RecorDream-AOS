@@ -119,7 +119,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
             recordViewModel.getRecordState = true
-            recordViewModel.getRecordingTime(recordBottomSheetViewModel.recordingTime)
+            // recordViewModel.getRecordingTime(recordBottomSheetViewModel.recordingTime)
             dismiss()
         }
     }

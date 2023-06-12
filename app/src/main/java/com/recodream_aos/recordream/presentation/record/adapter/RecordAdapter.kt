@@ -14,8 +14,8 @@ import com.recodream_aos.recordream.presentation.record.uistate.EmotionUiState
 class RecordAdapter(
     private val onClick: RecordClickListener,
 ) : RecyclerView.Adapter<RecordViewHolder>() {
-    private val emotionUiModelItems = listOf(JOY, SAD, SCARY, STRANGE, SHY)
-    private val emotionsUiState = mutableListOf<EmotionUiState>(
+    private var beforeSelectedIndex = INITIAL_VALUE
+    private val emotionsUiState = mutableListOf(
         EmotionUiState(JOY, false),
         EmotionUiState(SAD, false),
         EmotionUiState(SCARY, false),
@@ -33,11 +33,28 @@ class RecordAdapter(
         holder.bind(emotionsUiState[position])
     }
 
-    override fun getItemCount(): Int = emotionUiModelItems.size
+    override fun getItemCount(): Int = emotionsUiState.size
 
     fun updateEmotionState(selectedEmotionIndex: Int) {
-        emotionsUiState[selectedEmotionIndex] =
-            emotionsUiState[selectedEmotionIndex].copy(selected = !emotionsUiState[selectedEmotionIndex].selected)
-        notifyItemChanged(selectedEmotionIndex)
+        if (selectedEmotionIndex == beforeSelectedIndex) return
+
+        if (beforeSelectedIndex in RANGE) {
+            emotionsUiState[beforeSelectedIndex].copy(selected = false).also {
+                emotionsUiState[beforeSelectedIndex] = it
+                notifyItemChanged(beforeSelectedIndex)
+            }
+        }
+
+        emotionsUiState[selectedEmotionIndex].copy(selected = true).also {
+            emotionsUiState[selectedEmotionIndex] = it
+            notifyItemChanged(selectedEmotionIndex)
+        }
+
+        beforeSelectedIndex = selectedEmotionIndex
+    }
+
+    companion object {
+        private const val INITIAL_VALUE = -1
+        private val RANGE = 0..4
     }
 }

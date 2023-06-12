@@ -26,7 +26,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
         initViewModel()
-        initAdapter()
+        attachAdapter()
         setClickListener()
     }
 
@@ -35,7 +35,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.lifecycleOwner = this
     }
 
-    private fun initAdapter() {
+    private fun attachAdapter() {
         binding.rvRecordEmotion.adapter = recordAdapter
     }
 
@@ -59,12 +59,9 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         ).show()
     }
 
-    private fun initRecordBottomSheetDialog() =
-        RecordBottomSheetFragment()
-            .show(
-                supportFragmentManager,
-                RecordBottomSheetFragment().tag,
-            )
+    private fun initRecordBottomSheetDialog() {
+        RecordBottomSheetFragment().show(supportFragmentManager, RecordBottomSheetFragment().tag)
+    }
 
     private fun setGenreClickListener() = Genre.values().map { genre ->
         clickGenreSettingValue(genre)

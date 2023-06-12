@@ -40,7 +40,7 @@
             android:layout_marginTop="8dp"
             android:text="@{emotion.emotion.emotionName}"
             android:textAppearance="@style/R10"
-            android:textColor="@color/selector_color_white_purple"
+            android:textColor="@color/selector_color_white01_white03"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_record_item_emotion"
             app:layout_constraintStart_toStartOf="@+id/iv_record_item_emotion"
