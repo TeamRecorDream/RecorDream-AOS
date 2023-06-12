@@ -11,7 +11,6 @@ import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 import com.recodream_aos.recordream.presentation.record.RecordActivity
 import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.RequestBody
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -48,7 +47,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     private fun setOnClick() {
         binding.ivMainMypage.setOnClickListener {
             val intent = Intent(this, MypageActivity::class.java)
-
 
             startActivity(intent)
         }

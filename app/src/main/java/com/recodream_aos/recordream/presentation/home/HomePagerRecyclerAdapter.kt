@@ -69,11 +69,13 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
                     binding.tvHomeGenre2.visibility = View.INVISIBLE
                     binding.tvHomeGenre3.visibility = View.INVISIBLE
                 }
+
                 2 -> {
                     binding.tvHomeGenre1.visibility = View.VISIBLE
                     binding.tvHomeGenre2.visibility = View.VISIBLE
                     binding.tvHomeGenre3.visibility = View.INVISIBLE
                 }
+
                 3 -> {
                     binding.tvHomeGenre1.visibility = View.VISIBLE
                     binding.tvHomeGenre2.visibility = View.VISIBLE

@@ -48,6 +48,7 @@ class MypageActivity : AppCompatActivity() {
                         shortToastByInt(R.string.mypage_alarm_else)
                     }
                 }
+
                 else -> {
                     // 모든 권한이 허가 되었을 때
                     shortToastByInt(R.string.mypage_alarm_yes)
@@ -138,6 +139,7 @@ class MypageActivity : AppCompatActivity() {
                         mypageViewModel.userName.value = binding.edtMypageName.text.toString()
                         Log.d("mypage", "2editName: enter클릭했다")
                     }
+
                     else -> // 기본 엔터키 동작
                         return@OnEditorActionListener false
                 }
