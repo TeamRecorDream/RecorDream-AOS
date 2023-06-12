@@ -9,26 +9,31 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
-    private var _date = MutableStateFlow(BLANK)
+    private var _date =
+        MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
 
     private var _time = MutableStateFlow(DEFAULT_TIME)
     val time: StateFlow<String> get() = _time
 
+    private var _emotion = MutableStateFlow<Int?>(null)
+    val emotion: StateFlow<Int?> get() = _emotion
+
     val genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
-    var emotion = MutableStateFlow(0)
+
+    // var emotion = MutableStateFlow(0)
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
     val note = MutableStateFlow(BLANK)
     var getRecordState = false
 
-    init {
-        initLocalDate()
-    }
-
 //    fun saveRecordingMyDream() {
 //        emotion.value
 //    } 서버연결메서드
+
+    fun fetchSelectedEmotionId(emotionId: Int) {
+        _emotion.value = emotionId
+    }
 
     fun getSelectedGenreId(genreId: Int) {
         if (genre.value.contains(genreId)) {
@@ -42,24 +47,19 @@ class RecordViewModel : ViewModel() {
         Log.d("listlist", "${genre.value}")
     }
 
-    fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->
-        _date.value = "$year-${modifyDateUnits(month + ONE)}-${modifyDateUnits(day)}"
-    }
-
-    private fun initLocalDate() {
-        _date.value = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
+    fun initDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+        _date.value = "$year-${modifyDateUnits(month + CORRECTION_VALUE)}-${modifyDateUnits(day)}"
     }
 
     private fun modifyDateUnits(month: Int): String {
-        if (month < TEN) return ZERO + month.toString()
+        if (month < TWO_DIGITS) return (CORRECTION_VALUE + month).toString()
         return month.toString()
     }
 
     companion object {
-        private const val ZERO = "0"
         private const val DEFAULT_TIME = "00:00"
-        private const val ONE = 1
-        private const val TEN = 10
+        private const val CORRECTION_VALUE = 1
+        private const val TWO_DIGITS = 10
         private const val BLANK = ""
         private const val DATE_PATTERN = "yyyy-MM-dd"
     }

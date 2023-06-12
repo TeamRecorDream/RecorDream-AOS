@@ -1,10 +1,17 @@
 package com.recodream_aos.recordream.util
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 object BindingAdapter {
+    @JvmStatic
+    @BindingAdapter("selected")
+    fun isSelected(view: View, isSelected: Boolean) {
+        view.isSelected = isSelected
+    }
+
     @JvmStatic
     @BindingAdapter("imgResId")
     fun setImageResId(imageview: ImageView, resId: Int) {

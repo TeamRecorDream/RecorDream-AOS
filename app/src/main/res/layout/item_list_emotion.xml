@@ -7,14 +7,19 @@
 
         <variable
             name="emotion"
-            type="com.recodream_aos.recordream.presentation.record.uistate.Emotion" />
+            type="com.recodream_aos.recordream.presentation.record.uistate.EmotionUiState" />
 
+        <variable
+            name="onClick"
+            type="com.recodream_aos.recordream.presentation.record.RecordClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_record_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> onClick.setClickEventOnEmotion(emotion.emotion.ordinal())}"
+        app:selected="@{emotion.selected}">
 
         <ImageView
             android:id="@+id/iv_record_item_emotion"
@@ -22,7 +27,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:glideSrc="@{emotion.emotion}"
+            app:glideSrc="@{emotion.emotion.viewId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,9 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{emotion.emotionName}"
+            android:text="@{emotion.emotion.emotionName}"
             android:textAppearance="@style/R10"
-            android:textColor="@color/white01_FFFFFF"
+            android:textColor="@color/selector_color_white_purple"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/iv_record_item_emotion"
             app:layout_constraintStart_toStartOf="@+id/iv_record_item_emotion"

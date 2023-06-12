@@ -4,14 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.databinding.ItemListEmotionBinding
-import com.recodream_aos.recordream.presentation.record.uistate.Emotion
+import com.recodream_aos.recordream.presentation.record.RecordClickListener
+import com.recodream_aos.recordream.presentation.record.uistate.EmotionUiState
 
 class RecordViewHolder(
+    onClick: RecordClickListener,
     private val binding: ItemListEmotionBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(emotion: Emotion) {
-        binding.emotion = emotion
+    init {
+        binding.onClick = onClick
+    }
+
+    fun bind(emotionUiState: EmotionUiState) {
+        binding.emotion = emotionUiState
     }
 
     companion object {
