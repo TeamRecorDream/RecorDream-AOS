@@ -3,7 +3,6 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
@@ -31,24 +30,11 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
             clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
         }
-        setEmotionClickListener()
         setGenreClickListener()
-    }
-
-    private fun setEmotionClickListener() = Emotion.values().map { emotion ->
-        clickEmotionSettingValue(emotion)
     }
 
     private fun setGenreClickListener() = Genre.values().map { genre ->
         clickGenreSettingValue(genre)
-    }
-
-    private fun clickEmotionSettingValue(emotion: Emotion) {
-        binding.root.findViewById<ImageView>(emotion.viewId).apply {
-            setOnClickListener {
-                recordViewModel.getSelectedEmotionId(emotion.emotionID)
-            }
-        }
     }
 
     private fun clickGenreSettingValue(genre: Genre) {
