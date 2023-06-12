@@ -7,6 +7,5 @@ data class ResponseMypageUser(
     val email: String,
     val isActive: Boolean,
     val nickname: String,
-    val time: String?
+    val time: String?,
 )
-

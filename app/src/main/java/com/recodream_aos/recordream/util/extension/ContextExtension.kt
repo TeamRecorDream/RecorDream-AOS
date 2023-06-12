@@ -8,7 +8,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.roundToInt
 
-fun Context.shortToast(message: Int) {
+fun Context.shortToastByString(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Context.shortToastByInt(message: Int) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
@@ -17,7 +21,7 @@ fun Context.dpToPixel(dp: Int): Int =
 
 fun <ResponseType> Call<ResponseType>.enqueueUtil(
     onSuccess: (ResponseType) -> Unit,
-    onError: ((stateCode: Int) -> Unit)? = null
+    onError: ((stateCode: Int) -> Unit)? = null,
 ) {
     this.enqueue(object : Callback<ResponseType> {
         override fun onResponse(call: Call<ResponseType>, response: Response<ResponseType>) {

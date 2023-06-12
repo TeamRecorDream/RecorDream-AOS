@@ -31,7 +31,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 when (item.itemId) {
                     R.id.menu_home -> HomeFragment()
                     else -> StorageFragment()
-                }
+                },
             )
             true
         }

@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MypageViewModel @Inject constructor(
     private val mypageUserRepository: MypageUserRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
 ) : ViewModel() {
 
     val userName = MutableLiveData<String>()
@@ -78,9 +78,11 @@ class MypageViewModel @Inject constructor(
         val formatHour = String.format("%02d", h)
         val formatMinute = String.format("%02d", m)
         _isShow.value = String.format(
-            //todo %02s로 하면 왜 안됨?
+            // todo %02s로 하면 왜 안됨?
             "%s %s:%s",
-            day, formatHour, formatMinute
+            day,
+            formatHour,
+            formatMinute,
         )
     }
 

@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView
 
 class TimeStampTextView(
     context: Context,
-    attributeSet: AttributeSet? = null
+    attributeSet: AttributeSet? = null,
 ) : AppCompatTextView(context, attributeSet) {
     private var startTimeStamp = ZERO_LONG
 

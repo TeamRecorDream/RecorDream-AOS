@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.R
 
 abstract class BindingFragment<B : ViewDataBinding>(
-    @LayoutRes private val layoutResId: Int
+    @LayoutRes private val layoutResId: Int,
 ) : Fragment() {
     private var _binding: B? = null
     val binding get() = _binding ?: error(R.string.error_basefragment)
@@ -19,14 +19,14 @@ abstract class BindingFragment<B : ViewDataBinding>(
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
         return binding.root
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
     }
 }

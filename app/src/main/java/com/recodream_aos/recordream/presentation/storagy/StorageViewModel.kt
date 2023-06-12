@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StorageViewModel @Inject constructor(
-    private val storageRepository: StorageRepository
+    private val storageRepository: StorageRepository,
 ) : ViewModel() {
     private val _storageRecords = MutableLiveData<List<ResponseStorage.Record>>()
     val storageRecords: LiveData<List<ResponseStorage.Record>>
@@ -54,37 +54,37 @@ class StorageViewModel @Inject constructor(
                 selectedImage = R.drawable.feeling_xs_all,
                 unSelectedImage = R.drawable.feeling_xs_all_off,
                 feelingText = ALL,
-                isSelected = true
+                isSelected = true,
             ),
             StorageEmotionData(
                 selectedImage = R.drawable.feeling_xs_joy,
                 unSelectedImage = R.drawable.feeling_xs_joy_off,
-                feelingText = JOY
+                feelingText = JOY,
             ),
             StorageEmotionData(
                 selectedImage = R.drawable.feeling_xs_sad,
                 unSelectedImage = R.drawable.feeling_xs_sad_off,
-                feelingText = SAD
+                feelingText = SAD,
             ),
             StorageEmotionData(
                 selectedImage = R.drawable.feeling_xs_scary,
                 unSelectedImage = R.drawable.feeling_xs_scary_off,
-                feelingText = SCARY
+                feelingText = SCARY,
             ),
             StorageEmotionData(
                 selectedImage = R.drawable.feeling_xs_strange,
                 unSelectedImage = R.drawable.feeling_xs_strange_off,
-                feelingText = STRANGE
+                feelingText = STRANGE,
             ),
             StorageEmotionData(
                 selectedImage = R.drawable.feeling_xs_shy,
                 unSelectedImage = R.drawable.feeling_xs_shy_off,
-                feelingText = SHY
+                feelingText = SHY,
             ),
             StorageEmotionData(
                 selectedImage = R.drawable.feeling_xs_blank,
                 unSelectedImage = R.drawable.feeling_xs_blank_off,
-                feelingText = BLANK
+                feelingText = BLANK,
             ),
         )
     }

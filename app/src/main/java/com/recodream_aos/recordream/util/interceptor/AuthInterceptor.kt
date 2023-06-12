@@ -11,7 +11,7 @@ import javax.inject.Provider
 // ktlint-disable package-name
 
 class AuthInterceptor @Inject constructor(
-    private val authRepositoryProvider: Provider<AuthRepository>
+    private val authRepositoryProvider: Provider<AuthRepository>,
 ) : Interceptor {
     private val authRepository: AuthRepository
         get() = authRepositoryProvider.get()
@@ -30,12 +30,14 @@ class AuthInterceptor @Inject constructor(
         // 헤더값에다가 토큰 다 넣어주라는 로직입니다
         val newRequest = if (containAuth(originalRequest.url.encodedPath)) {
             originalRequest
-        } else originalRequest
-            .newBuilder()
-            .addHeader(
-                "Authorization",
-                getAccessToken()
-            ).build()
+        } else {
+            originalRequest
+                .newBuilder()
+                .addHeader(
+                    "Authorization",
+                    getAccessToken(),
+                ).build()
+        }
         val response = chain.proceed(newRequest)
         // 이렇게 리스폰스를 찍어보면 무슨 값이 날라오것쥬?
         Log.d("안녕안녕2", response.code.toString())

@@ -2,6 +2,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="@color/purple_7F75EE" android:state_selected="true" />
     <item android:color="@color/purple_7F75EE" android:state_focused="true" />
-    <item android:color="@color/purple_7F75EE" android:state_pressed="true" />
     <item android:color="@color/white04_33FFFFFF" />
 </selector>

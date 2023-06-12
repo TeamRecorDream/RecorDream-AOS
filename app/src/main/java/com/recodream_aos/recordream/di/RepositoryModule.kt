@@ -26,19 +26,19 @@ object RepositoryModule {
     @Singleton
     fun providesLoginRepository(
         sharedPreferenceDataSource: SharedPreferenceDataSource,
-        authDataSource: AuthDataSource
+        authDataSource: AuthDataSource,
     ): AuthRepository = AuthRepositoryImpl(authDataSource, sharedPreferenceDataSource)
 
     @Provides
     @Singleton
     fun providesStorageRepository(
-        storageDateSource: StorageDateSource
+        storageDateSource: StorageDateSource,
     ): StorageRepository = StorageRepositoryImpl(storageDateSource)
 
     @Provides
     @Singleton
     fun providesMypageUserRepository(
-        mypageDataSource: MypageDateSource
+        mypageDataSource: MypageDateSource,
     ): MypageUserRepository = MypageUserRepositoryImpl(mypageDataSource)
 
     @Provides

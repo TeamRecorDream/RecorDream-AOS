@@ -13,7 +13,6 @@ import com.recodream_aos.recordream.databinding.DocumentDeleteDialogBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 
-
 class CustomDialog(private val context: Context) {
     private lateinit var deleteBinding: DocumentDeleteDialogBinding
     private lateinit var mypageBinding: CustomMypageDialogBinding

@@ -20,9 +20,8 @@ import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.RecorDreamFireBaseMessagingService
-import com.recodream_aos.recordream.util.shortToast
+import com.recodream_aos.recordream.util.shortToastByInt
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
@@ -42,16 +41,16 @@ class MypageActivity : AppCompatActivity() {
                     }
                     map[DENIED]?.let {
                         // 단순히 권한이 거부 되었을 때
-                        shortToast(R.string.mypage_alarm_No)
+                        shortToastByInt(R.string.mypage_alarm_No)
                     }
                     map[EXPLAINED]?.let {
                         // 권한 요청이 완전히 막혔을 때(주로 앱 상세 창 열기)
-                        shortToast(R.string.mypage_alarm_else)
+                        shortToastByInt(R.string.mypage_alarm_else)
                     }
                 }
                 else -> {
                     // 모든 권한이 허가 되었을 때
-                    shortToast(R.string.mypage_alarm_yes)
+                    shortToastByInt(R.string.mypage_alarm_yes)
                 }
             }
         }
@@ -76,7 +75,7 @@ class MypageActivity : AppCompatActivity() {
             }
             userName.observe(this@MypageActivity) { name ->
                 if (name.toString().isNullOrBlank()) {
-                    shortToast(R.string.mypage_name_warning)
+                    shortToastByInt(R.string.mypage_name_warning)
                 } else {
                     binding.edtMypageName.setText(name)
                     putUserName()
@@ -116,7 +115,6 @@ class MypageActivity : AppCompatActivity() {
         binding.ivMypageEditName.setOnClickListener { editName() }
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
-
     }
 
     private fun editName() {
@@ -127,21 +125,26 @@ class MypageActivity : AppCompatActivity() {
             edtMypageName.requestFocus()
             inputMethodManager.showSoftInput(edtMypageName, 0)
         }
-        binding.edtMypageName.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-                    binding.edtMypageName.clearFocus()
-                    inputMethodManager.hideSoftInputFromWindow(binding.edtMypageName.windowToken, 0)
-                    binding.edtMypageName.isEnabled = false
-                    mypageViewModel.userName.value = binding.edtMypageName.text.toString()
-                    Log.d("mypage", "2editName: enter클릭했다")
+        binding.edtMypageName.setOnEditorActionListener(
+            OnEditorActionListener { v, actionId, event ->
+                when (actionId) {
+                    EditorInfo.IME_ACTION_DONE -> {
+                        binding.edtMypageName.clearFocus()
+                        inputMethodManager.hideSoftInputFromWindow(
+                            binding.edtMypageName.windowToken,
+                            0,
+                        )
+                        binding.edtMypageName.isEnabled = false
+                        mypageViewModel.userName.value = binding.edtMypageName.text.toString()
+                        Log.d("mypage", "2editName: enter클릭했다")
+                    }
+                    else -> // 기본 엔터키 동작
+                        return@OnEditorActionListener false
                 }
-                else ->                 // 기본 엔터키 동작
-                    return@OnEditorActionListener false
-            }
-            Log.d("mypage", "editName: 3")
-            true
-        })
+                Log.d("mypage", "editName: 3")
+                true
+            },
+        )
     }
 
     private fun showDialog() {
@@ -205,7 +208,7 @@ class MypageActivity : AppCompatActivity() {
     private fun sendSdkNotify() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerForActivityResult.launch(
-                arrayOf(Manifest.permission.POST_NOTIFICATIONS)
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
             )
         }
         RecorDreamFireBaseMessagingService()

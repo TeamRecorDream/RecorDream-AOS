@@ -46,9 +46,11 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             if (authRepository.postLogin(
                     kakaoToken,
-                    fcmToken
+                    fcmToken,
                 )
-            ) isSignUpSuccess()
+            ) {
+                isSignUpSuccess()
+            }
         }
     }
 

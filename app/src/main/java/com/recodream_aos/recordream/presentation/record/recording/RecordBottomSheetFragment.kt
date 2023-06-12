@@ -43,7 +43,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentRecordBottomSheetBinding.inflate(layoutInflater)
         dialog?.setCanceledOnTouchOutside(false) // 한줄이면 외부막고 백버튼 가능..
@@ -119,7 +119,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
             recordViewModel.getRecordState = true
-
+            recordViewModel.getRecordingTime(recordBottomSheetViewModel.recordingTime)
             dismiss()
         }
     }
@@ -229,7 +229,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onStop() {
         super.onStop()
-        recorder?.recorderRelease()
-        recorder?.playerRelease()
+        recorder.recorderRelease()
+        recorder.playerRelease()
     }
 }

@@ -10,7 +10,7 @@ import com.recodream_aos.recordream.util.recorder.RecordButtonState.ON_RECORDING
 
 class RecordButton(
     context: Context,
-    attributeSet: AttributeSet? = null
+    attributeSet: AttributeSet? = null,
 ) : AppCompatImageButton(context, attributeSet) {
 
     fun updateIconWithState(state: RecordButtonState) {
