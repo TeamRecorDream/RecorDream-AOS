@@ -1,8 +1,7 @@
 package com.recodream_aos.recordream.di // ktlint-disable package-name
 
-// import com.recodream_aos.recordream.util.interceptor.AuthInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.recodream_aos.recordream.BuildConfig
+import com.recodream_aos.recordream.BuildConfig.* // ktlint-disable no-wildcard-imports
 import com.recodream_aos.recordream.util.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -26,14 +25,14 @@ object RetrofitModule {
     @Singleton
     fun providesRetrofit(client: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BuildConfig.RECORDREAM_BASE_URL)
+            .baseUrl(RECORDREAM_BASE_URL)
             .client(client)
             .addConverterFactory(
                 Json.asConverterFactory(
                     requireNotNull(
-                        CONTENT_TYPE.toMediaTypeOrNull()
-                    )
-                )
+                        CONTENT_TYPE.toMediaTypeOrNull(),
+                    ),
+                ),
             )
             .build()
 
@@ -43,7 +42,7 @@ object RetrofitModule {
         .addInterceptor(
             HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
-            }
+            },
         )
         .addInterceptor(authInterceptor)
         .build()
