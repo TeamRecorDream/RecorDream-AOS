@@ -15,12 +15,6 @@ class RecordViewModel : ViewModel() {
     private var _time = MutableStateFlow(DEFAULT_TIME)
     val time: StateFlow<String> get() = _time
 
-    val isJoyButtonChecked = MutableStateFlow<Boolean>(false)
-    val isSadButtonChecked = MutableStateFlow<Boolean>(false)
-    val isScaryButtonChecked = MutableStateFlow<Boolean>(false)
-    val isStrangeButtonChecked = MutableStateFlow<Boolean>(false)
-    val isShyButtonChecked = MutableStateFlow<Boolean>(false)
-
     val genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
     var emotion = MutableStateFlow(0)
     val title = MutableStateFlow(BLANK)
@@ -46,19 +40,6 @@ class RecordViewModel : ViewModel() {
         }
         genre.value.add(genreId)
         Log.d("listlist", "${genre.value}")
-    }
-
-    fun getSelectedEmotionId(emotionID: Int) {
-        emotion.value = emotionID
-        isEmotionSelected()
-    }
-
-    private fun isEmotionSelected() {
-        isJoyButtonChecked.value = emotion.value == Emotion.JOY.emotionID
-        isSadButtonChecked.value = emotion.value == Emotion.SAD.emotionID
-        isShyButtonChecked.value = emotion.value == Emotion.SHY.emotionID
-        isScaryButtonChecked.value = emotion.value == Emotion.SCARY.emotionID
-        isStrangeButtonChecked.value = emotion.value == Emotion.STRANGE.emotionID
     }
 
     fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->

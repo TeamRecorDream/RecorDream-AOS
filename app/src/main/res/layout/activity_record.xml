@@ -7,7 +7,7 @@
 
         <variable
             name="emotion"
-            type="com.recodream_aos.recordream.presentation.record.Emotion" />
+            type="com.recodream_aos.recordream.presentation.record.uistate.Emotion" />
 
         <variable
             name="viewModel"

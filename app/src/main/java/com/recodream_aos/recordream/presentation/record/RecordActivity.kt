@@ -8,16 +8,23 @@ import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
+import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
 
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
+    private val recordAdapter: RecordAdapter by lazy { RecordAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initViewModel()
+        initAdapter()
         setClickListener()
+    }
+
+    private fun initAdapter() {
+        binding.rvRecordEmotion.adapter = recordAdapter
     }
 
     private fun initViewModel() {

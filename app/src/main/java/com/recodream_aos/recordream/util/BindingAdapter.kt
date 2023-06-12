@@ -12,6 +12,14 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("glideSrc")
+    fun glideSrc(imageview: ImageView, image: Int) {
+        Glide.with(imageview.context)
+            .load(image)
+            .into(imageview)
+    }
+
+    @JvmStatic
     @BindingAdapter("imgGlideStr")
     fun setGlideImage(imageview: ImageView, image: String) {
         Glide.with(imageview.context)
