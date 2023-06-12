@@ -21,11 +21,7 @@ object Recorder {
         filePath = "${context.externalCacheDir?.absolutePath}/audiorecordtest.3gp"
     }
 
-    fun loadRecordingFile(): File {
-        return File(temp.filesDir, filePath)
-    }
-
-    fun temp(): File {
+    fun getRecordingFile(): File {
         return File(temp.externalCacheDir, filePath)
     }
 

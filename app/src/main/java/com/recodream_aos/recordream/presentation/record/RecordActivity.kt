@@ -3,6 +3,8 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
@@ -14,8 +16,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         initViewModel()
         setClickListener()
+    }
+
+    private fun initViewModel() {
+        binding.viewModel = recordViewModel
+        binding.lifecycleOwner = this
     }
 
     private fun setClickListener() {
@@ -23,13 +31,39 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
             clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
         }
+        setEmotionClickListener()
+        setGenreClickListener()
+    }
+
+    private fun setEmotionClickListener() = Emotion.values().map { emotion ->
+        clickEmotionSettingValue(emotion)
+    }
+
+    private fun setGenreClickListener() = Genre.values().map { genre ->
+        clickGenreSettingValue(genre)
+    }
+
+    private fun clickEmotionSettingValue(emotion: Emotion) {
+        binding.root.findViewById<ImageView>(emotion.viewId).apply {
+            setOnClickListener {
+                recordViewModel.getSelectedEmotionId(emotion.emotionID)
+            }
+        }
+    }
+
+    private fun clickGenreSettingValue(genre: Genre) {
+        binding.root.findViewById<TextView>(genre.viewId).apply {
+            setOnClickListener {
+                recordViewModel.getSelectedGenreId(genre.genreId)
+            }
+        }
     }
 
     private fun initRecordBottomSheetDialog() =
         RecordBottomSheetFragment()
             .show(
                 supportFragmentManager,
-                RecordBottomSheetFragment().tag
+                RecordBottomSheetFragment().tag,
             )
 
     private fun initDatePickerDialog() {
@@ -40,12 +74,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             recordViewModel.initDate(),
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
+            cal.get(Calendar.DAY_OF_MONTH),
         ).show()
-    }
-
-    private fun initViewModel() {
-        binding.viewModel = recordViewModel
-        binding.lifecycleOwner = this
     }
 }

@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.presentation.MainActivity
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
@@ -30,9 +31,10 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, body: String) {
         createNotificationChannel()
-        val intent = Intent(this, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+        val intent = Intent(this, MainActivity::class.java)
+//        val intent = Intent(this, LoginActivity::class.java).apply {
+//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
         val pendingIntent: PendingIntent =
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val notificationBuilder = Notification.Builder(this, CHANNEL_ID)

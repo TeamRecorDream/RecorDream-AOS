@@ -10,6 +10,7 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseAlamTogg
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseMypageUser
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 import com.recodream_aos.recordream.domain.repository.MypageUserRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class MypageUserRepositoryImpl @Inject constructor(
@@ -21,7 +22,7 @@ class MypageUserRepositoryImpl @Inject constructor(
             val response = mypageUserDataSource.getUser()
             response
         } catch (e: Exception) {
-            Log.d("MypageUserRepositoryImpl", "getUser: $e")
+            Timber.tag("MypageUserRepositoryImpl").d("getUser: " + e)
             null
         }
     }
@@ -30,7 +31,6 @@ class MypageUserRepositoryImpl @Inject constructor(
         return kotlin.runCatching {
             mypageUserDataSource.postPushAlam(alamTime)
         }.onFailure {
-            Log.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
             it.message
         }
     }
@@ -40,7 +40,6 @@ class MypageUserRepositoryImpl @Inject constructor(
             val response = mypageUserDataSource.patchAlamToggle(isActive)
             return response
         } catch (e: Exception) {
-            Log.d("MypageUserRepositoryImpl", "patchAlamToggle: $e")
             return null
         }
     }
@@ -49,7 +48,7 @@ class MypageUserRepositoryImpl @Inject constructor(
         return kotlin.runCatching {
             mypageUserDataSource.putUserName(nickName)
         }.onFailure {
-            Log.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
+            Timber.tag("MypageUserRepositoryImpl").d("postPushAlam OnFail: %s", it.message)
             it.message
         }
     }

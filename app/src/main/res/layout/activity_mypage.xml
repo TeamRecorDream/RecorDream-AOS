@@ -142,14 +142,15 @@
 
             <TextView
                 android:id="@+id/tv_mypage_settingTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="22dp"
                 android:layout_marginStart="20dp"
+                android:paddingVertical="22dp"
                 android:text="@string/mypage_setting_time"
                 android:textColor="@color/white03_66FFFFFF"
                 android:theme="@style/Sb16"
                 app:layout_constraintBottom_toBottomOf="@id/cl_mypage_settingTime"
+                app:layout_constraintEnd_toStartOf="@+id/tv_mypage_settitng_time_description"
                 app:layout_constraintStart_toStartOf="@id/cl_mypage_settingTime"
                 app:layout_constraintTop_toTopOf="@id/cl_mypage_settingTime" />
 
