@@ -19,18 +19,15 @@
         android:layout_height="match_parent"
         tools:context=".presentation.record.RecordActivity">
 
-        <TextView
-            android:id="@+id/tv_record_save_btn"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_record_close"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white01_FFFFFF"
-            android:gravity="center"
-            android:paddingTop="22dp"
-            android:paddingBottom="17dp"
-            android:text="@string/tv_record_save"
-            android:textAppearance="@style/B16"
-            android:textColor="@color/white01_FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="31dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icn_close" />
 
         <TextView
             android:id="@+id/tv_record_record"
@@ -44,6 +41,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:id="@+id/v_record_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="19dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintTop_toBottomOf="@+id/tv_record_record" />
+
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -55,79 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-                    <ImageView
-                        android:id="@+id/iv_record_mic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icn_mic_s" />
-
-                    <TextView
-                        android:id="@+id/tv_record_voice_recording"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="21dp"
-                        android:layout_marginBottom="21dp"
-                        android:text="@string/tv_record_voice_record"
-                        android:textAppearance="@style/M14"
-                        android:textColor="@color/white01_FFFFFF"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/iv_record_mic"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_record_record_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/tv_record_recording_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="@{viewModel.time}"
-                            android:textAppearance="@style/M14"
-                            android:textColor="@color/white01_FFFFFF"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_record_voice"
-                            app:layout_constraintEnd_toStartOf="@+id/iv_record_voice"
-                            app:layout_constraintTop_toTopOf="@+id/iv_record_voice"
-                            tools:text="@string/tv_record_tools_time" />
-
-                        <ImageView
-                            android:id="@+id/iv_record_voice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icn_rd_voice" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
+                    android:id="@+id/cl_record_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -195,6 +130,78 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icn_arrow" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_record_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_record_date">
+
+                    <ImageView
+                        android:id="@+id/iv_record_mic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icn_mic_s" />
+
+                    <TextView
+                        android:id="@+id/tv_record_voice_recording"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="21dp"
+                        android:layout_marginBottom="21dp"
+                        android:text="@string/tv_record_voice_record"
+                        android:textAppearance="@style/M14"
+                        android:textColor="@color/white01_FFFFFF"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_record_mic"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_record_record_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_record_recording_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{viewModel.time}"
+                            android:textAppearance="@style/M14"
+                            android:textColor="@color/white01_FFFFFF"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_record_voice"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_record_voice"
+                            app:layout_constraintTop_toTopOf="@+id/iv_record_voice"
+                            tools:text="@string/tv_record_tools_time" />
+
+                        <ImageView
+                            android:id="@+id/iv_record_voice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icn_rd_voice" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <EditText
@@ -213,11 +220,84 @@
                     android:textColor="@color/white03_66FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_record_record"
                     tools:text="@string/tv_record_hint_title" />
 
+                <EditText
+                    android:id="@+id/et_record_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="top"
+                    android:hint="@string/tv_record_hint_content"
+                    android:lineSpacingExtra="7dp"
+                    android:minLines="15"
+                    android:padding="16dp"
+                    android:scrollbars="vertical"
+                    android:text="@={viewModel.content}"
+                    android:textAppearance="@style/M14"
+                    android:textColor="@color/white03_66FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_record_title"
+                    tools:text="@string/tv_record_hint_content" />
+
+                <TextView
+                    android:id="@+id/tv_record_emotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_record_emotion"
+                    android:textAppearance="@style/Sb14"
+                    android:textColor="@color/white01_FFFFFF"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_record_content" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_record_emotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_record_emotion"
+                    tools:listitem="@layout/item_list_emotion" />
+
+
+                <View
+                    android:id="@+id/v_record_indicator_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/white05_1AFFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_record_emotion" />
+
+                <TextView
+                    android:id="@+id/tv_record_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_record_genre"
+                    android:textAppearance="@style/Sb14"
+                    android:textColor="@color/white01_FFFFFF"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/v_record_indicator_second" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout4"
+                    android:id="@+id/cl_record_genre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -377,62 +457,6 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_record_friend" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <EditText
-                    android:id="@+id/et_record_content"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="15dp"
-                    android:gravity="top"
-                    android:hint="@string/tv_record_hint_note"
-                    android:lineSpacingExtra="7dp"
-                    android:minLines="15"
-                    android:padding="16dp"
-                    android:scrollbars="vertical"
-                    android:text="@={viewModel.content}"
-                    android:textAppearance="@style/M14"
-                    android:textColor="@color/white03_66FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_record_title"
-                    tools:text="@string/tv_record_hint_note" />
-
-                <TextView
-                    android:id="@+id/tv_record_emotion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/tv_record_emotion"
-                    android:textAppearance="@style/Sb14"
-                    android:textColor="@color/white01_FFFFFF"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_record_content" />
-
-                <TextView
-                    android:id="@+id/tv_record_genre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/tv_record_genre"
-                    android:textAppearance="@style/Sb14"
-                    android:textColor="@color/white01_FFFFFF"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_record_indicator_second" />
-
-                <View
-                    android:id="@+id/v_record_indicator_second"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@color/white05_1AFFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_record_emotion" />
 
                 <TextView
                     android:id="@+id/tv_record_note"
@@ -444,10 +468,10 @@
                     android:textAppearance="@style/Sb14"
                     android:textColor="@color/white01_FFFFFF"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+                    app:layout_constraintTop_toBottomOf="@+id/cl_record_genre" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName"
+                    android:id="@+id/et_record_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -464,40 +488,51 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_record_note" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_record_emotion"
-                    android:layout_width="match_parent"
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_record_date"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_record_emotion"
-                    tools:listitem="@layout/item_list_emotion" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_record_record"
+                    app:singleLine="false"
+                    tools:ignore="NotSibling">
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="야야"
+                        android:textColor="@color/white" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.chip.ChipGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <ImageView
-            android:id="@+id/iv_record_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="31dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icn_close" />
-
-        <View
-            android:id="@+id/v_record_indicator"
+        <TextView
+            android:id="@+id/tv_record_save_btn"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="19dp"
-            android:background="@color/white05_1AFFFFFF"
-            app:layout_constraintTop_toBottomOf="@+id/tv_record_record" />
+            android:layout_height="wrap_content"
+            android:background="@color/white01_FFFFFF"
+            android:gravity="center"
+            android:paddingTop="22dp"
+            android:paddingBottom="17dp"
+            android:text="@string/tv_record_save"
+            android:textAppearance="@style/B16"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
