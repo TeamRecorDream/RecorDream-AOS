@@ -50,7 +50,6 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     private fun initDatePickerDialog() {
         val cal = Calendar.getInstance()
 
-
         DatePickerDialog(
             this,
             recordViewModel.initDate(),
