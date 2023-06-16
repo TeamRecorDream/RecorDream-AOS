@@ -13,8 +13,8 @@ class RecordViewModel : ViewModel() {
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
 
-    private val _time: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
-    val time: StateFlow<String> get() = _time
+    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
+    val recordingTime: StateFlow<String> get() = _recordingTime
 
     private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(null)
     val emotion: StateFlow<Int?> get() = _emotion
@@ -25,6 +25,9 @@ class RecordViewModel : ViewModel() {
     private val _genreEnabled: MutableStateFlow<List<Boolean>> =
         MutableStateFlow(List(10) { true })
     val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
+
+    private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val warningGenre: StateFlow<Boolean> = _warningGenre
 
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
@@ -39,6 +42,7 @@ class RecordViewModel : ViewModel() {
         if (_genre.value.contains(genre.genreId)) {
             _genre.value.remove(genre.genreId)
             _genreEnabled.value = List(10) { true }
+            _warningGenre.value = false
             return
         }
         if (_genre.value.size < MAX_COUNT_OF_GENRE) {
@@ -47,8 +51,13 @@ class RecordViewModel : ViewModel() {
                 _genreEnabled.value = List(10) { index ->
                     index + CORRECTION_VALUE in _genre.value
                 }
+                _warningGenre.value = true
             }
         }
+
+        // 이 함수 더 분리하기
+        // 에러문구 띄우기
+        // 나머지 정리
     }
 
     fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->

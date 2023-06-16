@@ -95,6 +95,11 @@
         <item name="android:textSize">18dp</item>
     </style>
 
+    <style name="l10">
+        <item name="fontFamily">@font/pretendard_light</item>
+        <item name="android:textSize">10dp</item>
+    </style>
+
     <style name="B10">
         <item name="fontFamily">@font/pretendard_bold</item>
         <item name="android:textSize">10dp</item>

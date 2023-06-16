@@ -8,6 +8,12 @@ import com.google.android.material.chip.Chip
 
 object BindingAdapter {
     @JvmStatic
+    @BindingAdapter("isVisible")
+    fun isVisible(view: View, maxSelection: Boolean) {
+        view.visibility = if (maxSelection) View.VISIBLE else View.INVISIBLE
+    }
+
+    @JvmStatic
     @BindingAdapter("onChipClick")
     fun setClickEventOnChip(chip: Chip, onClick: View.OnClickListener) {
         chip.setOnClickListener(onClick)

@@ -80,6 +80,7 @@
 
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
+    <string name="tv_record_warning_genre">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
 
 
 </resources>

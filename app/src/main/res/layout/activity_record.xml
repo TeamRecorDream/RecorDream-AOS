@@ -185,7 +185,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:text="@{viewModel.time}"
+                            android:text="@{viewModel.recordingTime}"
                             android:textAppearance="@style/M14"
                             android:textColor="@color/white01_FFFFFF"
                             app:layout_constraintBottom_toBottomOf="@+id/iv_record_voice"
@@ -318,7 +318,7 @@
                         android:text="@string/tv_record_comedy"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.COMEDY)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.COMEDY)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_romance"
@@ -329,7 +329,7 @@
                         android:text="@string/tv_record_romance"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.ROMANCE)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.ROMANCE)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_fantasy"
@@ -340,7 +340,7 @@
                         android:text="@string/tv_record_fantasy"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FANTASY)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FANTASY)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_horror"
@@ -351,7 +351,7 @@
                         android:text="@string/tv_record_horror"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.HORROR)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.HORROR)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_animal"
@@ -362,7 +362,7 @@
                         android:text="@string/tv_record_animal"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.ANIMAL)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.ANIMAL)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_friend"
@@ -373,7 +373,7 @@
                         android:text="@string/tv_record_friend"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FRIEND)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FRIEND)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_family"
@@ -384,7 +384,7 @@
                         android:text="@string/tv_record_family"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FAMILY)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FAMILY)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_food"
@@ -395,7 +395,7 @@
                         android:text="@string/tv_record_food"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FOOD)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FOOD)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_work"
@@ -406,7 +406,7 @@
                         android:text="@string/tv_record_work"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.WORK)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.WORK)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_etc"
@@ -417,8 +417,20 @@
                         android:text="@string/tv_record_etc"
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
-                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.ETC)}" />
+                        app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.ETC)}" />
                 </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/tv_record_warning_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/tv_record_warning_genre"
+                    android:textAppearance="@style/l10"
+                    android:textColor="@color/red_FF5F5F"
+                    app:isVisible="@{viewModel.warningGenre}"
+                    app:layout_constraintStart_toStartOf="@+id/cg_record_genre"
+                    app:layout_constraintTop_toBottomOf="@+id/cg_record_genre" />
 
 
                 <TextView
@@ -426,7 +438,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="28dp"
                     android:text="@string/tv_record_note"
                     android:textAppearance="@style/Sb14"
                     android:textColor="@color/white01_FFFFFF"
