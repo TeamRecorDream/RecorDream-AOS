@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="emotion"
-            type="com.recodream_aos.recordream.presentation.record.uistate.EmotionUiState" />
+            name="genre"
+            type="com.recodream_aos.recordream.presentation.record.uistate.Genre" />
 
         <variable
             name="viewModel"
@@ -314,90 +314,110 @@
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[0]}"
                         android:text="@string/tv_record_comedy"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.COMEDY)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_romance"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[1]}"
                         android:text="@string/tv_record_romance"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.ROMANCE)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_fantasy"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[2]}"
                         android:text="@string/tv_record_fantasy"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FANTASY)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_horror"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[3]}"
                         android:text="@string/tv_record_horror"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.HORROR)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_animal"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[4]}"
                         android:text="@string/tv_record_animal"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.ANIMAL)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_friend"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[5]}"
                         android:text="@string/tv_record_friend"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FRIEND)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_family"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[6]}"
                         android:text="@string/tv_record_family"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FAMILY)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_food"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[7]}"
                         android:text="@string/tv_record_food"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.FOOD)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_work"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[8]}"
                         android:text="@string/tv_record_work"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.WORK)}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_etc"
                         style="@style/RecordreamChipStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{viewModel.genreEnabled[9]}"
                         android:text="@string/tv_record_etc"
                         app:chipStrokeColor="@color/selector_color_white_purple"
-                        app:chipStrokeWidth="1dp" />
+                        app:chipStrokeWidth="1dp"
+                        app:onChipClick="@{()->viewModel.updateSelectedGenreId(genre.ETC)}" />
                 </com.google.android.material.chip.ChipGroup>
 
 

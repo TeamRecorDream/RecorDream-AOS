@@ -3,7 +3,6 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
@@ -18,7 +17,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     private fun setClickEventOnEmotions() = object : RecordClickListener {
         override fun setClickEventOnEmotion(emotionId: Int) {
             recordAdapter.updateEmotionState(emotionId)
-            recordViewModel.fetchSelectedEmotionId(emotionId)
+            recordViewModel.updateSelectedEmotionId(emotionId)
         }
     }
 
@@ -37,14 +36,12 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun attachAdapter() {
         binding.rvRecordEmotion.adapter = recordAdapter
+        binding.rvRecordEmotion.setHasFixedSize(true)
     }
 
     private fun setClickListener() {
-        with(binding) {
-            clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
-            clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
-        }
-        setGenreClickListener()
+        binding.clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
+        binding.clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
     }
 
     private fun initDatePickerDialog() {
@@ -52,7 +49,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
         DatePickerDialog(
             this,
-            recordViewModel.initDate(),
+            recordViewModel.updateDate(),
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH),
@@ -61,17 +58,5 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun initRecordBottomSheetDialog() {
         RecordBottomSheetFragment().show(supportFragmentManager, RecordBottomSheetFragment().tag)
-    }
-
-    private fun setGenreClickListener() = Genre.values().map { genre ->
-        clickGenreSettingValue(genre)
-    }
-
-    private fun clickGenreSettingValue(genre: Genre) {
-        binding.root.findViewById<TextView>(genre.viewId).apply {
-            setOnClickListener {
-                recordViewModel.getSelectedGenreId(genre.genreId)
-            }
-        }
     }
 }

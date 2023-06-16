@@ -4,8 +4,15 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 
 object BindingAdapter {
+    @JvmStatic
+    @BindingAdapter("onChipClick")
+    fun setClickEventOnChip(chip: Chip, onClick: View.OnClickListener) {
+        chip.setOnClickListener(onClick)
+    }
+
     @JvmStatic
     @BindingAdapter("selected")
     fun isSelected(view: View, isSelected: Boolean) {

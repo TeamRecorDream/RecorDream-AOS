@@ -1,66 +1,72 @@
 package com.recodream_aos.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.recodream_aos.recordream.presentation.record.uistate.Genre
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
-    private var _date =
+    private val _date: MutableStateFlow<String> =
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
 
-    private var _time = MutableStateFlow(DEFAULT_TIME)
+    private val _time: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
     val time: StateFlow<String> get() = _time
 
-    private var _emotion = MutableStateFlow<Int?>(null)
+    private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(null)
     val emotion: StateFlow<Int?> get() = _emotion
 
-    val genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
+    private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
+    val genre: StateFlow<List<Int>> = _genre
 
-    // var emotion = MutableStateFlow(0)
+    private val _genreEnabled: MutableStateFlow<List<Boolean>> =
+        MutableStateFlow(List(10) { true })
+    val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
+
     val title = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
     val note = MutableStateFlow(BLANK)
     var getRecordState = false
 
-//    fun saveRecordingMyDream() {
-//        emotion.value
-//    } 서버연결메서드
-
-    fun fetchSelectedEmotionId(emotionId: Int) {
+    fun updateSelectedEmotionId(emotionId: Int) {
         _emotion.value = emotionId
     }
 
-    fun getSelectedGenreId(genreId: Int) {
-        if (genre.value.contains(genreId)) {
-            genre.value.remove(genreId)
+    fun updateSelectedGenreId(genre: Genre) {
+        if (_genre.value.contains(genre.genreId)) {
+            _genre.value.remove(genre.genreId)
+            _genreEnabled.value = List(10) { true }
             return
         }
-        if (genre.value.size == 3) {
-            return
+        if (_genre.value.size < MAX_COUNT_OF_GENRE) {
+            _genre.value.add(genre.genreId)
+            if (_genre.value.size == MAX_COUNT_OF_GENRE) {
+                _genreEnabled.value = List(10) { index ->
+                    index + CORRECTION_VALUE in _genre.value
+                }
+            }
         }
-        genre.value.add(genreId)
-        Log.d("listlist", "${genre.value}")
     }
 
-    fun initDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-        _date.value = "$year-${modifyDateUnits(month + CORRECTION_VALUE)}-${modifyDateUnits(day)}"
+    fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+        _date.value = "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
     }
 
-    private fun modifyDateUnits(month: Int): String {
-        if (month < TWO_DIGITS) return (CORRECTION_VALUE + month).toString()
-        return month.toString()
+    private fun Int.toStringOfDate(): String {
+        if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
+        return this.toString()
     }
 
     companion object {
+        private const val BLANK = ""
         private const val DEFAULT_TIME = "00:00"
+        private const val DATE_PATTERN = "yyyy-MM-dd"
+        private const val UNIT_TENS = "0"
         private const val CORRECTION_VALUE = 1
         private const val TWO_DIGITS = 10
-        private const val BLANK = ""
-        private const val DATE_PATTERN = "yyyy-MM-dd"
+        private const val MAX_COUNT_OF_GENRE = 3
     }
 }
