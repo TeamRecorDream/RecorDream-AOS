@@ -36,7 +36,14 @@ class RecordAdapter(
     override fun getItemCount(): Int = emotionsUiState.size
 
     fun updateEmotionState(selectedEmotionIndex: Int) {
-        if (selectedEmotionIndex == beforeSelectedIndex) return
+        if (selectedEmotionIndex == beforeSelectedIndex) {
+            emotionsUiState[beforeSelectedIndex] = emotionsUiState[beforeSelectedIndex].copy(
+                selected = !emotionsUiState[beforeSelectedIndex].selected,
+            )
+            notifyItemChanged(beforeSelectedIndex)
+            beforeSelectedIndex = INITIAL_VALUE
+            return
+        }
 
         if (beforeSelectedIndex in RANGE) {
             emotionsUiState[beforeSelectedIndex].copy(selected = false).also {
@@ -51,6 +58,13 @@ class RecordAdapter(
         }
 
         beforeSelectedIndex = selectedEmotionIndex
+
+        // 아이템이 선택된 상태
+        // 선택되지 않은 상태로 함수 분리
+    }
+
+    private fun EmotionUiState.updateItemChanged() {
+        // 만들기
     }
 
     companion object {
