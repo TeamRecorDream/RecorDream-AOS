@@ -35,36 +35,32 @@ class RecordAdapter(
 
     override fun getItemCount(): Int = emotionsUiState.size
 
-    fun updateEmotionState(selectedEmotionIndex: Int) {
-        if (selectedEmotionIndex == beforeSelectedIndex) {
-            emotionsUiState[beforeSelectedIndex] = emotionsUiState[beforeSelectedIndex].copy(
-                selected = !emotionsUiState[beforeSelectedIndex].selected,
-            )
-            notifyItemChanged(beforeSelectedIndex)
-            beforeSelectedIndex = INITIAL_VALUE
-            return
+    fun updateEmotionState(selectedIndex: Int) {
+        when (selectedIndex == beforeSelectedIndex) {
+            true -> updateIfSelectSame()
+            false -> updateIfSelectNew(selectedIndex)
         }
 
-        if (beforeSelectedIndex in RANGE) {
-            emotionsUiState[beforeSelectedIndex].copy(selected = false).also {
-                emotionsUiState[beforeSelectedIndex] = it
-                notifyItemChanged(beforeSelectedIndex)
-            }
-        }
-
-        emotionsUiState[selectedEmotionIndex].copy(selected = true).also {
-            emotionsUiState[selectedEmotionIndex] = it
-            notifyItemChanged(selectedEmotionIndex)
-        }
-
-        beforeSelectedIndex = selectedEmotionIndex
-
-        // 아이템이 선택된 상태
-        // 선택되지 않은 상태로 함수 분리
+        beforeSelectedIndex = selectedIndex
     }
 
-    private fun EmotionUiState.updateItemChanged() {
-        // 만들기
+    private fun updateIfSelectSame() {
+        emotionsUiState[beforeSelectedIndex].copy(selected = !emotionsUiState[beforeSelectedIndex].selected)
+            .updateItemChanged(beforeSelectedIndex)
+    }
+
+    private fun updateIfSelectNew(selectedIndex: Int) {
+        if (beforeSelectedIndex in RANGE) {
+            emotionsUiState[beforeSelectedIndex].copy(selected = false)
+                .updateItemChanged(beforeSelectedIndex)
+        }
+        emotionsUiState[selectedIndex].copy(selected = true)
+            .updateItemChanged(selectedIndex)
+    }
+
+    private fun EmotionUiState.updateItemChanged(index: Int) {
+        emotionsUiState[index] = this
+        notifyItemChanged(index)
     }
 
     companion object {
