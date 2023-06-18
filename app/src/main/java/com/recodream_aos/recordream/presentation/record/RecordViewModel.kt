@@ -23,7 +23,7 @@ class RecordViewModel : ViewModel() {
     val genre: StateFlow<List<Int>> = _genre
 
     private val _genreEnabled: MutableStateFlow<List<Boolean>> =
-        MutableStateFlow(List(10) { true })
+        MutableStateFlow(List(ALL_GENRE) { true })
     val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
 
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -34,34 +34,46 @@ class RecordViewModel : ViewModel() {
     val note = MutableStateFlow(BLANK)
     var getRecordState = false
 
+    fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+        _date.value = "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
+    }
+
     fun updateSelectedEmotionId(emotionId: Int) {
         _emotion.value = emotionId
     }
 
     fun updateSelectedGenreId(genre: Genre) {
-        if (_genre.value.contains(genre.genreId)) {
-            _genre.value.remove(genre.genreId)
-            _genreEnabled.value = List(10) { true }
-            _warningGenre.value = false
-            return
+        val isContained = _genre.value.contains(genre.genreId)
+        val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
+
+        when {
+            isContained -> handleContainedGenre(genre)
+            !isReachedMaxCount -> handleNonContainedGenre(genre)
         }
-        if (_genre.value.size < MAX_COUNT_OF_GENRE) {
-            _genre.value.add(genre.genreId)
-            if (_genre.value.size == MAX_COUNT_OF_GENRE) {
-                _genreEnabled.value = List(10) { index ->
-                    index + CORRECTION_VALUE in _genre.value
-                }
+    }
+
+    private fun handleNonContainedGenre(genre: Genre) {
+        _genre.value.add(genre.genreId)
+        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(NON_CONTAINED)
+    }
+
+    private fun handleContainedGenre(genre: Genre) {
+        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(CONTAINED)
+        _genre.value.remove(genre.genreId)
+    }
+
+    private fun handleIfReachMaxCount(isContained: Boolean) {
+        when (isContained) {
+            true -> {
+                _genreEnabled.value = List(ALL_GENRE) { true }
+                _warningGenre.value = false
+            }
+
+            false -> {
+                _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
                 _warningGenre.value = true
             }
         }
-
-        // 이 함수 더 분리하기
-        // 에러문구 띄우기
-        // 나머지 정리
-    }
-
-    fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-        _date.value = "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
     }
 
     private fun Int.toStringOfDate(): String {
@@ -76,6 +88,9 @@ class RecordViewModel : ViewModel() {
         private const val UNIT_TENS = "0"
         private const val CORRECTION_VALUE = 1
         private const val TWO_DIGITS = 10
+        private const val ALL_GENRE = 10
         private const val MAX_COUNT_OF_GENRE = 3
+        private const val CONTAINED = true
+        private const val NON_CONTAINED = false
     }
 }
