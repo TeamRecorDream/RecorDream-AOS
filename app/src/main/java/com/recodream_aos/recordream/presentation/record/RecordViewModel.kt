@@ -9,6 +9,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
+    val title: MutableStateFlow<String> = MutableStateFlow(BLANK)
+    val content = MutableStateFlow(BLANK)
+    val note = MutableStateFlow(BLANK)
+
     private val _date: MutableStateFlow<String> =
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
@@ -29,17 +33,20 @@ class RecordViewModel : ViewModel() {
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val warningGenre: StateFlow<Boolean> = _warningGenre
 
-    val title: MutableStateFlow<String> = MutableStateFlow(BLANK)
-    val content = MutableStateFlow(BLANK)
-    val note = MutableStateFlow(BLANK)
-    var getRecordState = false
-
-    fun updateRecordingTime(recordingTime: String) {
-        _recordingTime.value = recordingTime
-    }
+    private val _isSaveEnabled: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
+    val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled
 
     fun postRecord(): String {
         return ""
+    }
+
+    fun updateSaveButtonEnabled() {
+        _isSaveEnabled.value = title.value.isNotEmpty() && title.value.first() != ' '
+    }
+
+    fun updateRecordingTime(recordingTime: String) {
+        _recordingTime.value = recordingTime
     }
 
     fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -87,6 +94,11 @@ class RecordViewModel : ViewModel() {
     private fun Int.toStringOfDate(): String {
         if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
         return this.toString()
+    }
+
+    sealed interface Validation {
+        object Able : Validation
+        object Disable : Validation
     }
 
     companion object {

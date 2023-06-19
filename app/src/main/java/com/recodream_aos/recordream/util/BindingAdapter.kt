@@ -19,6 +19,12 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("isActivated")
+    fun isActivated(view: View, isActivated: Boolean) {
+        view.isActivated = isActivated
+    }
+
+    @JvmStatic
     @BindingAdapter("onChipClick")
     fun setClickEventOnChip(chip: Chip, onClick: View.OnClickListener) {
         chip.setOnClickListener(onClick)
