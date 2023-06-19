@@ -19,6 +19,8 @@ class RecordBottomSheetViewModel : ViewModel() {
     private var _recordingTime: Int = 0
     val recordingTime get() = _recordingTime
 
+    private var _playButtonState :MutableStateFlow<>
+
     private var firstTimer: Timer? = null
     private var replayTimer: Timer? = null
     private var realTimer: Timer? = null
