@@ -6,6 +6,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.*
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.*
 
@@ -43,12 +45,21 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("glideSrcByState")
-    fun glideSrcByState(imageview: ImageView, updatedState: RecordButtonState) {
+    @BindingAdapter("glideSrcByRecordButtonState")
+    fun glideSrcByRecordButtonState(imageview: ImageView, updatedState: RecordButtonState) {
         when (updatedState) {
             BEFORE_RECORDING -> R.drawable.icn_mic_start.setImageWithGlide(imageview)
             ON_RECORDING -> R.drawable.icn_mic_stop.setImageWithGlide(imageview)
             AFTER_RECORDING -> R.drawable.icn_mic_reset.setImageWithGlide(imageview)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("glideSrcByPlayButtonState")
+    fun glideSrcByPlayButtonState(imageview: ImageView, updatedState: PlayButtonState) {
+        when (updatedState) {
+            RECORDER_PLAY -> R.drawable.icn_start.setImageWithGlide(imageview)
+            RECORDER_STOP -> R.drawable.icn_stop.setImageWithGlide(imageview)
         }
     }
 

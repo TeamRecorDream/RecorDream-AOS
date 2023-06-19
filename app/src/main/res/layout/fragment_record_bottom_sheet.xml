@@ -83,19 +83,6 @@
             app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
 
-        <com.recodream_aos.recordream.presentation.record.recording.PlayButtonView
-            android:id="@+id/iv_recording_play_state_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginEnd="14dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
-            app:layout_constraintEnd_toStartOf="@+id/pb_recording_progress_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar"
-            tools:background="@drawable/icn_start" />
-
         <View
             android:id="@+id/v_recording_indicator"
             android:layout_width="0dp"
@@ -141,13 +128,28 @@
             android:layout_marginTop="36dp"
             android:layout_marginBottom="61dp"
             android:onClick="@{() -> viewModel.updateRecordButtonState(viewModel.recordButtonState)}"
-            app:glideSrcByState="@{viewModel.recordButtonState}"
+            app:glideSrcByRecordButtonState="@{viewModel.recordButtonState}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pb_recording_progress_bar"
             tools:background="@drawable/icn_mic_start"
             tools:srcCompat="@drawable/icn_mic_stop" />
+
+        <ImageView
+            android:id="@+id/iv_recording_play_state_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{() -> viewModel.updatePlayButtonState(viewModel.playButtonState)}"
+            android:visibility="gone"
+            app:glideSrcByPlayButtonState="@{viewModel.playButtonState}"
+            app:layout_constraintBottom_toBottomOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintEnd_toStartOf="@+id/pb_recording_progress_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar"
+            tools:background="@drawable/icn_start" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

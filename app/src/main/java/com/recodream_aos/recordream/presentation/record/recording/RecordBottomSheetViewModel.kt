@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.record.recording // ktlint-dis
 import androidx.lifecycle.ViewModel
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
@@ -36,6 +37,24 @@ class RecordBottomSheetViewModel : ViewModel() {
     private var firstTimer: Timer? = null
     private var replayTimer: Timer? = null
     private var realTimer: Timer? = null
+
+    fun updatePlayButtonState(beforeState: PlayButtonState) {
+        when (beforeState) {
+            RECORDER_PLAY -> startPlayingRecorder()
+            RECORDER_STOP -> stopPlayingRecorder()
+        }
+    }
+
+    private fun stopPlayingRecorder() {
+        _playButtonState.value = RECORDER_PLAY
+        stopReplayProgressBar()
+    }
+
+    private fun startPlayingRecorder() {
+        _playButtonState.value = RECORDER_STOP
+        clearReplayProgressBar()
+        replayProgressBar()
+    }
 
     fun updateRecordButtonState(beforeState: RecordButtonState) {
         when (beforeState) {
