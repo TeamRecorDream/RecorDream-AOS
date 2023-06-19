@@ -1,6 +1,8 @@
 package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
+import android.os.SystemClock
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
@@ -8,16 +10,30 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import java.util.Timer
 import kotlin.concurrent.timer
 
 class RecordBottomSheetViewModel : ViewModel() {
-    private val _nowTime = MutableStateFlow(ZERO)
+    private var firstTimer: Timer? = null
+    private var replayTimer: Timer? = null
+    private var realTimer: Timer? = null
+    private var countUpJob: Job? = null
+    private var recordingTime: Int = INIT_TO_ZERO
+    private var startTimeStamp: Long = INIT_TO_ZERO_LONG
+
+    private val _countTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_MAX_TIME)
+    val countTime: StateFlow<String> = _countTime
+
+    private val _nowTime = MutableStateFlow(INIT_TO_ZERO)
     val nowTime: StateFlow<Int> get() = _nowTime
 
-    private val _replayTime = MutableStateFlow(ZERO)
+    private val _replayTime = MutableStateFlow(INIT_TO_ZERO)
     val replayTime: StateFlow<Int> get() = _replayTime
 
     private val _fullProgressBar = MutableStateFlow(false)
@@ -25,9 +41,6 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     private val _isRecorderActivated = MutableStateFlow(false)
     val isRecorderActivated: StateFlow<Boolean> get() = _isRecorderActivated
-
-    var recordingTime: Int = 0
-        private set
 
     private var _playButtonState: MutableStateFlow<PlayButtonState> =
         MutableStateFlow(RECORDER_PLAY)
@@ -37,14 +50,27 @@ class RecordBottomSheetViewModel : ViewModel() {
         MutableStateFlow(BEFORE_RECORDING)
     val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
 
-    private var firstTimer: Timer? = null
-    private var replayTimer: Timer? = null
-    private var realTimer: Timer? = null
-
     fun updatePlayButtonState(beforeState: PlayButtonState) {
         when (beforeState) {
             RECORDER_PLAY -> startPlayingRecorder()
             RECORDER_STOP -> stopPlayingRecorder()
+        }
+    }
+
+    private fun startPlayingRecorder() {
+        _playButtonState.value = RECORDER_STOP
+        _replayTime.value = INIT_TO_ZERO
+        replayProgressBar()
+    }
+
+    private fun replayProgressBar() {
+        replayTimer = timer(period = recordingTime.convertMilliseconds() / PERCENTAGE) {
+            if (_replayTime.value > HUNDRED_PERCENT) {
+                cancel()
+                stopReplayProgressBar()
+                _fullProgressBar.value = true
+            }
+            ++_replayTime.value
         }
     }
 
@@ -53,10 +79,8 @@ class RecordBottomSheetViewModel : ViewModel() {
         stopReplayProgressBar()
     }
 
-    private fun startPlayingRecorder() {
-        _playButtonState.value = RECORDER_STOP
-        clearReplayProgressBar()
-        replayProgressBar()
+    private fun stopReplayProgressBar() {
+        replayTimer?.cancel()
     }
 
     fun updateRecordButtonState(beforeState: RecordButtonState) {
@@ -70,67 +94,15 @@ class RecordBottomSheetViewModel : ViewModel() {
     private fun startRecording() {
         _recordButtonState.value = ON_RECORDING
         initProgressBar()
+        initRealTimer()
     }
 
-    private fun stopRecording() {
-        _recordButtonState.value = AFTER_RECORDING
-        _isRecorderActivated.value = true
-        stopProgressBar()
-        setFullProgressBar()
-    }
-
-    private fun resetRecording() {
-        _recordButtonState.value = BEFORE_RECORDING
-        _isRecorderActivated.value = false
-        stopProgressBar()
-        clearProgressBar()
-        clearReplayProgressBar()
-
-        _playButtonState.value = RECORDER_PLAY
-    }
-
-    fun setFullProgressBarFalse() {
-        _fullProgressBar.value = false
-    }
-
-    fun initProgressBar() {
+    private fun initProgressBar() {
         firstTimer = timer(period = ONE_PERCENT, initialDelay = ONE_PERCENT) {
             if (_nowTime.value > HUNDRED_PERCENT) cancel()
             ++_nowTime.value
         }
-        initRealTimer()
     }
-
-    fun stopProgressBar() {
-        firstTimer?.cancel()
-        replayTimer?.cancel()
-        realTimer?.cancel()
-    }
-
-    fun clearProgressBar() {
-        _nowTime.value = ZERO
-        recordingTime = ZERO
-    }
-
-    fun setFullProgressBar() {
-        _nowTime.value = HUNDRED_PERCENT
-    }
-
-    fun replayProgressBar() {
-        replayTimer = timer(period = recordingTime.convertMilliseconds() / PERCENTAGE) {
-            if (_replayTime.value > HUNDRED_PERCENT) {
-                cancel()
-                _fullProgressBar.value = true
-            }
-            ++_replayTime.value
-        }
-    }
-
-    fun clearReplayProgressBar() {
-        _replayTime.value = ZERO
-    }
-
-    private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
 
     private fun initRealTimer() {
         realTimer = timer(period = ONE_SECOND, initialDelay = ONE_SECOND) {
@@ -138,15 +110,72 @@ class RecordBottomSheetViewModel : ViewModel() {
         }
     }
 
-    fun stopReplayProgressBar() {
-        replayTimer?.cancel()
+    private fun stopRecording() {
+        _recordButtonState.value = AFTER_RECORDING
+        _isRecorderActivated.value = true
+        stopProgressBar()
+        _nowTime.value = HUNDRED_PERCENT
     }
+
+    private fun resetRecording() {
+        _recordButtonState.value = BEFORE_RECORDING
+        _isRecorderActivated.value = false
+        stopProgressBar()
+        clearProgressBar()
+
+        _playButtonState.value = RECORDER_PLAY
+    }
+
+    private fun stopProgressBar() {
+        firstTimer?.cancel()
+        replayTimer?.cancel()
+        realTimer?.cancel()
+    }
+
+    private fun clearProgressBar() {
+        _nowTime.value = INIT_TO_ZERO
+        recordingTime = INIT_TO_ZERO
+        _replayTime.value = INIT_TO_ZERO
+    }
+
+    fun startCountUp() {
+        startTimeStamp = SystemClock.elapsedRealtime()
+        countUpJob = viewModelScope.launch {
+            while (isActive) {
+                val currentTimeStamp = SystemClock.elapsedRealtime()
+                val countTimeSeconds = ((currentTimeStamp - startTimeStamp) / ONE_SECOND).toInt()
+                updateCountTime(countTimeSeconds)
+                delay(ONE_SECOND)
+            }
+        }
+    }
+
+    fun stopCountUp() {
+        countUpJob?.cancel()
+    }
+
+    fun clearCountTime() {
+        updateCountTime(INIT_TO_ZERO)
+    }
+
+    private fun updateCountTime(countTimeSeconds: Int) {
+        val minutes = countTimeSeconds / ONE_MINUTE
+        val seconds = countTimeSeconds % ONE_MINUTE
+        val timeText = TIME_FORMAT.format(minutes, seconds)
+        _countTime.value = timeText
+    }
+
+    private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
 
     companion object {
         private const val ONE_PERCENT = 1800L
-        private const val ZERO = 0
+        private const val INIT_TO_ZERO_LONG: Long = 0
+        private const val INIT_TO_ZERO: Int = 0
         private const val HUNDRED_PERCENT = 100
         private const val ONE_SECOND: Long = 1000
         private const val PERCENTAGE = 100
+        private const val ONE_MINUTE = 60
+        private const val TIME_FORMAT = "%02d:%02d"
+        private const val DEFAULT_MAX_TIME = "03:00"
     }
 }

@@ -24,7 +24,6 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initViewModel()
         attachAdapter()
         setClickListener()

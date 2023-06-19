@@ -52,11 +52,12 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_recording_record" />
 
 
-        <com.recodream_aos.recordream.presentation.record.recording.TimeStampTextView
+        <TextView
             android:id="@+id/tv_recording_progress_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
+            android:text="@{viewModel.countTime}"
             android:textAppearance="@style/M14"
             android:textColorHint="@color/white01_FFFFFF"
             app:isVisible="@{!viewModel.isRecorderActivated()}"
@@ -88,9 +89,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="66dp"
+            android:layout_marginStart="68dp"
             android:layout_marginTop="21dp"
-            android:layout_marginEnd="66dp"
+            android:layout_marginEnd="68dp"
             android:maxHeight="6dp"
             android:minHeight="6dp"
             android:progressDrawable="@drawable/seek_bar_record"
@@ -110,7 +111,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/pb_recording_progress_bar"
             app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar"
-            tools:text="03:00" />
+            tools:text="@string/default_time_format" />
 
 
         <ImageView

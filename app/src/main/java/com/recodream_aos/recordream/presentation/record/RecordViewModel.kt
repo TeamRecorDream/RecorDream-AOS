@@ -34,6 +34,10 @@ class RecordViewModel : ViewModel() {
     val note = MutableStateFlow(BLANK)
     var getRecordState = false
 
+    fun updateRecordingTime(recordingTime: String) {
+        _recordingTime.value = recordingTime
+    }
+
     fun postRecord(): String {
         return ""
     }

@@ -35,7 +35,6 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         val contract = ActivityResultContracts.RequestPermission()
         registerForActivityResult(contract) { isGranted -> if (!isGranted) dismiss() }
     }
-    private val timeStampTextView: TimeStampTextView by lazy { binding.tvRecordingProgressTime }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,19 +48,19 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
         launchAudioPermission()
+        initViewModel()
         observeStateFlows()
         setEventOnClickListener()
+    }
+
+    private fun launchAudioPermission() {
+        activityResultLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
     private fun initViewModel() {
         binding.viewModel = recordBottomSheetViewModel
         binding.lifecycleOwner = viewLifecycleOwner
-    }
-
-    private fun launchAudioPermission() {
-        activityResultLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
     private fun observeStateFlows() {
@@ -82,6 +81,25 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun handleResetRecording() {
+        recordBottomSheetViewModel.stopCountUp()
+        recordBottomSheetViewModel.clearCountTime()
+        binding.tvRecordingRecordTime.text = getString(R.string.default_time_format)
+    }
+
+    private fun handleOnRecording() {
+        recorder.startRecording()
+        recordBottomSheetViewModel.startCountUp()
+    }
+
+    private fun handleAfterRecording() {
+        recorder.stopRecording()
+        recordBottomSheetViewModel.apply {
+            stopCountUp()
+            binding.tvRecordingRecordTime.text = countTime.value
+        }
+    }
+
     private fun collectPlayButtonState() {
         collectWithLifecycle(recordBottomSheetViewModel.playButtonState) { currentState ->
             when (currentState) {
@@ -91,14 +109,18 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun handleRecorderPlayingState() {
+        recorder.stopPlaying()
+    }
+
+    private fun handleRecorderStoppingState() {
+        recorder.startPlaying()
+        recordBottomSheetViewModel.startCountUp()
+    }
+
     private fun collectStateProgressBar() {
         collectWithLifecycle(recordBottomSheetViewModel.fullProgressBar) { state ->
-            if (state) {
-                recordBottomSheetViewModel.updatePlayButtonState(RECORDER_STOP)
-                recorder.stopPlaying()
-                recordBottomSheetViewModel.stopReplayProgressBar()
-                recordBottomSheetViewModel.setFullProgressBarFalse()
-            }
+            if (state) recorder.stopPlaying()
         }
     }
 
@@ -119,44 +141,13 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         saveButtonClickListener()
     }
 
-    private fun handleRecorderStoppingState() {
-        recorder.startPlaying()
-        timeStampTextView.startCountUp()
-    }
-
-    private fun handleRecorderPlayingState() {
-        recorder.stopPlaying()
-    }
-
-    private fun handleResetRecording() {
-        timeStampTextView.stopCountUp()
-        timeStampTextView.clearCountTime()
-
-        binding.tvRecordingRecordTime.text = "03:00"
-    }
-
-    private fun handleOnRecording() {
-        recorder.startRecording()
-        timeStampTextView.startCountUp()
-    }
-
-    private fun handleAfterRecording() {
-        recorder.stopRecording()
-        timeStampTextView.stopCountUp()
-
-        binding.tvRecordingRecordTime.text = timeStampTextView.text.toString() // 데이터바인딩
-    }
-
     private fun closeButtonClickListener() {
-        binding.ivRecordingCloseBtn.setOnClickListener {
-            dismiss()
-        }
+        binding.ivRecordingCloseBtn.setOnClickListener { dismiss() }
     }
 
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
-            recordViewModel.getRecordState = true
-            // recordViewModel.getRecordingTime(recordBottomSheetViewModel.recordingTime)
+            recordViewModel.updateRecordingTime(binding.tvRecordingRecordTime.text.toString())
             dismiss()
         }
     }

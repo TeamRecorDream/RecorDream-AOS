@@ -74,13 +74,14 @@
     <string name="tv_record_scary">무서운</string>
     <string name="tv_record_strange">이상한</string>
     <string name="tv_record_shy">민망한</string>
+    <string name="tv_record_warning_genre">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
+    <string name="default_time_format">03:00</string>
 
     <!-- 음성녹음 뷰 -->
     <string name="tv_recording_record">음성녹음</string>
 
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
-    <string name="tv_record_warning_genre">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
 
 
 </resources>
