@@ -22,6 +22,7 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
 import com.recodream_aos.recordream.util.Recorder.Recorder
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -82,15 +83,11 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun collectRecordButtonState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.recordButtonState.collectLatest { currentState ->
-                    when (currentState) {
-                        BEFORE_RECORDING -> handleResetRecording()
-                        ON_RECORDING -> handleOnRecording()
-                        AFTER_RECORDING -> handleAfterRecording()
-                    }
-                }
+        collectWithLifecycle(recordBottomSheetViewModel.recordButtonState) { currentState ->
+            when (currentState) {
+                BEFORE_RECORDING -> handleResetRecording()
+                ON_RECORDING -> handleOnRecording()
+                AFTER_RECORDING -> handleAfterRecording()
             }
         }
     }
@@ -166,35 +163,70 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun collectStateProgressBar() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.fullProgressBar.collectLatest { state ->
-                    if (state) {
-                        stopPlayingRecorder()
-                        recordBottomSheetViewModel.setFullProgressBarFalse()
-                    }
-                }
+        collectWithLifecycle(recordBottomSheetViewModel.fullProgressBar) { state ->
+            if (state) {
+                stopPlayingRecorder()
+                recordBottomSheetViewModel.setFullProgressBarFalse()
             }
         }
     }
 
     private fun collectReplayTimeProgress() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.replayTime.collectLatest { progress ->
-                    binding.pbRecordingProgressBar.progress = progress
-                }
-            }
+        collectWithLifecycle(recordBottomSheetViewModel.replayTime) { progress ->
+            binding.pbRecordingProgressBar.progress = progress
         }
     }
 
+//    private fun collectNowTimeProgress() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
+//                recordBottomSheetViewModel.nowTime.collectLatest { progress ->
+//                    binding.pbRecordingProgressBar.progress = progress
+//                }
+//            }
+//        }
+//    }
+
+    //    private fun collectRecordButtonState() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
+//                recordBottomSheetViewModel.recordButtonState.collectLatest { currentState ->
+//                    when (currentState) {
+//                        BEFORE_RECORDING -> handleResetRecording()
+//                        ON_RECORDING -> handleOnRecording()
+//                        AFTER_RECORDING -> handleAfterRecording()
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    //    private fun collectReplayTimeProgress() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
+//                recordBottomSheetViewModel.replayTime.collectLatest { progress ->
+//                    binding.pbRecordingProgressBar.progress = progress
+//                }
+//            }
+//        }
+//    }
+
+    //    private fun collectStateProgressBar() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
+//                recordBottomSheetViewModel.fullProgressBar.collectLatest { state ->
+//                    if (state) {
+//                        stopPlayingRecorder()
+//                        recordBottomSheetViewModel.setFullProgressBarFalse()
+//                    }
+//                }
+//            }
+//        }
+//    }
+
     private fun collectNowTimeProgress() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.nowTime.collectLatest { progress ->
-                    binding.pbRecordingProgressBar.progress = progress
-                }
-            }
+        collectWithLifecycle(recordBottomSheetViewModel.nowTime) { progress ->
+            binding.pbRecordingProgressBar.progress = progress
         }
     }
 
@@ -207,5 +239,18 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         super.onStop()
         recorder.recorderRelease()
         recorder.playerRelease()
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 }
