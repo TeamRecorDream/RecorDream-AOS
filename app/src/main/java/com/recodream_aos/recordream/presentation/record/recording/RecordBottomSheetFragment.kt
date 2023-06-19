@@ -133,10 +133,6 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         timeStampTextView.clearCountTime()
 
         binding.tvRecordingRecordTime.text = "03:00"
-        binding.tvRecordingProgressTime.visibility = View.VISIBLE
-        binding.ivRecordingPlayStateBtn.visibility = View.GONE
-        binding.ivRecordingCloseBtn.visibility = View.GONE
-        binding.ivRecordingSaveBtn.visibility = View.GONE
     }
 
     private fun handleOnRecording() {
@@ -149,11 +145,6 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         timeStampTextView.stopCountUp()
 
         binding.tvRecordingRecordTime.text = timeStampTextView.text.toString() // 데이터바인딩
-
-        binding.tvRecordingProgressTime.visibility = View.GONE
-        binding.ivRecordingPlayStateBtn.visibility = View.VISIBLE
-        binding.ivRecordingCloseBtn.visibility = View.VISIBLE
-        binding.ivRecordingSaveBtn.visibility = View.VISIBLE
     }
 
     private fun closeButtonClickListener() {

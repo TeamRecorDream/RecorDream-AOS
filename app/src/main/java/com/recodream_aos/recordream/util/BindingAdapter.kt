@@ -14,8 +14,8 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 object BindingAdapter {
     @JvmStatic
     @BindingAdapter("isVisible")
-    fun isVisible(view: View, maxSelection: Boolean) {
-        view.visibility = if (maxSelection) View.VISIBLE else View.INVISIBLE
+    fun isVisible(view: View, isVisible: Boolean) {
+        view.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
 
     @JvmStatic

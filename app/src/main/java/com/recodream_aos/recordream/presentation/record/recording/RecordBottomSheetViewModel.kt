@@ -23,6 +23,9 @@ class RecordBottomSheetViewModel : ViewModel() {
     private val _fullProgressBar = MutableStateFlow(false)
     val fullProgressBar: StateFlow<Boolean> get() = _fullProgressBar
 
+    private val _isRecorderActivated = MutableStateFlow(false)
+    val isRecorderActivated: StateFlow<Boolean> get() = _isRecorderActivated
+
     var recordingTime: Int = 0
         private set
 
@@ -71,12 +74,14 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     private fun stopRecording() {
         _recordButtonState.value = AFTER_RECORDING
+        _isRecorderActivated.value = true
         stopProgressBar()
         setFullProgressBar()
     }
 
     private fun resetRecording() {
         _recordButtonState.value = BEFORE_RECORDING
+        _isRecorderActivated.value = false
         stopProgressBar()
         clearProgressBar()
         clearReplayProgressBar()
