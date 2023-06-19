@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,10 +28,7 @@ class RecordBottomSheetViewModel : ViewModel() {
     }
 
     fun initProgressBar() {
-        firstTimer = timer(
-            period = ONE_PERCENT,
-            initialDelay = ONE_PERCENT,
-        ) {
+        firstTimer = timer(period = ONE_PERCENT, initialDelay = ONE_PERCENT) {
             if (_nowTime.value > HUNDRED_PERCENT) cancel()
             ++_nowTime.value
         }
@@ -55,10 +51,7 @@ class RecordBottomSheetViewModel : ViewModel() {
     }
 
     fun replayProgressBar() {
-        replayTimer = timer(
-            period = convertMilliseconds(_recordingTime) / 100,
-        ) {
-            Log.d("replay", _recordingTime.toLong().toString())
+        replayTimer = timer(period = _recordingTime.convertMilliseconds() / PERCENTAGE) {
             if (_replayTime.value > HUNDRED_PERCENT) {
                 cancel()
                 _fullProgressBar.value = true
@@ -71,12 +64,10 @@ class RecordBottomSheetViewModel : ViewModel() {
         _replayTime.value = ZERO
     }
 
-    private fun convertMilliseconds(i: Int): Long {
-        return i * 1000L
-    }
+    private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
 
     private fun initRealTimer() {
-        realTimer = timer(period = 1000, initialDelay = 1000) {
+        realTimer = timer(period = ONE_SECOND, initialDelay = ONE_SECOND) {
             _recordingTime++
             print(_recordingTime)
         }
@@ -90,5 +81,7 @@ class RecordBottomSheetViewModel : ViewModel() {
         private const val ONE_PERCENT = 1800L
         private const val ZERO = 0
         private const val HUNDRED_PERCENT = 100
+        private const val ONE_SECOND: Long = 1000
+        private const val PERCENTAGE = 100
     }
 }

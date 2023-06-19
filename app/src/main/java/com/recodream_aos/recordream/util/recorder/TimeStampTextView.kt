@@ -13,11 +13,8 @@ class TimeStampTextView(
 
     private val countUpAction: Runnable = object : Runnable {
         override fun run() {
-            // 시작했을 때 타임 트탬프를 계산
             val currentTimeStamp = SystemClock.elapsedRealtime()
-
-            val countTimeSeconds =
-                ((currentTimeStamp - startTimeStamp) / ONE_SECOND).toInt() // 얼마의 시간 차이가 나는지
+            val countTimeSeconds = ((currentTimeStamp - startTimeStamp) / ONE_SECOND).toInt()
             updateCountTime(countTimeSeconds)
             handler?.postDelayed(this, ONE_SECOND)
         }

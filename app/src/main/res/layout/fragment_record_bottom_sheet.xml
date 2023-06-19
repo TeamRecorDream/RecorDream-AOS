@@ -83,7 +83,7 @@
             app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
         <com.recodream_aos.recordream.util.recorder.RecordButton
-            android:id="@+id/iv_recording_record_btn"
+            android:id="@+id/iv_recording_record_state_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -95,7 +95,7 @@
             tools:background="@drawable/icn_mic_start" />
 
         <com.recodream_aos.recordream.util.recorder.PlayButton
-            android:id="@+id/iv_recording_play_btn"
+            android:id="@+id/iv_recording_play_state_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
@@ -126,10 +126,10 @@
             android:layout_marginStart="21dp"
             android:layout_marginEnd="78dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_recording_record_btn"
-            app:layout_constraintEnd_toStartOf="@+id/iv_recording_record_btn"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_recording_record_state_btn"
+            app:layout_constraintEnd_toStartOf="@+id/iv_recording_record_state_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_recording_record_btn"
+            app:layout_constraintTop_toTopOf="@+id/iv_recording_record_state_btn"
             app:srcCompat="@drawable/icn_mic_cancel" />
 
         <ImageView
@@ -139,10 +139,10 @@
             android:layout_marginStart="78dp"
             android:layout_marginEnd="21dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_recording_record_btn"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_recording_record_state_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_recording_record_btn"
-            app:layout_constraintTop_toTopOf="@+id/iv_recording_record_btn"
+            app:layout_constraintStart_toEndOf="@+id/iv_recording_record_state_btn"
+            app:layout_constraintTop_toTopOf="@+id/iv_recording_record_state_btn"
             app:srcCompat="@drawable/icn_mic_save" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
