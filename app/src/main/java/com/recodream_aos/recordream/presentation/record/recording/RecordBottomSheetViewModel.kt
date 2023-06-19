@@ -1,29 +1,69 @@
 package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
 import androidx.lifecycle.ViewModel
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.Timer
 import kotlin.concurrent.timer
 
 class RecordBottomSheetViewModel : ViewModel() {
-    private var _nowTime = MutableStateFlow(ZERO)
+    private val _nowTime = MutableStateFlow(ZERO)
     val nowTime: StateFlow<Int> get() = _nowTime
 
-    private var _replayTime = MutableStateFlow(ZERO)
+    private val _replayTime = MutableStateFlow(ZERO)
     val replayTime: StateFlow<Int> get() = _replayTime
 
-    private var _fullProgressBar = MutableStateFlow(false)
+    private val _fullProgressBar = MutableStateFlow(false)
     val fullProgressBar: StateFlow<Boolean> get() = _fullProgressBar
 
-    private var _recordingTime: Int = 0
-    val recordingTime get() = _recordingTime
+    var recordingTime: Int = 0
+        private set
 
-    private var _playButtonState :MutableStateFlow<>
+    private var _playButtonState: MutableStateFlow<PlayButtonState> =
+        MutableStateFlow(RECORDER_PLAY)
+    val playButtonState: StateFlow<PlayButtonState> = _playButtonState
+
+    private var _recordButtonState: MutableStateFlow<RecordButtonState> =
+        MutableStateFlow(BEFORE_RECORDING)
+    val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
 
     private var firstTimer: Timer? = null
     private var replayTimer: Timer? = null
     private var realTimer: Timer? = null
+
+    fun updateRecordButtonState(beforeState: RecordButtonState) {
+        when (beforeState) {
+            BEFORE_RECORDING -> startRecording()
+            ON_RECORDING -> stopRecording()
+            AFTER_RECORDING -> resetRecording()
+        }
+    }
+
+    private fun startRecording() {
+        _recordButtonState.value = ON_RECORDING
+        initProgressBar()
+    }
+
+    private fun stopRecording() {
+        _recordButtonState.value = AFTER_RECORDING
+        stopProgressBar()
+        setFullProgressBar()
+    }
+
+    private fun resetRecording() {
+        _recordButtonState.value = BEFORE_RECORDING
+        stopProgressBar()
+        clearProgressBar()
+        clearReplayProgressBar()
+
+        _playButtonState.value = RECORDER_PLAY
+    }
 
     fun setFullProgressBarFalse() {
         _fullProgressBar.value = false
@@ -45,7 +85,7 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     fun clearProgressBar() {
         _nowTime.value = ZERO
-        _recordingTime = ZERO
+        recordingTime = ZERO
     }
 
     fun setFullProgressBar() {
@@ -53,7 +93,7 @@ class RecordBottomSheetViewModel : ViewModel() {
     }
 
     fun replayProgressBar() {
-        replayTimer = timer(period = _recordingTime.convertMilliseconds() / PERCENTAGE) {
+        replayTimer = timer(period = recordingTime.convertMilliseconds() / PERCENTAGE) {
             if (_replayTime.value > HUNDRED_PERCENT) {
                 cancel()
                 _fullProgressBar.value = true
@@ -70,8 +110,7 @@ class RecordBottomSheetViewModel : ViewModel() {
 
     private fun initRealTimer() {
         realTimer = timer(period = ONE_SECOND, initialDelay = ONE_SECOND) {
-            _recordingTime++
-            print(_recordingTime)
+            recordingTime++
         }
     }
 

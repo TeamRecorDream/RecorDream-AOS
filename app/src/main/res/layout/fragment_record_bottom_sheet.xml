@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
 
-        <com.recodream_aos.recordream.presentation.record.recording.uistate.TimeStampTextView
+        <com.recodream_aos.recordream.presentation.record.recording.TimeStampTextView
             android:id="@+id/tv_recording_progress_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,19 +82,8 @@
             app:layout_constraintStart_toEndOf="@+id/pb_recording_progress_bar"
             app:layout_constraintTop_toTopOf="@+id/pb_recording_progress_bar" />
 
-        <com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButton
-            android:id="@+id/iv_recording_record_state_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_marginBottom="61dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pb_recording_progress_bar"
-            tools:background="@drawable/icn_mic_start" />
 
-        <com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButton
+        <com.recodream_aos.recordream.presentation.record.recording.PlayButtonView
             android:id="@+id/iv_recording_play_state_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,6 +133,21 @@
             app:layout_constraintStart_toEndOf="@+id/iv_recording_record_state_btn"
             app:layout_constraintTop_toTopOf="@+id/iv_recording_record_state_btn"
             app:srcCompat="@drawable/icn_mic_save" />
+
+        <ImageView
+            android:id="@+id/iv_recording_record_state_btn"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="61dp"
+            android:onClick="@{() -> viewModel.updateRecordButtonState(viewModel.recordButtonState)}"
+            app:glideSrcByState="@{viewModel.recordButtonState}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pb_recording_progress_bar"
+            tools:background="@drawable/icn_mic_start"
+            tools:srcCompat="@drawable/icn_mic_stop" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

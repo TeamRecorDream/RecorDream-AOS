@@ -1,13 +1,14 @@
-package com.recodream_aos.recordream.presentation.record.recording.uistate // ktlint-disable package-name
+package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageButton
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 
-class PlayButton(
+class PlayButtonView(
     context: Context,
     attributeSet: AttributeSet? = null,
 ) : AppCompatImageButton(context, attributeSet) {

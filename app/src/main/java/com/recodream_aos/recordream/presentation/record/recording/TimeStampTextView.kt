@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.presentation.record.recording.uistate // ktlint-disable package-name
+package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
 import android.content.Context
 import android.os.SystemClock
