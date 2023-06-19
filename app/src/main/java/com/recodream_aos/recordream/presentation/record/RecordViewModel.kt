@@ -34,6 +34,10 @@ class RecordViewModel : ViewModel() {
     val note = MutableStateFlow(BLANK)
     var getRecordState = false
 
+    fun postRecord(): String {
+        return ""
+    }
+
     fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
         _date.value = "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
     }

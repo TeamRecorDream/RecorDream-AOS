@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
+import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
 
@@ -42,6 +43,13 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     private fun setClickListener() {
         binding.clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
         binding.clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
+        binding.ivRecordClose.setOnClickListener { finish() }
+        binding.tvRecordSaveBtn.setOnClickListener {
+            DocumentActivity.getIntent(
+                this,
+                recordViewModel.postRecord(),
+            )
+        }
     }
 
     private fun initDatePickerDialog() {

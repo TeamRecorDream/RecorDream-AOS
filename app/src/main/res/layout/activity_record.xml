@@ -471,13 +471,13 @@
             android:id="@+id/tv_record_save_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white01_FFFFFF"
+            android:background="@color/selector_color_grey01_white03"
             android:gravity="center"
             android:paddingTop="22dp"
             android:paddingBottom="17dp"
             android:text="@string/tv_record_save"
             android:textAppearance="@style/B16"
-            android:textColor="@color/white01_FFFFFF"
+            android:textColor="@color/selector_color_white03_white01"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

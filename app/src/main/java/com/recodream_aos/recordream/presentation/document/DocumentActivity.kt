@@ -1,5 +1,7 @@
 package com.recodream_aos.recordream.presentation.document
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -74,4 +76,13 @@ class DocumentActivity : AppCompatActivity() {
 //         applyData(it)
 //     }
 // }
+
+    companion object {
+        private const val RECORD_ID = "RECORD_ID"
+
+        fun getIntent(context: Context, id: String): Intent =
+            Intent(context, DocumentActivity::class.java).apply {
+                putExtra(RECORD_ID, id)
+            }
+    }
 }
