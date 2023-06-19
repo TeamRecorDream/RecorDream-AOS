@@ -29,7 +29,7 @@ class RecordViewModel : ViewModel() {
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val warningGenre: StateFlow<Boolean> = _warningGenre
 
-    val title = MutableStateFlow(BLANK)
+    val title: MutableStateFlow<String> = MutableStateFlow(BLANK)
     val content = MutableStateFlow(BLANK)
     val note = MutableStateFlow(BLANK)
     var getRecordState = false
