@@ -12,7 +12,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.presentation.MainActivity
-import com.recodream_aos.recordream.presentation.login.LoginActivity
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
@@ -56,12 +55,11 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
             NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_DEFAULT,
             )
 
         notificationManager.createNotificationChannel(channel)
     }
-
 
     companion object {
         const val CHANNEL_ID = "recordDream_channel"

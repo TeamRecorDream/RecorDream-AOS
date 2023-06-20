@@ -17,18 +17,18 @@ object RemoteDataSourceModule {
     @Provides
     @Singleton
     fun providesAuthDataSourceImpl(
-        authService: AuthService
+        authService: AuthService,
     ): AuthDataSource = AuthDataSourceImpl(authService)
 
     @Provides
     @Singleton
     fun providesStorageDataSourceImpl(
-        storageService: StorageService
+        storageService: StorageService,
     ): StorageDateSource = StorageDateSourceImpl(storageService)
 
     @Provides
     @Singleton
     fun providesMypageUserDataSourceImpl(
-        mypageUserService: MypageService
+        mypageUserService: MypageService,
     ): MypageDateSource = MypageUserDateSourceImpl(mypageUserService)
 }

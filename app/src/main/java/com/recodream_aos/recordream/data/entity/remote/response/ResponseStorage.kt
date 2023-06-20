@@ -8,7 +8,7 @@ data class ResponseStorage(
     @SerialName("recordsCount")
     val recordsCount: Int,
     @SerialName("records")
-    val records: List<Record>
+    val records: List<Record>,
 ) {
     @Serializable
     data class Record(
@@ -23,6 +23,6 @@ data class ResponseStorage(
         @SerialName("title")
         val title: String,
         @SerialName("isExistVoice")
-        val voice: Boolean
+        val voice: Boolean,
     )
 }

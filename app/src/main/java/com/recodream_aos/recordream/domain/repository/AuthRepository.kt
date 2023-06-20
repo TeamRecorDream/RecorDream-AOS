@@ -7,7 +7,7 @@ import com.recodream_aos.recordream.data.entity.remote.response.NoDataResponse
 interface AuthRepository {
     suspend fun postLogin(
         kakaoToken: String,
-        fcmToken: String
+        fcmToken: String,
     ): Boolean
 
     suspend fun postToken(): Boolean

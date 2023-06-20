@@ -50,13 +50,14 @@
     <string name="tv_record_content">무슨 꿈을 꾸셨나요?</string>
     <string name="tv_record_emotion">나의 감정</string>
     <string name="tv_record_genre">꿈의 장르</string>
-    <string name="tv_record_warning">!꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
+    <string name="tv_record_warning_max_genre">!꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
     <string name="tv_record_note">노트</string>
     <string name="tv_record_hint_note">꿈에 대해 따로 기록할 게 있나요?</string>
+    <string name="tv_record_hint_content">무슨 꿈을 꾸셨나요?</string>
+
     <string name="tv_record_save">저장하기</string>
     <string name="tv_record_tools_date">2022-06-27</string>
     <string name="tv_record_tools_time">00:00</string>
-
     <string name="tv_record_comedy"># 코미디</string>
     <string name="tv_record_romance"># 로맨스</string>
     <string name="tv_record_fantasy"># 판타지</string>
@@ -73,6 +74,10 @@
     <string name="tv_record_scary">무서운</string>
     <string name="tv_record_strange">이상한</string>
     <string name="tv_record_shy">민망한</string>
+    <string name="tv_record_warning_genre">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
+    <string name="default_time_format">03:00</string>
+    <string name="tv_record_warning_save">꿈의 제목을 입력해주세요.</string>
+
 
     <!-- 음성녹음 뷰 -->
     <string name="tv_recording_record">음성녹음</string>

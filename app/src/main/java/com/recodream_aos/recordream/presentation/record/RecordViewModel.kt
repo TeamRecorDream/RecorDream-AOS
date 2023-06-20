@@ -1,85 +1,126 @@
 package com.recodream_aos.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.recodream_aos.recordream.presentation.record.uistate.Genre
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
-    private var _date = MutableStateFlow(BLANK)
+    val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
+    val content = MutableStateFlow(DEFAULT_VALUE_STRING)
+    val note = MutableStateFlow(DEFAULT_VALUE_STRING)
+
+    private val _date: MutableStateFlow<String> =
+        MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
 
-    private var _time = MutableStateFlow(DEFAULT_TIME)
-    val time: StateFlow<String> get() = _time
+    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
+    val recordingTime: StateFlow<String> get() = _recordingTime
 
-    val isJoyButtonChecked = MutableStateFlow<Boolean>(false)
-    val isSadButtonChecked = MutableStateFlow<Boolean>(false)
-    val isScaryButtonChecked = MutableStateFlow<Boolean>(false)
-    val isStrangeButtonChecked = MutableStateFlow<Boolean>(false)
-    val isShyButtonChecked = MutableStateFlow<Boolean>(false)
+    private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(null)
+    val emotion: StateFlow<Int?> get() = _emotion
 
-    val genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
-    var emotion = MutableStateFlow(0)
-    val title = MutableStateFlow(BLANK)
-    val content = MutableStateFlow(BLANK)
-    val note = MutableStateFlow(BLANK)
-    var getRecordState = false
+    private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
+    val genre: StateFlow<List<Int>> = _genre
 
-    init {
-        initLocalDate()
+    private val _genreEnabled: MutableStateFlow<List<Boolean>> =
+        MutableStateFlow(List(ALL_GENRE) { true })
+    val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
+
+    private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val warningGenre: StateFlow<Boolean> = _warningGenre
+
+    private val _isSaveEnabled: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
+    val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled
+
+    fun postRecord(): String {
+        return ""
     }
 
-//    fun saveRecordingMyDream() {
-//        emotion.value
-//    } 서버연결메서드
+    fun updateSaveButtonEnabled() {
+        _isSaveEnabled.value = title.value.isNotEmpty() && title.value.first() != BLANK
+    }
 
-    fun getSelectedGenreId(genreId: Int) {
-        if (genre.value.contains(genreId)) {
-            genre.value.remove(genreId)
+    fun updateRecordingTime(recordingTime: String) {
+        _recordingTime.value = recordingTime
+    }
+
+    fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+        _date.value = "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
+    }
+
+    fun updateSelectedEmotionId(emotionId: Int) {
+        if (emotion.value == emotionId) {
+            _emotion.value = null
             return
         }
-        if (genre.value.size == 3) {
-            return
+        _emotion.value = emotionId
+    }
+
+    fun updateSelectedGenreId(genre: Genre) {
+        val isContained = _genre.value.contains(genre.genreId)
+        val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
+
+        when {
+            isContained -> handleContainedGenre(genre)
+            !isReachedMaxCount -> handleNonContainedGenre(genre)
         }
-        genre.value.add(genreId)
-        Log.d("listlist", "${genre.value}")
     }
 
-    fun getSelectedEmotionId(emotionID: Int) {
-        emotion.value = emotionID
-        isEmotionSelected()
+    private fun handleNonContainedGenre(genre: Genre) {
+        _genre.value.add(genre.genreId)
+        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(NON_CONTAINED)
     }
 
-    private fun isEmotionSelected() {
-        isJoyButtonChecked.value = emotion.value == Emotion.JOY.emotionID
-        isSadButtonChecked.value = emotion.value == Emotion.SAD.emotionID
-        isShyButtonChecked.value = emotion.value == Emotion.SHY.emotionID
-        isScaryButtonChecked.value = emotion.value == Emotion.SCARY.emotionID
-        isStrangeButtonChecked.value = emotion.value == Emotion.STRANGE.emotionID
+    private fun handleContainedGenre(genre: Genre) {
+        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(CONTAINED)
+        _genre.value.remove(genre.genreId)
     }
 
-    fun initDate() = DatePickerDialog.OnDateSetListener { view, year, month, day ->
-        _date.value = "$year-${modifyDateUnits(month + ONE)}-${modifyDateUnits(day)}"
+    private fun handleIfReachMaxCount(isContained: Boolean) {
+        viewModelScope.launch {
+            when (isContained) {
+                true -> {
+                    _genreEnabled.value = List(ALL_GENRE) { true }
+                    _warningGenre.value = HIDE
+                }
+
+                false -> {
+                    _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    _warningGenre.value = SHOW
+                    delay(TWO_SECONDS)
+                    _warningGenre.value = HIDE
+                }
+            }
+        }
     }
 
-    private fun initLocalDate() {
-        _date.value = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
-    }
-
-    private fun modifyDateUnits(month: Int): String {
-        if (month < TEN) return ZERO + month.toString()
-        return month.toString()
+    private fun Int.toStringOfDate(): String {
+        if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
+        return this.toString()
     }
 
     companion object {
-        private const val ZERO = "0"
+        private const val BLANK = ' '
+        private const val DEFAULT_VALUE_STRING = ""
         private const val DEFAULT_TIME = "00:00"
-        private const val ONE = 1
-        private const val TEN = 10
-        private const val BLANK = ""
         private const val DATE_PATTERN = "yyyy-MM-dd"
+        private const val UNIT_TENS = "0"
+        private const val CORRECTION_VALUE = 1
+        private const val TWO_DIGITS = 10
+        private const val ALL_GENRE = 10
+        private const val TWO_SECONDS: Long = 2000
+        private const val MAX_COUNT_OF_GENRE = 3
+        private const val CONTAINED = true
+        private const val NON_CONTAINED = false
+        private const val SHOW = true
+        private const val HIDE = false
     }
 }

@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RequestAlamToggle(
-    val isActive: Boolean
+    val isActive: Boolean,
 )

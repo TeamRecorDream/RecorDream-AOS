@@ -10,7 +10,7 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 import javax.inject.Inject
 
 class AuthDataSourceImpl @Inject constructor(
-    private val authService: AuthService
+    private val authService: AuthService,
 ) : AuthDataSource {
     override suspend fun postLogin(kakaoToken: String, fcmToken: String): ResponseLogin {
         val responseLogin = authService.postLogin(RequestLogin(kakaoToken, fcmToken))
@@ -19,7 +19,7 @@ class AuthDataSourceImpl @Inject constructor(
 
     override suspend fun postToken(
         accessToken: String,
-        refreshToken: String
+        refreshToken: String,
     ): ResponseWrapper<ResponseNewToken> {
         return authService.postToken(accessToken, refreshToken)
     }

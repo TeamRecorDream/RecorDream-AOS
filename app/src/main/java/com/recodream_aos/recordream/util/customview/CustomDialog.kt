@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.util
+package com.recodream_aos.recordream.util.customview
 
 import android.app.Dialog
 import android.content.Context
@@ -12,7 +12,6 @@ import com.recodream_aos.recordream.databinding.CustomMypageDialogBinding
 import com.recodream_aos.recordream.databinding.DocumentDeleteDialogBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
-
 
 class CustomDialog(private val context: Context) {
     private lateinit var deleteBinding: DocumentDeleteDialogBinding

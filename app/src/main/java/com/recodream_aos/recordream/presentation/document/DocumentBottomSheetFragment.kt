@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentDocumentBottomSheetBinding
-import com.recodream_aos.recordream.util.CustomDialog
+import com.recodream_aos.recordream.util.customview.CustomDialog
 
 class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDocumentBottomSheetBinding
@@ -19,13 +19,13 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_document_bottom_sheet,
             container,
-            false
+            false,
         )
         initDialog()
         clickShare()

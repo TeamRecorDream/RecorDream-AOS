@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RequestPushAlam(
-    val time: String
+    val time: String,
 )

@@ -2,7 +2,7 @@
 
     <item
         android:id="@+id/background"
-        android:drawable="@drawable/seek_bar_record_background"/>
+        android:drawable="@drawable/seek_bar_record_background" />
 
     <item android:id="@+id/progress">
         <scale

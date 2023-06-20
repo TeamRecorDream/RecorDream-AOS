@@ -7,5 +7,5 @@ data class ResponseHome(
     val dream_color: Int,
     val emotion: Int,
     val genre: List<Int>,
-    val title: String
+    val title: String,
 )

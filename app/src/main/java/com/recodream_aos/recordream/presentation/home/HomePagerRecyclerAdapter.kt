@@ -27,7 +27,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     class PagerViewHolder(
         private val binding: HomeCardItemBinding,
-        private val itemClick: (String) -> Unit
+        private val itemClick: (String) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseHome) {
             binding.tvHomeDate.text = data.date
@@ -69,11 +69,13 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
                     binding.tvHomeGenre2.visibility = View.INVISIBLE
                     binding.tvHomeGenre3.visibility = View.INVISIBLE
                 }
+
                 2 -> {
                     binding.tvHomeGenre1.visibility = View.VISIBLE
                     binding.tvHomeGenre2.visibility = View.VISIBLE
                     binding.tvHomeGenre3.visibility = View.INVISIBLE
                 }
+
                 3 -> {
                     binding.tvHomeGenre1.visibility = View.VISIBLE
                     binding.tvHomeGenre2.visibility = View.VISIBLE
@@ -88,7 +90,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
             LayoutInflater.from(parent.context),
             R.layout.home_card_item,
             parent,
-            false
+            false,
         )
         return PagerViewHolder(binding, itemClick)
     }
@@ -110,14 +112,14 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
         private val diffResult = object : DiffUtil.ItemCallback<ResponseHome>() {
             override fun areItemsTheSame(
                 oldItem: ResponseHome,
-                newItem: ResponseHome
+                newItem: ResponseHome,
             ): Boolean {
                 return oldItem._id == newItem._id
             }
 
             override fun areContentsTheSame(
                 oldItem: ResponseHome,
-                newItem: ResponseHome
+                newItem: ResponseHome,
             ): Boolean {
                 return oldItem == newItem
             }

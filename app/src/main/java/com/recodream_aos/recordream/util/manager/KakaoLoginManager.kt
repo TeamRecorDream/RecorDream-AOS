@@ -8,7 +8,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
 class KakaoLoginManager @Inject constructor(
-    @ActivityContext val context: Context
+    @ActivityContext val context: Context,
 ) {
     fun showKaKaoLogin(setCallback: (OAuthToken?, Throwable?) -> Unit) {
         when (UserApiClient.instance.isKakaoTalkLoginAvailable(context)) {
@@ -21,7 +21,7 @@ class KakaoLoginManager @Inject constructor(
         Log.d("*****KAKAOLOGIN/OK*****", "카카오톡으로 로그인 가능")
         UserApiClient.instance.loginWithKakaoTalk(
             context,
-            callback = setCallback
+            callback = setCallback,
         )
     }
 
@@ -29,7 +29,7 @@ class KakaoLoginManager @Inject constructor(
         Log.d("*****KAKAOLOGIN/NO*****", "카카오톡으로 로그인 불가능")
         UserApiClient.instance.loginWithKakaoAccount(
             context,
-            callback = setCallback
+            callback = setCallback,
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.util
+package com.recodream_aos.recordream.util.customview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -32,7 +32,7 @@ class CustomBottomNavigationView : BottomNavigationView {
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
         context,
         attrs,
-        defStyleAttr
+        defStyleAttr,
     ) {
         init()
     }
@@ -57,37 +57,38 @@ class CustomBottomNavigationView : BottomNavigationView {
         mNavigationBarWidth = width
         mNavigationBarHeight = height
 
-        mFirstCurveStartPoint.set( // CURVE_CIRCLE_RADIUS 굴곡담당
+        mFirstCurveStartPoint.set(
+            // CURVE_CIRCLE_RADIUS 굴곡담당
             (mNavigationBarWidth / 1.92 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3).toInt(),
-            0
+            0,
         )
         mFirstCurveEndPoint.set(
             (mNavigationBarWidth / 2),
-            CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4
+            CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4,
         )
         mSecondCurveStartPoint = mFirstCurveEndPoint
         mSecondCurveEndPoint.set(
             (mNavigationBarWidth / 2.1 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3).toInt(),
-            0
+            0,
         )
 
         mFirstCurveControlPoint1.set(
             mFirstCurveStartPoint.x + CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4,
-            mFirstCurveStartPoint.y
+            mFirstCurveStartPoint.y,
         )
 
         mFirstCurveControlPoint2.set(
             (mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2.29 + CURVE_CIRCLE_RADIUS).toInt(),
-            mFirstCurveEndPoint.y
+            mFirstCurveEndPoint.y,
         )
 
         mSecondCurveControlPoint1.set(
             (mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2.29 - CURVE_CIRCLE_RADIUS).toInt(),
-            mSecondCurveStartPoint.y
+            mSecondCurveStartPoint.y,
         )
         mSecondCurveControlPoint2.set(
             mSecondCurveEndPoint.x - (CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4),
-            mSecondCurveEndPoint.y
+            mSecondCurveEndPoint.y,
         )
 
         mPath.reset()
@@ -100,7 +101,7 @@ class CustomBottomNavigationView : BottomNavigationView {
             mFirstCurveControlPoint2.x.toFloat(),
             mFirstCurveControlPoint2.y.toFloat(),
             mFirstCurveEndPoint.x.toFloat(),
-            mFirstCurveEndPoint.y.toFloat()
+            mFirstCurveEndPoint.y.toFloat(),
         )
 
         mPath.cubicTo(
@@ -109,7 +110,7 @@ class CustomBottomNavigationView : BottomNavigationView {
             mSecondCurveControlPoint2.x.toFloat(),
             mSecondCurveControlPoint2.y.toFloat(),
             mSecondCurveEndPoint.x.toFloat(),
-            mSecondCurveEndPoint.y.toFloat()
+            mSecondCurveEndPoint.y.toFloat(),
         )
 
         mPath.lineTo(mNavigationBarWidth.toFloat(), 0F)
