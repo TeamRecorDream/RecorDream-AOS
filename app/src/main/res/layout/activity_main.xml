@@ -29,14 +29,16 @@
 
         <ImageView
             android:id="@+id/iv_main_bottom"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_bottom_navibar"
             app:itemIconTint="@color/white01_FFFFFF"
             app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.recodream_aos.recordream.util.CustomBottomNavigationView
+        <com.recodream_aos.recordream.util.customview.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

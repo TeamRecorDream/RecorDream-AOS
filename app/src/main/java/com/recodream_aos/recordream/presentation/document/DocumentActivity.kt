@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.recodream_aos.recordream.databinding.ActivityDocumentBinding
-import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.RecordreamMapping
+import com.recodream_aos.recordream.util.customview.CustomDialog
 
 class DocumentActivity : AppCompatActivity() {
 

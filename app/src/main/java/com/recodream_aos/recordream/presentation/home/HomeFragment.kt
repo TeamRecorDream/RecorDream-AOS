@@ -24,7 +24,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         initAdapterHomeCard()

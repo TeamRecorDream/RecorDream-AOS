@@ -18,8 +18,8 @@ import androidx.core.content.edit
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.ActivityMypageBinding
 import com.recodream_aos.recordream.presentation.login.LoginActivity
-import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.RecorDreamFireBaseMessagingService
+import com.recodream_aos.recordream.util.customview.CustomDialog
 import com.recodream_aos.recordream.util.shortToastByInt
 import dagger.hilt.android.AndroidEntryPoint
 

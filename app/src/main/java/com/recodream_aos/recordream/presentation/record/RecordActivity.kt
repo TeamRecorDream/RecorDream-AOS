@@ -13,7 +13,7 @@ import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
-import com.recodream_aos.recordream.util.shortToastByInt
+import com.recodream_aos.recordream.util.anchorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -63,7 +63,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.btnRecordSave.setOnClickListener {
             when (recordViewModel.isSaveEnabled.value) {
                 true -> navigateToDocumentView()
-                false -> shortToastByInt(R.string.tv_record_warning_save)
+                false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
             }
         }
     }

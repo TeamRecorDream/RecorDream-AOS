@@ -33,7 +33,7 @@ class StorageFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
