@@ -13,8 +13,7 @@ import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
-import com.recodream_aos.recordream.util.shortToastByString
-import kotlinx.coroutines.flow.Flow
+import com.recodream_aos.recordream.util.shortToastByInt
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -34,7 +33,10 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         initViewModel()
         attachAdapter()
         setClickListener()
+        observeTitleForSaveActivation()
+    }
 
+    private fun observeTitleForSaveActivation() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 recordViewModel.title.collectLatest {
@@ -61,7 +63,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.btnRecordSave.setOnClickListener {
             when (recordViewModel.isSaveEnabled.value) {
                 true -> navigateToDocumentView()
-                false -> shortToastByString("ss")
+                false -> shortToastByInt(R.string.tv_record_warning_save)
             }
         }
     }
@@ -88,18 +90,5 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun initRecordBottomSheetDialog() {
         RecordBottomSheetFragment().show(supportFragmentManager, RecordBottomSheetFragment().tag)
-    }
-
-    private inline fun <T> collectWithLifecycle(
-        flow: Flow<T>,
-        crossinline action: () -> Unit,
-    ) {
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                flow.collectLatest { value ->
-                    action()
-                }
-            }
-        }
     }
 }

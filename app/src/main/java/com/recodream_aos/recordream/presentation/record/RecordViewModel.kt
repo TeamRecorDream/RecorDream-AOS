@@ -2,16 +2,19 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.presentation.record.uistate.Genre
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class RecordViewModel : ViewModel() {
-    val title: MutableStateFlow<String> = MutableStateFlow(BLANK)
-    val content = MutableStateFlow(BLANK)
-    val note = MutableStateFlow(BLANK)
+    val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
+    val content = MutableStateFlow(DEFAULT_VALUE_STRING)
+    val note = MutableStateFlow(DEFAULT_VALUE_STRING)
 
     private val _date: MutableStateFlow<String> =
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
@@ -42,7 +45,7 @@ class RecordViewModel : ViewModel() {
     }
 
     fun updateSaveButtonEnabled() {
-        _isSaveEnabled.value = title.value.isNotEmpty() && title.value.first() != ' '
+        _isSaveEnabled.value = title.value.isNotEmpty() && title.value.first() != BLANK
     }
 
     fun updateRecordingTime(recordingTime: String) {
@@ -54,6 +57,10 @@ class RecordViewModel : ViewModel() {
     }
 
     fun updateSelectedEmotionId(emotionId: Int) {
+        if (emotion.value == emotionId) {
+            _emotion.value = null
+            return
+        }
         _emotion.value = emotionId
     }
 
@@ -78,15 +85,19 @@ class RecordViewModel : ViewModel() {
     }
 
     private fun handleIfReachMaxCount(isContained: Boolean) {
-        when (isContained) {
-            true -> {
-                _genreEnabled.value = List(ALL_GENRE) { true }
-                _warningGenre.value = false
-            }
+        viewModelScope.launch {
+            when (isContained) {
+                true -> {
+                    _genreEnabled.value = List(ALL_GENRE) { true }
+                    _warningGenre.value = HIDE
+                }
 
-            false -> {
-                _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
-                _warningGenre.value = true
+                false -> {
+                    _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    _warningGenre.value = SHOW
+                    delay(TWO_SECONDS)
+                    _warningGenre.value = HIDE
+                }
             }
         }
     }
@@ -96,21 +107,20 @@ class RecordViewModel : ViewModel() {
         return this.toString()
     }
 
-    sealed interface Validation {
-        object Able : Validation
-        object Disable : Validation
-    }
-
     companion object {
-        private const val BLANK = ""
+        private const val BLANK = ' '
+        private const val DEFAULT_VALUE_STRING = ""
         private const val DEFAULT_TIME = "00:00"
         private const val DATE_PATTERN = "yyyy-MM-dd"
         private const val UNIT_TENS = "0"
         private const val CORRECTION_VALUE = 1
         private const val TWO_DIGITS = 10
         private const val ALL_GENRE = 10
+        private const val TWO_SECONDS: Long = 2000
         private const val MAX_COUNT_OF_GENRE = 3
         private const val CONTAINED = true
         private const val NON_CONTAINED = false
+        private const val SHOW = true
+        private const val HIDE = false
     }
 }
