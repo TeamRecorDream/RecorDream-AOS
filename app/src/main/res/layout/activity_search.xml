@@ -77,7 +77,7 @@
             android:maxLines="1"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            android:text="@={viewModel.searchKeyword}"
+            android:text="@{viewModel.searchKeyword}"
             android:textAppearance="@style/M14"
             android:textColor="@color/white01_FFFFFF"
             android:textColorHint="@color/white03_66FFFFFF"
