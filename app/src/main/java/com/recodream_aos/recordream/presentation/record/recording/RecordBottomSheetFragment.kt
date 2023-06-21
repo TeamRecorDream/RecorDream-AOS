@@ -163,7 +163,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
         collectWithLifecycle(recordBottomSheetViewModel.stateOfSavingRecording) { result ->
             when (result) {
-                is VALID -> recordViewModel.updateId(result.voiceRecord.id)
+                is VALID -> recordViewModel.updateId(result.voiceRecordId.id)
                 is INVALID -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
                 is DISCONNECT -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
                 is IDLE -> Log.e("RecordBottomSheetFragment", "DEFAULT")

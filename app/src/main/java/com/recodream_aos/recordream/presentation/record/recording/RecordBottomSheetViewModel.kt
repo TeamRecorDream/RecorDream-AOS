@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.util.CustomResult.FAIL
 import com.example.domain.util.CustomResult.SUCCESS
-import com.recodream_aos.recordream.domain.model.VoiceRecord
+import com.recodream_aos.recordream.domain.model.VoiceRecordId
 import com.recodream_aos.recordream.domain.repository.RecordRepository
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.DISCONNECT
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.IDLE
@@ -199,7 +199,7 @@ class RecordBottomSheetViewModel @Inject constructor(
     private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
 
     sealed interface SavingState {
-        data class VALID(val voiceRecord: VoiceRecord) : SavingState
+        data class VALID(val voiceRecordId: VoiceRecordId) : SavingState
         object INVALID : SavingState
         object DISCONNECT : SavingState
         object IDLE : SavingState

@@ -44,6 +44,9 @@ class RecordViewModel : ViewModel() {
     val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled
 
     fun postRecord(): String {
+        viewModelScope.launch {
+
+        }
         return ""
     }
 
