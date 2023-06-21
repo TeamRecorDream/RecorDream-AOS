@@ -10,16 +10,17 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentRecordBottomSheetBinding
 import com.recodream_aos.recordream.presentation.record.RecordViewModel
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.DISCONNECT
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.IDLE
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.INVALID
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.VALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.VALID
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
@@ -163,7 +164,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
         collectWithLifecycle(recordBottomSheetViewModel.stateOfSavingRecording) { result ->
             when (result) {
-                is VALID -> recordViewModel.updateId(result.voiceRecord.id)
+                is VALID -> recordViewModel.updateId(result.voiceRecordId.id)
                 is INVALID -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
                 is DISCONNECT -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
                 is IDLE -> Log.e("RecordBottomSheetFragment", "DEFAULT")
@@ -194,7 +195,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         crossinline action: (T) -> Unit,
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 flow.collectLatest { value ->
                     action(value)
                 }

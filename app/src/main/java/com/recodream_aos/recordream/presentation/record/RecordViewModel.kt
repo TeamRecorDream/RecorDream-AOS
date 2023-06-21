@@ -3,52 +3,89 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.util.CustomResult.FAIL
+import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.model.Record
+import com.recodream_aos.recordream.domain.repository.RecordRepository
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.IDLE
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.INVALID
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.VALID
 import com.recodream_aos.recordream.presentation.record.uistate.Genre
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class RecordViewModel : ViewModel() {
+@HiltViewModel
+class RecordViewModel @Inject constructor(
+    private val recordRepository: RecordRepository,
+) : ViewModel() {
     val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
-    val content = MutableStateFlow(DEFAULT_VALUE_STRING)
-    val note = MutableStateFlow(DEFAULT_VALUE_STRING)
-
-    private val _id: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
-    val id: StateFlow<String> = _id
 
     private val _date: MutableStateFlow<String> =
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
 
-    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
-    val recordingTime: StateFlow<String> get() = _recordingTime
+    val content: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
 
-    private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(null)
+    private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(DEFAULT_VALUE_NULL)
     val emotion: StateFlow<Int?> get() = _emotion
 
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
     val genre: StateFlow<List<Int>> = _genre
 
-    private val _genreEnabled: MutableStateFlow<List<Boolean>> =
-        MutableStateFlow(List(ALL_GENRE) { true })
-    val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
+    val note: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+
+    private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+    val voiceId: StateFlow<String?> = _voiceId
+
+    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
+    val recordingTime: StateFlow<String> get() = _recordingTime
 
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val warningGenre: StateFlow<Boolean> = _warningGenre
+
+    private val _genreEnabled: MutableStateFlow<List<Boolean>> =
+        MutableStateFlow(List(ALL_GENRE) { true })
+    val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
 
     private val _isSaveEnabled: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
     val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled
 
-    fun postRecord(): String {
-        return ""
+    private val _stateOfSavingRecord: MutableStateFlow<SavingRecordState> = MutableStateFlow(IDLE)
+    val stateOfSavingRecord: StateFlow<SavingRecordState> = _stateOfSavingRecord
+
+    fun postRecord() {
+        viewModelScope.launch {
+            runCatching { recordRepository.postRecord(getRecord()) }
+                .onSuccess { result ->
+                    when (result) {
+                        is SUCCESS -> _stateOfSavingRecord.value = VALID
+                        is FAIL -> _stateOfSavingRecord.value = INVALID
+                    }
+                }
+                .onFailure { _stateOfSavingRecord.value = DISCONNECT }
+        }
     }
 
+    private fun getRecord(): Record = Record(
+        title = title.value,
+        date = date.value,
+        content = content.value,
+        emotion = emotion.value,
+        genre = genre.value.ifEmpty { null },
+        note = note.value,
+        voice = voiceId.value,
+    )
+
     fun updateId(id: String) {
-        _id.value = id
+        _voiceId.value = id
     }
 
     fun updateSaveButtonEnabled() {
@@ -114,9 +151,17 @@ class RecordViewModel : ViewModel() {
         return this.toString()
     }
 
+    sealed interface SavingRecordState {
+        object VALID : SavingRecordState
+        object INVALID : SavingRecordState
+        object DISCONNECT : SavingRecordState
+        object IDLE : SavingRecordState
+    }
+
     companion object {
         private const val BLANK = ' '
         private const val DEFAULT_VALUE_STRING = ""
+        private val DEFAULT_VALUE_NULL = null
         private const val DEFAULT_TIME = "00:00"
         private const val DATE_PATTERN = "yyyy-MM-dd"
         private const val UNIT_TENS = "0"

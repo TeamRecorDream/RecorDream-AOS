@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,10 +12,15 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.IDLE
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.INVALID
+import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.VALID
 import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
 import com.recodream_aos.recordream.util.anchorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -39,12 +45,8 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun observeTitleForSaveActivation() {
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                recordViewModel.title.collectLatest {
-                    recordViewModel.updateSaveButtonEnabled()
-                }
-            }
+        collectWithLifecycle(recordViewModel.title) {
+            recordViewModel.updateSaveButtonEnabled()
         }
     }
 
@@ -64,14 +66,27 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.ivRecordClose.setOnClickListener { finish() }
         binding.btnRecordSave.setOnClickListener {
             when (recordViewModel.isSaveEnabled.value) {
-                true -> navigateToDocumentView()
+                true -> initNetwork()
                 false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
             }
         }
     }
 
+    private fun initNetwork() {
+        recordViewModel.postRecord()
+
+        collectWithLifecycle(recordViewModel.stateOfSavingRecord) { result ->
+            when (result) {
+                is VALID -> navigateToDocumentView()
+                is INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is IDLE -> Log.e("RecordActivity", "DEFAULT")
+            }
+        }
+    }
+
     private fun navigateToDocumentView() {
-        DocumentActivity.getIntent(this, recordViewModel.postRecord())
+        DocumentActivity.getIntent(this, recordViewModel.voiceId.value)
         finish()
     }
 
@@ -92,5 +107,18 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun initRecordBottomSheetDialog() {
         RecordBottomSheetFragment().show(supportFragmentManager, RecordBottomSheetFragment().tag)
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 }
