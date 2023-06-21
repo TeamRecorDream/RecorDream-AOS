@@ -2,6 +2,7 @@ package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 import com.recodream_aos.recordream.data.api.AuthService
 import com.recodream_aos.recordream.data.api.MypageService
+import com.recodream_aos.recordream.data.api.RecordService
 import com.recodream_aos.recordream.data.api.StorageService
 import dagger.Module
 import dagger.Provides
@@ -31,4 +32,10 @@ object ServiceModule {
     fun providesMypageUserService(
         retrofit: Retrofit,
     ): MypageService = retrofit.create(MypageService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesRecordService(
+        retrofit: Retrofit,
+    ): RecordService = retrofit.create(RecordService::class.java)
 }

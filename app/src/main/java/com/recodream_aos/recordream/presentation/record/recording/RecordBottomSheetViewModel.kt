@@ -3,6 +3,14 @@ package com.recodream_aos.recordream.presentation.record.recording // ktlint-dis
 import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.util.CustomResult.FAIL
+import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.model.VoiceRecord
+import com.recodream_aos.recordream.domain.repository.RecordRepository
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.IDLE
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.INVALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.VALID
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
@@ -10,16 +18,22 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.Timer
+import javax.inject.Inject
 import kotlin.concurrent.timer
 
-class RecordBottomSheetViewModel : ViewModel() {
+@HiltViewModel
+class RecordBottomSheetViewModel @Inject constructor(
+    private val recordRepository: RecordRepository,
+) : ViewModel() {
     private var firstTimer: Timer? = null
     private var replayTimer: Timer? = null
     private var realTimer: Timer? = null
@@ -42,13 +56,30 @@ class RecordBottomSheetViewModel : ViewModel() {
     private val _isRecorderActivated = MutableStateFlow(false)
     val isRecorderActivated: StateFlow<Boolean> get() = _isRecorderActivated
 
-    private var _playButtonState: MutableStateFlow<PlayButtonState> =
+    private val _playButtonState: MutableStateFlow<PlayButtonState> =
         MutableStateFlow(RECORDER_PLAY)
     val playButtonState: StateFlow<PlayButtonState> = _playButtonState
 
-    private var _recordButtonState: MutableStateFlow<RecordButtonState> =
+    private val _recordButtonState: MutableStateFlow<RecordButtonState> =
         MutableStateFlow(BEFORE_RECORDING)
     val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
+
+    private val _stateOfSavingRecording: MutableStateFlow<SavingState> =
+        MutableStateFlow(IDLE)
+    val stateOfSavingRecording: StateFlow<SavingState> = _stateOfSavingRecording
+
+    fun postVoice(recordingFile: File) {
+        viewModelScope.launch {
+            runCatching { recordRepository.postVoice(recordingFile) }
+                .onSuccess { result ->
+                    when (result) {
+                        is SUCCESS -> _stateOfSavingRecording.value = VALID(result.data)
+                        is FAIL -> _stateOfSavingRecording.value = INVALID
+                    }
+                }
+                .onFailure { _stateOfSavingRecording.value = DISCONNECT }
+        }
+    }
 
     fun updatePlayButtonState(beforeState: PlayButtonState) {
         when (beforeState) {
@@ -166,6 +197,13 @@ class RecordBottomSheetViewModel : ViewModel() {
     }
 
     private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
+
+    sealed interface SavingState {
+        data class VALID(val voiceRecord: VoiceRecord) : SavingState
+        object INVALID : SavingState
+        object DISCONNECT : SavingState
+        object IDLE : SavingState
+    }
 
     companion object {
         private const val ONE_PERCENT = 1800L

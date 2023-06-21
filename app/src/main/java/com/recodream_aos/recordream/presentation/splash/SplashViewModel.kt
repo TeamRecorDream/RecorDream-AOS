@@ -1,8 +1,12 @@
 package com.recodream_aos.recordream.presentation.splash // ktlint-disable package-name
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.domain.repository.AuthRepository
+import com.recodream_aos.recordream.presentation.splash.SplashViewModel.LoginState.FAIL
+import com.recodream_aos.recordream.presentation.splash.SplashViewModel.LoginState.IDLE
+import com.recodream_aos.recordream.presentation.splash.SplashViewModel.LoginState.SUCCESS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,13 +18,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
-    sealed class LoginState {
-        object SUCCESS : LoginState()
-        object FAIL : LoginState()
-        object IDLE : LoginState()
-    }
-
-    private val _isLoginSuccess = MutableStateFlow<LoginState>(LoginState.IDLE)
+    private val _isLoginSuccess = MutableStateFlow<LoginState>(IDLE)
     val isLoginSuccess: StateFlow<LoginState> get() = _isLoginSuccess
 
     init {
@@ -35,10 +33,16 @@ class SplashViewModel @Inject constructor(
     }
 
     private fun isLoginSuccess() {
-        _isLoginSuccess.value = LoginState.SUCCESS
+        _isLoginSuccess.value = SUCCESS
     }
 
     private fun isLoginFailure() {
-        _isLoginSuccess.value = LoginState.FAIL
+        _isLoginSuccess.value = FAIL
+    }
+
+    sealed interface LoginState {
+        object SUCCESS : LoginState
+        object FAIL : LoginState
+        object IDLE : LoginState
     }
 }

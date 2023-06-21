@@ -10,10 +10,10 @@ import java.lang.reflect.InvocationTargetException
 class Recorder(private val context: Context) {
     private var recorder: MediaRecorder? = null
     private var player: MediaPlayer? = null
-    private val filePath: String by lazy { "${context.externalCacheDir?.absolutePath}/audiorecordtest.3gp" }
+    private val filePath: String by lazy { "${context.externalCacheDir?.absolutePath}/audioRecord.3gp" }
 
     fun getRecordingFile(): File {
-        return File(context.externalCacheDir, filePath)
+        return File(filePath)
     }
 
     fun startPlaying() {

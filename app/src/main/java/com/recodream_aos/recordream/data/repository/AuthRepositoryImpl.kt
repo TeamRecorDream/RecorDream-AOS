@@ -31,10 +31,12 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun postToken(): Boolean {
         return try {
+            Log.d("123123", sharedPreferenceDataSource.getAccessToken().toString())
             val localAccessToken = sharedPreferenceDataSource.getAccessToken()
             val localRefreshToken = sharedPreferenceDataSource.getRefreshToken()
             val postTokenInfo = authDataSource.postToken(localAccessToken, localRefreshToken)
             saveTokens(postTokenInfo.data!!.accessToken, postTokenInfo.data.refreshToken)
+
             Timber.e("AuthRepositoryImpl3_postToken : $postTokenInfo")
             true
         } catch (exceptionMessage: Exception) {
