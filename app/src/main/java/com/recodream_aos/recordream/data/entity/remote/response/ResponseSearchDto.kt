@@ -4,15 +4,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseSearchDto(
-    val records: List<ResponseSearchedRecordDto>,
-    val recordsCount: Int,
+    val status: Int,
+    val success: Boolean,
+    val message: String,
+    val data: Data,
 ) {
     @Serializable
-    data class ResponseSearchedRecordDto(
-        val _id: String,
-        val date: String,
-        val emotion: Int,
-        val genre: List<Int>,
-        val title: String,
+    data class Data(
+        val recordsCount: Int,
+        val records: List<ResponseSearchedRecordDto>,
     )
 }

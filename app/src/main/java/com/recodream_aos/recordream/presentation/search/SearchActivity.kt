@@ -19,6 +19,10 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         initViewModel()
         attachAdapter()
         setClickEvent()
+
+        binding.ivSearchLogo.setOnClickListener {
+            searchViewModel.postSearch()
+        }
     }
 
     private fun initViewModel() {
