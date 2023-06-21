@@ -21,10 +21,12 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
 import com.recodream_aos.recordream.util.Recorder.Recorder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentRecordBottomSheetBinding? = null
     val binding get() = _binding ?: error(R.string.error_basefragment)
@@ -147,6 +149,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
+            recordBottomSheetViewModel.postVoice(recorder.getRecordingFile()) // 섭통시작
             recordViewModel.updateRecordingTime(binding.tvRecordingRecordTime.text.toString())
             dismiss()
         }

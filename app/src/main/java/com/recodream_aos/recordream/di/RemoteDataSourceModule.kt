@@ -2,6 +2,7 @@ package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 import com.recodream_aos.recordream.data.api.AuthService
 import com.recodream_aos.recordream.data.api.MypageService
+import com.recodream_aos.recordream.data.api.RecordService
 import com.recodream_aos.recordream.data.api.StorageService
 import com.recodream_aos.recordream.data.datasource.remote.*
 import dagger.Module
@@ -31,4 +32,10 @@ object RemoteDataSourceModule {
     fun providesMypageUserDataSourceImpl(
         mypageUserService: MypageService,
     ): MypageDateSource = MypageUserDateSourceImpl(mypageUserService)
+
+    @Provides
+    @Singleton
+    fun providesRecordDataSourceImpl(
+        recordService: RecordService,
+    ): RecordDataSource = RecordDataSourceImpl(recordService)
 }

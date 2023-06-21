@@ -14,9 +14,11 @@ import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
 import com.recodream_aos.recordream.util.anchorSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
     private val recordAdapter: RecordAdapter by lazy { RecordAdapter(setClickEventOnEmotions()) }

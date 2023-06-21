@@ -1,5 +1,10 @@
-package com.recodream_aos.recordream.domain.repository // ktlint-disable package-name
+package com.recodream_aos.recordream.domain.repository
+
+import com.recodream_aos.recordream.domain.model.VoiceRecord
+import java.io.File
+
+// ktlint-disable package-name
 
 interface RecordRepository {
-    suspend fun getCalendar(): Boolean
+    fun postVoice(onSuccess: (VoiceRecord) -> Unit, recordingFile: File)
 }

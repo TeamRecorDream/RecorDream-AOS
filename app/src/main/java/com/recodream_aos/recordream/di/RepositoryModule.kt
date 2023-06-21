@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.di // ktlint-disable package-name
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
 import com.recodream_aos.recordream.data.datasource.remote.MypageDateSource
+import com.recodream_aos.recordream.data.datasource.remote.RecordDataSource
 import com.recodream_aos.recordream.data.datasource.remote.StorageDateSource
 import com.recodream_aos.recordream.data.repository.AuthRepositoryImpl
 import com.recodream_aos.recordream.data.repository.MypageUserRepositoryImpl
@@ -43,5 +44,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesRecordRepository(): RecordRepository = RecordRepositoryImpl()
+    fun providesRecordRepository(
+        recordDataSource: RecordDataSource,
+    ): RecordRepository = RecordRepositoryImpl(recordDataSource)
 }

@@ -1,8 +1,10 @@
 package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
 import android.os.SystemClock
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.recodream_aos.recordream.domain.repository.RecordRepository
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
@@ -10,16 +12,22 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.Timer
+import javax.inject.Inject
 import kotlin.concurrent.timer
 
-class RecordBottomSheetViewModel : ViewModel() {
+@HiltViewModel
+class RecordBottomSheetViewModel @Inject constructor(
+    private val recordRepository: RecordRepository,
+) : ViewModel() {
     private var firstTimer: Timer? = null
     private var replayTimer: Timer? = null
     private var realTimer: Timer? = null
@@ -49,6 +57,15 @@ class RecordBottomSheetViewModel : ViewModel() {
     private var _recordButtonState: MutableStateFlow<RecordButtonState> =
         MutableStateFlow(BEFORE_RECORDING)
     val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
+
+    fun postVoice(recordingFile: File) {
+        val result = recordRepository.postVoice(
+            onSuccess = {
+                Log.d("123123", it.toString())
+            },
+            recordingFile,
+        )
+    }
 
     fun updatePlayButtonState(beforeState: PlayButtonState) {
         when (beforeState) {
