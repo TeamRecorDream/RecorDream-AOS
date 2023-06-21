@@ -12,12 +12,12 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityRecordBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.DISCONNECT
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.IDLE
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.INVALID
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.VALID
 import com.recodream_aos.recordream.presentation.record.adapter.RecordAdapter
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetFragment
+import com.recodream_aos.recordream.util.State.DISCONNECT
+import com.recodream_aos.recordream.util.State.IDLE
+import com.recodream_aos.recordream.util.State.INVALID
+import com.recodream_aos.recordream.util.State.VALID
 import com.recodream_aos.recordream.util.anchorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow

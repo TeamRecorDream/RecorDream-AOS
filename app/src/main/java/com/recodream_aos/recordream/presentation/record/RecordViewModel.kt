@@ -7,11 +7,12 @@ import com.example.domain.util.CustomResult.FAIL
 import com.example.domain.util.CustomResult.SUCCESS
 import com.recodream_aos.recordream.domain.model.Record
 import com.recodream_aos.recordream.domain.repository.RecordRepository
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.DISCONNECT
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.IDLE
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.INVALID
-import com.recodream_aos.recordream.presentation.record.RecordViewModel.SavingRecordState.VALID
 import com.recodream_aos.recordream.presentation.record.uistate.Genre
+import com.recodream_aos.recordream.util.State
+import com.recodream_aos.recordream.util.State.DISCONNECT
+import com.recodream_aos.recordream.util.State.IDLE
+import com.recodream_aos.recordream.util.State.INVALID
+import com.recodream_aos.recordream.util.State.VALID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,8 +59,8 @@ class RecordViewModel @Inject constructor(
         MutableStateFlow(false)
     val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled
 
-    private val _stateOfSavingRecord: MutableStateFlow<SavingRecordState> = MutableStateFlow(IDLE)
-    val stateOfSavingRecord: StateFlow<SavingRecordState> = _stateOfSavingRecord
+    private val _stateOfSavingRecord: MutableStateFlow<State> = MutableStateFlow(IDLE)
+    val stateOfSavingRecord: StateFlow<State> = _stateOfSavingRecord
 
     fun postRecord() {
         viewModelScope.launch {
@@ -149,13 +150,6 @@ class RecordViewModel @Inject constructor(
     private fun Int.toStringOfDate(): String {
         if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
         return this.toString()
-    }
-
-    sealed interface SavingRecordState {
-        object VALID : SavingRecordState
-        object INVALID : SavingRecordState
-        object DISCONNECT : SavingRecordState
-        object IDLE : SavingRecordState
     }
 
     companion object {

@@ -4,14 +4,17 @@ import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSo
 import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
 import com.recodream_aos.recordream.data.datasource.remote.MypageDateSource
 import com.recodream_aos.recordream.data.datasource.remote.RecordDataSource
+import com.recodream_aos.recordream.data.datasource.remote.SearchDataSource
 import com.recodream_aos.recordream.data.datasource.remote.StorageDateSource
 import com.recodream_aos.recordream.data.repository.AuthRepositoryImpl
 import com.recodream_aos.recordream.data.repository.MypageUserRepositoryImpl
 import com.recodream_aos.recordream.data.repository.RecordRepositoryImpl
+import com.recodream_aos.recordream.data.repository.SearchRepositoryImpl
 import com.recodream_aos.recordream.data.repository.StorageRepositoryImpl
 import com.recodream_aos.recordream.domain.repository.AuthRepository
 import com.recodream_aos.recordream.domain.repository.MypageUserRepository
 import com.recodream_aos.recordream.domain.repository.RecordRepository
+import com.recodream_aos.recordream.domain.repository.SearchRepository
 import com.recodream_aos.recordream.domain.repository.StorageRepository
 import dagger.Module
 import dagger.Provides
@@ -47,4 +50,10 @@ object RepositoryModule {
     fun providesRecordRepository(
         recordDataSource: RecordDataSource,
     ): RecordRepository = RecordRepositoryImpl(recordDataSource)
+
+    @Provides
+    @Singleton
+    fun providesSearchRepository(
+        searchDataSource: SearchDataSource,
+    ): SearchRepository = SearchRepositoryImpl(searchDataSource)
 }
