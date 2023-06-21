@@ -13,7 +13,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
-
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
         android:minSdkVersion="33" />
@@ -40,22 +39,23 @@
         android:theme="@style/Theme.RecorDream"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
-            android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.record.RecordActivity"
             android:exported="true" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
-
+            android:name=".presentation.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
+            android:name=".presentation.mypage.MypageActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
