@@ -80,7 +80,7 @@ class DocumentActivity : AppCompatActivity() {
     companion object {
         private const val RECORD_ID = "RECORD_ID"
 
-        fun getIntent(context: Context, id: String): Intent =
+        fun getIntent(context: Context, id: String?): Intent =
             Intent(context, DocumentActivity::class.java).apply {
                 putExtra(RECORD_ID, id)
             }

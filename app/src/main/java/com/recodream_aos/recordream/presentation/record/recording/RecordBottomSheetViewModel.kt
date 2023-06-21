@@ -7,10 +7,10 @@ import com.example.domain.util.CustomResult.FAIL
 import com.example.domain.util.CustomResult.SUCCESS
 import com.recodream_aos.recordream.domain.model.VoiceRecordId
 import com.recodream_aos.recordream.domain.repository.RecordRepository
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.DISCONNECT
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.IDLE
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.INVALID
-import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.VALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.VALID
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
@@ -64,9 +64,8 @@ class RecordBottomSheetViewModel @Inject constructor(
         MutableStateFlow(BEFORE_RECORDING)
     val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
 
-    private val _stateOfSavingRecording: MutableStateFlow<SavingState> =
-        MutableStateFlow(IDLE)
-    val stateOfSavingRecording: StateFlow<SavingState> = _stateOfSavingRecording
+    private val _stateOfSavingRecording: MutableStateFlow<SavingRecordingState> = MutableStateFlow(IDLE)
+    val stateOfSavingRecording: StateFlow<SavingRecordingState> = _stateOfSavingRecording
 
     fun postVoice(recordingFile: File) {
         viewModelScope.launch {
@@ -198,11 +197,11 @@ class RecordBottomSheetViewModel @Inject constructor(
 
     private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
 
-    sealed interface SavingState {
-        data class VALID(val voiceRecordId: VoiceRecordId) : SavingState
-        object INVALID : SavingState
-        object DISCONNECT : SavingState
-        object IDLE : SavingState
+    sealed interface SavingRecordingState {
+        data class VALID(val voiceRecordId: VoiceRecordId) : SavingRecordingState
+        object INVALID : SavingRecordingState
+        object DISCONNECT : SavingRecordingState
+        object IDLE : SavingRecordingState
     }
 
     companion object {

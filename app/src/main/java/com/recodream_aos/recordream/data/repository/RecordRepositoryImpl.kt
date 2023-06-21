@@ -10,6 +10,7 @@ import com.recodream_aos.recordream.domain.model.RecordId
 import com.recodream_aos.recordream.domain.model.VoiceRecordId
 import com.recodream_aos.recordream.domain.repository.RecordRepository
 import com.recodream_aos.recordream.mapper.toDomain
+import com.recodream_aos.recordream.mapper.toRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -30,7 +31,12 @@ class RecordRepositoryImpl @Inject constructor(
     }
 
     override suspend fun postRecord(record: Record): CustomResult<RecordId> {
-        TODO("Not yet implemented")
+        val requestBody = record.toRequestBody()
+
+        return when (val result = recordDataSource.postRecord(requestBody)) {
+            is SUCCESS -> SUCCESS(result.data.toDomain())
+            is FAIL -> FAIL(Error.DisabledDataCall(result.error.errorMessage))
+        }
     }
 
     companion object {
