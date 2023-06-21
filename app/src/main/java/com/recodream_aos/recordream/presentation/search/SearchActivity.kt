@@ -2,11 +2,17 @@ package com.recodream_aos.recordream.presentation.search
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivitySearchBinding
 import com.recodream_aos.recordream.presentation.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_search) {
@@ -23,6 +29,10 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         binding.ivSearchLogo.setOnClickListener {
             searchViewModel.postSearch()
         }
+
+        collectWithLifecycle(searchViewModel.searchResult) { searchResult ->
+            searchAdapter.updateSearchResult(searchResult)
+        }
     }
 
     private fun initViewModel() {
@@ -36,5 +46,18 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
 
     private fun setClickEvent() {
         binding.ivSearchBackBtn.setOnClickListener { finish() }
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 }

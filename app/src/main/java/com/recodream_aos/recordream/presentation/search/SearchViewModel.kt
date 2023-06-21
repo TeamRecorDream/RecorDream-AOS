@@ -1,10 +1,10 @@
 package com.recodream_aos.recordream.presentation.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.util.CustomResult.FAIL
 import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.model.SearchedRecord
 import com.recodream_aos.recordream.domain.repository.SearchRepository
 import com.recodream_aos.recordream.util.State
 import com.recodream_aos.recordream.util.State.DISCONNECT
@@ -29,6 +29,11 @@ class SearchViewModel @Inject constructor(
     private val _isExistence: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val isExistence: StateFlow<Boolean?> = _isExistence
 
+    private val _searchResult: MutableStateFlow<List<SearchedRecord>> = MutableStateFlow(
+        mutableListOf(),
+    )
+    val searchResult: StateFlow<List<SearchedRecord>> = _searchResult
+
     private val _searchState: MutableStateFlow<State> = MutableStateFlow(IDLE)
     val searchState: StateFlow<State> = _searchState
 
@@ -38,8 +43,11 @@ class SearchViewModel @Inject constructor(
                 .onSuccess { result ->
                     when (result) {
                         is SUCCESS -> {
-                            Log.d("123123", result.data.toString())
+                            val temp = result.data
+                            _resultCount.value = temp.recordsCount
+                            _searchResult.value = temp.records
                             _searchState.value = VALID
+                            _isExistence.value = true
                         }
 
                         is FAIL -> _searchState.value = INVALID

@@ -14,8 +14,12 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 object BindingAdapter {
     @JvmStatic
     @BindingAdapter("isVisible")
-    fun isVisible(view: View, isVisible: Boolean) {
-        view.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+    fun isVisible(view: View, isVisible: Boolean?) {
+        when (isVisible) {
+            true -> view.visibility = View.VISIBLE
+            false -> view.visibility = View.INVISIBLE
+            null -> view.visibility = View.INVISIBLE
+        }
     }
 
     @JvmStatic
@@ -37,9 +41,16 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("imgResId")
-    fun setImageResId(imageview: ImageView, resId: Int) {
-        imageview.setImageResource(resId)
+    @BindingAdapter("glideEmotionSrc")
+    fun glideEmotionSrc(imageview: ImageView, emotionId: Int) {
+        when (emotionId) {
+            1 -> R.drawable.feeling_m_joy.setImageWithGlide(imageview)
+            2 -> R.drawable.feeling_m_sad.setImageWithGlide(imageview)
+            3 -> R.drawable.feeling_m_scary.setImageWithGlide(imageview)
+            4 -> R.drawable.feeling_m_strange.setImageWithGlide(imageview)
+            5 -> R.drawable.feeling_m_shy.setImageWithGlide(imageview)
+            else -> R.drawable.feeling_m_blank.setImageWithGlide(imageview)
+        }
     }
 
     @JvmStatic
