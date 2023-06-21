@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.search.SearchActivity">
+
+        <ImageView
+            android:id="@+id/iv_search_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_search_view_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_search_view_title"
+            app:srcCompat="@drawable/icn_back" />
+
+        <TextView
+            android:id="@+id/tv_search_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/tv_search_view_title"
+            android:textAppearance="@style/Sb16"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/v_search_indicator_first"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/v_search_indicator_first"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="72dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_search_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/tv_search_description"
+            android:textAppearance="@style/Sb14"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_search_indicator_first" />
+
+        <EditText
+            android:id="@+id/et_search_enter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/rectangle_radius_100dp"
+            android:drawableStart="@drawable/icn_search"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/et_search_enter"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:textAppearance="@style/M14"
+            android:textColor="@color/white01_FFFFFF"
+            android:textColorHint="@color/white03_66FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_search_description" />
+
+        <TextView
+            android:id="@+id/tv_search_count_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/tv_search_count_record"
+            android:textAppearance="@style/Sb12"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_search_enter" />
+
+        <View
+            android:id="@+id/v_search_indicator_second"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_search_count_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_search_count_result"
+            app:layout_constraintTop_toTopOf="@+id/tv_search_count_result" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/iv_search_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_search_count_result" />
+
+        <ImageView
+            android:id="@+id/iv_search_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/rdgoro_mark" />
+
+        <TextView
+            android:id="@+id/tv_search_no_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:layout_marginBottom="180dp"
+            android:text="@string/tv_search_no_count"
+            android:textAppearance="@style/M16"
+            android:textColor="@color/white03_66FFFFFF"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/iv_search_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_search_count_result" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
