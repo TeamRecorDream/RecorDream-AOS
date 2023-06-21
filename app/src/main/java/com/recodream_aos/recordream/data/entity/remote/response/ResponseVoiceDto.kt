@@ -3,7 +3,7 @@ package com.recodream_aos.recordream.data.entity.remote.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseVoice(
+data class ResponseVoiceDto(
     val data: Data,
     val message: String,
     val status: Int,

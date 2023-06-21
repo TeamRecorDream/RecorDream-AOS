@@ -16,6 +16,9 @@ class RecordViewModel : ViewModel() {
     val content = MutableStateFlow(DEFAULT_VALUE_STRING)
     val note = MutableStateFlow(DEFAULT_VALUE_STRING)
 
+    private val _id: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
+    val id: StateFlow<String> = _id
+
     private val _date: MutableStateFlow<String> =
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
@@ -42,6 +45,10 @@ class RecordViewModel : ViewModel() {
 
     fun postRecord(): String {
         return ""
+    }
+
+    fun updateId(id: String) {
+        _id.value = id
     }
 
     fun updateSaveButtonEnabled() {

@@ -1,5 +1,9 @@
 package com.recodream_aos.recordream.data.repository // ktlint-disable package-name
 
+import com.example.domain.util.CustomResult
+import com.example.domain.util.CustomResult.FAIL
+import com.example.domain.util.CustomResult.SUCCESS
+import com.example.domain.util.Error
 import com.recodream_aos.recordream.data.datasource.remote.RecordDataSource
 import com.recodream_aos.recordream.domain.model.VoiceRecord
 import com.recodream_aos.recordream.domain.repository.RecordRepository
@@ -13,18 +17,18 @@ import javax.inject.Inject
 class RecordRepositoryImpl @Inject constructor(
     private val recordDataSource: RecordDataSource,
 ) : RecordRepository {
-    override fun postVoice(onSuccess: (VoiceRecord) -> Unit, recordingFile: File) {
-        val filePart = MultipartBody.Part.createFormData(
-            "file",
-            recordingFile.name,
-            recordingFile.asRequestBody("/audioRecord.3gp".toMediaTypeOrNull()),
-        )
+    override suspend fun postVoice(recordingFile: File): CustomResult<VoiceRecord> {
+        val requestFile = recordingFile.asRequestBody(FILE_NAME_EXTENSION.toMediaTypeOrNull())
+        val filePart = MultipartBody.Part.createFormData(FILE_NAME, recordingFile.name, requestFile)
 
-        val requestFile = recordingFile.asRequestBody("audio/3gpp".toMediaTypeOrNull())
-        val filePart2 = MultipartBody.Part.createFormData("file", recordingFile.name, requestFile)
+        return when (val result = recordDataSource.postVoice(filePart)) {
+            is SUCCESS -> SUCCESS(result.data.toDomain())
+            is FAIL -> FAIL(Error.DisabledDataCall(result.error.errorMessage))
+        }
+    }
 
-        recordDataSource.postVoice(onSuccess = {
-            onSuccess.invoke(it.data.toDomain())
-        }, filePart2)
+    companion object {
+        private const val FILE_NAME = "file"
+        private const val FILE_NAME_EXTENSION = "audio/3gpp"
     }
 }

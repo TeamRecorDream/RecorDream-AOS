@@ -1,10 +1,16 @@
 package com.recodream_aos.recordream.presentation.record.recording // ktlint-disable package-name
 
 import android.os.SystemClock
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.util.CustomResult.FAIL
+import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.model.VoiceRecord
 import com.recodream_aos.recordream.domain.repository.RecordRepository
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.IDLE
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.INVALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.VALID
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
@@ -50,21 +56,29 @@ class RecordBottomSheetViewModel @Inject constructor(
     private val _isRecorderActivated = MutableStateFlow(false)
     val isRecorderActivated: StateFlow<Boolean> get() = _isRecorderActivated
 
-    private var _playButtonState: MutableStateFlow<PlayButtonState> =
+    private val _playButtonState: MutableStateFlow<PlayButtonState> =
         MutableStateFlow(RECORDER_PLAY)
     val playButtonState: StateFlow<PlayButtonState> = _playButtonState
 
-    private var _recordButtonState: MutableStateFlow<RecordButtonState> =
+    private val _recordButtonState: MutableStateFlow<RecordButtonState> =
         MutableStateFlow(BEFORE_RECORDING)
     val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
 
+    private val _stateOfSavingRecording: MutableStateFlow<SavingState> =
+        MutableStateFlow(IDLE)
+    val stateOfSavingRecording: StateFlow<SavingState> = _stateOfSavingRecording
+
     fun postVoice(recordingFile: File) {
-        val result = recordRepository.postVoice(
-            onSuccess = {
-                Log.d("123123", it.toString())
-            },
-            recordingFile,
-        )
+        viewModelScope.launch {
+            runCatching { recordRepository.postVoice(recordingFile) }
+                .onSuccess { result ->
+                    when (result) {
+                        is SUCCESS -> _stateOfSavingRecording.value = VALID(result.data)
+                        is FAIL -> _stateOfSavingRecording.value = INVALID
+                    }
+                }
+                .onFailure { _stateOfSavingRecording.value = DISCONNECT }
+        }
     }
 
     fun updatePlayButtonState(beforeState: PlayButtonState) {
@@ -183,6 +197,13 @@ class RecordBottomSheetViewModel @Inject constructor(
     }
 
     private fun Int.convertMilliseconds(): Long = this * ONE_SECOND
+
+    sealed interface SavingState {
+        data class VALID(val voiceRecord: VoiceRecord) : SavingState
+        object INVALID : SavingState
+        object DISCONNECT : SavingState
+        object IDLE : SavingState
+    }
 
     companion object {
         private const val ONE_PERCENT = 1800L

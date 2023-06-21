@@ -2,6 +2,7 @@ package com.recodream_aos.recordream.presentation.record.recording // ktlint-dis
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentRecordBottomSheetBinding
 import com.recodream_aos.recordream.presentation.record.RecordViewModel
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.IDLE
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.INVALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingState.VALID
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
@@ -149,10 +154,28 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun saveButtonClickListener() {
         binding.ivRecordingSaveBtn.setOnClickListener {
-            recordBottomSheetViewModel.postVoice(recorder.getRecordingFile()) // 섭통시작
-            recordViewModel.updateRecordingTime(binding.tvRecordingRecordTime.text.toString())
-            dismiss()
+            initNetwork()
         }
+    }
+
+    private fun initNetwork() {
+        recordBottomSheetViewModel.postVoice(recorder.getRecordingFile())
+
+        collectWithLifecycle(recordBottomSheetViewModel.stateOfSavingRecording) { result ->
+            when (result) {
+                is VALID -> recordViewModel.updateId(result.voiceRecord.id)
+                is INVALID -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
+                is DISCONNECT -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
+                is IDLE -> Log.e("RecordBottomSheetFragment", "DEFAULT")
+            }
+
+            if (result !is IDLE) setEventOnCloseDialog()
+        }
+    }
+
+    private fun setEventOnCloseDialog() {
+        recordViewModel.updateRecordingTime(binding.tvRecordingRecordTime.text.toString())
+        dismiss()
     }
 
     override fun onDestroyView() {
