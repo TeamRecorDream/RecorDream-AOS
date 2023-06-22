@@ -7,14 +7,12 @@ import com.team.recordream.mapper.toDomain
 import javax.inject.Inject
 
 class DocumentRepositoryImpl @Inject constructor(
-    private val documentService: DocumentService
+    private val documentService: DocumentService,
 ) : DocumentRepository {
 
     override suspend fun deleteDetailRecord(recordId: String): Result<Unit> =
         runCatching { documentService.deleteDetailRecord(recordId) }
 
-
     override suspend fun getDetailRecord(recordId: String): Result<DetailRecord> =
         runCatching { documentService.getDetailRecord(recordId).toDomain() }
-
 }

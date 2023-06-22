@@ -38,29 +38,6 @@ class DetailActivity :
         setEventOnClick()
     }
 
-    override fun onResume() {
-        super.onResume()
-        initView()
-    }
-
-    private fun setEventOnClick() {
-        binding.ivDocumentMore.setOnClickListener {
-            initBottomSheetFragment()
-        }
-
-        binding.ivDocumentClose.setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun initView() {
-        documentViewModel.updateDetailRecord(recordId)
-    }
-
-    private fun initBottomSheetFragment() {
-        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
-    }
-
     private fun setupBinding() {
         binding.viewModel = documentViewModel
         binding.lifecycleOwner = this
@@ -85,6 +62,24 @@ class DetailActivity :
         binding.rvDocumentChip.setHasFixedSize(true)
         binding.vpDocumentContent.adapter = contentAdapter
         TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
+    }
+
+    private fun setEventOnClick() {
+        binding.ivDocumentMore.setOnClickListener { showBottomSheet() }
+        binding.ivDocumentClose.setOnClickListener { finish() }
+    }
+
+    private fun showBottomSheet() {
+        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
+    }
+
+    private fun setupView() {
+        documentViewModel.updateDetailRecord(recordId)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupView()
     }
 
     private inline fun <T> collectWithLifecycle(
