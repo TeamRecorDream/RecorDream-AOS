@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.databinding.ItemTagBinding
+import com.recodream_aos.recordream.presentation.record.uistate.Genre
 
 class TagViewHolder(
     private val binding: ItemTagBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(i: String) {
+    fun bind(tag: Int) {
+        binding.genre = Genre.getValue(tag)
     }
 
     companion object {

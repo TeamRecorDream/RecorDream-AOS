@@ -119,7 +119,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:orientation="vertical"
             app:isVisible="@{viewModel.isExistence()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

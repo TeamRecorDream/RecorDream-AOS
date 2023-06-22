@@ -17,8 +17,7 @@ class SearchViewHolder(
 
     fun bind(record: SearchedRecord) {
         binding.record = record
-        // 태그어댑터
-        // 배경색 설정하고 마무리
+        tagAdapter.updateTags(record.genre)
     }
 
     companion object {
