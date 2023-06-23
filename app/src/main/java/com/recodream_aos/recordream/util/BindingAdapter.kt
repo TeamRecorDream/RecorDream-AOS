@@ -10,6 +10,8 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayBu
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.*
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.*
+import com.recodream_aos.recordream.presentation.record.uistate.Emotion
+import com.recodream_aos.recordream.presentation.record.uistate.Emotion.*
 
 object BindingAdapter {
     @JvmStatic
@@ -42,12 +44,12 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("glideEmotionSrc")
     fun glideEmotionSrc(imageview: ImageView, emotionId: Int) {
-        when (emotionId) {
-            1 -> R.drawable.feeling_m_joy.setImageWithGlide(imageview)
-            2 -> R.drawable.feeling_m_sad.setImageWithGlide(imageview)
-            3 -> R.drawable.feeling_m_scary.setImageWithGlide(imageview)
-            4 -> R.drawable.feeling_m_strange.setImageWithGlide(imageview)
-            5 -> R.drawable.feeling_m_shy.setImageWithGlide(imageview)
+        when (Emotion.getValue(emotionId)) {
+            JOY -> R.drawable.feeling_m_joy.setImageWithGlide(imageview)
+            SAD -> R.drawable.feeling_m_sad.setImageWithGlide(imageview)
+            SCARY -> R.drawable.feeling_m_scary.setImageWithGlide(imageview)
+            STRANGE -> R.drawable.feeling_m_strange.setImageWithGlide(imageview)
+            SHY -> R.drawable.feeling_m_shy.setImageWithGlide(imageview)
             else -> R.drawable.feeling_m_blank.setImageWithGlide(imageview)
         }
     }
@@ -55,12 +57,12 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter("setEmotionBackground")
     fun setEmotionBackground(view: View, emotionId: Int) {
-        when (emotionId) {
-            1 -> view.setBackgroundResource(R.drawable.list_yellow)
-            2 -> view.setBackgroundResource(R.drawable.list_blue)
-            3 -> view.setBackgroundResource(R.drawable.list_red)
-            4 -> view.setBackgroundResource(R.drawable.list_purple)
-            5 -> view.setBackgroundResource(R.drawable.list_pink)
+        when (Emotion.getValue(emotionId)) {
+            JOY -> view.setBackgroundResource(R.drawable.list_yellow)
+            SAD -> view.setBackgroundResource(R.drawable.list_blue)
+            SCARY -> view.setBackgroundResource(R.drawable.list_red)
+            STRANGE -> view.setBackgroundResource(R.drawable.list_purple)
+            SHY -> view.setBackgroundResource(R.drawable.list_pink)
             else -> view.setBackgroundResource(R.drawable.list_white)
         }
     }
