@@ -1,5 +1,7 @@
 package com.recodream_aos.recordream.presentation.search
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
@@ -27,6 +29,13 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         attachAdapter()
         setClickEvent()
         observeSearchResult()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // 상세보기뷰에서 인텐트 넘겨줌
+        // adapter.updateRemovedItem()
+        // notifyItemChanged
     }
 
     private fun initViewModel() {
@@ -62,5 +71,10 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
                 }
             }
         }
+    }
+
+    companion object {
+        fun getIntent(context: Context): Intent =
+            Intent(context, SearchActivity::class.java)
     }
 }
