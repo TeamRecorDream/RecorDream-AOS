@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.recodream_aos.recordream.domain.model.SearchedRecord
+import com.recodream_aos.recordream.presentation.search.uistate.SearchedRecordUiState
 
 class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
-    private val results = mutableListOf<SearchedRecord>()
+    private val results = mutableListOf<SearchedRecordUiState>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         return SearchViewHolder(
@@ -25,7 +25,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     override fun getItemCount(): Int = results.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateSearchResult(newResults: List<SearchedRecord>) {
+    fun updateSearchResult(newResults: List<SearchedRecordUiState>) {
         results.clear()
         results.addAll(newResults)
         notifyDataSetChanged()

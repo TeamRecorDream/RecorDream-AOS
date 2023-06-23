@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.util.CustomResult.FAIL
 import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.model.SearchResult
 import com.recodream_aos.recordream.domain.model.SearchedRecord
 import com.recodream_aos.recordream.domain.repository.SearchRepository
+import com.recodream_aos.recordream.presentation.search.uistate.SearchedRecordUiState
 import com.recodream_aos.recordream.util.State
 import com.recodream_aos.recordream.util.State.DISCONNECT
 import com.recodream_aos.recordream.util.State.IDLE
@@ -29,10 +31,10 @@ class SearchViewModel @Inject constructor(
     private val _isExistence: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val isExistence: StateFlow<Boolean?> = _isExistence
 
-    private val _searchResult: MutableStateFlow<List<SearchedRecord>> = MutableStateFlow(
+    private val _searchResult: MutableStateFlow<List<SearchedRecordUiState>> = MutableStateFlow(
         mutableListOf(),
     )
-    val searchResult: StateFlow<List<SearchedRecord>> = _searchResult
+    val searchResult: StateFlow<List<SearchedRecordUiState>> = _searchResult
 
     private val _searchState: MutableStateFlow<State> = MutableStateFlow(IDLE)
     val searchState: StateFlow<State> = _searchState
@@ -42,23 +44,30 @@ class SearchViewModel @Inject constructor(
             runCatching { searchRepository.postSearch(searchKeyword.value) }
                 .onSuccess { result ->
                     when (result) {
-                        is SUCCESS -> {
-                            val temp = result.data
-                            _resultCount.value = temp.recordsCount
-                            _searchResult.value = temp.records
-                            _searchState.value = VALID
-                            _isExistence.value = true
-                        }
-
+                        is SUCCESS -> updateOnSuccess(result)
                         is FAIL -> _searchState.value = INVALID
                     }
                 }.onFailure { _searchState.value = DISCONNECT }
         }
     }
 
+    private fun updateOnSuccess(result: SUCCESS<SearchResult>) {
+        _resultCount.value = result.data.recordsCount
+        _searchResult.value = result.data.records.map { it.toUiState() }
+        _searchState.value = VALID
+        _isExistence.value = true
+    }
+
+    private fun SearchedRecord.toUiState(): SearchedRecordUiState = SearchedRecordUiState(
+        _id = this._id,
+        date = this.date,
+        emotion = this.emotion,
+        genre = this.genre,
+        title = this.title,
+    )
+
     companion object {
         private const val DEFAULT_VALUE_STRING = ""
         private const val DEFAULT_VALUE_INT = 0
-        private const val DEFAULT_VALUE_BOOLEAN = false
     }
 }

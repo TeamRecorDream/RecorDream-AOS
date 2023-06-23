@@ -7,7 +7,7 @@
 
         <variable
             name="record"
-            type="com.recodream_aos.recordream.domain.model.SearchedRecord" />
+            type="com.recodream_aos.recordream.presentation.search.uistate.SearchedRecordUiState" />
 
     </data>
 
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="12dp"
-                android:text="@{record.date}"
+                android:text="@{record.formattedDate}"
                 android:textAppearance="@style/M10"
                 android:textColor="@color/white01_FFFFFF"
                 app:layout_constraintBottom_toTopOf="@+id/tv_item_record_title"

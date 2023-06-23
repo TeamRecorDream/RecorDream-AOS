@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.databinding.ItemRecordFoundBinding
-import com.recodream_aos.recordream.domain.model.SearchedRecord
+import com.recodream_aos.recordream.presentation.search.uistate.SearchedRecordUiState
 
 class SearchViewHolder(
     private val binding: ItemRecordFoundBinding,
@@ -16,7 +16,7 @@ class SearchViewHolder(
         binding.rvItemRecordTag.setHasFixedSize(true)
     }
 
-    fun bind(record: SearchedRecord) {
+    fun bind(record: SearchedRecordUiState) {
         binding.record = record
         tagAdapter.updateTags(record.genre)
     }
