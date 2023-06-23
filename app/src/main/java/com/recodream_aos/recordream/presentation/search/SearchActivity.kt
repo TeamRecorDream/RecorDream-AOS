@@ -34,6 +34,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     override fun onStart() {
         super.onStart()
         // 상세보기뷰에서 인텐트 넘겨줌
+        // 삭제 기능 구현 시, 삭제ID 캐싱 및 노티
         // adapter.updateRemovedItem()
         // notifyItemChanged
     }

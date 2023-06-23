@@ -44,13 +44,15 @@ class SearchViewModel @Inject constructor(
 
     fun postSearch() {
         viewModelScope.launch {
-            runCatching { searchRepository.postSearch(searchKeyword.value) }
-                .onSuccess { result ->
-                    when (result) {
-                        is SUCCESS -> onSuccessInitServer(result)
-                        is FAIL -> _searchState.value = INVALID
-                    }
-                }.onFailure { _searchState.value = DISCONNECT }
+            runCatching {
+                if (searchKeyword.value.isNotEmpty()) searchRepository.postSearch(searchKeyword.value) else return@launch
+                // 이후 검색 최소 글자 수 관련된 로직 추가
+            }.onSuccess { result ->
+                when (result) {
+                    is SUCCESS -> onSuccessInitServer(result)
+                    is FAIL -> _searchState.value = INVALID
+                }
+            }.onFailure { _searchState.value = DISCONNECT }
         }
     }
 
