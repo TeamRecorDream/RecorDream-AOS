@@ -7,6 +7,7 @@ import com.recodream_aos.recordream.databinding.ItemRecordFoundBinding
 import com.recodream_aos.recordream.presentation.search.uistate.SearchedRecordUiState
 
 class SearchViewHolder(
+    private val onClick: (String) -> Unit,
     private val binding: ItemRecordFoundBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val tagAdapter: TagAdapter by lazy { TagAdapter() }
@@ -17,6 +18,7 @@ class SearchViewHolder(
     }
 
     fun bind(record: SearchedRecordUiState) {
+        binding.root.setOnClickListener { onClick(record._id) }
         binding.record = record
         tagAdapter.updateTags(record.genre)
     }
