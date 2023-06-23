@@ -8,7 +8,7 @@ import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityMainBinding
 import com.recodream_aos.recordream.presentation.home.HomeFragment
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
-import com.recodream_aos.recordream.presentation.record.RecordActivity
+import com.recodream_aos.recordream.presentation.search.SearchActivity
 import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,11 +54,11 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun setRecordButtonClickListener() {
         binding.ivMainLogo.setOnClickListener {
-            openRecordActivity()
+            openSearchActivity()
         }
     }
 
-    private fun openRecordActivity() {
-        startActivity(Intent(this, RecordActivity::class.java))
+    private fun openSearchActivity() {
+        startActivity(Intent(this, SearchActivity::class.java))
     }
 }

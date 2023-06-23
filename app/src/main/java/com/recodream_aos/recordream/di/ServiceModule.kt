@@ -3,6 +3,7 @@ package com.recodream_aos.recordream.di // ktlint-disable package-name
 import com.recodream_aos.recordream.data.api.AuthService
 import com.recodream_aos.recordream.data.api.MypageService
 import com.recodream_aos.recordream.data.api.RecordService
+import com.recodream_aos.recordream.data.api.SearchService
 import com.recodream_aos.recordream.data.api.StorageService
 import dagger.Module
 import dagger.Provides
@@ -38,4 +39,10 @@ object ServiceModule {
     fun providesRecordService(
         retrofit: Retrofit,
     ): RecordService = retrofit.create(RecordService::class.java)
+
+    @Provides
+    @Singleton
+    fun providesSearchService(
+        retrofit: Retrofit,
+    ): SearchService = retrofit.create(SearchService::class.java)
 }
