@@ -13,6 +13,7 @@ class SearchViewHolder(
 
     init {
         binding.rvItemRecordTag.adapter = tagAdapter
+        binding.rvItemRecordTag.setHasFixedSize(true)
     }
 
     fun bind(record: SearchedRecord) {

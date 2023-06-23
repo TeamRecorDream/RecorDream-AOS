@@ -54,6 +54,19 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("setEmotionBackground")
+    fun setEmotionBackground(view: View, emotionId: Int) {
+        when (emotionId) {
+            1 -> view.setBackgroundResource(R.drawable.list_yellow)
+            2 -> view.setBackgroundResource(R.drawable.list_blue)
+            3 -> view.setBackgroundResource(R.drawable.list_red)
+            4 -> view.setBackgroundResource(R.drawable.list_purple)
+            5 -> view.setBackgroundResource(R.drawable.list_pink)
+            else -> view.setBackgroundResource(R.drawable.list_white)
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("glideSrc")
     fun glideSrc(imageview: ImageView, image: Int) {
         Glide.with(imageview.context)

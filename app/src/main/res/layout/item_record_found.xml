@@ -10,6 +10,7 @@
             type="com.recodream_aos.recordream.domain.model.SearchedRecord" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,11 +18,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/rectangle_radius_20dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:setEmotionBackground="@{record.emotion}">
 
             <ImageView
                 android:id="@+id/iv_item_record_emotion"
@@ -82,5 +82,5 @@
                 tools:itemCount="3"
                 tools:listitem="@layout/item_tag" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
