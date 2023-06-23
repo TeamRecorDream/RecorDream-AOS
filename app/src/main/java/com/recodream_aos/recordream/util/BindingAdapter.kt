@@ -14,11 +14,10 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.Record
 object BindingAdapter {
     @JvmStatic
     @BindingAdapter("isVisible")
-    fun isVisible(view: View, isVisible: Boolean?) {
+    fun isVisible(view: View, isVisible: Boolean) {
         when (isVisible) {
             true -> view.visibility = View.VISIBLE
             false -> view.visibility = View.INVISIBLE
-            null -> view.visibility = View.INVISIBLE
         }
     }
 

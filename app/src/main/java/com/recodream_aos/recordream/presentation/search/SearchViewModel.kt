@@ -26,36 +26,56 @@ class SearchViewModel @Inject constructor(
     val searchKeyword: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
 
     private val _resultCount: MutableStateFlow<Int> = MutableStateFlow(DEFAULT_VALUE_INT)
-    val resultCount: StateFlow<Int> = _resultCount
+    val resultCount: StateFlow<Int> get() = _resultCount
 
-    private val _isExistence: MutableStateFlow<Boolean?> = MutableStateFlow(null)
-    val isExistence: StateFlow<Boolean?> = _isExistence
+    private val _messageVisible: MutableStateFlow<Boolean> = MutableStateFlow(INVISIBLE)
+    val messageVisible: StateFlow<Boolean> get() = _messageVisible
+
+    private val _searchResultVisible: MutableStateFlow<Boolean> = MutableStateFlow(INVISIBLE)
+    val searchResultVisible: StateFlow<Boolean> get() = _searchResultVisible
 
     private val _searchResult: MutableStateFlow<List<SearchedRecordUiState>> = MutableStateFlow(
         mutableListOf(),
     )
-    val searchResult: StateFlow<List<SearchedRecordUiState>> = _searchResult
+    val searchResult: StateFlow<List<SearchedRecordUiState>> get() = _searchResult
 
     private val _searchState: MutableStateFlow<State> = MutableStateFlow(IDLE)
-    val searchState: StateFlow<State> = _searchState
+    val searchState: StateFlow<State> get() = _searchState
 
     fun postSearch() {
         viewModelScope.launch {
             runCatching { searchRepository.postSearch(searchKeyword.value) }
                 .onSuccess { result ->
                     when (result) {
-                        is SUCCESS -> updateOnSuccess(result)
+                        is SUCCESS -> onSuccessInitServer(result)
                         is FAIL -> _searchState.value = INVALID
                     }
                 }.onFailure { _searchState.value = DISCONNECT }
         }
     }
 
-    private fun updateOnSuccess(result: SUCCESS<SearchResult>) {
+    private fun onSuccessInitServer(result: SUCCESS<SearchResult>) {
+        updateValueFromServer(result)
+        when (result.data.recordsCount == EMPTY) {
+            true -> updateVisibilityOnEmpty()
+            false -> updateVisibilityOnOccupied()
+        }
+    }
+
+    private fun updateValueFromServer(result: SUCCESS<SearchResult>) {
         _resultCount.value = result.data.recordsCount
         _searchResult.value = result.data.records.map { it.toUiState() }
         _searchState.value = VALID
-        _isExistence.value = true
+    }
+
+    private fun updateVisibilityOnOccupied() {
+        _messageVisible.value = INVISIBLE
+        _searchResultVisible.value = VISIBLE
+    }
+
+    private fun updateVisibilityOnEmpty() {
+        _messageVisible.value = VISIBLE
+        _searchResultVisible.value = INVISIBLE
     }
 
     private fun SearchedRecord.toUiState(): SearchedRecordUiState = SearchedRecordUiState(
@@ -69,5 +89,8 @@ class SearchViewModel @Inject constructor(
     companion object {
         private const val DEFAULT_VALUE_STRING = ""
         private const val DEFAULT_VALUE_INT = 0
+        private const val INVISIBLE = false
+        private const val VISIBLE = true
+        private const val EMPTY = 0
     }
 }

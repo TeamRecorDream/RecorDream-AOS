@@ -1,6 +1,7 @@
 package com.recodream_aos.recordream.presentation.search
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,14 +26,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         initViewModel()
         attachAdapter()
         setClickEvent()
-
-        binding.ivSearchLogo.setOnClickListener {
-            searchViewModel.postSearch()
-        }
-
-        collectWithLifecycle(searchViewModel.searchResult) { searchResult ->
-            searchAdapter.updateSearchResult(searchResult)
-        }
+        observeSearchResult()
     }
 
     private fun initViewModel() {
@@ -46,6 +40,15 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
 
     private fun setClickEvent() {
         binding.ivSearchBackBtn.setOnClickListener { finish() }
+        binding.etSearchEnter.setOnEditorActionListener { _, actionId, _ ->
+            actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch().let { true }
+        }
+    }
+
+    private fun observeSearchResult() {
+        collectWithLifecycle(searchViewModel.searchResult) { searchResult ->
+            searchAdapter.updateSearchResult(searchResult)
+        }
     }
 
     private inline fun <T> collectWithLifecycle(
