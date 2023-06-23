@@ -64,7 +64,8 @@ class RecordBottomSheetViewModel @Inject constructor(
         MutableStateFlow(BEFORE_RECORDING)
     val recordButtonState: StateFlow<RecordButtonState> = _recordButtonState
 
-    private val _stateOfSavingRecording: MutableStateFlow<SavingRecordingState> = MutableStateFlow(IDLE)
+    private val _stateOfSavingRecording: MutableStateFlow<SavingRecordingState> =
+        MutableStateFlow(IDLE)
     val stateOfSavingRecording: StateFlow<SavingRecordingState> = _stateOfSavingRecording
 
     fun postVoice(recordingFile: File) {

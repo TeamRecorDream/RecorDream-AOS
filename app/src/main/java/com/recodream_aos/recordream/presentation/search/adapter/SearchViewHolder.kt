@@ -4,17 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.databinding.ItemRecordFoundBinding
+import com.recodream_aos.recordream.presentation.search.uistate.SearchedRecordUiState
 
 class SearchViewHolder(
+    private val onClick: (String) -> Unit,
     private val binding: ItemRecordFoundBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val tagAdapter: TagAdapter by lazy { TagAdapter() }
 
     init {
         binding.rvItemRecordTag.adapter = tagAdapter
+        binding.rvItemRecordTag.setHasFixedSize(true)
     }
 
-    fun bind(i: Int) {
+    fun bind(record: SearchedRecordUiState) {
+        binding.root.setOnClickListener { onClick(record._id) }
+        binding.record = record
+        tagAdapter.updateTags(record.genre)
     }
 
     companion object {

@@ -74,6 +74,7 @@
     <string name="tv_record_scary">무서운</string>
     <string name="tv_record_strange">이상한</string>
     <string name="tv_record_shy">민망한</string>
+    <string name="tv_record_all">전체</string>
     <string name="tv_record_warning_genre">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
     <string name="default_time_format">03:00</string>
     <string name="tv_record_warning_save">꿈의 제목을 입력해주세요.</string>
@@ -82,13 +83,27 @@
     <!-- 음성녹음 뷰 -->
     <string name="tv_recording_record">음성녹음</string>
 
-    <!--BASE ERROR-->
-    <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
+    <!--  검색 뷰 -->
     <string name="tv_search_view_title">검색하기</string>
     <string name="tv_search_description">검색어 입력</string>
     <string name="et_search_enter">어떤 기록을 찾고 있나요?</string>
     <string name="tv_search_count_record">%d개의 기록</string>
     <string name="tv_search_no_count">찾으시는 기록이 없어요.</string>
+    <string name="genre_name_comedy"># 코미디</string>
+    <string name="genre_name_romance"># 로맨스</string>
+    <string name="genre_name_fantasy"># 판타지</string>
+    <string name="genre_name_horror"># 호러</string>
+    <string name="genre_name_animal"># 동물</string>
+    <string name="genre_name_friend"># 친구</string>
+    <string name="genre_name_family"># 가족</string>
+    <string name="genre_name_food"># 음식</string>
+    <string name="genre_name_work"># 일</string>
+    <string name="genre_name_etc"># 기타</string>
+    <string name="genre_name_nothing"># 아직 설정되지 않았어요</string>
+
+
+    <!--BASE ERROR-->
+    <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
 
 
 </resources>

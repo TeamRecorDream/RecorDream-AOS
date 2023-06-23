@@ -10,12 +10,17 @@ import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayBu
 import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.*
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.*
+import com.recodream_aos.recordream.presentation.record.uistate.Emotion
+import com.recodream_aos.recordream.presentation.record.uistate.Emotion.*
 
 object BindingAdapter {
     @JvmStatic
     @BindingAdapter("isVisible")
     fun isVisible(view: View, isVisible: Boolean) {
-        view.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+        when (isVisible) {
+            true -> view.visibility = View.VISIBLE
+            false -> view.visibility = View.INVISIBLE
+        }
     }
 
     @JvmStatic
@@ -37,9 +42,29 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("imgResId")
-    fun setImageResId(imageview: ImageView, resId: Int) {
-        imageview.setImageResource(resId)
+    @BindingAdapter("glideEmotionSrc")
+    fun glideEmotionSrc(imageview: ImageView, emotionId: Int) {
+        when (Emotion.getValue(emotionId)) {
+            JOY -> R.drawable.feeling_m_joy.setImageWithGlide(imageview)
+            SAD -> R.drawable.feeling_m_sad.setImageWithGlide(imageview)
+            SCARY -> R.drawable.feeling_m_scary.setImageWithGlide(imageview)
+            STRANGE -> R.drawable.feeling_m_strange.setImageWithGlide(imageview)
+            SHY -> R.drawable.feeling_m_shy.setImageWithGlide(imageview)
+            else -> R.drawable.feeling_m_blank.setImageWithGlide(imageview)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setEmotionBackground")
+    fun setEmotionBackground(view: View, emotionId: Int) {
+        when (Emotion.getValue(emotionId)) {
+            JOY -> view.setBackgroundResource(R.drawable.list_yellow)
+            SAD -> view.setBackgroundResource(R.drawable.list_blue)
+            SCARY -> view.setBackgroundResource(R.drawable.list_red)
+            STRANGE -> view.setBackgroundResource(R.drawable.list_purple)
+            SHY -> view.setBackgroundResource(R.drawable.list_pink)
+            else -> view.setBackgroundResource(R.drawable.list_white)
+        }
     }
 
     @JvmStatic

@@ -1,6 +1,8 @@
 package com.recodream_aos.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -120,5 +122,10 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 }
             }
         }
+    }
+
+    companion object {
+        fun getIntent(context: Context): Intent =
+            Intent(context, RecordActivity::class.java)
     }
 }

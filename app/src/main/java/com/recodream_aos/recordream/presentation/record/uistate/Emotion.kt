@@ -8,4 +8,13 @@ enum class Emotion(val emotionName: Int, val viewId: Int) {
     SCARY(R.string.tv_record_scary, R.drawable.emotion_scary_selector),
     STRANGE(R.string.tv_record_strange, R.drawable.emotion_strange_selector),
     SHY(R.string.tv_record_shy, R.drawable.emotion_shy_selector),
+    ALL(R.string.tv_record_all, R.drawable.emotion_blank_selector),
+    ;
+
+    companion object {
+
+        fun getValue(emotionId: Int): Emotion = Emotion.values().find { emotion ->
+            emotion.ordinal + 1 == emotionId
+        } ?: ALL
+    }
 }
