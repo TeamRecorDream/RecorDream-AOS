@@ -26,8 +26,15 @@ class TagAdapter : RecyclerView.Adapter<TagViewHolder>() {
     @SuppressLint("NotifyDataSetChanged")
     fun updateTags(newGenreTags: List<Int>) {
         genreTags.clear()
-        genreTags.addAll(newGenreTags)
 
+        when (newGenreTags.isEmpty()) {
+            true -> genreTags.add(NOTHING)
+            false -> genreTags.addAll(newGenreTags)
+        }
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val NOTHING = -1
     }
 }

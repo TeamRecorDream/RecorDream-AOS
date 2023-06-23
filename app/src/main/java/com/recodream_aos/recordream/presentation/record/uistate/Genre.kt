@@ -5,7 +5,7 @@ import com.recodream_aos.recordream.R
 // ktlint-disable package-name
 
 enum class Genre(val genreId: Int, val genreName: Int) {
-
+    NOTHING(-1, R.string.genre_name_nothing),
     COMEDY(1, R.string.genre_name_comedy),
     ROMANCE(2, R.string.genre_name_romance),
     FANTASY(3, R.string.genre_name_fantasy),
@@ -22,6 +22,6 @@ enum class Genre(val genreId: Int, val genreName: Int) {
 
         fun getValue(genreId: Int): Genre = values().find { genre ->
             genre.genreId == genreId
-        } ?: ETC
+        } ?: NOTHING
     }
 }
