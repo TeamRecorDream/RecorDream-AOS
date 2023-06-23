@@ -38,29 +38,29 @@ class RecordViewModel @Inject constructor(
     val emotion: StateFlow<Int?> get() = _emotion
 
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
-    val genre: StateFlow<List<Int>> = _genre
+    val genre: StateFlow<List<Int>> get() = _genre
 
     val note: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
 
     private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
-    val voiceId: StateFlow<String?> = _voiceId
+    val voiceId: StateFlow<String?> get() = _voiceId
 
     private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
     val recordingTime: StateFlow<String> get() = _recordingTime
 
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val warningGenre: StateFlow<Boolean> = _warningGenre
+    val warningGenre: StateFlow<Boolean> get() = _warningGenre
 
     private val _genreEnabled: MutableStateFlow<List<Boolean>> =
         MutableStateFlow(List(ALL_GENRE) { true })
-    val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled
+    val genreEnabled: StateFlow<List<Boolean>> get() = _genreEnabled
 
     private val _isSaveEnabled: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
-    val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled
+    val isSaveEnabled: StateFlow<Boolean> get() = _isSaveEnabled
 
     private val _stateOfSavingRecord: MutableStateFlow<State> = MutableStateFlow(IDLE)
-    val stateOfSavingRecord: StateFlow<State> = _stateOfSavingRecord
+    val stateOfSavingRecord: StateFlow<State> get() = _stateOfSavingRecord
 
     fun postRecord() {
         viewModelScope.launch {
