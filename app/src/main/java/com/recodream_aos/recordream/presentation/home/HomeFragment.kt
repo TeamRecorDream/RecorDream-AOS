@@ -28,8 +28,8 @@ class HomeFragment : Fragment(), LifecycleObserver {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         homeViewModel.initServer()
         initAdapterHomeCard()
@@ -65,7 +65,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                }
+                },
             )
         }
     }

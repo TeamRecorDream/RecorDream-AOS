@@ -9,18 +9,17 @@ import com.recodream_aos.recordream.databinding.ActivityMainBinding
 import com.recodream_aos.recordream.presentation.home.HomeFragment
 import com.recodream_aos.recordream.presentation.mypage.MypageActivity
 import com.recodream_aos.recordream.presentation.record.RecordActivity
+import com.recodream_aos.recordream.presentation.search.SearchActivity
 import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.RequestBody
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setRecordButtonClickListener()
         clickBottomMenu()
-        setOnClick()
+        setClickEvents()
     }
 
     private fun clickBottomMenu() {
@@ -31,7 +30,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 when (item.itemId) {
                     R.id.menu_home -> HomeFragment()
                     else -> StorageFragment()
-                }
+                },
             )
             true
         }
@@ -45,22 +44,12 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             .commit()
     }
 
-    private fun setOnClick() {
+    private fun setClickEvents() {
         binding.ivMainMypage.setOnClickListener {
             val intent = Intent(this, MypageActivity::class.java)
-
-
             startActivity(intent)
         }
-    }
-
-    private fun setRecordButtonClickListener() {
-        binding.ivMainLogo.setOnClickListener {
-            openRecordActivity()
-        }
-    }
-
-    private fun openRecordActivity() {
-        startActivity(Intent(this, RecordActivity::class.java))
+        binding.ivNaviWriteBtn.setOnClickListener { startActivity(RecordActivity.getIntent(this)) }
+        binding.ivMainSearch.setOnClickListener { startActivity(SearchActivity.getIntent(this)) }
     }
 }

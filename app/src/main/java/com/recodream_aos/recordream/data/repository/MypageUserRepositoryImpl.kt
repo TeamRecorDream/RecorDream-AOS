@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.data.repository
 
-import android.util.Log
 import com.recodream_aos.recordream.data.datasource.remote.MypageDateSource
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
 import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
@@ -14,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MypageUserRepositoryImpl @Inject constructor(
-    private val mypageUserDataSource: MypageDateSource
+    private val mypageUserDataSource: MypageDateSource,
 ) : MypageUserRepository {
 
     override suspend fun getUser(): ResponseWrapper<ResponseMypageUser>? {
@@ -52,6 +51,4 @@ class MypageUserRepositoryImpl @Inject constructor(
             it.message
         }
     }
-
-
 }

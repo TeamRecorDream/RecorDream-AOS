@@ -2,6 +2,7 @@ package com.recodream_aos.recordream.presentation.record.recording // ktlint-dis
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,217 +10,173 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentRecordBottomSheetBinding
 import com.recodream_aos.recordream.presentation.record.RecordViewModel
-import com.recodream_aos.recordream.util.recorder.PlayButton
-import com.recodream_aos.recordream.util.recorder.PlayButtonState
-import com.recodream_aos.recordream.util.recorder.RecordButton
-import com.recodream_aos.recordream.util.recorder.RecordButtonState
-import com.recodream_aos.recordream.util.recorder.Recorder
-import com.recodream_aos.recordream.util.recorder.TimeStampTextView
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID
+import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.VALID
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
+import com.recodream_aos.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
+import com.recodream_aos.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
+import com.recodream_aos.recordream.util.Recorder.Recorder
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentRecordBottomSheetBinding? = null
     val binding get() = _binding ?: error(R.string.error_basefragment)
     private val recordBottomSheetViewModel: RecordBottomSheetViewModel by viewModels()
     private val recordViewModel: RecordViewModel by activityViewModels()
-    private val timeStampTextView: TimeStampTextView by lazy { binding.tvRecordingProgressTime }
-    private val recordButton: RecordButton by lazy { binding.ivRecordingRecordBtn }
-    private val playButton: PlayButton by lazy { binding.ivRecordingPlayBtn }
-    private var recorder = Recorder
-    private lateinit var activityResultLauncher: ActivityResultLauncher<String>
-    private lateinit var recordButtonState: RecordButtonState
-    private lateinit var playButtonState: PlayButtonState
-    private var setRecordState = false
-
-    // TODO : 코드정리
+    private val recorder: Recorder by lazy { Recorder(requireContext()) }
+    private val activityResultLauncher: ActivityResultLauncher<String> by lazy {
+        val contract = ActivityResultContracts.RequestPermission()
+        registerForActivityResult(contract) { isGranted -> if (!isGranted) dismiss() }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentRecordBottomSheetBinding.inflate(layoutInflater)
-        dialog?.setCanceledOnTouchOutside(false) // 한줄이면 외부막고 백버튼 가능..
-        initViewModel()
-        initRecorder()
-        initActivityResultLauncher()
-        recordButtonClickListener()
-        playButtonClickListener()
-        closeButtonClickListener()
-        saveButtonClickListener()
-        recordViewModel.getRecordState = false
-
-        recordButtonState = RecordButtonState.BEFORE_RECORDING
-        recordButton.updateIconWithState(recordButtonState)
-
-        playButtonState = PlayButtonState.RECORDER_PLAY
-        playButton.updateIconWithState(playButtonState)
-
+        dialog?.setCanceledOnTouchOutside(false)
         return binding.root
     }
 
-    private fun initRecorder() = recorder.init(requireContext())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        launchAudioPermission()
+        initViewModel()
+        observeStateFlows()
+        setEventOnClickListener()
+    }
+
+    private fun launchAudioPermission() {
+        activityResultLauncher.launch(Manifest.permission.RECORD_AUDIO)
+    }
 
     private fun initViewModel() {
         binding.viewModel = recordBottomSheetViewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
-    private fun initActivityResultLauncher() {
-        val contract = ActivityResultContracts.RequestPermission()
-        activityResultLauncher =
-            registerForActivityResult(contract) { isGranted ->
-                checkPermission(isGranted)
-            }
-        initRecordPermission()
-    }
-
-    private fun checkPermission(isGranted: Boolean) {
-        if (!isGranted) {
-            dismiss()
-        }
-    }
-
-    private fun initRecordPermission() =
-        activityResultLauncher.launch(Manifest.permission.RECORD_AUDIO)
-
-    private fun recordButtonClickListener() {
-        binding.ivRecordingRecordBtn.setOnClickListener {
-            when (recordButtonState) {
-                RecordButtonState.BEFORE_RECORDING -> startRecording()
-                RecordButtonState.ON_RECORDING -> stopRecording()
-                RecordButtonState.AFTER_RECORDING -> resetRecording()
-            }
-        }
-    }
-
-    private fun playButtonClickListener() {
-        binding.ivRecordingPlayBtn.setOnClickListener {
-            when (playButtonState) {
-                PlayButtonState.RECORDER_PLAY -> startPlayingRecorder()
-                PlayButtonState.RECORDER_STOP -> stopPlayingRecorder()
-            }
-            collectStateProgressBar()
-        }
-    }
-
-    private fun closeButtonClickListener() {
-        binding.ivRecordingCloseBtn.setOnClickListener {
-            dismiss()
-        }
-    }
-
-    private fun saveButtonClickListener() {
-        binding.ivRecordingSaveBtn.setOnClickListener {
-            recordViewModel.getRecordState = true
-
-            dismiss()
-        }
-    }
-
-    private fun startPlayingRecorder() {
-        playButtonState = PlayButtonState.RECORDER_STOP
-        playButton.updateIconWithState(playButtonState)
-        recordBottomSheetViewModel.clearReplayProgressBar()
-        recorder.startPlaying()
-        recordBottomSheetViewModel.replayProgressBar()
+    private fun observeStateFlows() {
+        collectRecordButtonState()
+        collectPlayButtonState()
+        collectStateProgressBar()
         collectReplayTimeProgress()
-        timeStampTextView.startCountUp()
-    }
-
-    private fun stopPlayingRecorder() {
-        playButtonState = PlayButtonState.RECORDER_PLAY
-        playButton.updateIconWithState(playButtonState)
-        recorder.stopPlaying()
-        recordBottomSheetViewModel.stopReplayProgressBar()
-    }
-
-    private fun startRecording() {
-        recordButtonState = RecordButtonState.ON_RECORDING
-        recordButton.updateIconWithState(recordButtonState)
-        recorder.startRecording()
-        timeStampTextView.startCountUp()
-        recordBottomSheetViewModel.initProgressBar()
         collectNowTimeProgress()
     }
 
-    private fun stopRecording() {
-        recordButtonState = RecordButtonState.AFTER_RECORDING
-        recordButton.updateIconWithState(recordButtonState)
-        recorder.stopRecording()
-        timeStampTextView.stopCountUp()
-        recordBottomSheetViewModel.stopProgressBar()
-        recordBottomSheetViewModel.setFullProgressBar()
-        binding.tvRecordingRecordTime.text = timeStampTextView.text.toString()
-
-        binding.tvRecordingProgressTime.visibility = View.GONE
-        binding.ivRecordingPlayBtn.visibility = View.VISIBLE
-        binding.ivRecordingCloseBtn.visibility = View.VISIBLE
-        binding.ivRecordingSaveBtn.visibility = View.VISIBLE
+    private fun collectRecordButtonState() {
+        collectWithLifecycle(recordBottomSheetViewModel.recordButtonState) { currentState ->
+            when (currentState) {
+                BEFORE_RECORDING -> handleResetRecording()
+                ON_RECORDING -> handleOnRecording()
+                AFTER_RECORDING -> handleAfterRecording()
+            }
+        }
     }
 
-    private fun resetRecording() {
+    private fun handleResetRecording() {
+        recordBottomSheetViewModel.stopCountUp()
+        recordBottomSheetViewModel.clearCountTime()
+        binding.tvRecordingRecordTime.text = getString(R.string.default_time_format)
+    }
+
+    private fun handleOnRecording() {
+        recorder.startRecording()
+        recordBottomSheetViewModel.startCountUp()
+    }
+
+    private fun handleAfterRecording() {
+        recorder.stopRecording()
+        recordBottomSheetViewModel.apply {
+            stopCountUp()
+            binding.tvRecordingRecordTime.text = countTime.value
+        }
+    }
+
+    private fun collectPlayButtonState() {
+        collectWithLifecycle(recordBottomSheetViewModel.playButtonState) { currentState ->
+            when (currentState) {
+                RECORDER_PLAY -> handleRecorderPlayingState()
+                RECORDER_STOP -> handleRecorderStoppingState()
+            }
+        }
+    }
+
+    private fun handleRecorderPlayingState() {
         recorder.stopPlaying()
-        recordButtonState = RecordButtonState.BEFORE_RECORDING
-        recordButton.updateIconWithState(recordButtonState)
-        timeStampTextView.stopCountUp()
-        timeStampTextView.clearCountTime()
-        recordBottomSheetViewModel.stopProgressBar()
-        recordBottomSheetViewModel.clearProgressBar()
-        recordBottomSheetViewModel.clearReplayProgressBar()
+    }
 
-        // 음성녹음 확인해보기
-        // 게이지 차오르는 주기가 조금 느림 period 확인
-        // 저장버튼 누를 시, 음성 파일 recordViewModel에서 갖고있기.
-        // 코드정리
-
-        playButtonState = PlayButtonState.RECORDER_PLAY
-        playButton.updateIconWithState(playButtonState)
-        binding.tvRecordingRecordTime.text = "03:00"
-        binding.tvRecordingProgressTime.visibility = View.VISIBLE
-        binding.ivRecordingPlayBtn.visibility = View.GONE
-        binding.ivRecordingCloseBtn.visibility = View.GONE
-        binding.ivRecordingSaveBtn.visibility = View.GONE
+    private fun handleRecorderStoppingState() {
+        recorder.startPlaying()
+        recordBottomSheetViewModel.startCountUp()
     }
 
     private fun collectStateProgressBar() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.fullProgressBar.collectLatest { state ->
-                    if (state) {
-                        stopPlayingRecorder()
-                        recordBottomSheetViewModel.setFullProgressBarFalse()
-                    }
-                }
-            }
+        collectWithLifecycle(recordBottomSheetViewModel.fullProgressBar) { state ->
+            if (state) recorder.stopPlaying()
         }
     }
 
     private fun collectReplayTimeProgress() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.replayTime.collectLatest { progress ->
-                    binding.pbRecordingProgressBar.progress = progress
-                }
-            }
+        collectWithLifecycle(recordBottomSheetViewModel.replayTime) { progress ->
+            binding.pbRecordingProgressBar.progress = progress
         }
     }
 
     private fun collectNowTimeProgress() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(lifecycle.currentState) {
-                recordBottomSheetViewModel.nowTime.collectLatest { progress ->
-                    binding.pbRecordingProgressBar.progress = progress
-                }
-            }
+        collectWithLifecycle(recordBottomSheetViewModel.nowTime) { progress ->
+            binding.pbRecordingProgressBar.progress = progress
         }
+    }
+
+    private fun setEventOnClickListener() {
+        closeButtonClickListener()
+        saveButtonClickListener()
+    }
+
+    private fun closeButtonClickListener() {
+        binding.ivRecordingCloseBtn.setOnClickListener { dismiss() }
+    }
+
+    private fun saveButtonClickListener() {
+        binding.ivRecordingSaveBtn.setOnClickListener {
+            initNetwork()
+        }
+    }
+
+    private fun initNetwork() {
+        recordBottomSheetViewModel.postVoice(recorder.getRecordingFile())
+
+        collectWithLifecycle(recordBottomSheetViewModel.stateOfSavingRecording) { result ->
+            when (result) {
+                is VALID -> recordViewModel.updateId(result.voiceRecordId.id)
+                is INVALID -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
+                is DISCONNECT -> Log.e("RecordBottomSheetFragment", "에러 핸들링 필요")
+                is IDLE -> Log.e("RecordBottomSheetFragment", "DEFAULT")
+            }
+
+            if (result !is IDLE) setEventOnCloseDialog()
+        }
+    }
+
+    private fun setEventOnCloseDialog() {
+        recordViewModel.updateRecordingTime(binding.tvRecordingRecordTime.text.toString())
+        dismiss()
     }
 
     override fun onDestroyView() {
@@ -229,7 +186,20 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onStop() {
         super.onStop()
-        recorder?.recorderRelease()
-        recorder?.playerRelease()
+        recorder.recorderRelease()
+        recorder.playerRelease()
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 }

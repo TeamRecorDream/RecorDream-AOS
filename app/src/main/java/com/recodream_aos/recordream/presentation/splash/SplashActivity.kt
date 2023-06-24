@@ -12,6 +12,8 @@ import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivitySplashBinding
 import com.recodream_aos.recordream.presentation.MainActivity
 import com.recodream_aos.recordream.presentation.login.LoginActivity
+import com.recodream_aos.recordream.presentation.splash.SplashViewModel.*
+import com.recodream_aos.recordream.presentation.splash.SplashViewModel.LoginState.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -49,11 +51,11 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
         }
     }
 
-    private fun tryLogin(isLoginSuccess: SplashViewModel.LoginState) {
+    private fun tryLogin(isLoginSuccess: LoginState) {
         when (isLoginSuccess) {
-            SplashViewModel.LoginState.SUCCESS -> startMainActivity()
-            SplashViewModel.LoginState.FAIL -> startLoginActivity()
-            SplashViewModel.LoginState.IDLE -> Timber.e("IDLE")
+            SUCCESS -> startMainActivity()
+            FAIL -> startLoginActivity()
+            IDLE -> Timber.e("IDLE")
         }
     }
 

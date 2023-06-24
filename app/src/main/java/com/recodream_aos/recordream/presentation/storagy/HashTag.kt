@@ -13,10 +13,10 @@ class HashTag(context: Context, attrs: AttributeSet? = null) : LinearLayout(cont
     private lateinit var inflater: LayoutInflater
 
     init {
-        if (!::inflater.isInitialized)
+        if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(context)
+        }
     }
-
 
     fun setTips(tag: List<Int>) {
         this.removeAllViews()

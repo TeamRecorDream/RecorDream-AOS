@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val sharedPreferenceDataSource: SharedPreferenceDataSource
+    private val sharedPreferenceDataSource: SharedPreferenceDataSource,
 ) : AuthRepository {
     override suspend fun postLogin(kakaoToken: String, fcmToken: String): Boolean {
         return try {
@@ -31,10 +31,12 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun postToken(): Boolean {
         return try {
+            Log.d("123123", sharedPreferenceDataSource.getAccessToken().toString())
             val localAccessToken = sharedPreferenceDataSource.getAccessToken()
             val localRefreshToken = sharedPreferenceDataSource.getRefreshToken()
             val postTokenInfo = authDataSource.postToken(localAccessToken, localRefreshToken)
             saveTokens(postTokenInfo.data!!.accessToken, postTokenInfo.data.refreshToken)
+
             Timber.e("AuthRepositoryImpl3_postToken : $postTokenInfo")
             true
         } catch (exceptionMessage: Exception) {
@@ -95,10 +97,12 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFcmToken(getFcmToken: (String) -> Unit) {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            getFcmToken(requireNotNull(task.result))
-            Log.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
-        })
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                getFcmToken(requireNotNull(task.result))
+                Log.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
+            },
+        )
     }
 
     override suspend fun patchSignOut(): Result<NoDataResponse> {

@@ -18,6 +18,7 @@ class ZoomOutPageTransformer : ViewPager2.PageTransformer {
                     // This page is way off-screen to the left.
                     alpha = 0f
                 }
+
                 position <= 1 -> { // [-1,1]
                     // Modify the default slide transition to shrink the page as well
                     val scaleFactor = max(MIN_SCALE, 1 - abs(position))
@@ -37,6 +38,7 @@ class ZoomOutPageTransformer : ViewPager2.PageTransformer {
                             (((scaleFactor - MIN_SCALE) / (1 - MIN_SCALE)) * (1 - MIN_ALPHA))
                         )
                 }
+
                 else -> { // (1,+Infinity]
                     // This page is way off-screen to the right.
                     alpha = 0f
