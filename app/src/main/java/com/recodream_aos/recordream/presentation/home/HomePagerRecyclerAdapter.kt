@@ -30,7 +30,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     class PagerViewHolder(
         private val binding: HomeCardItemBinding,
-        private val itemClick: (String) -> Unit,
+        private val itemClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseHome.Record) {
             binding.tvHomeDate.text = data.date
@@ -93,7 +93,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
             LayoutInflater.from(parent.context),
             R.layout.home_card_item,
             parent,
-            false,
+            false
         )
         return PagerViewHolder(binding, itemClick)
     }

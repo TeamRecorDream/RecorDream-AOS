@@ -1,22 +1,9 @@
 package com.recodream_aos.recordream.di // ktlint-disable package-name
 
 import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
-import com.recodream_aos.recordream.data.datasource.remote.AuthDataSource
-import com.recodream_aos.recordream.data.datasource.remote.HomeDataSource
-import com.recodream_aos.recordream.data.datasource.remote.MypageDateSource
-import com.recodream_aos.recordream.data.datasource.remote.RecordDataSource
-import com.recodream_aos.recordream.data.datasource.remote.SearchDataSource
-import com.recodream_aos.recordream.data.datasource.remote.StorageDateSource
-import com.recodream_aos.recordream.data.repository.AuthRepositoryImpl
-import com.recodream_aos.recordream.data.repository.MypageUserRepositoryImpl
-import com.recodream_aos.recordream.data.repository.RecordRepositoryImpl
-import com.recodream_aos.recordream.data.repository.SearchRepositoryImpl
-import com.recodream_aos.recordream.data.repository.StorageRepositoryImpl
-import com.recodream_aos.recordream.domain.repository.AuthRepository
-import com.recodream_aos.recordream.domain.repository.MypageUserRepository
-import com.recodream_aos.recordream.domain.repository.RecordRepository
-import com.recodream_aos.recordream.domain.repository.SearchRepository
-import com.recodream_aos.recordream.domain.repository.StorageRepository
+import com.recodream_aos.recordream.data.datasource.remote.*
+import com.recodream_aos.recordream.data.repository.*
+import com.recodream_aos.recordream.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,19 +18,19 @@ object RepositoryModule {
     @Singleton
     fun providesLoginRepository(
         sharedPreferenceDataSource: SharedPreferenceDataSource,
-        authDataSource: AuthDataSource,
+        authDataSource: AuthDataSource
     ): AuthRepository = AuthRepositoryImpl(authDataSource, sharedPreferenceDataSource)
 
     @Provides
     @Singleton
     fun providesStorageRepository(
-        storageDateSource: StorageDateSource,
+        storageDateSource: StorageDateSource
     ): StorageRepository = StorageRepositoryImpl(storageDateSource)
 
     @Provides
     @Singleton
     fun providesMypageUserRepository(
-        mypageDataSource: MypageDateSource,
+        mypageDataSource: MypageDateSource
     ): MypageUserRepository = MypageUserRepositoryImpl(mypageDataSource)
 
     @Provides
@@ -54,14 +41,13 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesRecordRepository(): RecordRepository = RecordRepositoryImpl()
     fun providesRecordRepository(
-        recordDataSource: RecordDataSource,
+        recordDataSource: RecordDataSource
     ): RecordRepository = RecordRepositoryImpl(recordDataSource)
 
     @Provides
     @Singleton
     fun providesSearchRepository(
-        searchDataSource: SearchDataSource,
+        searchDataSource: SearchDataSource
     ): SearchRepository = SearchRepositoryImpl(searchDataSource)
 }
