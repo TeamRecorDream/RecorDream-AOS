@@ -21,7 +21,7 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     private var homeCardList = mutableListOf<ResponseHome>()
 
-    fun updateList(list: MutableList<ResponseHome.Record>) {
+    fun updateList(list: List<ResponseHome.Record>) {
 //        Log.i("list.size", homeCardList.size.toString())
 //        homeCardList = list
 //        this.notifyDataSetChanged

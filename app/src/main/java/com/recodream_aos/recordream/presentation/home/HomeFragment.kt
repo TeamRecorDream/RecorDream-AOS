@@ -31,10 +31,20 @@ class HomeFragment : Fragment(), LifecycleObserver {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         homeViewModel.initServer()
         initAdapterHomeCard()
-//        initNetwork()
-        return binding.root
+        observeData()
+    }
+
+    private fun observeData() {
+        homeViewModel.homeRecords.observe(viewLifecycleOwner) {
+            homeViewPagerAdapter.updateList(it)
+        }
     }
 
     private fun initAdapterHomeCard() {
