@@ -5,4 +5,6 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 
 interface DocumentDataSource {
     suspend fun getDocument(recordId: String): ResponseWrapper<ResponseDocument>
+
+    suspend fun deleteDetailRecord(recordId: String)
 }

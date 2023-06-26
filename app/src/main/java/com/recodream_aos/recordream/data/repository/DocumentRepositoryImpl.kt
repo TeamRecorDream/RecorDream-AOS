@@ -19,4 +19,8 @@ class DocumentRepositoryImpl @Inject constructor(
             return null
         }
     }
+
+    override suspend fun deleteDetailRecord(recordId: String) {
+        TODO("Not yet implemented")
+    }
 }

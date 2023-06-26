@@ -15,5 +15,5 @@ interface DocumentService {
     @DELETE("record/{recordId}")
     fun deleteDetailRecord(
         @Path("recordId") recordId: String
-    ): ResponseWrapper<ResponseDocument>
+    )
 }

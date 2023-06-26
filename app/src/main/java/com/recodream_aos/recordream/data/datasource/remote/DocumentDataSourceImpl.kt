@@ -12,4 +12,8 @@ class DocumentDataSourceImpl @Inject constructor(
     override suspend fun getDocument(recordId: String): ResponseWrapper<ResponseDocument> {
         return documentService.getDetailRecord(recordId)
     }
+
+    override suspend fun deleteDetailRecord(recordId: String) {
+        TODO("Not yet implemented")
+    }
 }
