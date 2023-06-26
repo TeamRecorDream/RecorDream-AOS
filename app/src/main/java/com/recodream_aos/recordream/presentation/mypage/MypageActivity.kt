@@ -70,10 +70,10 @@ class MypageActivity : AppCompatActivity() {
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
-            isShow.observe(this@MypageActivity) { item ->
-                binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
-                binding.tvMypageSettitngTimeDescription.text = item
-            }
+//            isShow.observe(this@MypageActivity) { item ->
+//                binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
+//                binding.tvMypageSettitngTimeDescription.text = item
+//            }
             userName.observe(this@MypageActivity) { name ->
                 if (name.toString().isNullOrBlank()) {
                     shortToastByInt(R.string.mypage_name_warning)

@@ -22,6 +22,10 @@ class MypageViewModel @Inject constructor(
 
     val userName = MutableLiveData<String>()
 
+    val setDay = MutableLiveData<String>()
+    val setHour = MutableLiveData<Int>()
+    val setMinute = MutableLiveData<Int>()
+
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
@@ -74,13 +78,13 @@ class MypageViewModel @Inject constructor(
         }
     }
 
-    fun setIsShow(day: String, h: Int, m: Int) {
-        val formatHour = String.format("%02d", h)
-        val formatMinute = String.format("%02d", m)
+    fun setIsShow() {
+        val formatHour = String.format("%02d", setHour)
+        val formatMinute = String.format("%02d", setMinute)
         _isShow.value = String.format(
             // todo %02s로 하면 왜 안됨?
             "%s %s:%s",
-            day,
+            setDay,
             formatHour,
             formatMinute,
         )

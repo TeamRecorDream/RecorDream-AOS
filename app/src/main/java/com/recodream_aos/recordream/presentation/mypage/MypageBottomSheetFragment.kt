@@ -37,7 +37,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun clickBtn() {
         binding.btnMypageSave.setOnClickListener {
-            viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
+            viewModel.setIsShow()
             viewModel.postPushAlam()
             viewModel.clickSaveTime(true)
             this.dismiss()
@@ -55,7 +55,8 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomDay.displayedValues = str
         binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, i2 ->
             val day = numberPicker.value
-            amOrpm = str[day]
+            viewModel.setDay.value = str[day]
+//            amOrpm = str[day]
 //            viewModel.setAmOrPm(amOrpm)
             binding.npMypageBottomDay.wrapSelectorWheel = false
         }
@@ -67,7 +68,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomHour.setFormatter { String.format("%02d", it) }
         binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            hourvalue = i
+            viewModel.setHour.value = i
 //            viewModel.setHour(hourvalue)
             binding.npMypageBottomHour.wrapSelectorWheel = false
         }
@@ -82,7 +83,8 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
             val i = numberPicker.value
-            minuteValue = i
+            viewModel.setMinute.value = i
+//            minuteValue = i
 //            viewModel.setMinute(minuteValue)
             binding.npMypageBottomMinute.wrapSelectorWheel = false
         }
