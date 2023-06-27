@@ -32,5 +32,7 @@
     <color name="purple_7F75EE">#7F75EE</color>
     <color name="red_FF5F5F">#FF5F5F</color>
 
+    <color name="black_99000000">#99000000</color>
+    <color name="grey_33C8CADA">#33C8CADA</color>
 
 </resources>
