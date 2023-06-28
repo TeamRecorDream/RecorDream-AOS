@@ -75,7 +75,7 @@ class MypageActivity : AppCompatActivity() {
                     shortToastByInt(R.string.mypage_name_warning)
                 } else {
                     binding.edtMypageName.setText(name)
-//                    putUserName()
+                    putUserName()
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
@@ -91,21 +91,23 @@ class MypageActivity : AppCompatActivity() {
             }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
             saveTime.observe(this@MypageActivity) { save ->
-                if (save == true) {
-                    setBackGround(true)
-                    switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-//                    mypageViewModel.patchAlamToggle(true)
-                } else {
-                    if (switch.getBoolean(ALARM, false)) {
-                        return@observe
-                    }
-                    binding.switchMypagePushAlam.isChecked = false
-//                    mypageViewModel.patchAlamToggle(false)
-                }
+                clickSaveBtnOnBottomSheet(save)
             }
             isShow.observe(this@MypageActivity) {
                 binding.tvMypageSettitngTimeDescription.text = it
             }
+        }
+    }
+
+    private fun clickSaveBtnOnBottomSheet(isSave: Boolean?) {
+        if (isSave == true) {
+            setBackGround(true)
+            switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
+        } else {
+            if (switch.getBoolean(ALARM, false)) {
+                return
+            }
+            binding.switchMypagePushAlam.isChecked = false
         }
     }
 
