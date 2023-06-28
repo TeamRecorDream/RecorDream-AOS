@@ -76,7 +76,7 @@ class MypageActivity : AppCompatActivity() {
                     shortToastByInt(R.string.mypage_name_warning)
                 } else {
                     binding.edtMypageName.setText(name)
-//                    putUserName()
+                    putUserName()
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
@@ -106,7 +106,6 @@ class MypageActivity : AppCompatActivity() {
             }
 
             isShow.observe(this@MypageActivity) {
-                Log.d("mypage", "mypageDataObserver:$it ")
                 binding.tvMypageSettitngTimeDescription.text = it
             }
         }
@@ -207,6 +206,9 @@ class MypageActivity : AppCompatActivity() {
             binding.tvMypageSettitngTimeDescription.visibility = View.GONE
             binding.tvMypageSettingTime.setOnClickListener { it.isClickable = false }
             binding.tvMypageSettitngTimeDescription.setOnClickListener { it.isClickable = false }
+            mypageViewModel.setDay = "AM"
+            mypageViewModel.setHour = 0
+            mypageViewModel.setMinute = 0
         }
     }
 

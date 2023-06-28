@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.R
-import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
 import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
@@ -51,7 +50,6 @@ class MypageViewModel @Inject constructor(
             _settingTime.value = mypageUserRepository.getUser()?.data?.time
             formatDate()
         }
-
     }
 
     fun formatDate() {
@@ -98,15 +96,12 @@ class MypageViewModel @Inject constructor(
     fun setIsShow() {
         val formatHour = String.format("%02d", setHour)
         val formatMinute = String.format("%02d", setMinute)
-        Log.d("isShow1", "setIsShow: ${setHour}")
-        Log.d("isShow2", "setIsShow: ${formatMinute}")
         _isShow.value = String.format(
             "%s %s:%s",
             setDay,
             formatHour,
             formatMinute,
         )
-        Log.d("isShow", "setIsShow: ${_isShow.value}")
     }
 
     fun userLogout() {
