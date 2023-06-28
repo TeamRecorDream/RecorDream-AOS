@@ -23,7 +23,7 @@
             android:layout_marginStart="22dp"
             android:layout_marginTop="32dp"
             android:text="@string/tv_main_welcoming"
-            android:textAppearance="@style/B18"
+            android:textAppearance="@style/Sb24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/tv_main_welcoming" />
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/tv_main_welcoming2"
-            android:textAppearance="@style/EL18"
+            android:textAppearance="@style/EL24"
             app:layout_constraintStart_toStartOf="@id/tv_home_hi1"
             app:layout_constraintTop_toBottomOf="@id/tv_home_hi1"
             tools:text="@string/tv_main_welcoming2" />
@@ -68,10 +68,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="47dp"
-            android:layout_marginBottom="61dp"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_home_hi2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

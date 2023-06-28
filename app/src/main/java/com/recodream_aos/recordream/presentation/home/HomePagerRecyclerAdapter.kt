@@ -33,13 +33,14 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
         private val itemClick: (String) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseHome.Record) {
-            binding.tvHomeDate.text = data.date
-            binding.tvHomeCardTitle.text = data.title
-            applyData(data)
-
             binding.root.setOnClickListener {
                 itemClick(data.id)
             }
+            binding.tvHomeDate.text = data.date
+            binding.tvHomeCardTitle.text = data.title
+            binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
+            binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
+            applyData(data)
         }
 
         val recorDreamMapping = RecordreamMapping()
@@ -126,6 +127,40 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
             ): Boolean {
                 return oldItem == newItem
             }
+        }
+
+        fun checkEmotionIcon(color: Int) = when (color) {
+            1 -> R.drawable.feeling_l_joy
+            2 -> R.drawable.feeling_l_sad
+            3 -> R.drawable.feeling_l_scary
+            4 -> R.drawable.feeling_l_strange
+            5 -> R.drawable.feeling_l_shy
+            else -> R.drawable.feeling_l_blank
+        }
+
+        fun checkEmotionBackground(color: Int) = when (color) {
+            1 -> R.drawable.card_m_yellow
+            2 -> R.drawable.card_m_blue
+            3 -> R.drawable.card_m_red
+            4 -> R.drawable.card_m_purple
+            5 -> R.drawable.card_m_pink
+            else -> R.drawable.card_m_white
+        }
+
+        enum class MotionIcon(
+
+            val color: Int,
+
+            val icon: Int
+
+        ) {
+
+            JOY(1, R.drawable.feeling_m_joy),
+            SAD(2, R.drawable.feeling_m_sad),
+            SCARY(3, R.drawable.feeling_m_scary),
+            STRANGE(4, R.drawable.feeling_m_strange),
+            SHY(5, R.drawable.feeling_m_shy),
+            BLANK(6, R.drawable.feeling_m_blank),
         }
     }
 }
