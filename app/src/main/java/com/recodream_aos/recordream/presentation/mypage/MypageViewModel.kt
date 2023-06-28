@@ -1,10 +1,12 @@
 package com.recodream_aos.recordream.presentation.mypage
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.recodream_aos.recordream.data.entity.remote.request.RequestAlamToggle
 import com.recodream_aos.recordream.data.entity.remote.request.RequestNickName
 import com.recodream_aos.recordream.data.entity.remote.request.RequestPushAlam
@@ -22,9 +24,9 @@ class MypageViewModel @Inject constructor(
 
     val userName = MutableLiveData<String>()
 
-    val setDay = MutableLiveData<String>()
-    val setHour = MutableLiveData<Int>()
-    val setMinute = MutableLiveData<Int>()
+    var setDay: String = "AM"
+    var setHour: Int = 0
+    var setMinute: Int = 0
 
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
@@ -40,17 +42,32 @@ class MypageViewModel @Inject constructor(
 
     val saveTime = MutableLiveData<Boolean?>()
 
+    lateinit var formatDay: List<String>
+
     fun getUser() {
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
             _settingTime.value = mypageUserRepository.getUser()?.data?.time
+            formatDate()
         }
+
+    }
+
+    fun formatDate() {
+        val day = _settingTime.value
+        if (day.isNullOrBlank()) {
+            return
+        }
+        formatDay = day.split(" ", ":")
+        setDay = formatDay[0]
+        setHour = formatDay[1].toInt()
+        setMinute = formatDay[2].toInt()
     }
 
     fun postPushAlam() {
         viewModelScope.launch {
-            mypageUserRepository.postPushAlam(RequestPushAlam(isShow.value.toString()))
+            mypageUserRepository.postPushAlam(RequestPushAlam(_isShow.value.toString()))
         }
     }
 
@@ -81,13 +98,15 @@ class MypageViewModel @Inject constructor(
     fun setIsShow() {
         val formatHour = String.format("%02d", setHour)
         val formatMinute = String.format("%02d", setMinute)
+        Log.d("isShow1", "setIsShow: ${setHour}")
+        Log.d("isShow2", "setIsShow: ${formatMinute}")
         _isShow.value = String.format(
-            // todo %02s로 하면 왜 안됨?
             "%s %s:%s",
             setDay,
             formatHour,
             formatMinute,
         )
+        Log.d("isShow", "setIsShow: ${_isShow.value}")
     }
 
     fun userLogout() {

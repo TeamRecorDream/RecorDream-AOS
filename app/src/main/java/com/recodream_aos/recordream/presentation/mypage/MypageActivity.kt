@@ -70,16 +70,13 @@ class MypageActivity : AppCompatActivity() {
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
-//            isShow.observe(this@MypageActivity) { item ->
-//                binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
-//                binding.tvMypageSettitngTimeDescription.text = item
-//            }
+
             userName.observe(this@MypageActivity) { name ->
                 if (name.toString().isNullOrBlank()) {
                     shortToastByInt(R.string.mypage_name_warning)
                 } else {
                     binding.edtMypageName.setText(name)
-                    putUserName()
+//                    putUserName()
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
@@ -106,6 +103,11 @@ class MypageActivity : AppCompatActivity() {
                     binding.switchMypagePushAlam.isChecked = false
                     mypageViewModel.patchAlamToggle(false)
                 }
+            }
+
+            isShow.observe(this@MypageActivity) {
+                Log.d("mypage", "mypageDataObserver:$it ")
+                binding.tvMypageSettitngTimeDescription.text = it
             }
         }
     }
@@ -189,6 +191,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun setBackGround(onSwitch: Boolean) {
         if (onSwitch) {
+            binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
             binding.tvMypageSettingTime.setTextColor(getColor(R.color.white))
             binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
             binding.tvMypageSettingTime.setOnClickListener {
