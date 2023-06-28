@@ -70,13 +70,12 @@ class MypageActivity : AppCompatActivity() {
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
-
             userName.observe(this@MypageActivity) { name ->
                 if (name.toString().isNullOrBlank()) {
                     shortToastByInt(R.string.mypage_name_warning)
                 } else {
                     binding.edtMypageName.setText(name)
-                    putUserName()
+//                    putUserName()
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
@@ -95,16 +94,15 @@ class MypageActivity : AppCompatActivity() {
                 if (save == true) {
                     setBackGround(true)
                     switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-                    mypageViewModel.patchAlamToggle(true)
+//                    mypageViewModel.patchAlamToggle(true)
                 } else {
                     if (switch.getBoolean(ALARM, false)) {
                         return@observe
                     }
                     binding.switchMypagePushAlam.isChecked = false
-                    mypageViewModel.patchAlamToggle(false)
+//                    mypageViewModel.patchAlamToggle(false)
                 }
             }
-
             isShow.observe(this@MypageActivity) {
                 binding.tvMypageSettitngTimeDescription.text = it
             }
@@ -177,12 +175,14 @@ class MypageActivity : AppCompatActivity() {
             val storeSwitch = switch.getBoolean(ALARM, false)
             if (!onSwitch) {
                 switch.edit { putBoolean(ALARM, false) }
+                mypageViewModel.patchAlamToggle(false)
                 setBackGround(false)
             }
             if (storeSwitch) {
                 return@setOnCheckedChangeListener
             }
             if (onSwitch) {
+                mypageViewModel.patchAlamToggle(true)
                 createBottomSheet()
             }
         }
