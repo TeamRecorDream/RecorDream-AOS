@@ -57,7 +57,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         } else {
             binding.npMypageBottomDay.value = 1
         }
-        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, i2 ->
+        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, _ ->
             val day = numberPicker.value
             viewModel.setDay = str[day]
             binding.npMypageBottomDay.wrapSelectorWheel = false
@@ -70,7 +70,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomHour.setFormatter { String.format("%02d", it) }
         binding.npMypageBottomHour.value = viewModel.setHour
         binding.npMypageBottomMinute.wrapSelectorWheel = false
-        binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, i2 ->
+        binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, _ ->
             val i = numberPicker.value
             viewModel.setHour = i
             binding.npMypageBottomHour.wrapSelectorWheel = false
@@ -83,7 +83,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomMinute.setFormatter { String.format("%02d", it) }
         binding.npMypageBottomMinute.wrapSelectorWheel = false
         binding.npMypageBottomMinute.value = viewModel.setMinute
-        binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
+        binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, _ ->
             val i = numberPicker.value
             viewModel.setMinute = i
             binding.npMypageBottomMinute.wrapSelectorWheel = false
