@@ -32,7 +32,7 @@ class StorageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStorageBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -93,6 +93,8 @@ class StorageFragment : Fragment() {
         storageGridAdapter =
             StorageGridAdapter {
                 val intent = Intent(requireContext(), DocumentActivity::class.java)
+                intent.apply { it.id }
+                startActivity(intent)
             }
         binding.rvStorage.adapter = storageGridAdapter
         binding.rvStorage.layoutManager = GridLayoutManager(context, 2)
@@ -102,6 +104,8 @@ class StorageFragment : Fragment() {
         storageListAdapter =
             StorageListAdapter {
                 val intent = Intent(requireContext(), DocumentActivity::class.java)
+                intent.apply { it.id }
+                startActivity(intent)
             }
         binding.rvStorage.adapter = storageListAdapter
         binding.rvStorage.layoutManager = LinearLayoutManager(context)

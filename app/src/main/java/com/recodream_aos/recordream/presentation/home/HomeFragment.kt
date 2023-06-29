@@ -28,7 +28,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -49,9 +49,8 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
     private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter {
-            val intent = Intent(requireContext(), DocumentActivity::class.java).apply {
-                putExtra("id", it)
-            }
+            val intent = Intent(requireContext(), DocumentActivity::class.java)
+            intent.apply { it.id }
             startActivity(intent)
         }
         binding.vpHome.adapter = homeViewPagerAdapter
@@ -75,7 +74,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                },
+                }
             )
         }
     }

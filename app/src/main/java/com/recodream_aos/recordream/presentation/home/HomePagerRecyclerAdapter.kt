@@ -1,21 +1,17 @@
 package com.recodream_aos.recordream.presentation.home // ktlint-disable filename
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.HomeCardItemBinding
-import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.RecordreamMapping
 
-class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
+class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit)) :
     RecyclerView.Adapter<HomeViewPagerAdapter.PagerViewHolder>() {
     private val asyncDiffer = AsyncListDiffer(this, diffResult)
 
@@ -30,11 +26,11 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     class PagerViewHolder(
         private val binding: HomeCardItemBinding,
-        private val itemClick: (String) -> Unit
+        private val itemClick: (ResponseHome.Record) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseHome.Record) {
             binding.root.setOnClickListener {
-                itemClick(data.id)
+                itemClick(data)
             }
             binding.tvHomeDate.text = data.date
             binding.tvHomeCardTitle.text = data.title
@@ -90,9 +86,8 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-        val binding: HomeCardItemBinding = DataBindingUtil.inflate(
+        val binding: HomeCardItemBinding = HomeCardItemBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.home_card_item,
             parent,
             false
         )
@@ -101,11 +96,6 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         holder.onBind(asyncDiffer.currentList[position])
-
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView?.context, DocumentActivity::class.java)
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
-        }
     }
 
     override fun getItemCount(): Int {
