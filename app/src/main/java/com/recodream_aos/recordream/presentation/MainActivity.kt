@@ -30,7 +30,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 when (item.itemId) {
                     R.id.menu_home -> HomeFragment()
                     else -> StorageFragment()
-                },
+                }
             )
             true
         }
@@ -38,9 +38,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fcv_main_navhostfragment, fragment)
+        supportFragmentManager.beginTransaction().replace(R.id.fcv_main_navhostfragment, fragment)
             .commit()
     }
 

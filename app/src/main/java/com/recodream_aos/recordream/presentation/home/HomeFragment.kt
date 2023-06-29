@@ -39,6 +39,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
         homeViewModel.initServer()
         initAdapterHomeCard()
         observeData()
+        initRefresh()
     }
 
     private fun observeData() {
@@ -79,28 +80,14 @@ class HomeFragment : Fragment(), LifecycleObserver {
         }
     }
 
-//    private fun initNetwork() {
-//        val recordId = RetrofitModule.providesRetrofit()
-//        //        Log.d("dddddddddd", "wddddddddd123123ddddd")
-//        val call = HomeService.getHomeRecord()
-//
-//        call.enqueueUtil(
-//            onSuccess = {
-//                Log.d("홈프래그먼트, status", "${it.status}")
-//
-//                val data = it.data
-//                val recordData =
-//                    applyNickname(data)
-//                it.data?.let { data ->
-//                    addHomeCardList(data.records)
-//                    Log.d("데이터체크", "${data.records}")
-//                }
-//            },
-//            onError = {
-//                Log.d("ddddddd1234", "$it")
-//            }
-//        )
-//    }
+    private fun initRefresh() {
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            observeData()
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
 
     private fun applyNickname(response: ResponseHome?) {
         if (response != null) {
