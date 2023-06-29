@@ -41,6 +41,7 @@
     <string name="mypage_alarm_No">권한이 거부되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.</string>
     <string name="mypage_alarm_else">권한 요청이 중단되었습니다. 푸시알림 기능 이용을 원하신다면 권한을 허가해주세요.</string>
     <string name="mypage_alarm_yes">권한이 허가되어 푸시알림 기능을 이용하실 수 있습니다.</string>
+    <string name="myopage_format_date">%02d</string>
 
     <!-- 기록하기 뷰 -->
     <string name="tv_record_record">기록하기</string>

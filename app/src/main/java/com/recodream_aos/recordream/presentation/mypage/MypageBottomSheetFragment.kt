@@ -1,7 +1,6 @@
 package com.recodream_aos.recordream.presentation.mypage // package before.forget.feature.write
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentMypageBottomSheetBinding
 
 class MypageBottomSheetFragment : BottomSheetDialogFragment() {
@@ -48,11 +48,11 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun amOrpmSettiing() {
-        val str = arrayOf("AM", "PM")
+        val str = arrayOf(AM, "PM")
         binding.npMypageBottomDay.maxValue = 0
         binding.npMypageBottomDay.maxValue = (str.size - 1)
         binding.npMypageBottomDay.displayedValues = str
-        if (viewModel.setDay == "AM") {
+        if (viewModel.setDay == AM) {
             binding.npMypageBottomDay.value = 0
         } else {
             binding.npMypageBottomDay.value = 1
@@ -67,7 +67,12 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private fun hourSettiing() {
         binding.npMypageBottomHour.minValue = 0
         binding.npMypageBottomHour.maxValue = 12
-        binding.npMypageBottomHour.setFormatter { String.format("%02d", it) }
+        binding.npMypageBottomHour.setFormatter {
+            String.format(
+                getString(R.string.myopage_format_date),
+                it
+            )
+        }
         binding.npMypageBottomHour.value = viewModel.setHour
         binding.npMypageBottomMinute.wrapSelectorWheel = false
         binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, _ ->
@@ -80,7 +85,12 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     private fun minuteSettiing() {
         binding.npMypageBottomMinute.minValue = 0
         binding.npMypageBottomMinute.maxValue = 59
-        binding.npMypageBottomMinute.setFormatter { String.format("%02d", it) }
+        binding.npMypageBottomMinute.setFormatter {
+            String.format(
+                getString(R.string.myopage_format_date),
+                it
+            )
+        }
         binding.npMypageBottomMinute.wrapSelectorWheel = false
         binding.npMypageBottomMinute.value = viewModel.setMinute
         binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, _ ->
