@@ -18,7 +18,14 @@ class HomeViewModel @Inject constructor(
     val homeRecords: LiveData<List<ResponseHome.Record>>
         get() = _homeRecords
 
+    val userName = MutableLiveData<String>()
     fun initServer() {
         viewModelScope.launch { _homeRecords.value = homeRepository.getHomeRecord()?.data?.records }
+    }
+
+    fun getUser() {
+        viewModelScope.launch {
+            userName.value = homeRepository.getHomeRecord()?.data?.nickname
+        }
     }
 }

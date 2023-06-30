@@ -5,9 +5,9 @@
 
     <data>
 
-        <!--        <variable-->
-        <!--            name="record_nickname"-->
-        <!--            type="and.org.recordream.data.local.HomeItemData" />-->
+        <variable
+            name="home"
+            type="com.recodream_aos.recordream.presentation.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

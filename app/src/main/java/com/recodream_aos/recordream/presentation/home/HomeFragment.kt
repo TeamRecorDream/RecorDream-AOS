@@ -37,6 +37,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.initServer()
+        homeViewModel.getUser()
         initAdapterHomeCard()
         observeData()
         initRefresh()
@@ -45,6 +46,11 @@ class HomeFragment : Fragment(), LifecycleObserver {
     private fun observeData() {
         homeViewModel.homeRecords.observe(viewLifecycleOwner) {
             homeViewPagerAdapter.updateList(it)
+        }
+
+        homeViewModel.userName.observe(viewLifecycleOwner) {
+            binding.tvHomeHi1.text = "반가워요, ${homeViewModel.userName.value}님!"
+            binding.tvHomeHiOff.text = "반가워요, ${homeViewModel.userName.value}님!"
         }
     }
 
