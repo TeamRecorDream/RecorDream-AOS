@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
@@ -49,6 +50,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
         }
 
         homeViewModel.userName.observe(viewLifecycleOwner) {
+            applyNickname(homeViewModel.homeRecords)
             binding.tvHomeHi1.text = "반가워요, ${homeViewModel.userName.value}님!"
             binding.tvHomeHiOff.text = "반가워요, ${homeViewModel.userName.value}님!"
         }
@@ -95,24 +97,18 @@ class HomeFragment : Fragment(), LifecycleObserver {
         }
     }
 
-    private fun applyNickname(response: ResponseHome?) {
+    private fun applyNickname(response: LiveData<List<ResponseHome.Record>>?) {
         if (response != null) {
-            if (response.records.size != null) {
+            if (response.value?.size != null) {
                 binding.tvHomeHi1.visibility = View.VISIBLE
                 binding.tvHomeHi2.visibility = View.VISIBLE
                 binding.tvHomeHiOff.visibility = View.INVISIBLE
                 binding.tvHomeHiOff2.visibility = View.INVISIBLE
-                if (response != null) {
-                    binding.tvHomeHi1.text = "반가워요, ${response.nickname}님!"
-                }
             } else {
                 binding.tvHomeHi1.visibility = View.INVISIBLE
                 binding.tvHomeHi2.visibility = View.INVISIBLE
                 binding.tvHomeHiOff.visibility = View.VISIBLE
                 binding.tvHomeHiOff2.visibility = View.VISIBLE
-                if (response != null) {
-                    binding.tvHomeHiOff.text = "반가워요, ${response.nickname}님!"
-                }
             }
         }
     }
