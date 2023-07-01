@@ -41,15 +41,9 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
 
         val recorDreamMapping = RecordreamMapping()
         private fun applyData(response: ResponseHome.Record) {
-            val applyEmotion = response.let { recorDreamMapping.matchHomeEmotion(it.emotion) }
             val applyGenre = response.let { recorDreamMapping.genreMapping(it.genre) }
-//            val applyCardImage =
-//                response.let { recorDreamMapping.matchHomeColor(it.dream_color) }
-//
-//            binding.clHomeCard.setBackgroundResource(applyCardImage)
-            binding.ivHomeEmoticon.setBackgroundResource(applyEmotion)
-            binding.tvHomeCardTitle.text = response.title
 
+            binding.tvHomeCardTitle.text = response.title
             binding.tvHomeDate.text = response.date
             if (response.genre.size == 1) {
                 binding.tvHomeGenre1.text = "#${applyGenre[0]}"
@@ -137,20 +131,20 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
             else -> R.drawable.card_m_white
         }
 
-        enum class MotionIcon(
-
-            val color: Int,
-
-            val icon: Int
-
-        ) {
-
-            JOY(1, R.drawable.feeling_m_joy),
-            SAD(2, R.drawable.feeling_m_sad),
-            SCARY(3, R.drawable.feeling_m_scary),
-            STRANGE(4, R.drawable.feeling_m_strange),
-            SHY(5, R.drawable.feeling_m_shy),
-            BLANK(6, R.drawable.feeling_m_blank),
-        }
+//        enum class MotionIcon(
+//
+//            val color: Int,
+//
+//            val icon: Int
+//
+//        ) {
+//
+//            JOY(1, R.drawable.feeling_m_joy),
+//            SAD(2, R.drawable.feeling_m_sad),
+//            SCARY(3, R.drawable.feeling_m_scary),
+//            STRANGE(4, R.drawable.feeling_m_strange),
+//            SHY(5, R.drawable.feeling_m_shy),
+//            BLANK(6, R.drawable.feeling_m_blank),
+//        }
     }
 }
