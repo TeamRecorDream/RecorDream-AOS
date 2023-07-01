@@ -5,9 +5,9 @@
 
     <data>
 
-        <!--        <variable-->
-        <!--            name="records"-->
-        <!--            type="and.org.recordream.data.remote.response.ResponsedocumentDreamRecord" />-->
+        <variable
+            name="records"
+            type="com.recodream_aos.recordream.presentation.document.DocumentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

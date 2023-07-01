@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentDocumentBottomSheetBinding
 import com.recodream_aos.recordream.util.customview.CustomDialog
@@ -42,6 +46,9 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun clickShare() {
         binding.tvDocumentBottomShare.setOnClickListener {
+            Firebase.analytics.logEvent(CLICK_SHARE_INSTAGRAM, bundleOf())
+            setFragmentResult(INSTA_DIALOG, bundleOf(SHARE_MODE to SHARE))
+            dismiss()
         }
     }
 
@@ -62,5 +69,12 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         binding.btnDocumentBottomCancel.setOnClickListener {
             dismiss()
         }
+    }
+
+    companion object {
+        const val INSTA_DIALOG = "InstaDialog"
+        const val SHARE_MODE = "ShareMode"
+        const val SHARE = true
+        const val CLICK_SHARE_INSTAGRAM = "click_SHARE_INSTARGRAM"
     }
 }
