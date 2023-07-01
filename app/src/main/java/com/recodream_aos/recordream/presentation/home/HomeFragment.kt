@@ -39,6 +39,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.initServer()
         homeViewModel.getUser()
+        applyNickname(homeViewModel.homeRecords)
         initAdapterHomeCard()
         observeData()
         initRefresh()
@@ -111,10 +112,6 @@ class HomeFragment : Fragment(), LifecycleObserver {
                 binding.tvHomeHiOff2.visibility = View.VISIBLE
             }
         }
-    }
-
-    private fun addHomeCardList(data: List<ResponseHome.Record>) {
-        (binding.vpHome.adapter as HomeViewPagerAdapter).updateList(data.toMutableList())
     }
 
     override fun onDestroyView() {
