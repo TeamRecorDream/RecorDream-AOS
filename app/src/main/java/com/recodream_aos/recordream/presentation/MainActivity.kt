@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.recodream_aos.recordream.R
@@ -45,10 +44,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun setClickEvents() {
-        binding.ivMainMypage.setOnClickListener {
-            val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)
-        }
+        binding.ivMainMypage.setOnClickListener { startActivity(MypageActivity.getIntent(this)) }
         binding.ivNaviWriteBtn.setOnClickListener { startActivity(RecordActivity.getIntent(this)) }
         binding.ivMainSearch.setOnClickListener { startActivity(SearchActivity.getIntent(this)) }
     }
