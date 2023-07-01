@@ -85,6 +85,16 @@
         <item name="android:textSize">20dp</item>
     </style>
 
+    <style name="EL24">
+        <item name="fontFamily">@font/pretandard_extralight</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="Sb24">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
     <style name="Sb26">
         <item name="fontFamily">@font/pretendard_semibold</item>
         <item name="android:textSize">26dp</item>
