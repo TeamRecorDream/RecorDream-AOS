@@ -1,0 +1,102 @@
+package com.recodream_aos.recordream.presentation.mypage // package before.forget.feature.write
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.recodream_aos.recordream.databinding.FragmentMypageBottomSheetBinding
+
+class MypageBottomSheetFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentMypageBottomSheetBinding? = null
+    private val binding get() = _binding ?: error("binding이 초기화 되지 않았습니다.")
+    private var amOrpm = "AM"
+    private var hourvalue = 0
+    private var minuteValue = 0
+    private val viewModel by activityViewModels<MypageViewModel>()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        _binding = FragmentMypageBottomSheetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        clickBtn()
+        amOrpmSettiing()
+        hourSettiing()
+        minuteSettiing()
+        initDialog()
+    }
+
+    private fun clickBtn() {
+        binding.btnMypageSave.setOnClickListener {
+            viewModel.setIsShow(amOrpm, hourvalue, minuteValue)
+            viewModel.postPushAlam()
+            viewModel.clickSaveTime(true)
+            this.dismiss()
+        }
+        binding.btnMypageCancle.setOnClickListener {
+            viewModel.clickSaveTime(false)
+            this.dismiss()
+        }
+    }
+
+    private fun amOrpmSettiing() {
+        val str = arrayOf("AM", "PM")
+        binding.npMypageBottomDay.maxValue = 0
+        binding.npMypageBottomDay.maxValue = (str.size - 1)
+        binding.npMypageBottomDay.displayedValues = str
+        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, i2 ->
+            val day = numberPicker.value
+            amOrpm = str[day]
+//            viewModel.setAmOrPm(amOrpm)
+            binding.npMypageBottomDay.wrapSelectorWheel = false
+        }
+    }
+
+    private fun hourSettiing() {
+        binding.npMypageBottomHour.minValue = 0
+        binding.npMypageBottomHour.maxValue = 12
+        binding.npMypageBottomHour.setFormatter { String.format("%02d", it) }
+        binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, i2 ->
+            val i = numberPicker.value
+            hourvalue = i
+//            viewModel.setHour(hourvalue)
+            binding.npMypageBottomHour.wrapSelectorWheel = false
+        }
+    }
+
+    private fun minuteSettiing() {
+        binding.npMypageBottomMinute.minValue = 0
+        binding.npMypageBottomMinute.maxValue = 59
+        binding.npMypageBottomMinute.setFormatter { String.format("%02d", it) }
+
+        binding.npMypageBottomMinute.wrapSelectorWheel = false
+
+        binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, i2 ->
+            val i = numberPicker.value
+            minuteValue = i
+//            viewModel.setMinute(minuteValue)
+            binding.npMypageBottomMinute.wrapSelectorWheel = false
+        }
+    }
+
+    private fun initDialog() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+
+        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetDialog.behavior.saveFlags = BottomSheetBehavior.SAVE_FIT_TO_CONTENTS
+    }
+
+    companion object {
+        const val AM = "AM"
+    }
+}

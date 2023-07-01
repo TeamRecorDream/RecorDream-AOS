@@ -1,0 +1,13 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/background"
+        android:drawable="@drawable/seek_bar_record_background" />
+
+    <item android:id="@+id/progress">
+        <scale
+            android:drawable="@drawable/seek_bar_record_progress"
+            android:scaleWidth="100%" />
+    </item>
+
+</layer-list>

@@ -16,27 +16,33 @@
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_main_navhostfragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="30dp"
-            app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/v_home_bottom_space"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_main_top"
-            app:layout_constraintVertical_bias="0.0"
-            app:navGraph="@navigation/nav_graph" />
+            tools:layout="@layout/fragment_home" />
 
-        <com.recodream_aos.recordream.util.CustomBottomNavigationView
+        <ImageView
+            android:id="@+id/iv_main_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bottom_navibar"
+            app:itemIconTint="@color/white01_FFFFFF"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.recodream_aos.recordream.util.customview.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:padding="3dp"
+            android:layout_marginBottom="35dp"
             android:theme="@style/B12"
             app:itemIconTint="@color/white01_FFFFFF"
             app:labelVisibilityMode="labeled"
@@ -44,9 +50,14 @@
             app:menu="@menu/menu_main_bnv" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/home_background" />
+            android:id="@+id/iv_navi_write_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="78dp"
+            android:src="@drawable/ic_navibar_btn_record"
+            app:layout_constraintBottom_toBottomOf="@id/iv_main_bottom"
+            app:layout_constraintEnd_toEndOf="@id/iv_main_bottom"
+            app:layout_constraintStart_toStartOf="@id/iv_main_bottom" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_main_top"
@@ -54,7 +65,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <ImageView
                 android:id="@+id/iv_main_logo"
@@ -66,29 +76,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/rd_home_rogo" />
-
-            <TextView
-                android:id="@+id/tv_home_hi1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/tv_main_welcoming"
-                android:textAppearance="@style/B18"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_main_logo"
-                tools:text="@string/tv_main_welcoming" />
-
-            <TextView
-                android:id="@+id/tv_home_hi2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/tv_main_welcoming2"
-                android:textAppearance="@style/EL18"
-                app:layout_constraintStart_toStartOf="@id/tv_home_hi1"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_hi1"
-                tools:text="@string/tv_main_welcoming2" />
 
             <ImageView
                 android:id="@+id/iv_main_search"

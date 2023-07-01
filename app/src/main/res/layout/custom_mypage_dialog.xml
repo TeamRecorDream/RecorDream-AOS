@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_radius_20dp_mypage_dialog"
+        android:backgroundTint="@color/grey01_222222"
+        tools:context=".presentation.mypage.MypageDialogFragment">
+
+        <TextView
+            android:id="@+id/tv_mypage_dialog_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:text="@string/mypage_delete_account"
+            android:theme="@style/Sb14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_mypage_dialog_deleteDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginTop="14dp"
+            android:lineSpacingMultiplier="1.4"
+            android:text="@string/mypage_delete_description"
+            android:textAlignment="center"
+            android:theme="@style/R12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_dialog_delete" />
+
+        <View
+            android:id="@+id/v_mypage_dialog_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="17dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_dialog_deleteDescription" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:constraint_referenced_ids="btn_mypage_dialog_cancle,v_mypage_dialog_cancleLine,btn_mypage_dialog_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_mypage_dialog_line" />
+
+        <Button
+            android:id="@+id/btn_mypage_dialog_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/grey01_222222"
+            android:text="@string/mypage_bottom_cancle"
+            android:theme="@style/Sb14"
+            app:layout_constraintTop_toBottomOf="@id/v_mypage_dialog_line" />
+
+        <View
+            android:id="@+id/v_mypage_dialog_cancleLine"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/white05_1AFFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_mypage_dialog_cancle"
+            app:layout_constraintTop_toBottomOf="@id/v_mypage_dialog_line" />
+
+        <Button
+            android:id="@+id/btn_mypage_dialog_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/grey01_222222"
+            android:text="@string/mypage_delete"
+            android:textColor="@color/red_FF5F5F"
+            android:theme="@style/Sb14"
+            app:layout_constraintTop_toBottomOf="@id/v_mypage_dialog_line" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

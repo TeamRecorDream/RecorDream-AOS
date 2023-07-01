@@ -1,13 +1,13 @@
 package com.recodream_aos.recordream.presentation.document
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
-import com.recodream_aos.recordream.data.entity.remote.response.ResponseDocumentDreamRecord
 import com.recodream_aos.recordream.databinding.ActivityDocumentBinding
-import com.recodream_aos.recordream.util.CustomDialog
 import com.recodream_aos.recordream.util.RecordreamMapping
+import com.recodream_aos.recordream.util.customview.CustomDialog
 
 class DocumentActivity : AppCompatActivity() {
 
@@ -20,7 +20,8 @@ class DocumentActivity : AppCompatActivity() {
     // 선택한 카드 정보 반영해서 불러오기 위해 변수 설정
     private val recordreamMapping = RecordreamMapping()
 
-    private val viewModel by viewModels<DocumentViewModel>()
+//    나중에 뷰모델 써서 불러올 예정
+//    private val viewModel by viewModels<DocumentViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +29,13 @@ class DocumentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        나중에 수정해서 추가 예정
-        val recordId = intent.getStringExtra("id")?: error("need record Id")
+//        val recordId = intent.getStringExtra("id")?: error("need record Id")
 
         initAdapter()
         initTabLayout()
         initCloseButton()
-        initNetwork(recordId)
-        observeData()
+//        initNetwork(recordId)
+//        observeData()
 
         binding.ivDotsMore.setOnClickListener { createBottom() }
     }
@@ -62,17 +63,26 @@ class DocumentActivity : AppCompatActivity() {
             finish()
         }
     }
+//
+//    private fun initNetwork(id:String){
+//        viewModel.getData(id)
+//    }
 
-    private fun initNetwork(id:String){
-        viewModel.getData(id)
+//    private fun applyData(response: ResponseDocumentDreamRecord) {
+//    }
+//
+// private fun observeData(){
+//     viewModel.documentResponse.observe(this){
+//         applyData(it)
+//     }
+// }
+
+    companion object {
+        private const val RECORD_ID = "RECORD_ID"
+
+        fun getIntent(context: Context, id: String?): Intent =
+            Intent(context, DocumentActivity::class.java).apply {
+                putExtra(RECORD_ID, id)
+            }
     }
-
-    private fun applyData(response: ResponseDocumentDreamRecord) {
-    }
-
- private fun observeData(){
-     viewModel.documentResponse.observe(this){
-         applyData(it)
-     }
- }
 }

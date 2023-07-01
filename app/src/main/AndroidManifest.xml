@@ -5,6 +5,17 @@
     <!-- Permissions of internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        android:minSdkVersion="33" />
 
     <meta-data
         android:name="com.google.firebase.messaging.default_notification_channel_id"
@@ -17,6 +28,7 @@
         android:value="false" />
 
     <application
+        android:name=".application.RecordreamApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,28 +37,63 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RecorDream"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.recodream_aos.recordream.presentation.document.DocumentActivity"
+            android:name=".presentation.search.SearchActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.record.RecordActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
+            android:name=".presentation.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.mypage.MypageActivity"
             android:exported="false" />
+
         <activity
-            android:name=".presentation.storagy.StoragyActivity"
+            android:name=".presentation.document.DocumentActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true">
+            android:name=".presentation.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity> <!-- Kakao 로그인 -->
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <!-- scheme-example: "kakao{NATIVE_APP_KEY}" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/appKey_manifest_kakao" />
+            </intent-filter>
         </activity>
+
+        <service
+            android:name=".util.RecorDreamFireBaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
