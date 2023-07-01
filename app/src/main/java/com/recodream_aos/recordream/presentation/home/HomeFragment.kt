@@ -1,6 +1,5 @@
 package com.recodream_aos.recordream.presentation.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.FragmentHomeBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
-import com.recodream_aos.recordream.util.RecordreamMapping
 import com.recodream_aos.recordream.util.ZoomOutPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +21,6 @@ class HomeFragment : Fragment(), LifecycleObserver {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
     private val binding get() = _binding!!
-    private val recorDreamMapping = RecordreamMapping()
     private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
@@ -58,10 +55,12 @@ class HomeFragment : Fragment(), LifecycleObserver {
     }
 
     private fun initAdapterHomeCard() {
-        homeViewPagerAdapter = HomeViewPagerAdapter {
-            val intent = Intent(requireContext(), DocumentActivity::class.java)
-            intent.apply { it.id }
+        homeViewPagerAdapter = HomeViewPagerAdapter { recordId ->
+            val intent = DocumentActivity.getIntent(requireContext(), recordId)
             startActivity(intent)
+//            val intent = Intent(requireContext(), DocumentActivity::class.java)
+//            intent.apply { it.id }
+//            startActivity(intent)
         }
         binding.vpHome.adapter = homeViewPagerAdapter
         with(binding.vpHome) {
