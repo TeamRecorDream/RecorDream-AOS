@@ -3,7 +3,6 @@ package com.recodream_aos.recordream.presentation.home // ktlint-disable filenam
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,44 +11,39 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.HomeCardItemBinding
 import com.recodream_aos.recordream.util.RecordreamMapping
 
-class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
+class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit)) :
     RecyclerView.Adapter<HomeViewPagerAdapter.PagerViewHolder>() {
     private val asyncDiffer = AsyncListDiffer(this, diffResult)
-//
-//    private var homeCardList = mutableListOf<ResponseHome>()
 
-//    fun updateList(list: MutableList<ResponseHome>) {
+    private var homeCardList = mutableListOf<ResponseHome>()
+
+    fun updateList(list: List<ResponseHome.Record>) {
 //        Log.i("list.size", homeCardList.size.toString())
 //        homeCardList = list
-//        this.notifyDataSetChanged()
-//        asyncDiffer.submitList(list)
-//    }
+//        this.notifyDataSetChanged
+        asyncDiffer.submitList(list)
+    }
 
     class PagerViewHolder(
         private val binding: HomeCardItemBinding,
-        private val itemClick: (String) -> Unit,
+        private val itemClick: (ResponseHome.Record) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: ResponseHome) {
+        fun onBind(data: ResponseHome.Record) {
+            binding.root.setOnClickListener {
+                itemClick(data)
+            }
             binding.tvHomeDate.text = data.date
             binding.tvHomeCardTitle.text = data.title
+            binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
+            binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
             applyData(data)
-
-            binding.root.setOnClickListener {
-                itemClick(data._id)
-            }
         }
 
         val recorDreamMapping = RecordreamMapping()
-        private fun applyData(response: ResponseHome) {
-            val applyEmotion = response.let { recorDreamMapping.matchHomeEmotion(it.emotion) }
+        private fun applyData(response: ResponseHome.Record) {
             val applyGenre = response.let { recorDreamMapping.genreMapping(it.genre) }
-            val applyCardImage =
-                response.let { recorDreamMapping.matchHomeColor(it.dream_color) }
 
-            binding.clHomeCard.setBackgroundResource(applyCardImage)
-            binding.ivHomeEmoticon.setBackgroundResource(applyEmotion)
             binding.tvHomeCardTitle.text = response.title
-
             binding.tvHomeDate.text = response.date
             if (response.genre.size == 1) {
                 binding.tvHomeGenre1.text = "#${applyGenre[0]}"
@@ -86,9 +80,8 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-        val binding: HomeCardItemBinding = DataBindingUtil.inflate(
+        val binding: HomeCardItemBinding = HomeCardItemBinding.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.home_card_item,
             parent,
             false,
         )
@@ -97,11 +90,6 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         holder.onBind(asyncDiffer.currentList[position])
-//
-//        holder.itemView.setOnClickListener {
-//            val intent = Intent(holder.itemView?.context, DetailActivity::class.java)
-//            ContextCompat.startActivity(holder.itemView.context, intent, null)
-//        }
     }
 
     override fun getItemCount(): Int {
@@ -109,20 +97,54 @@ class HomeViewPagerAdapter(private val itemClick: (String) -> Unit) :
     }
 
     companion object {
-        private val diffResult = object : DiffUtil.ItemCallback<ResponseHome>() {
+        private val diffResult = object : DiffUtil.ItemCallback<ResponseHome.Record>() {
             override fun areItemsTheSame(
-                oldItem: ResponseHome,
-                newItem: ResponseHome,
+                oldItem: ResponseHome.Record,
+                newItem: ResponseHome.Record,
             ): Boolean {
-                return oldItem._id == newItem._id
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: ResponseHome,
-                newItem: ResponseHome,
+                oldItem: ResponseHome.Record,
+                newItem: ResponseHome.Record,
             ): Boolean {
                 return oldItem == newItem
             }
         }
+
+        fun checkEmotionIcon(color: Int) = when (color) {
+            1 -> R.drawable.feeling_l_joy
+            2 -> R.drawable.feeling_l_sad
+            3 -> R.drawable.feeling_l_scary
+            4 -> R.drawable.feeling_l_strange
+            5 -> R.drawable.feeling_l_shy
+            else -> R.drawable.feeling_l_blank
+        }
+
+        fun checkEmotionBackground(color: Int) = when (color) {
+            1 -> R.drawable.card_m_yellow
+            2 -> R.drawable.card_m_blue
+            3 -> R.drawable.card_m_red
+            4 -> R.drawable.card_m_purple
+            5 -> R.drawable.card_m_pink
+            else -> R.drawable.card_m_white
+        }
+
+//        enum class MotionIcon(
+//
+//            val color: Int,
+//
+//            val icon: Int
+//
+//        ) {
+//
+//            JOY(1, R.drawable.feeling_m_joy),
+//            SAD(2, R.drawable.feeling_m_sad),
+//            SCARY(3, R.drawable.feeling_m_scary),
+//            STRANGE(4, R.drawable.feeling_m_strange),
+//            SHY(5, R.drawable.feeling_m_shy),
+//            BLANK(6, R.drawable.feeling_m_blank),
+//        }
     }
 }

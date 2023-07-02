@@ -37,9 +37,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fcv_main_navhostfragment, fragment)
+        supportFragmentManager.beginTransaction().replace(R.id.fcv_main_navhostfragment, fragment)
             .commit()
     }
 

@@ -1,10 +1,6 @@
 package com.recodream_aos.recordream.di // ktlint-disable package-name
 
-import com.recodream_aos.recordream.data.api.AuthService
-import com.recodream_aos.recordream.data.api.MypageService
-import com.recodream_aos.recordream.data.api.RecordService
-import com.recodream_aos.recordream.data.api.SearchService
-import com.recodream_aos.recordream.data.api.StorageService
+import com.recodream_aos.recordream.data.api.*
 import com.recodream_aos.recordream.data.datasource.remote.*
 import dagger.Module
 import dagger.Provides
@@ -15,6 +11,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RemoteDataSourceModule {
+
+    @Provides
+    @Singleton
+    fun providesHomeDataSourceImpl(
+        homeService: HomeService,
+    ): HomeDataSource = HomeDateSourceImpl(homeService)
 
     @Provides
     @Singleton
