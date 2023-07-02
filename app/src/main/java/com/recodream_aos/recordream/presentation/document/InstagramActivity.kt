@@ -51,7 +51,7 @@ class InstagramActivity : BindingActivity<ActivityInstagramBinding>(R.layout.act
     }
 
     private fun initViewModel() {
-        binding.viewModel = DocumentViewModel()
+//        binding.viewModel = DocumentViewModel()
         binding.lifecycleOwner = this
     }
 

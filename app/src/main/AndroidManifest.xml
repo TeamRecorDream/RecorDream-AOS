@@ -27,7 +27,7 @@
         android:name="firebase_analytics_collection_enabled"
         android:value="false" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
     <application
         android:name=".application.RecordreamApp"
@@ -45,22 +45,11 @@
             android:name=".presentation.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".presentation.record.RecordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.login.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.mypage.MypageActivity"
-            android:exported="false" />
 
         <activity
             android:name="com.recodream_aos.recordream.presentation.document.InstagramActivity"
             android:exported="false" />
+
         <activity
             android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
             android:exported="true" />
@@ -101,20 +90,20 @@
             android:exported="true"
             android:launchMode="singleTask">
 
-             <intent-filter>
-             <action android:name="android.intent.action.VIEW" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
 
-            <category android:name="android.intent.category.DEFAULT" />
-             <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
 
-             <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
-             <!-- scheme-example: "kakao{NATIVE_APP_KEY}" -->
-             <data
-             android:host="oauth"
-             android:scheme="@string/appKey_manifest_kakao" />
-             </intent-filter>
+                <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth" -->
+                <!-- scheme-example: "kakao{NATIVE_APP_KEY}" -->
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/appKey_manifest_kakao" />
+            </intent-filter>
         </activity>
 
         <!-- 외부 저장소 사용을 위한 FileProvider auth 추가. -->

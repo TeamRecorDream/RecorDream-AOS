@@ -7,9 +7,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.data.entity.remote.response.ResponseDocument
 import com.recodream_aos.recordream.databinding.ActivityDocumentBinding
 import com.recodream_aos.recordream.util.customview.CustomDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DocumentActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDocumentBinding
@@ -63,14 +66,16 @@ class DocumentActivity : AppCompatActivity() {
 
     //
     private fun initNetwork(id: String) {
-        viewModel.getData(id)
+        viewModel.initServer(id)
     }
 
-    private fun applyData(response: ResponseDocumentDreamRecord) {
+    private fun applyData(response: ResponseDocument?) {
+        if (response?.id != null) {
+        }
     }
 
     private fun observeData() {
-        viewModel.documentResponse.observe(this) {
+        viewModel.responses.observe(this) {
             applyData(it)
         }
     }

@@ -56,7 +56,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
     private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter { recordId ->
-            val intent = DocumentActivity.getIntent(requireContext(), recordId)
+            val intent = DocumentActivity.getIntent(requireContext(), recordId.id)
             startActivity(intent)
 //            val intent = Intent(requireContext(), DocumentActivity::class.java)
 //            intent.apply { it.id }
