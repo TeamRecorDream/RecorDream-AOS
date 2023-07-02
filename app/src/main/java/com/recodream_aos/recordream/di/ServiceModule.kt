@@ -15,25 +15,25 @@ object ServiceModule {
     @Provides
     @Singleton
     fun providesLoginService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): AuthService = retrofit.create(AuthService::class.java)
 
     @Provides
     @Singleton
     fun providesStorageService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): StorageService = retrofit.create(StorageService::class.java)
 
     @Provides
     @Singleton
     fun providesMypageUserService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): MypageService = retrofit.create(MypageService::class.java)
 
     @Provides
     @Singleton
     fun providesHomeService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): HomeService = retrofit.create(HomeService::class.java)
 
     //    @Provides
@@ -45,12 +45,12 @@ object ServiceModule {
     @Provides
     @Singleton
     fun providesRecordService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): RecordService = retrofit.create(RecordService::class.java)
 
     @Provides
     @Singleton
     fun providesSearchService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): SearchService = retrofit.create(SearchService::class.java)
 }

@@ -29,7 +29,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
     private fun observeData() {
         homeViewModel.homeRecords.observe(viewLifecycleOwner) {
-            homeViewPagerAdapter.updateList(it)
+//            homeViewPagerAdapter.updateList(it)
         }
 
         homeViewModel.userName.observe(viewLifecycleOwner) {
@@ -83,7 +83,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                }
+                },
             )
         }
     }

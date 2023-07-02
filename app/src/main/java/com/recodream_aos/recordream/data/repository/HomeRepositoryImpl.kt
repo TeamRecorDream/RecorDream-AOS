@@ -7,7 +7,7 @@ import com.recodream_aos.recordream.domain.repository.HomeRepository
 import javax.inject.Inject
 
 class HomeRepositoryImpl @Inject constructor(
-    private val homeDataSource: HomeDataSource
+    private val homeDataSource: HomeDataSource,
 ) : HomeRepository {
     override suspend fun getHomeRecord(): ResponseWrapper<ResponseHome>? {
         try {

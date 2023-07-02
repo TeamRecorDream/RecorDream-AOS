@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val homeRepository: HomeRepository,
 ) : ViewModel() {
     private val _homeRecords = MutableLiveData<List<ResponseHome.Record>>()
     val homeRecords: LiveData<List<ResponseHome.Record>>

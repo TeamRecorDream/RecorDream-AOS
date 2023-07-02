@@ -7,7 +7,7 @@ import com.recodream_aos.recordream.domain.repository.DocumentRepository
 import javax.inject.Inject
 
 class DocumentRepositoryImpl @Inject constructor(
-    private val documentDataSource: DocumentDataSource
+    private val documentDataSource: DocumentDataSource,
 ) : DocumentRepository {
 
     override suspend fun getDocument(recordId: String): ResponseWrapper<ResponseDocument>? {
