@@ -13,7 +13,7 @@
         <com.recodream_aos.recordream.util.customview.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="72dp"
             android:layout_gravity="bottom"
             android:paddingVertical="4dp"
             android:switchTextAppearance="@style/B28"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="56dp"
-            android:src="@drawable/ic_navibar_btn_record"
+            android:src="@drawable/navibar_btn_record"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
