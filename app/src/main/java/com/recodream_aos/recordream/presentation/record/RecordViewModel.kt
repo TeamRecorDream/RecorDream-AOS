@@ -3,8 +3,8 @@ package com.recodream_aos.recordream.presentation.record // ktlint-disable packa
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.util.CustomResult.FAIL
-import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.util.CustomResult.FAIL
+import com.recodream_aos.recordream.domain.util.CustomResult.SUCCESS
 import com.recodream_aos.recordream.domain.model.Record
 import com.recodream_aos.recordream.domain.repository.RecordRepository
 import com.recodream_aos.recordream.presentation.record.uistate.Genre
