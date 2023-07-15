@@ -10,7 +10,6 @@ import com.recodream_aos.recordream.util.RecordreamMapping
 import com.recodream_aos.recordream.util.customview.CustomDialog
 
 class DocumentActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityDocumentBinding
 
     // 더보기 바텀시트, 삭제 확인창 변수
