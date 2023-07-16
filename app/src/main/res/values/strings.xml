@@ -105,6 +105,7 @@
 
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
+    <string name="document_title">기록 상세보기</string>
 
 
 </resources>
