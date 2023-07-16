@@ -107,13 +107,16 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_document"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_document_chip">
+            app:layout_constraintTop_toBottomOf="@+id/rv_document_chip"
+            app:tabBackground="@color/black"
+            app:tabIndicatorColor="@color/black"
+            app:tabIndicatorHeight="3dp">
 
 
         </com.google.android.material.tabs.TabLayout>
