@@ -6,7 +6,6 @@ import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.base.BindingActivity
 import com.recodream_aos.recordream.databinding.ActivityDocumentssBinding
 import com.recodream_aos.recordream.presentation.document2.adapter.ContentAdapter
-import com.recodream_aos.recordream.presentation.document2.model.DocumentUiModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,13 +17,10 @@ class DocumentssActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.viewModel = documentViewModel
+        binding.lifecycleOwner = this
+
         binding.rvDocumentChip.adapter = contentAdapter
-        contentAdapter.submitList(
-            listOf(
-                DocumentUiModel(1, "123123"),
-                DocumentUiModel(2, "1159195974231984156219654"),
-            ),
-        )
 
 //        TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { tab, position ->
 //            tab.text = "OBJECT ${(position + 1)}"

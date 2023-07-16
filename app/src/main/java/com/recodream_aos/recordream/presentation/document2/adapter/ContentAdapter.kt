@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.recodream_aos.recordream.presentation.document2.adapter.viewHolder.ContentViewHolder
-import com.recodream_aos.recordream.presentation.document2.model.DocumentUiModel
+import com.recodream_aos.recordream.presentation.document2.model.ContentUiModel
 
-class ContentAdapter : ListAdapter<DocumentUiModel, ContentViewHolder>(diffCallBack) {
+class ContentAdapter : ListAdapter<ContentUiModel, ContentViewHolder>(diffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
         return ContentViewHolder(
@@ -23,17 +23,17 @@ class ContentAdapter : ListAdapter<DocumentUiModel, ContentViewHolder>(diffCallB
     }
 
     companion object {
-        private val diffCallBack = object : DiffUtil.ItemCallback<DocumentUiModel>() {
+        private val diffCallBack = object : DiffUtil.ItemCallback<ContentUiModel>() {
             override fun areItemsTheSame(
-                oldItem: DocumentUiModel,
-                newItem: DocumentUiModel,
+                oldItem: ContentUiModel,
+                newItem: ContentUiModel,
             ): Boolean {
-                return oldItem.recordId == newItem.recordId
+                return oldItem.category == newItem.category
             }
 
             override fun areContentsTheSame(
-                oldItem: DocumentUiModel,
-                newItem: DocumentUiModel,
+                oldItem: ContentUiModel,
+                newItem: ContentUiModel,
             ): Boolean {
                 return oldItem == newItem
             }

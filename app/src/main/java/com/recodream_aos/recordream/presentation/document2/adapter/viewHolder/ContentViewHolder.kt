@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.recodream_aos.recordream.databinding.ItemDocumentContentBinding
-import com.recodream_aos.recordream.presentation.document2.model.DocumentUiModel
+import com.recodream_aos.recordream.presentation.document2.model.ContentUiModel
 
 class ContentViewHolder(
     private val binding: ItemDocumentContentBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: DocumentUiModel) {
+    fun bind(item: ContentUiModel) {
     }
 
     companion object {

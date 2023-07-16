@@ -76,6 +76,12 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("setBackground")
+    fun setBackground(view: View, image: Int) {
+        view.setBackgroundResource(image)
+    }
+
+    @JvmStatic
     @BindingAdapter("glideSrcByRecordButtonState")
     fun glideSrcByRecordButtonState(imageview: ImageView, updatedState: RecordButtonState) {
         when (updatedState) {

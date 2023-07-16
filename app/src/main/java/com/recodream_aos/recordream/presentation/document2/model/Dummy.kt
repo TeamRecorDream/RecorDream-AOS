@@ -1,6 +1,6 @@
 package com.recodream_aos.recordream.presentation.document2.model
 
-data class DocumentUiModel(
+data class Dummy(
     val writer: String,
     val date: String,
     val title: String,
@@ -9,5 +9,4 @@ data class DocumentUiModel(
     val emotion: Int,
     val genre: List<Int>,
     val note: String?,
-
 )

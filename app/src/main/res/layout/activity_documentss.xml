@@ -5,14 +5,17 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.recodream_aos.recordream.presentation.document2.DocumentssViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="12dp"
-        android:background="@color/grey02_373737"
-        tools:context=".presentation.document2.DocumentssActivity">
+        app:setBackground="@{viewModel.background}">
 
         <View
             android:id="@+id/view_document_indicator"
@@ -58,19 +61,20 @@
 
         <ImageView
             android:id="@+id/iv_document_feeling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_marginTop="48dp"
+            app:glideSrc="@{viewModel.icon}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_document_title"
-            app:srcCompat="@drawable/feeling_l_strange" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_document_title" />
 
         <TextView
             android:id="@+id/tv_document_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:text="@{viewModel.date}"
             android:textAppearance="@style/Sb14"
             android:textColor="@color/white01_FFFFFF"
             app:layout_constraintEnd_toEndOf="@+id/iv_document_feeling"
@@ -80,12 +84,15 @@
 
         <TextView
             android:id="@+id/tv_document_record_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{viewModel.title}"
             android:textAppearance="@style/Sb18"
             android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_document_date"
             tools:text="빨리 끝내버리자..." />
