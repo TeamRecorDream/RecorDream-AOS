@@ -71,12 +71,48 @@ class DocumentActivity : AppCompatActivity() {
 
     private fun applyData(response: ResponseDocument?) {
         if (response?.id != null) {
+            viewModel.emotion.value = response.emotion
+            viewModel.date.value = response.date
+            viewModel.title.value = response.title
+            viewModel.genre1.value = response.genre[0]
+            viewModel.genre2.value = response.genre[1]
+            viewModel.genre3.value = response.genre[2]
+            viewModel.diary.value = response.note
         }
     }
 
     private fun observeData() {
-        viewModel.responses.observe(this) {
-            applyData(it)
+        viewModel.responses.observe(this) { response ->
+            response?.let {
+                applyData(it)
+            }
+        }
+        viewModel.emotion.observe(this) { emotionValue ->
+            // Update UI with emotionValue
+        }
+
+        viewModel.date.observe(this) { dateValue ->
+            // Update UI with dateValue
+        }
+
+        viewModel.title.observe(this) { titleValue ->
+            // Update UI with titleValue
+        }
+
+        viewModel.genre1.observe(this) { genre1Value ->
+            // Update UI with genre1Value
+        }
+
+        viewModel.genre2.observe(this) { genre2Value ->
+            // Update UI with genre2Value
+        }
+
+        viewModel.genre3.observe(this) { genre3Value ->
+            // Update UI with genre3Value
+        }
+
+        viewModel.diary.observe(this) { diaryValue ->
+            // Update UI with diaryValue
         }
     }
 
