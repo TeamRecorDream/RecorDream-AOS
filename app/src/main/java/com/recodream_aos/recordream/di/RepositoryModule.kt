@@ -41,6 +41,12 @@ object RepositoryModule {
 
     @Provides
     @Singleton
+    fun providesDocumentRepository(
+        documentDataSource: DocumentDataSource
+    ): DocumentRepository = DocumentRepositoryImpl(documentDataSource)
+
+    @Provides
+    @Singleton
     fun providesRecordRepository(
         recordDataSource: RecordDataSource
     ): RecordRepository = RecordRepositoryImpl(recordDataSource)

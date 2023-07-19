@@ -14,6 +14,6 @@ class DocumentDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteDetailRecord(recordId: String) {
-        TODO("Not yet implemented")
+        return documentService.deleteDetailRecord(recordId)
     }
 }

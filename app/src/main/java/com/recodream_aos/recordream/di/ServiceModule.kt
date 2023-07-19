@@ -36,11 +36,11 @@ object ServiceModule {
         retrofit: Retrofit
     ): HomeService = retrofit.create(HomeService::class.java)
 
-    //    @Provides
-//    @Singleton
-//    fun providesDocumentService(
-//        retrofit: Retrofit
-//    ): HomeService = retrofit.create(DocumentService::class.java)
+    @Provides
+    @Singleton
+    fun providesDocumentService(
+        retrofit: Retrofit
+    ): DocumentService = retrofit.create(DocumentService::class.java)
 
     @Provides
     @Singleton
