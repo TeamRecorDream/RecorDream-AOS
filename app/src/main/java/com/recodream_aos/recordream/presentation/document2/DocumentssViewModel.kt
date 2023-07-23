@@ -9,6 +9,7 @@ import com.recodream_aos.recordream.presentation.document2.DocumentssViewModel.E
 import com.recodream_aos.recordream.presentation.document2.DocumentssViewModel.Emotion.SHY
 import com.recodream_aos.recordream.presentation.document2.DocumentssViewModel.Emotion.STRANGE
 import com.recodream_aos.recordream.presentation.document2.model.Dummy
+import com.recodream_aos.recordream.presentation.record.uistate.Genre
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -25,15 +26,26 @@ class DocumentssViewModel : ViewModel() {
     private val _title: MutableStateFlow<String> = MutableStateFlow("")
     val title: StateFlow<String> get() = _title
 
-    private val _tags: MutableStateFlow<List<Int>> = MutableStateFlow(listOf())
-    val tags: StateFlow<List<Int>> get() = _tags
+    private val _tags: MutableStateFlow<List<Genre>> = MutableStateFlow(listOf())
+    val tags: StateFlow<List<Genre>> get() = _tags
 
     init {
         _background.value = findBackgroundById(DATA.emotion)
         _icon.value = findIconById(DATA.emotion)
         _date.value = DATA.date
         _title.value = DATA.title
-        _tags.value = DATA.genre
+        findTagBygenreId(DATA.genre)
+    }
+
+    private fun findTagBygenreId(genre: List<Int>) {
+        when (genre.contains(0)) {
+            true -> _tags.value = listOf(Genre.getValue(-1))
+            false -> {
+                _tags.value = DATA.genre.map {
+                    Genre.getValue(it)
+                }
+            }
+        }
     }
 
     private fun findIconById(id: Int): Int {
