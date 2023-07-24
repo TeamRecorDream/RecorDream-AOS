@@ -35,7 +35,7 @@ class DocumentssActivity :
 
         binding.rvDocumentChip.adapter = genreTagAdapter
         binding.vpDocumentContent.adapter = contentAdapter
-
+// 탭레이아웃
 //        TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { tab, position ->
 //            tab.text = "OBJECT ${(position + 1)}"
 //        }.attach()
