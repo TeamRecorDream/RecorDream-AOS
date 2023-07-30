@@ -21,6 +21,7 @@ class KakaoLoginManager @Inject constructor(
         Log.d("*****KAKAOLOGIN/OK*****", "카카오톡으로 로그인 가능")
         UserApiClient.instance.loginWithKakaoTalk(
             context,
+
             callback = setCallback,
         )
     }
