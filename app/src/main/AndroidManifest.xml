@@ -41,6 +41,10 @@
         android:theme="@style/Theme.RecorDream"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".presentation.search.SearchActivity"
             android:exported="false"
@@ -109,7 +113,7 @@
         <!-- 외부 저장소 사용을 위한 FileProvider auth 추가. -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.khs.instagramshareexampleproject.fileprovider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
