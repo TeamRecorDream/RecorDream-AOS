@@ -36,7 +36,7 @@ class DocumentActivity : AppCompatActivity() {
         initCloseButton()
         initNetwork(recordId)
         observeData()
-
+        binding.records = viewModel
         binding.ivDotsMore.setOnClickListener { createBottom() }
     }
 
