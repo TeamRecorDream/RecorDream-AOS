@@ -1,9 +1,17 @@
 package com.recodream_aos.recordream.presentation.document
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
@@ -15,22 +23,34 @@ import com.google.firebase.ktx.Firebase
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentDocumentBottomSheetBinding
 import com.recodream_aos.recordream.util.customview.CustomDialog
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDocumentBottomSheetBinding
     private lateinit var dialogDelete: CustomDialog
+    private lateinit var shareActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_document_bottom_sheet,
             container,
-            false,
+            false
         )
+
+        shareActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // Handle the result if needed
+                }
+            }
+
         initDialog()
         clickShare()
         clickEvent()
@@ -44,8 +64,59 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
+    private fun captureView(view: View): Bitmap {
+        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
+
+    private fun saveBitmapAsImage(bitmap: Bitmap): Uri? {
+        // Save the bitmap to a temporary file
+        val tempFile = File(requireContext().cacheDir, "temp_image.jpg")
+        var outputStream: FileOutputStream? = null
+        try {
+            outputStream = FileOutputStream(tempFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            outputStream?.close()
+        }
+
+        // Get the Uri of the saved image file
+        return FileProvider.getUriForFile(
+            requireContext(),
+            requireContext().packageName + ".fileprovider",
+            tempFile
+        )
+    }
+
     private fun clickShare() {
         binding.tvDocumentBottomShare.setOnClickListener {
+            val documentActivityView = requireActivity().window.decorView.rootView
+            val bitmap = captureView(documentActivityView)
+
+            // Convert the Bitmap to Uri
+            val imageUri = saveBitmapAsImage(bitmap)
+
+            if (imageUri != null) {
+                // Instantiate an intent
+                val intent = Intent("com.instagram.share.ADD_TO_STORY")
+
+                // Attach your App ID to the intent
+                val sourceApplication = "4432324493558166" // This is your application's FB ID
+                intent.putExtra("source_application", sourceApplication)
+
+                intent.setDataAndType(imageUri, MEDIA_TYPE_JPEG)
+
+                // Grant URI permissions for the image
+                intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+                // Start the activity using the ActivityResultLauncher
+                shareActivityResultLauncher.launch(intent)
+            }
             Firebase.analytics.logEvent(CLICK_SHARE_INSTAGRAM, bundleOf())
             setFragmentResult(INSTA_DIALOG, bundleOf(SHARE_MODE to SHARE))
             dismiss()
@@ -76,5 +147,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         const val SHARE_MODE = "ShareMode"
         const val SHARE = true
         const val CLICK_SHARE_INSTAGRAM = "click_SHARE_INSTARGRAM"
+        private const val MEDIA_TYPE_JPEG = "image/jpeg"
     }
 }
