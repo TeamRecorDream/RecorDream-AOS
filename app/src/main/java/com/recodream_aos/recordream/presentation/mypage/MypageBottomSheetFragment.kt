@@ -48,18 +48,18 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun amOrpmSettiing() {
-        val str = arrayOf(AM, "PM")
+        val DayList = arrayOf("AM", "PM")
         binding.npMypageBottomDay.maxValue = 0
-        binding.npMypageBottomDay.maxValue = (str.size - 1)
-        binding.npMypageBottomDay.displayedValues = str
-        if (viewModel.setDay == AM) {
-            binding.npMypageBottomDay.value = 0
+        binding.npMypageBottomDay.maxValue = (DayList.size - 1)
+        binding.npMypageBottomDay.displayedValues = DayList
+        if (viewModel.setDay == "AM") {
+            binding.npMypageBottomDay.value = AM
         } else {
-            binding.npMypageBottomDay.value = 1
+            binding.npMypageBottomDay.value = PM
         }
         binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, _, _ ->
             val day = numberPicker.value
-            viewModel.setDay = str[day]
+            viewModel.setDay = DayList[day]
             binding.npMypageBottomDay.wrapSelectorWheel = false
         }
     }
@@ -70,7 +70,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomHour.setFormatter {
             String.format(
                 getString(R.string.myopage_format_date),
-                it
+                it,
             )
         }
         binding.npMypageBottomHour.value = viewModel.setHour
@@ -88,7 +88,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         binding.npMypageBottomMinute.setFormatter {
             String.format(
                 getString(R.string.myopage_format_date),
-                it
+                it,
             )
         }
         binding.npMypageBottomMinute.wrapSelectorWheel = false
@@ -108,6 +108,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        const val AM = "AM"
+        const val AM = 0
+        const val PM = 1
     }
 }
