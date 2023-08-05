@@ -3,7 +3,6 @@ package com.recodream_aos.recordream.presentation.mypage
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -28,7 +27,7 @@ class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val mypageViewModel by viewModels<MypageViewModel>()
     private var nickname: String = ""
-    lateinit var switch: SharedPreferences
+//    lateinit var switch: SharedPreferences
 
     // 권한 요청용 Activity Callback 객체 만들기
     private val registerForActivityResult =
@@ -63,7 +62,7 @@ class MypageActivity : AppCompatActivity() {
         setOnClick()
         mypageDataObserver()
         mypageViewModel.getUser()
-        switch = getSharedPreferences(SWITCH, MODE_PRIVATE)
+        mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
         saveSwitchActive()
         setBackGround(binding.switchMypagePushAlam.isChecked)
     }
@@ -102,9 +101,14 @@ class MypageActivity : AppCompatActivity() {
     private fun clickSaveBtnOnBottomSheet(isSave: Boolean?) {
         if (isSave == true) {
             setBackGround(true)
-            switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
+            mypageViewModel.switchState.edit {
+                putBoolean(
+                    ALARM,
+                    binding.switchMypagePushAlam.isChecked,
+                )
+            }
         } else {
-            if (switch.getBoolean(ALARM, false)) {
+            if (mypageViewModel.switchState.getBoolean(ALARM, false)) {
                 return
             }
             binding.switchMypagePushAlam.isChecked = false
@@ -174,9 +178,9 @@ class MypageActivity : AppCompatActivity() {
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
-            val storeSwitch = switch.getBoolean(ALARM, false)
+            val storeSwitch =  mypageViewModel.switchState.getBoolean(ALARM, false)
             if (!onSwitch) {
-                switch.edit { putBoolean(ALARM, false) }
+                mypageViewModel.switchState.edit { putBoolean(ALARM, false) }
                 mypageViewModel.patchAlamToggle(false)
                 setBackGround(false)
             }
@@ -224,7 +228,7 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun saveSwitchActive() {
-        binding.switchMypagePushAlam.isChecked = switch.getBoolean(ALARM, false)
+        binding.switchMypagePushAlam.isChecked =  mypageViewModel.switchState.getBoolean(ALARM, false)
     }
 
     companion object {

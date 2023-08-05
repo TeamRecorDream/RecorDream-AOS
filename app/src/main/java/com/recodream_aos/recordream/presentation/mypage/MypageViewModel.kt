@@ -1,6 +1,6 @@
 package com.recodream_aos.recordream.presentation.mypage
 
-import android.util.Log
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,7 +41,9 @@ class MypageViewModel @Inject constructor(
 
     val saveTime = MutableLiveData<Boolean?>()
 
-    lateinit var formatDay: List<String>
+    private lateinit var formatDay: List<String>
+
+    lateinit var switchState: SharedPreferences
 
     fun getUser() {
         viewModelScope.launch {
@@ -78,14 +80,6 @@ class MypageViewModel @Inject constructor(
     fun clickSaveTime(saveBtn: Boolean) {
         saveTime.value = saveBtn
     }
-
-//    fun editNickName(nickName: String) {
-//        if (nickName.isNullOrBlank()) {
-//            userName.value = NICKNAME_BALNK.toString()
-//        } else {
-//            userName.value = nickName
-//        }
-//    }
 
     fun patchAlamToggle(alamToggle: Boolean) {
         viewModelScope.launch {
