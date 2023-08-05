@@ -16,7 +16,6 @@
             android:layout_height="72dp"
             android:layout_gravity="bottom"
             android:paddingVertical="4dp"
-            android:switchTextAppearance="@style/B28"
             app:itemIconTint="@color/white01_FFFFFF"
             app:itemTextAppearanceActive="@style/B12"
             app:itemTextAppearanceInactive="@style/B12"

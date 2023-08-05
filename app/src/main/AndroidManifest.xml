@@ -40,6 +40,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.document2.DocumentssActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
@@ -55,7 +58,6 @@
         <activity
             android:name=".presentation.mypage.MypageActivity"
             android:exported="false" />
-
         <activity
             android:name=".presentation.document.DocumentActivity"
             android:exported="false" />

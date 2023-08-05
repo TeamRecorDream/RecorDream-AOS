@@ -3,8 +3,8 @@ package com.recodream_aos.recordream.presentation.record.recording // ktlint-dis
 import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.util.CustomResult.FAIL
-import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.util.CustomResult.FAIL
+import com.recodream_aos.recordream.domain.util.CustomResult.SUCCESS
 import com.recodream_aos.recordream.domain.model.VoiceRecordId
 import com.recodream_aos.recordream.domain.repository.RecordRepository
 import com.recodream_aos.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT

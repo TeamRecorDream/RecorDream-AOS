@@ -1,4 +1,4 @@
-package com.example.domain.util
+package com.recodream_aos.recordream.domain.util
 
 sealed class CustomResult<out T : Any> {
     data class SUCCESS<out T : Any>(val data: T) : CustomResult<T>()
