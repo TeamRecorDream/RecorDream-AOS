@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,7 +86,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
             outputStream?.close()
         }
 
-        // Get the Uri of the saved image file
         return FileProvider.getUriForFile(
             requireContext(),
             requireContext().packageName + ".fileprovider",
@@ -98,23 +98,17 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
             val documentActivityView = requireActivity().window.decorView.rootView
             val bitmap = captureView(documentActivityView)
 
-            // Convert the Bitmap to Uri
             val imageUri = saveBitmapAsImage(bitmap)
 
             if (imageUri != null) {
                 // Instantiate an intent
                 val intent = Intent("com.instagram.share.ADD_TO_STORY")
-
-                // Attach your App ID to the intent
-                val sourceApplication = "4432324493558166" // This is your application's FB ID
+                val sourceApplication = "4432324493558166"
                 intent.putExtra("source_application", sourceApplication)
-
+                Log.e("TAG", "This is an error message")
                 intent.setDataAndType(imageUri, MEDIA_TYPE_JPEG)
-
-                // Grant URI permissions for the image
                 intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 
-                // Start the activity using the ActivityResultLauncher
                 shareActivityResultLauncher.launch(intent)
             }
             Firebase.analytics.logEvent(CLICK_SHARE_INSTAGRAM, bundleOf())
