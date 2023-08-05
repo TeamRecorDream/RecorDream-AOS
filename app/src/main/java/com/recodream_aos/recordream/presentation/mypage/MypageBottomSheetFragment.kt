@@ -57,7 +57,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         } else {
             binding.npMypageBottomDay.value = 1
         }
-        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, day, _ ->
+        binding.npMypageBottomDay.setOnValueChangedListener { numberPicker, _, _ ->
             val day = numberPicker.value
             viewModel.setDay = str[day]
             binding.npMypageBottomDay.wrapSelectorWheel = false
@@ -75,9 +75,9 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         }
         binding.npMypageBottomHour.value = viewModel.setHour
         binding.npMypageBottomMinute.wrapSelectorWheel = false
-        binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, i, _ ->
-            val i = numberPicker.value
-            viewModel.setHour = i
+        binding.npMypageBottomHour.setOnValueChangedListener { numberPicker, _, _ ->
+            val hour = numberPicker.value
+            viewModel.setHour = hour
             binding.npMypageBottomHour.wrapSelectorWheel = false
         }
     }
@@ -93,9 +93,9 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
         }
         binding.npMypageBottomMinute.wrapSelectorWheel = false
         binding.npMypageBottomMinute.value = viewModel.setMinute
-        binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, i, _ ->
-            val i = numberPicker.value
-            viewModel.setMinute = i
+        binding.npMypageBottomMinute.setOnValueChangedListener { numberPicker, _, _ ->
+            val minute = numberPicker.value
+            viewModel.setMinute = minute
             binding.npMypageBottomMinute.wrapSelectorWheel = false
         }
     }
