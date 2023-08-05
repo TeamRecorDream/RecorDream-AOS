@@ -3,10 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseHome.Record" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="25dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_home_card"
@@ -21,7 +28,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="43dp"
                 android:layout_marginBottom="18dp"
-                app:layout_constraintBottom_toTopOf="@id/tv_home_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -31,30 +37,30 @@
                 android:id="@+id/tv_home_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="25dp"
                 android:textAppearance="@style/Sb12"
                 android:textColor="@color/white01_FFFFFF"
-                app:layout_constraintBottom_toTopOf="@id/tv_home_card_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_home_emoticon"
                 tools:text="2022/06/26 (일)" />
 
-            //maxLength 떄문에 ellipsize 적용 안 되는 듯?
+            <!--            maxLength 떄문에 ellipsize 적용 안 되는 듯?-->
 
             <TextView
                 android:id="@+id/tv_home_card_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="22dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLength="25"
                 android:textAppearance="@style/Sb14"
                 android:textColor="@color/white01_FFFFFF"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@id/tv_home_genre1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_date"
                 tools:text="오늘 친구들이랑 피자 먹고 진짜 재밌는 일 많은 꿈을 꿨다." />
 
             <TextView
@@ -65,8 +71,8 @@
                 android:layout_marginBottom="140dp"
                 android:background="@drawable/shape_home_radius_3"
                 android:textAppearance="@style/M10"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_home_card_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_card_title"
                 tools:text="#미스터리"
                 tools:textColor="@color/white01_FFFFFF" />
 
@@ -97,14 +103,16 @@
 
             <TextView
                 android:id="@+id/tv_home_content"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="22dp"
                 android:ellipsize="end"
                 android:maxLines="6"
                 android:textAppearance="@style/R12"
-                app:layout_constraintEnd_toEndOf="@id/tv_home_card_title"
-                app:layout_constraintStart_toStartOf="@id/tv_home_card_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_home_genre1"
                 tools:text="우리 학교 앞에 떡볶이집이 하나있음 그래서 군것질이나 할 겸 그 가게에 갔는데 메뉴들이 엄청 맛있어보였음. 막 호떡, 핫도그, 떡볶이, 오뎅 뭐가 많았는데 갑자기 내가 식욕이 터지는거임. 분식집 아줌마는 여유롭게 스몰토크 하면서 핫도그를 어쩌고 저쩌고 어라어라어라어ㅏ러알dkxclkvms" />
 

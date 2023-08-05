@@ -6,19 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
+import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.FragmentHomeBinding
 import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.RecordreamMapping
 import com.recodream_aos.recordream.util.ZoomOutPageTransformer
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), LifecycleObserver {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
     private val binding get() = _binding!!
     private val recorDreamMapping = RecordreamMapping()
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,17 +32,34 @@ class HomeFragment : Fragment(), LifecycleObserver {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-
-        initAdapterHomeCard()
-//        initNetwork()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        homeViewModel.initServer()
+        homeViewModel.getUser()
+        initAdapterHomeCard()
+        observeData()
+        initRefresh()
+    }
+
+    private fun observeData() {
+        homeViewModel.homeRecords.observe(viewLifecycleOwner) {
+//            homeViewPagerAdapter.updateList(it)
+        }
+
+        homeViewModel.userName.observe(viewLifecycleOwner) {
+            applyNickname(homeViewModel.homeRecords)
+            binding.tvHomeHi1.text = "반가워요, ${homeViewModel.userName.value}님!"
+            binding.tvHomeHiOff.text = "반가워요, ${homeViewModel.userName.value}님!"
+        }
     }
 
     private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter {
-            val intent = Intent(requireContext(), DocumentActivity::class.java).apply {
-                putExtra("id", it)
-            }
+            val intent = Intent(requireContext(), DocumentActivity::class.java)
+            intent.apply { it.id }
             startActivity(intent)
         }
         binding.vpHome.adapter = homeViewPagerAdapter
@@ -65,54 +88,34 @@ class HomeFragment : Fragment(), LifecycleObserver {
         }
     }
 
-//    private fun initNetwork() {
-//        val recordId = "62d7b6f19669f53b6c72a89f"
-// //        Log.d("dddddddddd", "wddddddddd123123ddddd")
-//        val call = RecordreamClient.homeService.getHomeRecord()
-//
-//        call.enqueueUtil(
-//            onSuccess = {
-//                Log.d("홈프래그먼트, status", "${it.status}")
-//
-//                val data = it.data
-//                val recordData =
-//                    applyNickname(data)
-//                it.data?.let { data ->
-//                    addHomeCardList(data.records)
-//                    Log.d("데이터체크", "${data.records}")
-//                }
-//            },
-//            onError = {
-//                Log.d("ddddddd1234", "$it")
-//            }
-//        )
-//    }
-//
-//    private fun applyNickname(response: ResponseHomeItems?) {
-//        if (response != null) {
-//            if (response.records.size != null) {
-//                binding.tvHomeHi.visibility = View.VISIBLE
-//                binding.tvHomeHi2.visibility = View.VISIBLE
-//                binding.tvHomeOffHi.visibility = View.INVISIBLE
-//                binding.tvHomeOffHi2.visibility = View.INVISIBLE
-//                if (response != null) {
-//                    binding.tvHomeHi.text = "반가워요, ${response.nickname}님!"
-//                }
-//            } else {
-//                binding.tvHomeHi.visibility = View.INVISIBLE
-//                binding.tvHomeHi2.visibility = View.INVISIBLE
-//                binding.tvHomeOffHi.visibility = View.VISIBLE
-//                binding.tvHomeOffHi2.visibility = View.VISIBLE
-//                if (response != null) {
-//                    binding.tvHomeOffHi.text = "반가워요, ${response.nickname}님!"
-//                }
-//            }
-//        }
-//    }
-//
-//    private fun addHomeCardList(data: List<ResponseHomeRecord>) {
-//        (binding.vpHome.adapter as HomeViewPagerAdapter).updateList(data.toMutableList())
-//    }
+    private fun initRefresh() {
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            observeData()
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun applyNickname(response: LiveData<List<ResponseHome.Record>>?) {
+        if (response != null) {
+            if (response.value?.size != null) {
+                binding.tvHomeHi1.visibility = View.VISIBLE
+                binding.tvHomeHi2.visibility = View.VISIBLE
+                binding.tvHomeHiOff.visibility = View.INVISIBLE
+                binding.tvHomeHiOff2.visibility = View.INVISIBLE
+            } else {
+                binding.tvHomeHi1.visibility = View.INVISIBLE
+                binding.tvHomeHi2.visibility = View.INVISIBLE
+                binding.tvHomeHiOff.visibility = View.VISIBLE
+                binding.tvHomeHiOff2.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun addHomeCardList(data: List<ResponseHome.Record>) {
+        (binding.vpHome.adapter as HomeViewPagerAdapter).updateList(data.toMutableList())
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

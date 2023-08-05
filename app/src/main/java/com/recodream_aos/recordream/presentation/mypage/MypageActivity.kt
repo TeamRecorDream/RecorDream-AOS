@@ -236,5 +236,8 @@ class MypageActivity : AppCompatActivity() {
         const val EXPLAINED = "explained"
         const val ALARM = "ALARM"
         const val SWITCH = "SWITCH"
+
+        fun getIntent(context: Context): Intent =
+            Intent(context, MypageActivity::class.java)
     }
 }
