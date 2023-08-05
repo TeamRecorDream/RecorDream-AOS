@@ -48,7 +48,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         shareActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    // Handle the result if needed
                 }
             }
 
@@ -73,7 +72,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun saveBitmapAsImage(bitmap: Bitmap): Uri? {
-        // Save the bitmap to a temporary file
         val tempFile = File(requireContext().cacheDir, "temp_image.jpg")
         var outputStream: FileOutputStream? = null
         try {
@@ -101,7 +99,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
             val imageUri = saveBitmapAsImage(bitmap)
 
             if (imageUri != null) {
-                // Instantiate an intent
                 val intent = Intent("com.instagram.share.ADD_TO_STORY")
                 val sourceApplication = "4432324493558166"
                 intent.putExtra("source_application", sourceApplication)
