@@ -10,8 +10,8 @@ class GenreTagViewHolder(
     private val binding: ItemDocumentTagBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(tag: Genre) {
-        binding.tag = tag.genreName
+    fun bind(genre: Genre) {
+        binding.genre = genre
     }
 
     companion object {
