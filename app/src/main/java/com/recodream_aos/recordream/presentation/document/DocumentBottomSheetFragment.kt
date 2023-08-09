@@ -10,12 +10,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,15 +25,22 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.recodream_aos.recordream.R
 import com.recodream_aos.recordream.databinding.FragmentDocumentBottomSheetBinding
+import com.recodream_aos.recordream.domain.repository.DocumentRepository
+import com.recodream_aos.recordream.presentation.MainActivity
 import com.recodream_aos.recordream.util.customview.CustomDialog
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import javax.inject.Inject
 
 class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDocumentBottomSheetBinding
     private lateinit var dialogDelete: CustomDialog
     private lateinit var shareActivityResultLauncher: ActivityResultLauncher<Intent>
+
+    @Inject
+    lateinit var documentRepository: DocumentRepository
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -102,7 +111,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
                 val intent = Intent("com.instagram.share.ADD_TO_STORY")
                 val sourceApplication = "4432324493558166"
                 intent.putExtra("source_application", sourceApplication)
-                Log.e("TAG", "This is an error message")
                 intent.setDataAndType(imageUri, MEDIA_TYPE_JPEG)
                 intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 
@@ -129,6 +137,24 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun clickCancel() {
         binding.btnDocumentBottomCancel.setOnClickListener {
+            val recordId = arguments?.getString(RECORD_ID_KEY)
+
+            if (recordId != null) {
+                lifecycleScope.launch {
+                    try {
+                        val deleteResponse = documentRepository.deleteDetailRecord(recordId)
+                        dismiss()
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        Log.e("DocumentBottomSheet", "Error deleting record: ${e.message}")
+                    }
+                }
+            } else {
+                Toast.makeText(requireContext(), "기록 데이터가 없습니다", Toast.LENGTH_SHORT).show()
+            }
             dismiss()
         }
     }
@@ -139,5 +165,6 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         const val SHARE = true
         const val CLICK_SHARE_INSTAGRAM = "click_SHARE_INSTARGRAM"
         private const val MEDIA_TYPE_JPEG = "image/jpeg"
+        const val RECORD_ID_KEY = "RECORD_ID"
     }
 }

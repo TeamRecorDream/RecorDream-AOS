@@ -11,7 +11,6 @@ class DocumentRepositoryImpl @Inject constructor(
 ) : DocumentRepository {
 
     override suspend fun getDocument(recordId: String): ResponseWrapper<ResponseDocument>? {
-        // todo response 값이 오는 곳
         try {
             val response = documentDataSource.getDocument(recordId)
             return response
@@ -20,7 +19,22 @@ class DocumentRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteDetailRecord(recordId: String) {
-        TODO("Not yet implemented")
+    override suspend fun deleteDetailRecord(recordId: String): ResponseWrapper<Unit> {
+        try {
+            documentDataSource.deleteDetailRecord(recordId)
+            return ResponseWrapper(
+                status = 200,
+                success = true,
+                message = "Deleted successfully",
+                data = Unit
+            )
+        } catch (e: Exception) {
+            return ResponseWrapper(
+                status = 500,
+                success = false,
+                message = e.message ?: "Error occurred",
+                data = null
+            )
+        }
     }
 }
