@@ -9,7 +9,7 @@ import retrofit2.http.Path
 interface DocumentService {
     @GET("record/{recordId}")
     fun getDetailRecord(
-        @Path("recordId") recordId: String
+        @Path("recordId") recordId: String,
     ): ResponseWrapper<ResponseDocument>
 
     @DELETE("record/{recordId}")

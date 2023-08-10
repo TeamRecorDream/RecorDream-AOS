@@ -23,13 +23,13 @@ data class ResponseDocument(
     @SerialName("note")
     val note: String?,
     @SerialName("voice")
-    val voice: Voice?
+    val voice: Voice?,
 ) {
     @Serializable
     data class Voice(
         @SerialName("_id")
         val voice_id: String?,
         @SerialName("url")
-        val url: String?
+        val url: String?,
     )
 }

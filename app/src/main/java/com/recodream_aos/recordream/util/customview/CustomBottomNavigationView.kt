@@ -15,7 +15,7 @@ class CustomBottomNavigationView : BottomNavigationView {
     private var mPath: Path = Path()
     private var mPaint: Paint = Paint()
 
-    private val CURVE_CIRCLE_RADIUS = 190 / 2 // 움푹파이는자식
+    private val radiusCurve = 76 // 움푹파이는자식
 
     private val mFirstCurveStartPoint = Point()
     private val mFirstCurveEndPoint = Point()
@@ -47,7 +47,7 @@ class CustomBottomNavigationView : BottomNavigationView {
 
     private fun init() {
         mPaint.style = Paint.Style.FILL_AND_STROKE
-        mPaint.color = ContextCompat.getColor(context, R.color.dark01_02040F) // 네비게이션 색상
+        mPaint.color = ContextCompat.getColor(context, R.color.grey03_18191D) // 네비게이션 색상
         setBackgroundColor(Color.TRANSPARENT)
     }
 
@@ -59,35 +59,35 @@ class CustomBottomNavigationView : BottomNavigationView {
 
         mFirstCurveStartPoint.set(
             // CURVE_CIRCLE_RADIUS 굴곡담당
-            (mNavigationBarWidth / 1.92 - CURVE_CIRCLE_RADIUS * 2 - CURVE_CIRCLE_RADIUS / 3).toInt(),
+            (mNavigationBarWidth / 2 - radiusCurve * 2 - radiusCurve / 3).toInt(),
             0,
         )
         mFirstCurveEndPoint.set(
             (mNavigationBarWidth / 2),
-            CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4,
+            radiusCurve + radiusCurve / 4,
         )
         mSecondCurveStartPoint = mFirstCurveEndPoint
         mSecondCurveEndPoint.set(
-            (mNavigationBarWidth / 2.1 + CURVE_CIRCLE_RADIUS * 2 + CURVE_CIRCLE_RADIUS / 3).toInt(),
+            (mNavigationBarWidth / 2 + radiusCurve * 2 + radiusCurve / 3).toInt(),
             0,
         )
 
         mFirstCurveControlPoint1.set(
-            mFirstCurveStartPoint.x + CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4,
+            mFirstCurveStartPoint.x + radiusCurve + radiusCurve / 4,
             mFirstCurveStartPoint.y,
         )
 
         mFirstCurveControlPoint2.set(
-            (mFirstCurveEndPoint.x - CURVE_CIRCLE_RADIUS * 2.29 + CURVE_CIRCLE_RADIUS).toInt(),
+            (mFirstCurveEndPoint.x - radiusCurve * 2.29 + radiusCurve).toInt(),
             mFirstCurveEndPoint.y,
         )
 
         mSecondCurveControlPoint1.set(
-            (mSecondCurveStartPoint.x + CURVE_CIRCLE_RADIUS * 2.29 - CURVE_CIRCLE_RADIUS).toInt(),
+            (mSecondCurveStartPoint.x + radiusCurve * 2.29 - radiusCurve).toInt(),
             mSecondCurveStartPoint.y,
         )
         mSecondCurveControlPoint2.set(
-            mSecondCurveEndPoint.x - (CURVE_CIRCLE_RADIUS + CURVE_CIRCLE_RADIUS / 4),
+            mSecondCurveEndPoint.x - (radiusCurve + radiusCurve / 4),
             mSecondCurveEndPoint.y,
         )
 
@@ -121,6 +121,7 @@ class CustomBottomNavigationView : BottomNavigationView {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
         canvas.drawPath(mPath, mPaint)
     }
 }

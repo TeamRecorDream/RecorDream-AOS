@@ -46,6 +46,9 @@
             android:value="@string/facebook_app_id" />
 
         <activity
+            android:name=".presentation.document2.DocumentssActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
@@ -53,7 +56,6 @@
         <activity
             android:name="com.recodream_aos.recordream.presentation.document.InstagramActivity"
             android:exported="false" />
-
         <activity
             android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
             android:exported="true" />

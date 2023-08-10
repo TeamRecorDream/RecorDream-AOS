@@ -25,7 +25,7 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
 
     class StorageGridViewHolder(
         private val binding: ItemListStoreGridBinding,
-        private val itemClick: (ResponseStorage.Record) -> (Unit)
+        private val itemClick: (ResponseStorage.Record) -> (Unit),
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseStorage.Record) {
@@ -67,7 +67,7 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
         companion object {
             val diffUtil = DiffUtilItemCallback<ResponseStorage.Record>(
                 onItemsTheSame = { old, new -> old.id == new.id },
-                onContentsTheSame = { old, new -> old == new }
+                onContentsTheSame = { old, new -> old == new },
             )
         }
 
@@ -93,7 +93,7 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
 
             val color: Int,
 
-            val icon: Int
+            val icon: Int,
 
         ) {
 
