@@ -35,7 +35,7 @@ class MypageBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun clickBtn() {
         binding.btnMypageSave.setOnClickListener {
-            viewModel.setIsShow()
+            viewModel.setShowDay()
             viewModel.postPushAlam()
             viewModel.clickSaveTime(true)
             viewModel.getUser()

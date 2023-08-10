@@ -87,7 +87,7 @@ class MypageViewModel @Inject constructor(
         }
     }
 
-    fun setIsShow() {
+    fun setShowDay() {
         val formatHour = String.format("%02d", setHour)
         val formatMinute = String.format("%02d", setMinute)
         _isShow.value = String.format(

@@ -26,8 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val mypageViewModel by viewModels<MypageViewModel>()
-    private var nickname: String = ""
-//    lateinit var switch: SharedPreferences
 
     // 권한 요청용 Activity Callback 객체 만들기
     private val registerForActivityResult =
@@ -178,7 +176,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
-            val storeSwitch =  mypageViewModel.switchState.getBoolean(ALARM, false)
+            val storeSwitch = mypageViewModel.switchState.getBoolean(ALARM, false)
             if (!onSwitch) {
                 mypageViewModel.switchState.edit { putBoolean(ALARM, false) }
                 mypageViewModel.patchAlamToggle(false)
@@ -228,7 +226,8 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun saveSwitchActive() {
-        binding.switchMypagePushAlam.isChecked =  mypageViewModel.switchState.getBoolean(ALARM, false)
+        binding.switchMypagePushAlam.isChecked =
+            mypageViewModel.switchState.getBoolean(ALARM, false)
     }
 
     companion object {
