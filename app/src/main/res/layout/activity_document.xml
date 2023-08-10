@@ -5,9 +5,9 @@
 
     <data>
 
-        <!--        <variable-->
-        <!--            name="records"-->
-        <!--            type="and.org.recordream.data.remote.response.ResponsedocumentDreamRecord" />-->
+        <variable
+            name="records"
+            type="com.recodream_aos.recordream.presentation.document.DocumentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/icn_mpre"
+            android:src="@drawable/icn_more"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_document_close" />
 
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="2022/06/26 SUN"
+            android:text="@{records.date}"
             android:textAppearance="@style/Sb14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

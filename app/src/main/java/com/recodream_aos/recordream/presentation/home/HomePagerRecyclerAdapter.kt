@@ -130,21 +130,5 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
             5 -> R.drawable.card_m_pink
             else -> R.drawable.card_m_white
         }
-
-//        enum class MotionIcon(
-//
-//            val color: Int,
-//
-//            val icon: Int
-//
-//        ) {
-//
-//            JOY(1, R.drawable.feeling_m_joy),
-//            SAD(2, R.drawable.feeling_m_sad),
-//            SCARY(3, R.drawable.feeling_m_scary),
-//            STRANGE(4, R.drawable.feeling_m_strange),
-//            SHY(5, R.drawable.feeling_m_shy),
-//            BLANK(6, R.drawable.feeling_m_blank),
-//        }
     }
 }

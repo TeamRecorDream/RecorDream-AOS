@@ -103,9 +103,11 @@
     <string name="genre_name_etc"># 기타</string>
     <string name="genre_name_nothing"># 아직 설정되지 않았어요</string>
 
-
+    <!--    facebook 앱 id-->
+    <string name="facebook_app_id">4432324493558166</string>
     <!--BASE ERROR-->
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
+    <string name="document_title">기록 상세보기</string>
 
 
 </resources>

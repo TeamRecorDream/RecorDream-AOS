@@ -2,8 +2,8 @@ package com.recodream_aos.recordream.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.util.CustomResult.FAIL
-import com.example.domain.util.CustomResult.SUCCESS
+import com.recodream_aos.recordream.domain.util.CustomResult.FAIL
+import com.recodream_aos.recordream.domain.util.CustomResult.SUCCESS
 import com.recodream_aos.recordream.domain.model.SearchResult
 import com.recodream_aos.recordream.domain.model.SearchedRecord
 import com.recodream_aos.recordream.domain.repository.SearchRepository
