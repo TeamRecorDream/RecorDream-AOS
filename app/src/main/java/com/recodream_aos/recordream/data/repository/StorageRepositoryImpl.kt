@@ -11,7 +11,7 @@ class StorageRepositoryImpl @Inject constructor(
 ) : StorageRepository {
 
     override suspend fun getStorage(emotionId: Int): ResponseWrapper<ResponseStorage>? {
-        // todo response 값이 오는 곳
+//        todo response 값이 오는 곳
         try {
             val response = storageDateSource.getStorage(emotionId)
             return response

@@ -27,6 +27,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
+        Log.d("sddsadadasdad",Utility.getKeyHash(this) )
         initViewModel()
         clickLoginBtn()
 //        binding.ivLoginLogo.setOnClickListener {
