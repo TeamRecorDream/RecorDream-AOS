@@ -58,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/v_mypage_dialog_line" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_mypage_dialog_cancle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             app:layout_constraintStart_toEndOf="@id/btn_mypage_dialog_cancle"
             app:layout_constraintTop_toBottomOf="@id/v_mypage_dialog_line" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_mypage_dialog_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
