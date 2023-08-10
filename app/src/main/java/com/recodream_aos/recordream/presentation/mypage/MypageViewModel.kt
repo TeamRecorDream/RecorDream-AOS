@@ -41,7 +41,7 @@ class MypageViewModel @Inject constructor(
 
     val saveTime = MutableLiveData<Boolean?>()
 
-    private lateinit var formatDay: List<String>
+    private lateinit var timeUnits: List<String>
 
     lateinit var switchState: SharedPreferences
 
@@ -59,10 +59,10 @@ class MypageViewModel @Inject constructor(
         if (day.isNullOrBlank()) {
             return
         }
-        formatDay = day.split(" ", ":")
-        setDay = formatDay[0]
-        setHour = formatDay[1].toInt()
-        setMinute = formatDay[2].toInt()
+        timeUnits = day.split(" ", ":")
+        setDay = timeUnits[0]
+        setHour = timeUnits[1].toInt()
+        setMinute = timeUnits[2].toInt()
     }
 
     fun postPushAlam() {
