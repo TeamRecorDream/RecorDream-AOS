@@ -2,6 +2,7 @@ package com.recodream_aos.recordream.presentation
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -29,8 +30,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun setBottomNavigationView() {
         binding.bnvMainCustomnav.selectedItemId = R.id.menu_home
-        replaceFragment<HomeFragment>()
-
         binding.bnvMainCustomnav.setOnItemSelectedListener(::replaceFragment)
     }
 
@@ -55,7 +54,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         }
     }
 
-    private enum class FragmentType(val resId: Int) {
+    private enum class FragmentType(@IntegerRes private val resId: Int) {
         HOME(R.id.menu_home),
         STORAGE(R.id.menu_storage),
         ;
