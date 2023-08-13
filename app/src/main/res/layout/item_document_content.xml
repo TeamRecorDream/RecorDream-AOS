@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="content"
+            type="com.recodream_aos.recordream.presentation.document2.model.ContentUiModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
+            android:text="@{content.}"
             android:textAppearance="@style/Sb14"
             android:textColor="@color/white01_FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
