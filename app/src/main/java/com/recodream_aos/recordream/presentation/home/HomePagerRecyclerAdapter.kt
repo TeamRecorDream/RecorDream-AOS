@@ -36,6 +36,10 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
             binding.tvHomeCardTitle.text = data.title
             binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
             binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
+            binding.tvHomeContent.text = data.content
+//            if data.content == null {
+//                녹음만 있을 때 '음성만 기록되어 있어요' 표시 추가 예정
+//            }
             applyData(data)
         }
 
