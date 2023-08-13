@@ -15,31 +15,31 @@ object RemoteDataSourceModule {
     @Provides
     @Singleton
     fun providesHomeDataSourceImpl(
-        homeService: HomeService
+        homeService: HomeService,
     ): HomeDataSource = HomeDateSourceImpl(homeService)
 
     @Provides
     @Singleton
     fun providesAuthDataSourceImpl(
-        authService: AuthService
+        authService: AuthService,
     ): AuthDataSource = AuthDataSourceImpl(authService)
 
     @Provides
     @Singleton
     fun providesStorageDataSourceImpl(
-        storageService: StorageService
+        storageService: StorageService,
     ): StorageDateSource = StorageDateSourceImpl(storageService)
 
     @Provides
     @Singleton
     fun providesMypageUserDataSourceImpl(
-        mypageUserService: MypageService
+        mypageUserService: MypageService,
     ): MypageDateSource = MypageUserDateSourceImpl(mypageUserService)
 
     @Provides
     @Singleton
     fun providesRecordDataSourceImpl(
-        recordService: RecordService
+        recordService: RecordService,
     ): RecordDataSource = RecordDataSourceImpl(recordService)
 
     @Provides
@@ -51,6 +51,6 @@ object RemoteDataSourceModule {
     @Provides
     @Singleton
     fun providesSearchDataSourceImpl(
-        searchService: SearchService
+        searchService: SearchService,
     ): SearchDataSource = SearchDataSourceImpl(searchService)
 }

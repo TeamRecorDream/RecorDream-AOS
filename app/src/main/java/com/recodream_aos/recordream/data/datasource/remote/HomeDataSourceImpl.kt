@@ -6,7 +6,7 @@ import com.recodream_aos.recordream.data.entity.remote.response.ResponseWrapper
 import javax.inject.Inject
 
 class HomeDateSourceImpl @Inject constructor(
-    private val homeService: HomeService
+    private val homeService: HomeService,
 ) : HomeDataSource {
     override suspend fun getHomeRecord(): ResponseWrapper<ResponseHome> {
         return homeService.getHomeRecord()

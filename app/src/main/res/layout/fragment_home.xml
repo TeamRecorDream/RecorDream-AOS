@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/home_back_down_2"
+        android:background="@drawable/home_back_down"
         tools:context=".presentation.home.HomeFragment">
 
         <TextView

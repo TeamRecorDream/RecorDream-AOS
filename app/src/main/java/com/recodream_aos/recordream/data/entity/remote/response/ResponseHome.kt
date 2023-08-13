@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseHome(
     val nickname: String,
-    val records: List<Record>
+    val records: List<Record>,
 ) {
     @Serializable
     data class Record(
@@ -18,6 +18,6 @@ data class ResponseHome(
         val title: String,
         val content: String,
         @SerialName("isExistVoice")
-        val voice: Boolean
+        val voice: Boolean,
     )
 }

@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DocumentActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityDocumentBinding
 
     // 더보기 바텀시트, 삭제 확인창 변수

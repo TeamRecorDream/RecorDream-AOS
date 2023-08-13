@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewmodel"
-            type="com.recodream_aos.recordream.presentation.home.HomeViewModel" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_main_background"
@@ -16,63 +10,34 @@
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fcv_main_navhostfragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/v_home_bottom_space"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_main_top"
-            tools:layout="@layout/fragment_home" />
-
-        <ImageView
-            android:id="@+id/iv_main_bottom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_bottom_navibar"
-            app:itemIconTint="@color/white01_FFFFFF"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <com.recodream_aos.recordream.util.customview.CustomBottomNavigationView
             android:id="@+id/bnv_main_customnav"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="72dp"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="35dp"
-            android:theme="@style/B12"
+            android:paddingVertical="4dp"
             app:itemIconTint="@color/white01_FFFFFF"
+            app:itemTextAppearanceActive="@style/B12"
+            app:itemTextAppearanceInactive="@style/B12"
+            app:itemTextColor="@color/white01_FFFFFF"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/menu_main_bnv" />
-
-        <ImageView
-            android:id="@+id/iv_navi_write_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="78dp"
-            android:src="@drawable/ic_navibar_btn_record"
-            app:layout_constraintBottom_toBottomOf="@id/iv_main_bottom"
-            app:layout_constraintEnd_toEndOf="@id/iv_main_bottom"
-            app:layout_constraintStart_toStartOf="@id/iv_main_bottom" />
+            app:menu="@menu/menu_main_bnv"
+            tools:menu="@menu/menu_main_bnv" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_main_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/home_back_up"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_main_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="43dp"
-                android:layout_marginBottom="17dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/rd_home_rogo" />
@@ -81,8 +46,8 @@
                 android:id="@+id/iv_main_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_main_mypage"
                 app:layout_constraintTop_toTopOf="@+id/iv_main_logo"
                 app:srcCompat="@drawable/icn_search" />
 
@@ -90,20 +55,33 @@
                 android:id="@+id/iv_main_mypage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_main_search"
                 app:layout_constraintTop_toTopOf="@id/iv_main_logo"
                 app:srcCompat="@drawable/icn_main_mypage" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/v_home_bottom_space"
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_main_navhostfragment"
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:layout_above="@id/bnv_main_customnav"
-            app:layout_constraintBottom_toTopOf="@id/bnv_main_customnav" />
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_main_top"
+            tools:layout="@layout/fragment_home" />
+
+
+        <ImageView
+            android:id="@+id/iv_navi_write_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="46dp"
+            android:src="@drawable/navibar_btn_record"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
