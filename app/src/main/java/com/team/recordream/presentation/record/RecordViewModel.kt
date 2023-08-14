@@ -8,11 +8,11 @@ import com.team.recordream.domain.repository.RecordRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.presentation.record.uistate.Genre
-import com.team.recordream.util.State
-import com.team.recordream.util.State.DISCONNECT
-import com.team.recordream.util.State.IDLE
-import com.team.recordream.util.State.INVALID
-import com.team.recordream.util.State.VALID
+import com.team.recordream.util.StateHandler
+import com.team.recordream.util.StateHandler.DISCONNECT
+import com.team.recordream.util.StateHandler.IDLE
+import com.team.recordream.util.StateHandler.INVALID
+import com.team.recordream.util.StateHandler.VALID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,19 +59,19 @@ class RecordViewModel @Inject constructor(
         MutableStateFlow(false)
     val isSaveEnabled: StateFlow<Boolean> get() = _isSaveEnabled
 
-    private val _stateOfSavingRecord: MutableStateFlow<State> = MutableStateFlow(IDLE)
-    val stateOfSavingRecord: StateFlow<State> get() = _stateOfSavingRecord
+    private val _stateHandlerOfSavingRecord: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
+    val stateHandlerOfSavingRecord: StateFlow<StateHandler> get() = _stateHandlerOfSavingRecord
 
     fun postRecord() {
         viewModelScope.launch {
             runCatching { recordRepository.postRecord(getRecord()) }
                 .onSuccess { result ->
                     when (result) {
-                        is SUCCESS -> _stateOfSavingRecord.value = VALID
-                        is FAIL -> _stateOfSavingRecord.value = INVALID
+                        is SUCCESS -> _stateHandlerOfSavingRecord.value = VALID(result.data.id)
+                        is FAIL -> _stateHandlerOfSavingRecord.value = INVALID
                     }
                 }
-                .onFailure { _stateOfSavingRecord.value = DISCONNECT }
+                .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
         }
     }
 

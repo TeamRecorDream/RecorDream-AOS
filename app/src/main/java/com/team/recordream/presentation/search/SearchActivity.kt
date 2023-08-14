@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivitySearchBinding
-import com.team.recordream.presentation.document.DocumentActivity
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
@@ -55,7 +55,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     }
 
     private fun navigateToDocumentActivity(id: String) {
-        startActivity(DocumentActivity.getIntent(this, id))
+        startActivity(DetailActivity.getIntent(this, id))
     }
 
     private inline fun <T> collectWithLifecycle(

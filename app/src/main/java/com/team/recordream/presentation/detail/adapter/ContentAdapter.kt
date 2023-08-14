@@ -1,10 +1,10 @@
-package com.team.recordream.presentation.document2.adapter
+package com.team.recordream.presentation.detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.team.recordream.presentation.document2.adapter.viewHolder.ContentViewHolder
-import com.team.recordream.presentation.document2.model.ContentUiModel
+import com.team.recordream.presentation.detail.adapter.viewHolder.ContentViewHolder
+import com.team.recordream.presentation.detail.model.ContentUiModel
 
 //class ContentAdapter : ListAdapter<ContentUiModel, ContentViewHolder>(diffCallBack) {
 //

@@ -8,11 +8,10 @@ import com.team.recordream.domain.repository.SearchRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.presentation.search.uistate.SearchedRecordUiState
-import com.team.recordream.util.State
-import com.team.recordream.util.State.DISCONNECT
-import com.team.recordream.util.State.IDLE
-import com.team.recordream.util.State.INVALID
-import com.team.recordream.util.State.VALID
+import com.team.recordream.util.StateHandler
+import com.team.recordream.util.StateHandler.DISCONNECT
+import com.team.recordream.util.StateHandler.IDLE
+import com.team.recordream.util.StateHandler.INVALID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -39,8 +38,8 @@ class SearchViewModel @Inject constructor(
     )
     val searchResult: StateFlow<List<SearchedRecordUiState>> get() = _searchResult
 
-    private val _searchState: MutableStateFlow<State> = MutableStateFlow(IDLE)
-    val searchState: StateFlow<State> get() = _searchState
+    private val _searchStateHandler: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
+    val searchStateHandler: StateFlow<StateHandler> get() = _searchStateHandler
 
     fun postSearch() {
         viewModelScope.launch {
@@ -50,9 +49,9 @@ class SearchViewModel @Inject constructor(
             }.onSuccess { result ->
                 when (result) {
                     is SUCCESS -> onSuccessInitServer(result)
-                    is FAIL -> _searchState.value = INVALID
+                    is FAIL -> _searchStateHandler.value = INVALID
                 }
-            }.onFailure { _searchState.value = DISCONNECT }
+            }.onFailure { _searchStateHandler.value = DISCONNECT }
         }
     }
 
@@ -67,7 +66,8 @@ class SearchViewModel @Inject constructor(
     private fun updateValueFromServer(result: SUCCESS<SearchResult>) {
         _resultCount.value = result.data.recordsCount
         _searchResult.value = result.data.records.map { it.toUiState() }
-        _searchState.value = VALID
+        // _searchState.value = VALID(result.data.records[0].)
+        // result 분리
     }
 
     private fun updateVisibilityOnOccupied() {

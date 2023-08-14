@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.team.recordream.data.entity.remote.response.ResponseHome
 import com.team.recordream.databinding.FragmentHomeBinding
-import com.team.recordream.presentation.document.DocumentActivity
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.util.ZoomOutPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,7 +56,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
 
     private fun initAdapterHomeCard() {
         homeViewPagerAdapter = HomeViewPagerAdapter { recordId ->
-            val intent = DocumentActivity.getIntent(requireContext(), recordId.id)
+            val intent = DetailActivity.getIntent(requireContext(), recordId.id)
             startActivity(intent)
 //            val intent = Intent(requireContext(), DocumentActivity::class.java)
 //            intent.apply { it.id }

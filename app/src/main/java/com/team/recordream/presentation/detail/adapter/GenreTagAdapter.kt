@@ -1,10 +1,10 @@
-package com.team.recordream.presentation.document2.adapter
+package com.team.recordream.presentation.detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.team.recordream.presentation.document2.adapter.viewHolder.GenreTagViewHolder
+import com.team.recordream.presentation.detail.adapter.viewHolder.GenreTagViewHolder
 import com.team.recordream.presentation.record.uistate.Genre
 
 class GenreTagAdapter : ListAdapter<Genre, GenreTagViewHolder>(diffCallBack) {

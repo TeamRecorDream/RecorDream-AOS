@@ -11,7 +11,7 @@ import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityMainBinding
 import com.team.recordream.presentation.MainActivity.FragmentType.HOME
 import com.team.recordream.presentation.MainActivity.FragmentType.STORAGE
-import com.team.recordream.presentation.document2.DocumentssActivity
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.HomeFragment
 import com.team.recordream.presentation.mypage.MypageActivity
 import com.team.recordream.presentation.record.RecordActivity
@@ -27,7 +27,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
         binding.ivMainLogo.setOnClickListener {
             startActivity(
-                DocumentssActivity.getIntent(
+                DetailActivity.getIntent(
                     this,
                     "",
                 ),

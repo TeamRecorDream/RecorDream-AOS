@@ -13,13 +13,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityRecordBinding
-import com.team.recordream.presentation.document.DocumentActivity
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
-import com.team.recordream.util.State.DISCONNECT
-import com.team.recordream.util.State.IDLE
-import com.team.recordream.util.State.INVALID
-import com.team.recordream.util.State.VALID
+import com.team.recordream.util.StateHandler.DISCONNECT
+import com.team.recordream.util.StateHandler.IDLE
+import com.team.recordream.util.StateHandler.INVALID
+import com.team.recordream.util.StateHandler.VALID
 import com.team.recordream.util.anchorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
@@ -43,12 +43,21 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         initViewModel()
         attachAdapter()
         setClickListener()
-        observeTitleForSaveActivation()
+        observe()
     }
 
-    private fun observeTitleForSaveActivation() {
+    private fun observe() {
         collectWithLifecycle(recordViewModel.title) {
             recordViewModel.updateSaveButtonEnabled()
+        }
+
+        collectWithLifecycle(recordViewModel.stateHandlerOfSavingRecord) { result ->
+            when (result) {
+                is VALID -> navigateToDocumentView(result.recordId)
+                is INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is IDLE -> Log.e("RecordActivity", "DEFAULT")
+            }
         }
     }
 
@@ -68,27 +77,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.ivRecordClose.setOnClickListener { finish() }
         binding.btnRecordSave.setOnClickListener {
             when (recordViewModel.isSaveEnabled.value) {
-                true -> initNetwork()
+                true -> recordViewModel.postRecord()
                 false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
             }
         }
     }
 
-    private fun initNetwork() {
-        recordViewModel.postRecord()
-
-        collectWithLifecycle(recordViewModel.stateOfSavingRecord) { result ->
-            when (result) {
-                is VALID -> navigateToDocumentView()
-                is INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
-                is DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
-                is IDLE -> Log.e("RecordActivity", "DEFAULT")
-            }
-        }
-    }
-
-    private fun navigateToDocumentView() {
-        DocumentActivity.getIntent(this, recordViewModel.voiceId.value)
+    private fun navigateToDocumentView(recordId: String) {
+        startActivity(DetailActivity.getIntent(this, recordId))
         finish()
     }
 

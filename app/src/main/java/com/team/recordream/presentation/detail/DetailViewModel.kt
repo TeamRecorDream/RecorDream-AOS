@@ -1,4 +1,4 @@
-package com.team.recordream.presentation.document2
+package com.team.recordream.presentation.detail
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DocumentssViewModel @Inject constructor(
+class DetailViewModel @Inject constructor(
     private val documentRepository: DocumentRepository,
 ) : ViewModel() {
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
@@ -32,12 +32,9 @@ class DocumentssViewModel @Inject constructor(
     val tags: StateFlow<List<Genre>> get() = _tags
 
     fun updateDetailRecord(recordId: String) {
-        Log.d("123123", "123123")
-
         viewModelScope.launch {
             documentRepository.getDetailRecord(recordId)
                 .onSuccess {
-                    Log.d("123123", "123155555523")
                     _background.value = Emotion.findBackgroundById(it.emotion ?: 0)
                     _icon.value = Emotion.findIconById(it.emotion ?: 0)
                     _date.value = it.date

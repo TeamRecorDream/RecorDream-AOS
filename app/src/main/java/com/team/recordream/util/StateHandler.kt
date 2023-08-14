@@ -1,8 +1,8 @@
 package com.team.recordream.util
 
-sealed interface State {
-    object VALID : State
-    object INVALID : State
-    object DISCONNECT : State
-    object IDLE : State
+sealed interface StateHandler {
+    data class VALID(val recordId: String) : StateHandler
+    object INVALID : StateHandler
+    object DISCONNECT : StateHandler
+    object IDLE : StateHandler
 }

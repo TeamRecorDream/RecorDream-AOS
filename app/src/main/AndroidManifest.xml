@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.team.recordream">
-    <!-- Permissions of internet -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -27,8 +27,6 @@
         android:name="firebase_analytics_collection_enabled"
         android:value="false" />
 
-    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
-
     <application
         android:name="com.team.recordream.application.RecordreamApp"
         android:allowBackup="true"
@@ -41,21 +39,19 @@
         android:theme="@style/Theme.RecorDream"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="com.team.recordream.presentation.document2.DocumentssActivity"
+            android:name="com.team.recordream.presentation.detail.DetailActivity"
             android:exported="true" />
         <activity
             android:name="com.team.recordream.presentation.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity
-            android:name="com.team.recordream.presentation.document.InstagramActivity"
-            android:exported="false" />
         <activity
             android:name="com.team.recordream.presentation.record.RecordActivity"
             android:exported="true" />
@@ -70,15 +66,6 @@
             android:name="com.team.recordream.presentation.mypage.MypageActivity"
             android:exported="false" />
 
-        <activity
-            android:name="com.team.recordream.presentation.document.DocumentActivity"
-            android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
         <activity
             android:name="com.team.recordream.presentation.splash.SplashActivity"
             android:exported="true"

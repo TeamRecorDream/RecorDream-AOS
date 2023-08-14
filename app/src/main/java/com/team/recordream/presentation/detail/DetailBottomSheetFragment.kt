@@ -1,4 +1,4 @@
-package com.team.recordream.presentation.document
+package com.team.recordream.presentation.detail
 
 import android.app.Activity
 import android.content.Intent
@@ -34,7 +34,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import javax.inject.Inject
 
-class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
+class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentDocumentBottomSheetBinding
     private lateinit var dialogDelete: CustomDialog
     private lateinit var shareActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -45,13 +45,13 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_document_bottom_sheet,
             container,
-            false
+            false,
         )
 
         shareActivityResultLauncher =
@@ -96,7 +96,7 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         return FileProvider.getUriForFile(
             requireContext(),
             requireContext().packageName + ".fileprovider",
-            tempFile
+            tempFile,
         )
     }
 

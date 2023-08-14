@@ -1,6 +1,5 @@
 package com.team.recordream.presentation.storagy.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentStorageBinding
-import com.team.recordream.presentation.document.DocumentActivity
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.storagy.MyDecoration
 import com.team.recordream.presentation.storagy.StorageViewModel
 import com.team.recordream.presentation.storagy.adapter.StorageEmotionAdapter
@@ -92,9 +91,7 @@ class StorageFragment : Fragment() {
     private fun initGridAdapter() {
         storageGridAdapter =
             StorageGridAdapter {
-                val intent = Intent(requireContext(), DocumentActivity::class.java)
-                intent.apply { it.id }
-                startActivity(intent)
+                startActivity(DetailActivity.getIntent(requireContext(), it.id))
             }
         binding.rvStorage.adapter = storageGridAdapter
         binding.rvStorage.layoutManager = GridLayoutManager(context, 2)
@@ -103,9 +100,7 @@ class StorageFragment : Fragment() {
     private fun initListAdapter() {
         storageListAdapter =
             StorageListAdapter {
-                val intent = Intent(requireContext(), DocumentActivity::class.java)
-                intent.apply { it.id }
-                startActivity(intent)
+                startActivity(DetailActivity.getIntent(requireContext(), it.id))
             }
         binding.rvStorage.adapter = storageListAdapter
         binding.rvStorage.layoutManager = LinearLayoutManager(context)

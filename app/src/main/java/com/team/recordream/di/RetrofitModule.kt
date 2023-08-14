@@ -1,7 +1,7 @@
-package com.team.recordream.di // ktlint-disable package-name
+package com.team.recordream.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.team.recordream.BuildConfig.* // ktlint-disable no-wildcard-imports
+import com.team.recordream.BuildConfig.*
 import com.team.recordream.util.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
