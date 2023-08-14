@@ -1,3 +1,19 @@
+@@
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayoutMediator
+import com.recodream_aos.recordream.R
+import com.recodream_aos.recordream.data.entity.remote.response.ResponseDocument
+import com.recodream_aos.recordream.databinding.ActivityDocumentBinding
+import com.recodream_aos.recordream.presentation.document.DocumentBottomSheetFragment
+import com.recodream_aos.recordream.util.customview.CustomDialog
+import dagger.hilt.android.AndroidEntryPoint
+
+-1,144 +0,0 @@
 package com.recodream_aos.recordream.presentation.document
 
 import android.content.Context

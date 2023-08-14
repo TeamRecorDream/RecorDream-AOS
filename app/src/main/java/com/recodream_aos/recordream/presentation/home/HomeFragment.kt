@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.recodream_aos.recordream.data.entity.remote.response.ResponseHome
 import com.recodream_aos.recordream.databinding.FragmentHomeBinding
-import com.recodream_aos.recordream.presentation.document.DocumentActivity
 import com.recodream_aos.recordream.util.ZoomOutPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +25,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -83,7 +82,7 @@ class HomeFragment : Fragment(), LifecycleObserver {
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                },
+                }
             )
         }
     }
@@ -98,8 +97,8 @@ class HomeFragment : Fragment(), LifecycleObserver {
     }
 
     private fun applyNickname(response: LiveData<List<ResponseHome.Record>>?) {
-        if (response != null) {
-            if (response.value?.size != null) {
+        if (response != null && response.value != null) {
+            if (response.value?.size != null && response.value?.isNotEmpty() == true) {
                 binding.tvHomeHi1.visibility = View.VISIBLE
                 binding.tvHomeHi2.visibility = View.VISIBLE
                 binding.tvHomeHiOff.visibility = View.INVISIBLE

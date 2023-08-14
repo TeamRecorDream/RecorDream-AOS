@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            tools:background="@drawable/card_m_yellow">
+            tools:background="@drawable/card_m_yellow1">
 
             <ImageView
                 android:id="@+id/iv_home_emoticon"
@@ -116,6 +116,27 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_home_genre1"
                 tools:text="우리 학교 앞에 떡볶이집이 하나있음 그래서 군것질이나 할 겸 그 가게에 갔는데 메뉴들이 엄청 맛있어보였음. 막 호떡, 핫도그, 떡볶이, 오뎅 뭐가 많았는데 갑자기 내가 식욕이 터지는거임. 분식집 아줌마는 여유롭게 스몰토크 하면서 핫도그를 어쩌고 저쩌고 어라어라어라어ㅏ러알dkxclkvms" />
 
+            <ImageView
+                android:id="@+id/iv_home_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/icn_mic_s"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_genre1" />
+
+            <TextView
+                android:id="@+id/tv_home_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="11dp"
+                android:text="음성만 기록되어 있어요"
+                android:textAppearance="@style/R12"
+                android:textColor="@color/white02_80FFFFFF"
+                app:layout_constraintStart_toEndOf="@id/iv_home_mic"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_genre1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

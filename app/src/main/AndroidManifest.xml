@@ -54,9 +54,6 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name="com.recodream_aos.recordream.presentation.document.InstagramActivity"
-            android:exported="false" />
-        <activity
             android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
             android:exported="true" />
         <activity
@@ -70,15 +67,6 @@
             android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
             android:exported="false" />
 
-        <activity
-            android:name="com.recodream_aos.recordream.presentation.document.DocumentActivity"
-            android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
         <activity
             android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
             android:exported="true"
