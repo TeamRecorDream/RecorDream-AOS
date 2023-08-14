@@ -1,11 +1,13 @@
 package com.team.recordream.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.team.recordream.data.entity.remote.response.ResponseHome
+import com.team.recordream.domain.model.UserRecord
 import com.team.recordream.domain.repository.HomeRepository
+import com.team.recordream.presentation.home.model.UserRecords
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,22 +16,37 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
 ) : ViewModel() {
-    private val _homeRecords = MutableLiveData<List<ResponseHome.Record>>()
-    val homeRecords: LiveData<List<ResponseHome.Record>>
-        get() = _homeRecords
+    private val _isRecordEmpty: MutableLiveData<Boolean> = MutableLiveData(true)
+    val isRecordEmpty: LiveData<Boolean> get() = _isRecordEmpty
 
-    private val _responses = MutableLiveData<ResponseHome>()
-    val responses: LiveData<ResponseHome>
-        get() = _responses
+    private val _userName: MutableLiveData<String> = MutableLiveData("")
+    val userName: LiveData<String> get() = _userName
 
-    val userName = MutableLiveData<String>()
-    fun initServer() {
-        viewModelScope.launch { _homeRecords.value = homeRepository.getHomeRecord()?.data?.records }
-    }
+    private val _userRecords: MutableLiveData<List<UserRecords>> = MutableLiveData(listOf())
+    val userRecords: LiveData<List<UserRecords>> get() = _userRecords
 
-    fun getUser() {
+
+    fun updateHome() {
         viewModelScope.launch {
-            userName.value = homeRepository.getHomeRecord()?.data?.nickname
+            homeRepository.getHomeRecord()
+                .onSuccess {
+                    _userName.value = it.nickname
+                    _userRecords.value = it.records.map { record -> record.toUiModel() }
+                    Log.d("123123", it.records.toString())
+                }
+                .onFailure {
+                    Log.d("123123", it.message.toString())
+                }
         }
     }
+
+    private fun UserRecord.Record.toUiModel(): UserRecords = UserRecords(
+        id = id,
+        date = date,
+        emotion = emotion,
+        genre = genre,
+        title = title,
+        content = content,
+        voice = voice
+    )
 }

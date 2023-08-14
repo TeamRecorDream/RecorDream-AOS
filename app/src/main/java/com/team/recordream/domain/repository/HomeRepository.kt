@@ -1,8 +1,7 @@
 package com.team.recordream.domain.repository
 
-import com.team.recordream.data.entity.remote.response.ResponseHome
-import com.team.recordream.data.entity.remote.response.ResponseWrapper
+import com.team.recordream.domain.model.UserRecord
 
 interface HomeRepository {
-    suspend fun getHomeRecord(): ResponseWrapper<ResponseHome>?
+    suspend fun getHomeRecord(): Result<UserRecord>
 }

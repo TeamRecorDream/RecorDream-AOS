@@ -31,8 +31,15 @@ class DetailActivity :
         bindViewModel()
         collectViewTags()
         attachAdapter()
-        initBottomSheetFragment()
         initView()
+
+        binding.ivDocumentMore.setOnClickListener {
+            initBottomSheetFragment()
+        }
+
+        binding.ivDocumentClose.setOnClickListener {
+            finish()
+        }
     }
 
     private fun initView() {

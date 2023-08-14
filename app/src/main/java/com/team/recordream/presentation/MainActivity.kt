@@ -30,6 +30,8 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun setBottomNavigationView() {
         binding.bnvMainCustomnav.selectedItemId = R.id.menu_home
+        replaceFragment<HomeFragment>()
+
         binding.bnvMainCustomnav.setOnItemSelectedListener(::replaceFragment)
     }
 

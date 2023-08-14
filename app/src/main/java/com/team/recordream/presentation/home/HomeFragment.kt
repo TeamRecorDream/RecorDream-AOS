@@ -1,70 +1,57 @@
 package com.team.recordream.presentation.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
-import com.team.recordream.data.entity.remote.response.ResponseHome
+import com.team.recordream.R
+import com.team.recordream.base.BindingFragment
 import com.team.recordream.databinding.FragmentHomeBinding
 import com.team.recordream.presentation.detail.DetailActivity
+import com.team.recordream.presentation.home.adapter.HomeAdapter
 import com.team.recordream.util.ZoomOutPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), LifecycleObserver {
-    private var _binding: FragmentHomeBinding? = null
-    private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
-    private val binding get() = _binding!!
+class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    private lateinit var homeAdapter: HomeAdapter
     private val homeViewModel by viewModels<HomeViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.initServer()
-        homeViewModel.getUser()
-        applyNickname(homeViewModel.homeRecords)
         initAdapterHomeCard()
-        observeData()
         initRefresh()
-    }
+        bindViewModel()
 
-    private fun observeData() {
-        homeViewModel.homeRecords.observe(viewLifecycleOwner) {
-//            homeViewPagerAdapter.updateList(it)
-        }
-
-        homeViewModel.userName.observe(viewLifecycleOwner) {
-            applyNickname(homeViewModel.homeRecords)
-            binding.tvHomeHi1.text = "반가워요, ${homeViewModel.userName.value}님!"
-            binding.tvHomeHiOff.text = "반가워요, ${homeViewModel.userName.value}님!"
+        homeViewModel.userRecords.observe(viewLifecycleOwner) {
+            homeAdapter.submitList(it)
         }
     }
+
+    private fun bindViewModel() {
+        binding.viewModel = homeViewModel
+        binding.lifecycleOwner = this
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.updateHome()
+    }
+
 
     private fun initAdapterHomeCard() {
-        homeViewPagerAdapter = HomeViewPagerAdapter { recordId ->
+        homeAdapter = HomeAdapter { recordId ->
             val intent = DetailActivity.getIntent(requireContext(), recordId.id)
             startActivity(intent)
 //            val intent = Intent(requireContext(), DocumentActivity::class.java)
 //            intent.apply { it.id }
 //            startActivity(intent)
         }
-        binding.vpHome.adapter = homeViewPagerAdapter
+        binding.vpHome.adapter = homeAdapter
         with(binding.vpHome) {
-            adapter = homeViewPagerAdapter
+            adapter = homeAdapter
             val display = activity?.applicationContext?.resources?.displayMetrics
             val deviceWidth = display?.widthPixels
             val ratio: Double = 264 / 360.0 // 맨앞에 아이템이 차지하는 width
@@ -91,30 +78,9 @@ class HomeFragment : Fragment(), LifecycleObserver {
     private fun initRefresh() {
         val swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener {
+            homeViewModel.updateHome()
             swipeRefreshLayout.isRefreshing = true
-            observeData()
             swipeRefreshLayout.isRefreshing = false
         }
-    }
-
-    private fun applyNickname(response: LiveData<List<ResponseHome.Record>>?) {
-        if (response != null && response.value != null) {
-            if (response.value?.size != null && response.value?.isNotEmpty() == true) {
-                binding.tvHomeHi1.visibility = View.VISIBLE
-                binding.tvHomeHi2.visibility = View.VISIBLE
-                binding.tvHomeHiOff.visibility = View.INVISIBLE
-                binding.tvHomeHiOff2.visibility = View.INVISIBLE
-            } else {
-                binding.tvHomeHi1.visibility = View.INVISIBLE
-                binding.tvHomeHi2.visibility = View.INVISIBLE
-                binding.tvHomeHiOff.visibility = View.VISIBLE
-                binding.tvHomeHiOff2.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
