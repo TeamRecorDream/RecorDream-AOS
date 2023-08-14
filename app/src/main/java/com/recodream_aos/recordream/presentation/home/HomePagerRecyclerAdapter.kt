@@ -26,7 +26,7 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
 
     class PagerViewHolder(
         private val binding: HomeCardItemBinding,
-        private val itemClick: (ResponseHome.Record) -> Unit,
+        private val itemClick: (ResponseHome.Record) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: ResponseHome.Record) {
             binding.root.setOnClickListener {
@@ -37,9 +37,15 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
             binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
             binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
             binding.tvHomeContent.text = data.content
-//            if data.content == null {
-//                녹음만 있을 때 '음성만 기록되어 있어요' 표시 추가 예정
-//            }
+            if (data.content == null && data.voice !== null) {
+                binding.tvHomeContent.visibility = View.INVISIBLE
+                binding.tvHomeMic.visibility = View.VISIBLE
+                binding.ivHomeMic.visibility = View.VISIBLE
+            } else {
+                binding.tvHomeContent.visibility = View.VISIBLE
+                binding.tvHomeMic.visibility = View.INVISIBLE
+                binding.ivHomeMic.visibility = View.INVISIBLE
+            }
             applyData(data)
         }
 
@@ -87,7 +93,7 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
         val binding: HomeCardItemBinding = HomeCardItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false,
+            false
         )
         return PagerViewHolder(binding, itemClick)
     }
@@ -104,14 +110,14 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
         private val diffResult = object : DiffUtil.ItemCallback<ResponseHome.Record>() {
             override fun areItemsTheSame(
                 oldItem: ResponseHome.Record,
-                newItem: ResponseHome.Record,
+                newItem: ResponseHome.Record
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: ResponseHome.Record,
-                newItem: ResponseHome.Record,
+                newItem: ResponseHome.Record
             ): Boolean {
                 return oldItem == newItem
             }
