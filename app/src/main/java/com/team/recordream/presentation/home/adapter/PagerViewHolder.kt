@@ -9,26 +9,28 @@ import com.team.recordream.util.RecordreamMapping
 
 class PagerViewHolder(
     private val binding: HomeCardItemBinding,
-    private val itemClick: (UserRecords) -> Unit
+    itemClick: (UserRecords) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    init {
+        binding.onClick = itemClick
+    }
+
     fun onBind(data: UserRecords) {
-        binding.root.setOnClickListener {
-            itemClick(data)
-        }
         binding.tvHomeDate.text = data.date
         binding.tvHomeCardTitle.text = data.title
         binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
         binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
         binding.tvHomeContent.text = data.content
-//            if (data.content == null && data.voice !== null) {
-//                binding.tvHomeContent.visibility = View.INVISIBLE
-//                binding.tvHomeMic.visibility = View.VISIBLE
-//                binding.ivHomeMic.visibility = View.VISIBLE
-//            } else {
-//                binding.tvHomeContent.visibility = View.VISIBLE
-//                binding.tvHomeMic.visibility = View.INVISIBLE
-//                binding.ivHomeMic.visibility = View.INVISIBLE
-//            }
+        if (data.content == null && data.voice !== null) {
+            binding.tvHomeContent.visibility = View.INVISIBLE
+            binding.tvHomeMic.visibility = View.VISIBLE
+            binding.ivHomeMic.visibility = View.VISIBLE
+        } else {
+            binding.tvHomeContent.visibility = View.VISIBLE
+            binding.tvHomeMic.visibility = View.INVISIBLE
+            binding.ivHomeMic.visibility = View.INVISIBLE
+        }
         applyData(data)
     }
 

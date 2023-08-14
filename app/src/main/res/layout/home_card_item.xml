@@ -6,20 +6,24 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.team.recordream.data.entity.remote.response.ResponseHome.Record" />
+            name="userRecords"
+            type="com.team.recordream.presentation.home.model.UserRecords" />
+
+        <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function1" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="25dp">
+        android:backgroundTint="@color/transparent"
+        android:onClick="@{() -> onClick.invoke(userRecords)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_home_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
             tools:background="@drawable/card_m_yellow">
 
             <ImageView

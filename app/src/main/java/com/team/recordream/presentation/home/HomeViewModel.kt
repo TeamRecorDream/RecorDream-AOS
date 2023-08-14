@@ -32,7 +32,8 @@ class HomeViewModel @Inject constructor(
                 .onSuccess {
                     _userName.value = it.nickname
                     _userRecords.value = it.records.map { record -> record.toUiModel() }
-                    Log.d("123123", it.records.toString())
+
+                    if (!userRecords.value.isNullOrEmpty()) _isRecordEmpty.value = false
                 }
                 .onFailure {
                     Log.d("123123", it.message.toString())
