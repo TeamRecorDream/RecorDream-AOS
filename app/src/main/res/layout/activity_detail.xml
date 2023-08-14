@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.team.recordream.presentation.detail.DetailViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        app:setBackground="@{viewModel.background}">
+
+        <View
+            android:id="@+id/view_document_indicator"
+            android:layout_width="44dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rectangle_radius_10dp_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_document_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/document_title"
+            android:textAppearance="@style/Sb16"
+            android:textColor="@color/white02_80FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/view_document_indicator"
+            app:layout_constraintStart_toStartOf="@+id/view_document_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/view_document_indicator" />
+
+        <ImageView
+            android:id="@+id/iv_document_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/icn_close"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_document_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_document_title" />
+
+        <ImageView
+            android:id="@+id/iv_document_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/icn_more"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_document_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_document_title" />
+
+        <ImageView
+            android:id="@+id/iv_document_feeling"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginTop="48dp"
+            app:glideSrc="@{viewModel.icon}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_document_title" />
+
+        <TextView
+            android:id="@+id/tv_document_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@{viewModel.date}"
+            android:textAppearance="@style/Sb14"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/iv_document_feeling"
+            app:layout_constraintStart_toStartOf="@+id/iv_document_feeling"
+            app:layout_constraintTop_toBottomOf="@+id/iv_document_feeling"
+            tools:text="2022/06/26 SUN" />
+
+        <TextView
+            android:id="@+id/tv_document_record_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{viewModel.title}"
+            android:textAppearance="@style/Sb18"
+            android:textColor="@color/white01_FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_document_date"
+            tools:text="빨리 끝내버리자..." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_document_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="@+id/tv_document_record_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_document_record_title"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_detail_tag">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_document"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_document_chip"
+            app:tabBackground="@color/black"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorHeight="3dp">
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_document_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tl_document" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

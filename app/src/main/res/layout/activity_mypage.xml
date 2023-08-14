@@ -7,7 +7,7 @@
 
         <variable
             name="mypageViewModel"
-            type="com.recodream_aos.recordream.presentation.mypage.MypageViewModel" />
+            type="com.team.recordream.presentation.mypage.MypageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

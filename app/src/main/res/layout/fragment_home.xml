@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="home"
-            type="com.recodream_aos.recordream.presentation.home.HomeViewModel" />
+            name="viewModel"
+            type="com.team.recordream.presentation.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,34 +17,37 @@
         tools:context=".presentation.home.HomeFragment">
 
         <TextView
-            android:id="@+id/tv_home_hi1"
+            android:id="@+id/tv_home_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginTop="32dp"
-            android:text="@string/tv_main_welcoming"
+            android:text="@{@string/tv_main_welcoming(viewModel.userName)}"
             android:textAppearance="@style/Sb24"
+            app:isVisible="@{!viewModel.isRecordEmpty()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/tv_main_welcoming" />
 
         <TextView
-            android:id="@+id/tv_home_hi2"
+            android:id="@+id/tv_home_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/tv_main_welcoming2"
             android:textAppearance="@style/EL24"
-            app:layout_constraintStart_toStartOf="@id/tv_home_hi1"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_hi1"
+            app:isVisible="@{!viewModel.isRecordEmpty()}"
+            app:layout_constraintStart_toStartOf="@id/tv_home_userName"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_userName"
             tools:text="@string/tv_main_welcoming2" />
 
         <TextView
-            android:id="@+id/tv_home_hi_off"
+            android:id="@+id/tv_home_userName_none_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_main_welcoming"
+            android:text="@{@string/tv_main_welcoming(viewModel.userName)}"
             android:textAppearance="@style/Sb24"
+            app:isVisible="@{viewModel.isRecordEmpty()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,15 +55,16 @@
             tools:text="@string/tv_main_welcoming" />
 
         <TextView
-            android:id="@+id/tv_home_hi_off2"
+            android:id="@+id/tv_home_banner_none_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/tv_main_welcoming2"
             android:textAppearance="@style/EL24"
+            app:isVisible="@{viewModel.isRecordEmpty()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_hi_off"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_userName_none_data"
             tools:text="@string/tv_main_welcoming_new" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -68,8 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="47dp"
+            android:layout_marginBottom="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_hi2">
+            app:layout_constraintTop_toBottomOf="@id/tv_home_banner">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_home"
@@ -79,7 +84,7 @@
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_home_hi2" />
+                app:layout_constraintTop_toBottomOf="@id/tv_home_banner" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,11 +7,11 @@
 
         <variable
             name="genre"
-            type="com.recodream_aos.recordream.presentation.record.uistate.Genre" />
+            type="com.team.recordream.presentation.record.uistate.Genre" />
 
         <variable
             name="viewModel"
-            type="com.recodream_aos.recordream.presentation.record.RecordViewModel" />
+            type="com.team.recordream.presentation.record.RecordViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
