@@ -23,8 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_home_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:background="@drawable/card_m_yellow">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_home_emoticon"

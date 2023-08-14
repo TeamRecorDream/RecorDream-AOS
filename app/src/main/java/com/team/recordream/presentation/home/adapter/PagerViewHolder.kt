@@ -16,13 +16,15 @@ class PagerViewHolder(
         binding.onClick = itemClick
     }
 
-    fun onBind(data: UserRecords) {
-        binding.tvHomeDate.text = data.date
-        binding.tvHomeCardTitle.text = data.title
-        binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
-        binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
-        binding.tvHomeContent.text = data.content
-        if (data.content == null && data.voice !== null) {
+    fun onBind(userRecords: UserRecords) {
+        binding.userRecords = userRecords
+        binding.tvHomeDate.text = userRecords.date
+        binding.tvHomeCardTitle.text = userRecords.title
+        binding.clHomeCard.setBackgroundResource(checkEmotionBackground(userRecords.emotion))
+        binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(userRecords.emotion))
+        binding.tvHomeContent.text = userRecords.content
+
+        if (userRecords.content.isBlank() && userRecords.voice) {
             binding.tvHomeContent.visibility = View.INVISIBLE
             binding.tvHomeMic.visibility = View.VISIBLE
             binding.ivHomeMic.visibility = View.VISIBLE
@@ -31,7 +33,7 @@ class PagerViewHolder(
             binding.tvHomeMic.visibility = View.INVISIBLE
             binding.ivHomeMic.visibility = View.INVISIBLE
         }
-        applyData(data)
+        applyData(userRecords)
     }
 
     val recorDreamMapping = RecordreamMapping()

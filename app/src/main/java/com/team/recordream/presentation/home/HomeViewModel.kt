@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
                     if (!userRecords.value.isNullOrEmpty()) _isRecordEmpty.value = false
                 }
                 .onFailure {
-                    Log.d("123123", it.message.toString())
+                    Log.d("12312344", it.message.toString())
                 }
         }
     }

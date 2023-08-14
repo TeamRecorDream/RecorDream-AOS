@@ -34,7 +34,7 @@ class RecordViewModel @Inject constructor(
 
     val content: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
 
-    private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+    private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(EMOTION_ALL)
     val emotion: StateFlow<Int?> get() = _emotion
 
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
@@ -155,6 +155,7 @@ class RecordViewModel @Inject constructor(
     companion object {
         private const val BLANK = ' '
         private const val DEFAULT_VALUE_STRING = ""
+        private const val EMOTION_ALL = 0
         private val DEFAULT_VALUE_NULL = null
         private const val DEFAULT_TIME = "00:00"
         private const val DATE_PATTERN = "yyyy-MM-dd"

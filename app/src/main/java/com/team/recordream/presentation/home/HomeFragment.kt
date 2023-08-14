@@ -10,6 +10,7 @@ import com.team.recordream.base.BindingFragment
 import com.team.recordream.databinding.FragmentHomeBinding
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.adapter.HomeAdapter
+import com.team.recordream.presentation.home.model.UserRecords
 import com.team.recordream.util.ZoomOutPageTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,13 +43,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
 
     private fun initAdapterHomeCard() {
-        homeAdapter = HomeAdapter { recordId ->
-            val intent = DetailActivity.getIntent(requireContext(), recordId.id)
-            startActivity(intent)
-//            val intent = Intent(requireContext(), DocumentActivity::class.java)
-//            intent.apply { it.id }
-//            startActivity(intent)
-        }
+        homeAdapter = HomeAdapter(::navigateToDetailView)
         binding.vpHome.adapter = homeAdapter
         with(binding.vpHome) {
             adapter = homeAdapter
@@ -73,6 +68,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                 },
             )
         }
+    }
+
+    private fun navigateToDetailView(userRecord: UserRecords) {
+        startActivity(DetailActivity.getIntent(requireContext(), userRecord.id))
     }
 
     private fun initRefresh() {
