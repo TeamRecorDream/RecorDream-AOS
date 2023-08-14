@@ -32,8 +32,13 @@ class DetailActivity :
         collectViewTags()
         attachAdapter()
         initBottomSheetFragment()
-        // intent.getStringExtra(RECORD_ID)
-        documentViewModel.updateDetailRecord("64d9f5b01e9a1d32e19e0f36")
+        initView()
+    }
+
+    private fun initView() {
+        val recordId = intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
+
+        documentViewModel.updateDetailRecord(recordId)
     }
 
     private fun initBottomSheetFragment() {

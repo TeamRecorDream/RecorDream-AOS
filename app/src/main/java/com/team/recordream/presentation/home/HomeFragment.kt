@@ -98,8 +98,8 @@ class HomeFragment : Fragment(), LifecycleObserver {
     }
 
     private fun applyNickname(response: LiveData<List<ResponseHome.Record>>?) {
-        if (response != null) {
-            if (response.value?.size != null) {
+        if (response != null && response.value != null) {
+            if (response.value?.size != null && response.value?.isNotEmpty() == true) {
                 binding.tvHomeHi1.visibility = View.VISIBLE
                 binding.tvHomeHi2.visibility = View.VISIBLE
                 binding.tvHomeHiOff.visibility = View.INVISIBLE

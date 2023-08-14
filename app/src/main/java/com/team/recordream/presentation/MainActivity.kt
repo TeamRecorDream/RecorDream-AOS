@@ -6,17 +6,16 @@ import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import com.team.recordream.R
 import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityMainBinding
 import com.team.recordream.presentation.MainActivity.FragmentType.HOME
 import com.team.recordream.presentation.MainActivity.FragmentType.STORAGE
-import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.HomeFragment
 import com.team.recordream.presentation.mypage.MypageActivity
 import com.team.recordream.presentation.record.RecordActivity
 import com.team.recordream.presentation.search.SearchActivity
-import com.team.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,14 +24,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.ivMainLogo.setOnClickListener {
-            startActivity(
-                DetailActivity.getIntent(
-                    this,
-                    "",
-                ),
-            )
-        }
         setBottomNavigationView()
         setClickEvents()
     }
