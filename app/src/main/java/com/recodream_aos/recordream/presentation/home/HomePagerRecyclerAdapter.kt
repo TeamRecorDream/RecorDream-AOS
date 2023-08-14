@@ -37,15 +37,15 @@ class HomeViewPagerAdapter(private val itemClick: (ResponseHome.Record) -> (Unit
             binding.clHomeCard.setBackgroundResource(checkEmotionBackground(data.emotion))
             binding.ivHomeEmoticon.setImageResource(checkEmotionIcon(data.emotion))
             binding.tvHomeContent.text = data.content
-            if (data.content == null && data.voice !== null) {
-                binding.tvHomeContent.visibility = View.INVISIBLE
-                binding.tvHomeMic.visibility = View.VISIBLE
-                binding.ivHomeMic.visibility = View.VISIBLE
-            } else {
-                binding.tvHomeContent.visibility = View.VISIBLE
-                binding.tvHomeMic.visibility = View.INVISIBLE
-                binding.ivHomeMic.visibility = View.INVISIBLE
-            }
+//            if (data.content == null && data.voice !== null) {
+//                binding.tvHomeContent.visibility = View.INVISIBLE
+//                binding.tvHomeMic.visibility = View.VISIBLE
+//                binding.ivHomeMic.visibility = View.VISIBLE
+//            } else {
+//                binding.tvHomeContent.visibility = View.VISIBLE
+//                binding.tvHomeMic.visibility = View.INVISIBLE
+//                binding.ivHomeMic.visibility = View.INVISIBLE
+//            }
             applyData(data)
         }
 
