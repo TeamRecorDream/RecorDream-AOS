@@ -1,5 +1,6 @@
 package com.recodream_aos.recordream.presentation.mypage
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,10 @@ class MypageViewModel @Inject constructor(
 
     val userName = MutableLiveData<String>()
 
+    var setDay: String = "AM"
+    var setHour: Int = 0
+    var setMinute: Int = 0
+
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
@@ -36,17 +41,33 @@ class MypageViewModel @Inject constructor(
 
     val saveTime = MutableLiveData<Boolean?>()
 
+    private lateinit var timeUnits: List<String>
+
+    lateinit var switchState: SharedPreferences
+
     fun getUser() {
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
             _settingTime.value = mypageUserRepository.getUser()?.data?.time
+            formatDate()
         }
+    }
+
+    fun formatDate() {
+        val day = _settingTime.value
+        if (day.isNullOrBlank()) {
+            return
+        }
+        timeUnits = day.split(" ", ":")
+        setDay = timeUnits[0]
+        setHour = timeUnits[1].toInt()
+        setMinute = timeUnits[2].toInt()
     }
 
     fun postPushAlam() {
         viewModelScope.launch {
-            mypageUserRepository.postPushAlam(RequestPushAlam(isShow.value.toString()))
+            mypageUserRepository.postPushAlam(RequestPushAlam(_isShow.value.toString()))
         }
     }
 
@@ -60,27 +81,18 @@ class MypageViewModel @Inject constructor(
         saveTime.value = saveBtn
     }
 
-//    fun editNickName(nickName: String) {
-//        if (nickName.isNullOrBlank()) {
-//            userName.value = NICKNAME_BALNK.toString()
-//        } else {
-//            userName.value = nickName
-//        }
-//    }
-
     fun patchAlamToggle(alamToggle: Boolean) {
         viewModelScope.launch {
             mypageUserRepository.patchAlamToggle(RequestAlamToggle(alamToggle))
         }
     }
 
-    fun setIsShow(day: String, h: Int, m: Int) {
-        val formatHour = String.format("%02d", h)
-        val formatMinute = String.format("%02d", m)
+    fun setShowDay() {
+        val formatHour = String.format("%02d", setHour)
+        val formatMinute = String.format("%02d", setMinute)
         _isShow.value = String.format(
-            // todo %02s로 하면 왜 안됨?
             "%s %s:%s",
-            day,
+            setDay,
             formatHour,
             formatMinute,
         )

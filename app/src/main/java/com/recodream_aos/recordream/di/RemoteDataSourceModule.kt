@@ -44,6 +44,12 @@ object RemoteDataSourceModule {
 
     @Provides
     @Singleton
+    fun providesDocumentDataSourceImpl(
+        documentService: DocumentService
+    ): DocumentDataSource = DocumentDataSourceImpl(documentService)
+
+    @Provides
+    @Singleton
     fun providesSearchDataSourceImpl(
         searchService: SearchService,
     ): SearchDataSource = SearchDataSourceImpl(searchService)

@@ -13,7 +13,22 @@ class DocumentDataSourceImpl @Inject constructor(
         return documentService.getDetailRecord(recordId)
     }
 
-    override suspend fun deleteDetailRecord(recordId: String) {
-        TODO("Not yet implemented")
+    override suspend fun deleteDetailRecord(recordId: String): ResponseWrapper<Unit> {
+        try {
+            documentService.deleteDetailRecord(recordId)
+            return ResponseWrapper(
+                status = 200,
+                success = true,
+                message = "Deleted successfully",
+                data = Unit
+            )
+        } catch (e: Exception) {
+            return ResponseWrapper(
+                status = 500,
+                success = false,
+                message = e.message ?: "Error occurred",
+                data = null
+            )
+        }
     }
 }

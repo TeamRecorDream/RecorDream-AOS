@@ -3,7 +3,6 @@ package com.recodream_aos.recordream.presentation.mypage
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,8 +26,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBinding
     private val mypageViewModel by viewModels<MypageViewModel>()
-    private var nickname: String = ""
-    lateinit var switch: SharedPreferences
 
     // 권한 요청용 Activity Callback 객체 만들기
     private val registerForActivityResult =
@@ -63,17 +60,13 @@ class MypageActivity : AppCompatActivity() {
         setOnClick()
         mypageDataObserver()
         mypageViewModel.getUser()
-        switch = getSharedPreferences(SWITCH, MODE_PRIVATE)
+        mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
         saveSwitchActive()
         setBackGround(binding.switchMypagePushAlam.isChecked)
     }
 
     private fun mypageDataObserver() {
         with(mypageViewModel) {
-            isShow.observe(this@MypageActivity) { item ->
-                binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
-                binding.tvMypageSettitngTimeDescription.text = item
-            }
             userName.observe(this@MypageActivity) { name ->
                 if (name.toString().isNullOrBlank()) {
                     shortToastByInt(R.string.mypage_name_warning)
@@ -95,18 +88,28 @@ class MypageActivity : AppCompatActivity() {
             }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
             saveTime.observe(this@MypageActivity) { save ->
-                if (save == true) {
-                    setBackGround(true)
-                    switch.edit { putBoolean(ALARM, binding.switchMypagePushAlam.isChecked) }
-                    mypageViewModel.patchAlamToggle(true)
-                } else {
-                    if (switch.getBoolean(ALARM, false)) {
-                        return@observe
-                    }
-                    binding.switchMypagePushAlam.isChecked = false
-                    mypageViewModel.patchAlamToggle(false)
-                }
+                clickSaveBtnOnBottomSheet(save)
             }
+            isShow.observe(this@MypageActivity) {
+                binding.tvMypageSettitngTimeDescription.text = it
+            }
+        }
+    }
+
+    private fun clickSaveBtnOnBottomSheet(isSave: Boolean?) {
+        if (isSave == true) {
+            setBackGround(true)
+            mypageViewModel.switchState.edit {
+                putBoolean(
+                    ALARM,
+                    binding.switchMypagePushAlam.isChecked,
+                )
+            }
+        } else {
+            if (mypageViewModel.switchState.getBoolean(ALARM, false)) {
+                return
+            }
+            binding.switchMypagePushAlam.isChecked = false
         }
     }
 
@@ -173,15 +176,17 @@ class MypageActivity : AppCompatActivity() {
 
     private fun switchOnClick() {
         binding.switchMypagePushAlam.setOnCheckedChangeListener { compoundButton, onSwitch ->
-            val storeSwitch = switch.getBoolean(ALARM, false)
+            val storeSwitch = mypageViewModel.switchState.getBoolean(ALARM, false)
             if (!onSwitch) {
-                switch.edit { putBoolean(ALARM, false) }
+                mypageViewModel.switchState.edit { putBoolean(ALARM, false) }
+                mypageViewModel.patchAlamToggle(false)
                 setBackGround(false)
             }
             if (storeSwitch) {
                 return@setOnCheckedChangeListener
             }
             if (onSwitch) {
+                mypageViewModel.patchAlamToggle(true)
                 createBottomSheet()
             }
         }
@@ -189,6 +194,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun setBackGround(onSwitch: Boolean) {
         if (onSwitch) {
+            binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
             binding.tvMypageSettingTime.setTextColor(getColor(R.color.white))
             binding.clMypageSettingTime.setBackgroundResource(R.drawable.recatangle_radius_15dp_mypage_white08)
             binding.tvMypageSettingTime.setOnClickListener {
@@ -204,6 +210,9 @@ class MypageActivity : AppCompatActivity() {
             binding.tvMypageSettitngTimeDescription.visibility = View.GONE
             binding.tvMypageSettingTime.setOnClickListener { it.isClickable = false }
             binding.tvMypageSettitngTimeDescription.setOnClickListener { it.isClickable = false }
+            mypageViewModel.setDay = "AM"
+            mypageViewModel.setHour = 0
+            mypageViewModel.setMinute = 0
         }
     }
 
@@ -217,7 +226,8 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun saveSwitchActive() {
-        binding.switchMypagePushAlam.isChecked = switch.getBoolean(ALARM, false)
+        binding.switchMypagePushAlam.isChecked =
+            mypageViewModel.switchState.getBoolean(ALARM, false)
     }
 
     companion object {
