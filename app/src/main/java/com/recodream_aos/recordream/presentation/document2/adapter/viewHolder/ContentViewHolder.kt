@@ -10,7 +10,8 @@ class ContentViewHolder(
     private val binding: ItemDocumentContentBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ContentUiModel) {
+    fun bind(content: ContentUiModel) {
+        binding.content = content
     }
 
     companion object {

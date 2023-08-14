@@ -30,14 +30,16 @@ class DocumentssViewModel : ViewModel() {
     val tags: StateFlow<List<Genre>> get() = _tags
 
     init {
+        // content 프로퍼티 추가 및 모델 추가 후 submitList보내기
+        // 탭레이아웃 연결하면 끝
         _background.value = findBackgroundById(DATA.emotion)
         _icon.value = findIconById(DATA.emotion)
         _date.value = DATA.date
         _title.value = DATA.title
-        findTagBygenreId(DATA.genre)
+        findTagByGenreId(DATA.genre)
     }
 
-    private fun findTagBygenreId(genre: List<Int>) {
+    private fun findTagByGenreId(genre: List<Int>) {
         when (genre.contains(0)) {
             true -> _tags.value = listOf(Genre.getValue(-1))
             false -> {
@@ -60,6 +62,7 @@ class DocumentssViewModel : ViewModel() {
     }
 
     private fun findBackgroundById(id: Int): Int {
+        // 바인딩어댑터 사용
         return when (Emotion.getValue(id)) {
             JOY -> R.drawable.background_yellow
             SAD -> R.drawable.background_blue
