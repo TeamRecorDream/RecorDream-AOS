@@ -7,7 +7,7 @@
 
         <variable
             name="records"
-            type="com.recodream_aos.recordream.presentation.document.DocumentViewModel" />
+            type="com.team.recordream.presentation.document.DocumentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

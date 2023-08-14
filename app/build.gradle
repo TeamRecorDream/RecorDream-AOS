@@ -11,7 +11,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.recodream_aos.recordream"
+        applicationId "com.team.recordream"
         minSdk 26
         targetSdk 33
         versionCode 1

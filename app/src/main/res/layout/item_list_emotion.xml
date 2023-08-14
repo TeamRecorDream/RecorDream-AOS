@@ -7,11 +7,11 @@
 
         <variable
             name="emotion"
-            type="com.recodream_aos.recordream.presentation.record.uistate.EmotionUiState" />
+            type="com.team.recordream.presentation.record.uistate.EmotionUiState" />
 
         <variable
             name="onClick"
-            type="com.recodream_aos.recordream.presentation.record.RecordClickListener" />
+            type="com.team.recordream.presentation.record.RecordClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.recodream_aos.recordream.presentation.storagy.StorageViewModel" />
+            type="com.team.recordream.presentation.storagy.StorageViewModel" />
     </data>
 
 

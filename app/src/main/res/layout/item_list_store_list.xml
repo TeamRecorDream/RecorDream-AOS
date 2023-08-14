@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.recodream_aos.recordream.data.entity.remote.response.ResponseStorage.Record" />
+            type="com.team.recordream.data.entity.remote.response.ResponseStorage.Record" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +52,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_store_list_day"
             tools:text="@string/store_description" />
 
-        <com.recodream_aos.recordream.presentation.storagy.HashTag
+        <com.team.recordream.presentation.storagy.HashTag
             android:id="@+id/list_container_dream_tag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.recodream_aos.recordream">
+    package="com.team.recordream">
     <!-- Permissions of internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,7 +30,7 @@
     <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
     <application
-        android:name=".application.RecordreamApp"
+        android:name="com.team.recordream.application.RecordreamApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -46,32 +46,32 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".presentation.document2.DocumentssActivity"
+            android:name="com.team.recordream.presentation.document2.DocumentssActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.search.SearchActivity"
+            android:name="com.team.recordream.presentation.search.SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name="com.recodream_aos.recordream.presentation.document.InstagramActivity"
+            android:name="com.team.recordream.presentation.document.InstagramActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.record.RecordActivity"
+            android:name="com.team.recordream.presentation.record.RecordActivity"
             android:exported="true" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.MainActivity"
+            android:name="com.team.recordream.presentation.MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.login.LoginActivity"
+            android:name="com.team.recordream.presentation.login.LoginActivity"
 
             android:exported="false" />
         <activity
-            android:name="com.recodream_aos.recordream.presentation.mypage.MypageActivity"
+            android:name="com.team.recordream.presentation.mypage.MypageActivity"
             android:exported="false" />
 
         <activity
-            android:name="com.recodream_aos.recordream.presentation.document.DocumentActivity"
+            android:name="com.team.recordream.presentation.document.DocumentActivity"
             android:exported="true">
             <!--            <intent-filter>-->
             <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -80,7 +80,7 @@
             <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name="com.recodream_aos.recordream.presentation.splash.SplashActivity"
+            android:name="com.team.recordream.presentation.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
 
@@ -126,7 +126,7 @@
         </provider>
 
         <service
-            android:name=".util.RecorDreamFireBaseMessagingService"
+            android:name="com.team.recordream.util.RecorDreamFireBaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

@@ -7,7 +7,7 @@
 
         <variable
             name="home"
-            type="com.recodream_aos.recordream.presentation.home.HomeViewModel" />
+            type="com.team.recordream.presentation.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

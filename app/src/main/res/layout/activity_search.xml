@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.recodream_aos.recordream.presentation.search.SearchViewModel" />
+            type="com.team.recordream.presentation.search.SearchViewModel" />
 
     </data>
 
