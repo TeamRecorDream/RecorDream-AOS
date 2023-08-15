@@ -21,6 +21,7 @@ import com.team.recordream.util.RecorDreamFireBaseMessagingService
 import com.team.recordream.util.customview.CustomDialog
 import com.team.recordream.util.shortToastByInt
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
@@ -140,13 +141,13 @@ class MypageActivity : AppCompatActivity() {
                         )
                         binding.edtMypageName.isEnabled = false
                         mypageViewModel.userName.value = binding.edtMypageName.text.toString()
-                        Log.d("mypage", "2editName: enter클릭했다")
+                        Timber.d("2번 클릭했다")
                     }
 
                     else -> // 기본 엔터키 동작
                         return@OnEditorActionListener false
                 }
-                Log.d("mypage", "editName: 3")
+                Timber.d("mypage", "editName: 3")
                 true
             },
         )

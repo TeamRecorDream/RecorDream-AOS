@@ -40,28 +40,6 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
             binding.tvStoreGridDay.text = data.date
             binding.tvStoreGridDescription.text = dreamDescription
             binding.gridContainerDreamTag.setTips(data.genre)
-
-//            binding.gridContainerDreamTag.run {
-//                val bindingDreamTag = {
-//                    ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
-//                }
-//
-//                removeAllViews()
-//                data.genre.map { item ->
-//                    bindingDreamTag().apply {
-//                        tvStoreTag.text = checkGenreList(item)
-//
-//                    }
-//                }.forEach {
-//                    val margins =
-//                        (binding.gridContainerDreamTag.layoutParams as ConstraintLayout.LayoutParams).apply {
-//                            leftMargin = 10
-//                            rightMargin = 10
-//                        }
-//
-//                    addView(it.root)
-//                }
-//            }
         }
 
         companion object {
@@ -95,7 +73,7 @@ class StorageGridAdapter(private val itemClick: (ResponseStorage.Record) -> Unit
 
             val icon: Int,
 
-            ) {
+        ) {
 
             JOY(1, R.drawable.feeling_m_joy),
             SAD(2, R.drawable.feeling_m_sad),
