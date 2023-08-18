@@ -77,6 +77,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         collectStateProgressBar()
         collectReplayTimeProgress()
         collectNowTimeProgress()
+        collectStateIsOverTime()
     }
 
     private fun collectRecordButtonState() {
@@ -129,6 +130,12 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     private fun collectStateProgressBar() {
         collectWithLifecycle(recordBottomSheetViewModel.fullProgressBar) { state ->
             if (state) recorder.stopPlaying()
+        }
+    }
+
+    private fun collectStateIsOverTime() {
+        collectWithLifecycle(recordBottomSheetViewModel.isOverTime) { isOverTime ->
+            if (isOverTime) handleAfterRecording()
         }
     }
 
