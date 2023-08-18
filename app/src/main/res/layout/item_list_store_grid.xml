@@ -11,9 +11,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="158dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="5dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
         android:paddingBottom="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/tv_store_grid_description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:breakStrategy="simple"
