@@ -38,9 +38,7 @@ class StorageViewModel @Inject constructor(
             }.onSuccess {
                 _storageRecords.value = it?.records
                 _storageRecordCount.value = it?.recordsCount
-                Log.d("checkNetworkError", "initServer1: $it")
             }.onFailure {
-                Log.d("checkNetworkError", "initServer: ")
                 Timber.d("${it.message}")
                 errorMessage.value = it.message
             }
