@@ -32,4 +32,10 @@ object RecordreamSharedPreference {
     }
 
     fun getValue(key: String): String? = recordreamStorage.getString(key, DEFAULT_VALUE)
+
+    fun logout() {
+        // 로그아웃 시에 AccessToken을 제거합니다.
+        recordreamStorage.edit().remove("ACCESS_TOKEN").apply()
+        // 다른 로그아웃 관련 작업을 수행할 수 있습니다.
+    }
 }

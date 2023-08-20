@@ -9,4 +9,6 @@ interface SharedPreferenceDataSource {
     fun getAccessToken(): String
 
     fun getRefreshToken(): String
+
+    fun removeAccessToken()
 }

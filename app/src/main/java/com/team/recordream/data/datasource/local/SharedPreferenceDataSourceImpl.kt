@@ -20,6 +20,10 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
     override fun getRefreshToken(): String =
         recordreamSharedPreference.getValue(REFRESH_TOKEN) ?: ""
 
+    override fun removeAccessToken() {
+        recordreamSharedPreference.logout()
+    }
+
     companion object {
         const val ACCESS_TOKEN = "ACCESS_TOKEN"
         const val REFRESH_TOKEN = "REFRESH_TOKEN"
