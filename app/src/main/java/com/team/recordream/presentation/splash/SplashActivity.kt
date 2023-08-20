@@ -7,9 +7,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.team.recordream.R
 import com.team.recordream.base.BindingActivity
-import com.team.recordream.databinding.ActivitySplashBinding
 import com.team.recordream.presentation.MainActivity
 import com.team.recordream.presentation.login.LoginActivity
 import com.team.recordream.presentation.splash.SplashViewModel.*
@@ -23,6 +21,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_splash) {
+
     private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
