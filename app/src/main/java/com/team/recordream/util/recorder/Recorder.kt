@@ -1,4 +1,4 @@
-package com.team.recordream.util.Recorder // ktlint-disable package-name
+package com.team.recordream.util.recorder
 
 import android.content.Context
 import android.media.MediaPlayer
