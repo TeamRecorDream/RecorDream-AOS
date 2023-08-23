@@ -3,7 +3,7 @@ package com.team.recordream.application
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
 import com.team.recordream.R
-import com.team.recordream.data.datasource.local.RecordreamSharedPreference
+import com.team.recordream.data.datasource.local.AuthTokenStorage
 import dagger.hilt.android.HiltAndroidApp
 import io.grpc.android.BuildConfig
 import timber.log.Timber
@@ -31,6 +31,6 @@ class RecordreamApp : Application() {
     }
 
     private fun initSharedPreferences() {
-        RecordreamSharedPreference.init(applicationContext)
+        AuthTokenStorage.init(applicationContext)
     }
 }

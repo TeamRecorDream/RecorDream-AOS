@@ -8,7 +8,7 @@ import androidx.security.crypto.MasterKeys
 import javax.inject.Singleton
 
 @Singleton
-object RecordreamSharedPreference {
+object AuthTokenStorage {
     private lateinit var recordreamStorage: SharedPreferences
     private const val DEFAULT_VALUE = ""
 
