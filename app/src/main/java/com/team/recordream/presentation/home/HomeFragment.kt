@@ -19,11 +19,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private lateinit var homeAdapter: HomeAdapter
     private val homeViewModel by viewModels<HomeViewModel>()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapterHomeCard()
-        initRefresh()
+//        initRefresh()
         bindViewModel()
 
         homeViewModel.userRecords.observe(viewLifecycleOwner) {
@@ -40,7 +39,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         super.onResume()
         homeViewModel.updateHome()
     }
-
 
     private fun initAdapterHomeCard() {
         homeAdapter = HomeAdapter(::navigateToDetailView)
@@ -65,7 +63,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                },
+                }
             )
         }
     }
@@ -74,12 +72,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         startActivity(DetailActivity.getIntent(requireContext(), userRecord.id))
     }
 
-    private fun initRefresh() {
-        val swipeRefreshLayout = binding.swipeRefreshLayout
-        swipeRefreshLayout.setOnRefreshListener {
-            homeViewModel.updateHome()
-            swipeRefreshLayout.isRefreshing = true
-            swipeRefreshLayout.isRefreshing = false
-        }
-    }
+//    private fun initRefresh() {
+//        val swipeRefreshLayout = binding.swipeRefreshLayout
+//        swipeRefreshLayout.setOnRefreshListener {
+//            homeViewModel.updateHome()
+//            swipeRefreshLayout.isRefreshing = true
+//            swipeRefreshLayout.isRefreshing = false
+//        }
+//    }
 }
