@@ -23,6 +23,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_splash) {
+
     private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
