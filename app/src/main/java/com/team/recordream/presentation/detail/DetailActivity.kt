@@ -23,16 +23,20 @@ class DetailActivity :
     BindingActivity<ActivityDetailBinding>(R.layout.activity_detail) {
     private val contentAdapter: ContentAdapter by lazy { ContentAdapter() }
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
+    private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
     private val documentViewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         bindViewModel()
-        collectViewTags()
+        collectState()
         attachAdapter()
         initView()
+        setEventOnClick()
+    }
 
+    private fun setEventOnClick() {
         binding.ivDocumentMore.setOnClickListener {
             initBottomSheetFragment()
         }
@@ -49,10 +53,7 @@ class DetailActivity :
     }
 
     private fun initBottomSheetFragment() {
-        DetailBottomSheetFragment().show(
-            supportFragmentManager,
-            DetailBottomSheetFragment().tag,
-        )
+        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
     }
 
     private fun bindViewModel() {
@@ -60,14 +61,23 @@ class DetailActivity :
         binding.lifecycleOwner = this
     }
 
-    private fun collectViewTags() {
-        collectWithLifecycle(documentViewModel.tags) {
-            genreTagAdapter.submitList(it)
+    private fun collectState() {
+        collectWithLifecycle(documentViewModel.content) { contents ->
+            contentAdapter.submitList(contents)
+        }
+
+        collectWithLifecycle(documentViewModel.tags) { genre ->
+            genreTagAdapter.submitList(genre)
+        }
+
+        collectWithLifecycle(documentViewModel.isRemoved) { isRemoved ->
+            if (isRemoved) finish()
         }
     }
 
     private fun attachAdapter() {
         binding.rvDocumentChip.adapter = genreTagAdapter
+        binding.rvDocumentChip.setHasFixedSize(true)
         binding.vpDocumentContent.adapter = contentAdapter
         TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
     }
