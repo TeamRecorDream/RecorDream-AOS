@@ -16,6 +16,7 @@ import com.team.recordream.presentation.storagy.StorageViewModel
 import com.team.recordream.presentation.storagy.adapter.StorageEmotionAdapter
 import com.team.recordream.presentation.storagy.adapter.StorageGridAdapter
 import com.team.recordream.presentation.storagy.adapter.StorageListAdapter
+import com.team.recordream.util.makeSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,6 +45,7 @@ class StorageFragment : Fragment() {
         initGridAdapter()
         binding.viewModel = storageViewModel
         StorageDataObserver()
+        checkNetworkError()
         selectShowView()
     }
 
@@ -64,6 +66,9 @@ class StorageFragment : Fragment() {
 
             storageRecords.observe(viewLifecycleOwner) { records ->
                 binding.tvStorageNoList.visibility = View.INVISIBLE
+                if (records == null) {
+                    view?.makeSnackBar(R.string.network_error)
+                }
                 if (storageCheck) {
                     storageGridAdapter.submitList(records)
                     storageEmotionAdapter.submitList(storageViewModel.storageList)
@@ -80,6 +85,13 @@ class StorageFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun checkNetworkError() {
+//        storageViewModel.errorMessage.observe(viewLifecycleOwner) {
+//            Log.d("storage", "checkNetworkError: $it")
+//            Timber.tag("storage").d(" $it")
+//        }
     }
 
     private fun emotionAdapterInit() {

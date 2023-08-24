@@ -135,4 +135,7 @@ dependencies {
 
     //인스타 공유 위한  Facebook SDK 추가
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+
+    //lottie
+    implementation 'com.airbnb.android:lottie:6.1.0'
 }

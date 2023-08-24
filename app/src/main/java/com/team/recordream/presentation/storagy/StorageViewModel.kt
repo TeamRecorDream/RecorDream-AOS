@@ -10,6 +10,7 @@ import com.team.recordream.data.entity.remote.response.ResponseStorage
 import com.team.recordream.domain.repository.StorageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,11 +29,18 @@ class StorageViewModel @Inject constructor(
 
     private val _storageCheckList = MutableLiveData<Boolean>()
     val storageCheckList: LiveData<Boolean> get() = _storageCheckList
-
+    val errorMessage: MutableLiveData<String> = MutableLiveData()
     fun initServer(getEmotion: Int) {
         viewModelScope.launch {
-            _storageRecords.value = storageRepository.getStorage(getEmotion)?.data?.records
-            _storageRecordCount.value = storageRepository.getStorage(getEmotion)?.data?.recordsCount
+            kotlin.runCatching {
+                storageRepository.getStorage(getEmotion)?.data
+            }.onSuccess {
+                _storageRecords.value = it?.records
+                _storageRecordCount.value = it?.recordsCount
+            }.onFailure {
+                Timber.d("${it.message}")
+                errorMessage.value = it.message
+            }
         }
     }
 

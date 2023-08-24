@@ -109,5 +109,6 @@
     <string name="error_basefragment">"[ERROR]Binding no initialization"</string>
     <string name="document_title">기록 상세보기</string>
 
+    <string name="network_error">네트워크에 연결할 수 없습니다. 확인 후 다시 시도해 주세요.</string>
 
 </resources>

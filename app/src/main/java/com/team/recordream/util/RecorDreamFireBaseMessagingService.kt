@@ -12,11 +12,12 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.team.recordream.R
 import com.team.recordream.presentation.MainActivity
+import timber.log.Timber
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.d("fcm", "onNewToken: $token")
+        Timber.d("fcm", "onNewToken: $token")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {

@@ -60,11 +60,11 @@ class AuthRepositoryImpl @Inject constructor(
     override fun unLinkKakaoAccount(initSuccessWithdraw: (Boolean) -> Unit) {
         UserApiClient.instance.unlink { error ->
             if (error != null) {
-                Log.d("kakao", "unLinkKakaoAccount: 연결 끊기 실패")
+                Timber.d("kakao", "unLinkKakaoAccount: 연결 끊기 실패")
                 Timber.tag("kakao").e(error, "연결 끊기 실패")
                 initSuccessWithdraw(false)
             } else {
-                Log.d("kakao", "unLinkKakaoAccount: 연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                Timber.d("kakao", "unLinkKakaoAccount: 연결 끊기 성공. SDK에서 토큰 삭제 됨")
                 Timber.tag("kakao").d("연결 끊기 성공. SDK에서 토큰 삭제 됨")
                 initSuccessWithdraw(true)
             }
@@ -99,7 +99,7 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun getFcmToken(getFcmToken: (String) -> Unit) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             getFcmToken(requireNotNull(task.result))
-            Log.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
+            Timber.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
         }
         )
     }
@@ -108,14 +108,14 @@ class AuthRepositoryImpl @Inject constructor(
         return kotlin.runCatching {
             authDataSource.patchSignOut()
         }.onFailure {
-            Log.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
+            Timber.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
             it.message
         }
     }
 
     override suspend fun deleteUser(): Result<NoDataResponse> =
         kotlin.runCatching { authDataSource.deleteUser() }
-            .onFailure { Log.d("delete", "deleteUser: fail") }
+            .onFailure { Timber.d("delete", "deleteUser: fail") }
 
     companion object {
         const val NO_TOKEN = 400

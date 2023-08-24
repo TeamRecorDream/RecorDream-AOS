@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -19,8 +18,10 @@ import com.team.recordream.databinding.ActivityMypageBinding
 import com.team.recordream.presentation.login.LoginActivity
 import com.team.recordream.util.RecorDreamFireBaseMessagingService
 import com.team.recordream.util.customview.CustomDialog
+import com.team.recordream.util.makeSnackBar
 import com.team.recordream.util.shortToastByInt
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MypageActivity : AppCompatActivity() {
@@ -68,10 +69,15 @@ class MypageActivity : AppCompatActivity() {
     private fun mypageDataObserver() {
         with(mypageViewModel) {
             userName.observe(this@MypageActivity) { name ->
-                if (name.toString().isNullOrBlank()) {
+                if (name.isNullOrBlank()) {
+                    if (binding.tvMypageEmail.text.isNullOrEmpty()) {
+                        binding.edtMypageName.makeSnackBar(R.string.network_error)
+                        return@observe
+                    }
                     shortToastByInt(R.string.mypage_name_warning)
+                    binding.edtMypageName.setText("")
                 } else {
-                    binding.edtMypageName.setText(name)
+                    binding.edtMypageName.setText(name.toString())
                     putUserName()
                 }
             }
@@ -140,13 +146,13 @@ class MypageActivity : AppCompatActivity() {
                         )
                         binding.edtMypageName.isEnabled = false
                         mypageViewModel.userName.value = binding.edtMypageName.text.toString()
-                        Log.d("mypage", "2editName: enter클릭했다")
+                        Timber.d("2번 클릭했다")
                     }
 
                     else -> // 기본 엔터키 동작
                         return@OnEditorActionListener false
                 }
-                Log.d("mypage", "editName: 3")
+                Timber.d("mypage", "editName: 3")
                 true
             },
         )

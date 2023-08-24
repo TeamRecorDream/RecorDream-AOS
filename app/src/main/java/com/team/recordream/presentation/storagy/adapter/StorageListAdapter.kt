@@ -1,5 +1,6 @@
 package com.team.recordream.presentation.storagy.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -37,19 +38,6 @@ class StorageListAdapter(private val itemClick: (ResponseStorage.Record) -> (Uni
             binding.clStorageListBackground.setBackgroundResource(checkEmotionBackground(data.emotion))
             binding.ivStoreListIcon.setBackgroundResource(checkemotionIcon(data.emotion))
             binding.listContainerDreamTag.setTips(data.genre)
-//            binding.listContainerDreamTag.run {
-//                val bindingDreamTag = {
-//                    ItemListStoreTagBinding.inflate(LayoutInflater.from(binding.root.context))
-//                }
-//                removeAllViews()
-//                data.genre.map { item ->
-//                    bindingDreamTag().apply {
-//                        tvStoreTag.text = checkGenreList(item)
-//                    }
-//                }.forEach {
-//                    addView(it.root)
-//                }
-//            }
         }
 
         companion object {
