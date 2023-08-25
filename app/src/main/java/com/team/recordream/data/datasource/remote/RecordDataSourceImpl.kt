@@ -1,6 +1,7 @@
 package com.team.recordream.data.datasource.remote
 
 import com.team.recordream.data.api.RecordService
+import com.team.recordream.data.entity.remote.request.RequestNewRecordDto
 import com.team.recordream.data.entity.remote.request.RequestRecordDto
 import com.team.recordream.data.entity.remote.response.ResponseRecordDto
 import com.team.recordream.data.entity.remote.response.ResponseVoiceDto
@@ -30,5 +31,12 @@ class RecordDataSourceImpl @Inject constructor(
             true -> SUCCESS(result.data)
             false -> FAIL(Error.DisabledDataCall(result.message))
         }
+    }
+
+    override suspend fun patchRecord(
+        recordId: String,
+        requestBody: RequestNewRecordDto
+    ) {
+        return recordService.patchRecord(recordId, requestBody)
     }
 }

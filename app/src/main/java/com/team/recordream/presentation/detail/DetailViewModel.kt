@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
 import com.team.recordream.domain.repository.DocumentRepository
+import com.team.recordream.presentation.detail.model.Content
 import com.team.recordream.presentation.record.uistate.Genre
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val documentRepository: DocumentRepository,
 ) : ViewModel() {
+    var recordId: String = ""
+        private set
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
     val background: StateFlow<Int> get() = _background
 
@@ -31,7 +34,15 @@ class DetailViewModel @Inject constructor(
     private val _tags: MutableStateFlow<List<Genre>> = MutableStateFlow(listOf())
     val tags: StateFlow<List<Genre>> get() = _tags
 
-    fun updateDetailRecord(recordId: String) {
+    private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isRemoved: StateFlow<Boolean> get() = _isRemoved
+
+    private val _content: MutableStateFlow<MutableList<Content>> =
+        MutableStateFlow(mutableListOf())
+    val content: StateFlow<List<Content>> get() = _content
+
+    fun updateDetailRecord(id: String) {
+        recordId = id
         viewModelScope.launch {
             documentRepository.getDetailRecord(recordId)
                 .onSuccess {
@@ -40,9 +51,26 @@ class DetailViewModel @Inject constructor(
                     _date.value = it.date
                     _title.value = it.title
                     findTagByGenreId(it.genre)
+                    _content.value.add(Content(CONTENT_CATEGORY_DREAM_RECORD, it.content ?: BLANK))
+                    _content.value.add(Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK))
                 }
                 .onFailure {
-                    Log.d("123123", it.message.toString())
+                    Log.d("123123-DetailViewModel", it.message.toString())
+                }
+        }
+    }
+
+    fun updateRemovedRecord() {
+        _isRemoved.value = true
+        removeDetailRecord()
+    }
+
+    private fun removeDetailRecord() {
+        viewModelScope.launch {
+            documentRepository.deleteDetailRecord(recordId)
+                .onSuccess {
+                }
+                .onFailure {
                 }
         }
     }
@@ -88,5 +116,11 @@ class DetailViewModel @Inject constructor(
                 emotion.ordinal + 1 == emotionId
             } ?: ALL
         }
+    }
+
+    companion object {
+        private const val BLANK = ""
+        private const val CONTENT_CATEGORY_NOTE = "노트"
+        private const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
     }
 }

@@ -1,9 +1,11 @@
 package com.team.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
+import com.team.recordream.domain.repository.DocumentRepository
 import com.team.recordream.domain.repository.RecordRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
@@ -25,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
+    private val documentRepository: DocumentRepository
 ) : ViewModel() {
     val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
 
@@ -75,11 +78,42 @@ class RecordViewModel @Inject constructor(
         }
     }
 
+
+    fun initEditViewState(recordId: String) {
+        viewModelScope.launch {
+            documentRepository.getDetailRecord(recordId)
+                .onSuccess { record ->
+                    _date.value = record.date
+                    title.value = record.title
+                    note.value = record.note
+                    content.value = record.content
+                    if (record.emotion == 6) _emotion.value = null
+                    _emotion.value = record.emotion!! - CORRECTION_VALUE
+                    _genre.value.addAll(record.genre - CORRECTION_VALUE)
+                    _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+
+
+                    Log.d("123123-viewmodel-emotion-value", emotion.value.toString())
+                }
+        }
+    }
+
+    fun editRecord(recordId: String) {
+        viewModelScope.launch {
+            runCatching {
+                recordRepository.updateRecord(recordId, getRecord())
+                Log.d("123123", title.value)
+            }
+                .onSuccess {}
+                .onFailure {}
+        }
+    }
+
     private fun getRecord(): Record = Record(
         title = title.value,
         date = date.value,
         content = content.value,
-        emotion = emotion.value,
+        emotion = emotion.value ?: DEFAULT_EMOTION,
         genre = genre.value.ifEmpty { null },
         note = note.value,
         voice = voiceId.value,
@@ -106,7 +140,7 @@ class RecordViewModel @Inject constructor(
             _emotion.value = null
             return
         }
-        _emotion.value = emotionId
+        _emotion.value = emotionId + CORRECTION_VALUE
     }
 
     fun updateSelectedGenreId(genre: Genre) {
@@ -155,7 +189,7 @@ class RecordViewModel @Inject constructor(
     companion object {
         private const val BLANK = ' '
         private const val DEFAULT_VALUE_STRING = ""
-        private const val EMOTION_ALL = 0
+        private val EMOTION_ALL = null
         private val DEFAULT_VALUE_NULL = null
         private const val DEFAULT_TIME = "00:00"
         private const val DATE_PATTERN = "yyyy-MM-dd"
@@ -169,5 +203,6 @@ class RecordViewModel @Inject constructor(
         private const val NON_CONTAINED = false
         private const val SHOW = true
         private const val HIDE = false
+        private const val DEFAULT_EMOTION = 6
     }
 }

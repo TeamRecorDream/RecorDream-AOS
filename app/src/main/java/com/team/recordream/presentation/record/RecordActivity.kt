@@ -1,4 +1,4 @@
-package com.team.recordream.presentation.record // ktlint-disable package-name
+package com.team.recordream.presentation.record
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -30,23 +30,51 @@ import kotlinx.coroutines.launch
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
     private val recordAdapter: RecordAdapter by lazy { RecordAdapter(setClickEventOnEmotions()) }
+    private val viewMode by lazy { intent.getStringExtra(VIEW_MODE) }
+    private val recordId by lazy {
+        intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
+    }
+
 
     private fun setClickEventOnEmotions() = object : RecordClickListener {
         override fun setClickEventOnEmotion(emotionId: Int) {
-            recordAdapter.updateEmotionState(emotionId)
+            Log.d("123123- 클릭", emotionId.toString())
             recordViewModel.updateSelectedEmotionId(emotionId)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViewModel()
+
+        collectViewState()
+        initView()
+        bindViewModel()
         attachAdapter()
         setClickListener()
-        observe()
     }
 
-    private fun observe() {
+    private fun initView() {
+        when (viewMode) {
+            EDIT_MODE -> {
+                binding.tvRecordRecord.text = getString(R.string.tv_record_edit)
+                setEditView()
+            }
+
+            CREATE_MODE -> binding.tvRecordRecord.text = getString(R.string.tv_record_create)
+        }
+    }
+
+    private fun setEditView() {
+        recordViewModel.initEditViewState(recordId)
+    }
+
+
+    private fun collectViewState() {
+        collectWithLifecycle(recordViewModel.emotion) { emotion ->
+            Log.d("123123- 초기값", emotion.toString())
+            recordAdapter.updateEmotionState(emotion)
+        }
+
         collectWithLifecycle(recordViewModel.title) {
             recordViewModel.updateSaveButtonEnabled()
         }
@@ -61,7 +89,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         }
     }
 
-    private fun initViewModel() {
+    private fun bindViewModel() {
         binding.viewModel = recordViewModel
         binding.lifecycleOwner = this
     }
@@ -73,13 +101,31 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun setClickListener() {
         binding.clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
-        binding.clRecordRecordBtn.setOnClickListener { initRecordBottomSheetDialog() }
         binding.ivRecordClose.setOnClickListener { finish() }
-        binding.btnRecordSave.setOnClickListener {
-            when (recordViewModel.isSaveEnabled.value) {
-                true -> recordViewModel.postRecord()
-                false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
+        binding.clRecordRecordBtn.setOnClickListener {
+            when (viewMode) {
+                EDIT_MODE -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_disable_recording)
+                CREATE_MODE -> initRecordBottomSheetDialog()
             }
+        }
+        binding.btnRecordSave.setOnClickListener {
+            when (viewMode) {
+                EDIT_MODE -> editRecord()
+                CREATE_MODE -> createRecord()
+            }
+        }
+
+    }
+
+    private fun editRecord() {
+        recordViewModel.editRecord(recordId)
+        finish()
+    }
+
+    private fun createRecord() {
+        when (recordViewModel.isSaveEnabled.value) {
+            true -> recordViewModel.postRecord()
+            false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
         }
     }
 
@@ -121,7 +167,15 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     companion object {
-        fun getIntent(context: Context): Intent =
-            Intent(context, RecordActivity::class.java)
+        private const val VIEW_MODE = "VIEW_MODE"
+        private const val RECORD_ID = "RECORD_ID"
+        const val CREATE_MODE = "CREATE_MODE"
+        const val EDIT_MODE = "EDIT_MODE"
+
+        fun getIntent(context: Context, viewMode: String, recordId: String?): Intent =
+            Intent(context, RecordActivity::class.java).apply {
+                putExtra(VIEW_MODE, viewMode)
+                putExtra(RECORD_ID, recordId)
+            }
     }
 }

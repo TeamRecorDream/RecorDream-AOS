@@ -3,7 +3,7 @@ package com.team.recordream.data.datasource.local // ktlint-disable package-name
 import javax.inject.Inject
 
 class SharedPreferenceDataSourceImpl @Inject constructor(
-    private val recordreamSharedPreference: RecordreamSharedPreference,
+    private val recordreamSharedPreference: AuthTokenStorage,
 ) : SharedPreferenceDataSource {
 
     override fun setAccessToken(accessToken: String?) {

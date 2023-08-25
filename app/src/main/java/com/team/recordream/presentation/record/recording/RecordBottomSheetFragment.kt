@@ -26,7 +26,7 @@ import com.team.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
-import com.team.recordream.util.Recorder.Recorder
+import com.team.recordream.util.recorder.Recorder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest

@@ -1,5 +1,6 @@
 package com.team.recordream.di // ktlint-disable package-name
 
+import com.team.recordream.data.api.DocumentService
 import com.team.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.team.recordream.data.datasource.remote.*
 import com.team.recordream.data.repository.*
@@ -42,8 +43,8 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesDocumentRepository(
-        documentDataSource: DocumentDataSource
-    ): DocumentRepository = DocumentRepositoryImpl(documentDataSource)
+        documentService: DocumentService
+    ): DocumentRepository = DocumentRepositoryImpl(documentService)
 
     @Provides
     @Singleton

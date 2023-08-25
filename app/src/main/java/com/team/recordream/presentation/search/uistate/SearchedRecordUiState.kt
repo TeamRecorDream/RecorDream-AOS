@@ -1,7 +1,7 @@
 package com.team.recordream.presentation.search.uistate
 
 data class SearchedRecordUiState(
-    val _id: String,
+    val id: String,
     val date: String,
     val emotion: Int,
     val genre: List<Int>,

@@ -1,6 +1,6 @@
 package com.team.recordream.di // ktlint-disable package-name
 
-import com.team.recordream.data.datasource.local.RecordreamSharedPreference
+import com.team.recordream.data.datasource.local.AuthTokenStorage
 import com.team.recordream.data.datasource.local.SharedPreferenceDataSource
 import com.team.recordream.data.datasource.local.SharedPreferenceDataSourceImpl
 import dagger.Module
@@ -16,5 +16,5 @@ object LocalDataSourceModule {
     @Provides
     @Singleton
     fun provideSharedPreferenceImpl(): SharedPreferenceDataSource =
-        SharedPreferenceDataSourceImpl(RecordreamSharedPreference)
+        SharedPreferenceDataSourceImpl(AuthTokenStorage)
 }
