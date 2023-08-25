@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RequestRecordDto(
+data class RequestNewRecordDto(
     @SerialName("title")
     val title: String,
     @SerialName("date")
@@ -17,6 +17,4 @@ data class RequestRecordDto(
     val genre: List<Int>?,
     @SerialName("note")
     val note: String?,
-    @SerialName("voice")
-    val voice: String?,
 )

@@ -45,7 +45,8 @@
     <string name="myopage_format_date">%02d</string>
 
     <!-- 기록하기 뷰 -->
-    <string name="tv_record_record">기록하기</string>
+    <string name="tv_record_create">기록하기</string>
+    <string name="tv_record_edit">수정하기</string>
     <string name="tv_record_date">날짜</string>
     <string name="tv_record_voice_record">음성녹음</string>
     <string name="tv_record_hint_title">꿈의 제목을 남겨주세요.</string>
@@ -53,6 +54,7 @@
     <string name="tv_record_emotion">나의 감정</string>
     <string name="tv_record_genre">꿈의 장르</string>
     <string name="tv_record_warning_max_genre">!꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
+    <string name="tv_record_warning_disable_recording">녹음은 수정할 수 없어요.</string>
     <string name="tv_record_note">노트</string>
     <string name="tv_record_hint_note">꿈에 대해 따로 기록할 게 있나요?</string>
     <string name="tv_record_hint_content">무슨 꿈을 꾸셨나요?</string>

@@ -10,6 +10,7 @@ import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.domain.util.Error
 import com.team.recordream.mapper.toDomain
+import com.team.recordream.mapper.toNewRequestBody
 import com.team.recordream.mapper.toRequestBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -36,6 +37,14 @@ class RecordRepositoryImpl @Inject constructor(
         return when (val result = recordDataSource.postRecord(requestBody)) {
             is SUCCESS -> SUCCESS(result.data.toDomain())
             is FAIL -> FAIL(Error.DisabledDataCall(result.error.errorMessage))
+        }
+    }
+
+    override suspend fun updateRecord(recordId: String, record: Record): Result<Unit> {
+        return runCatching {
+            recordDataSource.patchRecord(
+                recordId, record.toNewRequestBody()
+            )
         }
     }
 

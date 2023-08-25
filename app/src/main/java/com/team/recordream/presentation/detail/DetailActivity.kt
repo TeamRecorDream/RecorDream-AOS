@@ -3,6 +3,7 @@ package com.team.recordream.presentation.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +26,9 @@ class DetailActivity :
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
     private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
     private val documentViewModel: DetailViewModel by viewModels()
+    private val recordId by lazy {
+        intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +36,13 @@ class DetailActivity :
         bindViewModel()
         collectState()
         attachAdapter()
-        initView()
         setEventOnClick()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("123123", "수정하기하고 저장누르면 이거 뜨나? 화깅ㄴ 고고")
+        initView()
     }
 
     private fun setEventOnClick() {
@@ -47,8 +56,6 @@ class DetailActivity :
     }
 
     private fun initView() {
-        val recordId = intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
-
         documentViewModel.updateDetailRecord(recordId)
     }
 

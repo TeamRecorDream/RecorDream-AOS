@@ -45,7 +45,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun setClickEvents() {
         binding.ivMainMypage.setOnClickListener { startActivity(MypageActivity.getIntent(this)) }
-        binding.ivNaviWriteBtn.setOnClickListener { startActivity(RecordActivity.getIntent(this)) }
+        binding.ivNaviWriteBtn.setOnClickListener {
+            startActivity(
+                RecordActivity.getIntent(
+                    this,
+                    RecordActivity.CREATE_MODE,
+                    null
+                )
+            )
+        }
         binding.ivMainSearch.setOnClickListener { startActivity(SearchActivity.getIntent(this)) }
     }
 

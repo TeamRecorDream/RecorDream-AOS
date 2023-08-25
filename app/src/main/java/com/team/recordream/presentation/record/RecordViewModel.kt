@@ -1,9 +1,11 @@
 package com.team.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
+import com.team.recordream.domain.repository.DocumentRepository
 import com.team.recordream.domain.repository.RecordRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
@@ -25,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
+    private val documentRepository: DocumentRepository
 ) : ViewModel() {
     val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
 
@@ -72,6 +75,33 @@ class RecordViewModel @Inject constructor(
                     }
                 }
                 .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
+        }
+    }
+
+
+    fun initEditViewState(recordId: String) {
+        viewModelScope.launch {
+            documentRepository.getDetailRecord(recordId)
+                .onSuccess { record ->
+                    _date.value = record.date
+                    title.value = record.title
+                    note.value = record.note
+                    content.value = record.content
+                    _emotion.value = record.emotion
+                    _genre.value.addAll(record.genre)
+                    _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                }
+        }
+    }
+
+    fun editRecord(recordId: String) {
+        viewModelScope.launch {
+            runCatching {
+                recordRepository.updateRecord(recordId, getRecord())
+                Log.d("123123", title.value)
+            }
+                .onSuccess {}
+                .onFailure {}
         }
     }
 

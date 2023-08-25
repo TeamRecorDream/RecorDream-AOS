@@ -17,8 +17,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val documentRepository: DocumentRepository,
 ) : ViewModel() {
-    private var recordId: String = ""
-
+    var recordId: String = ""
+        private set
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
     val background: StateFlow<Int> get() = _background
 
