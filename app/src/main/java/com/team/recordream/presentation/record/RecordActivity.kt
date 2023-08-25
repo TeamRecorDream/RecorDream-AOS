@@ -21,7 +21,6 @@ import com.team.recordream.util.StateHandler.IDLE
 import com.team.recordream.util.StateHandler.INVALID
 import com.team.recordream.util.StateHandler.VALID
 import com.team.recordream.util.anchorSnackBar
-import com.team.recordream.util.shortToastByInt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -39,7 +38,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun setClickEventOnEmotions() = object : RecordClickListener {
         override fun setClickEventOnEmotion(emotionId: Int) {
-            recordAdapter.updateEmotionState(emotionId)
+            Log.d("123123- 클릭", emotionId.toString())
             recordViewModel.updateSelectedEmotionId(emotionId)
         }
     }
@@ -47,11 +46,11 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        collectViewState()
         initView()
         bindViewModel()
         attachAdapter()
         setClickListener()
-        collectViewState()
     }
 
     private fun initView() {
@@ -67,17 +66,15 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun setEditView() {
         recordViewModel.initEditViewState(recordId)
-
-        when (recordViewModel.emotion.value == null) {
-            true -> return
-            false -> recordAdapter.updateEmotionState(
-                recordViewModel.emotion.value ?: throw IllegalArgumentException()
-            )
-        }
     }
 
 
     private fun collectViewState() {
+        collectWithLifecycle(recordViewModel.emotion) { emotion ->
+            Log.d("123123- 초기값", emotion.toString())
+            recordAdapter.updateEmotionState(emotion)
+        }
+
         collectWithLifecycle(recordViewModel.title) {
             recordViewModel.updateSaveButtonEnabled()
         }
@@ -107,7 +104,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.ivRecordClose.setOnClickListener { finish() }
         binding.clRecordRecordBtn.setOnClickListener {
             when (viewMode) {
-                EDIT_MODE -> shortToastByInt(R.string.tv_record_warning_disable_recording)
+                EDIT_MODE -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_disable_recording)
                 CREATE_MODE -> initRecordBottomSheetDialog()
             }
         }

@@ -1,5 +1,6 @@
 package com.team.recordream.presentation.record.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,13 +36,21 @@ class RecordAdapter(
 
     override fun getItemCount(): Int = emotionsUiState.size
 
-    fun updateEmotionState(selectedIndex: Int) {
-        when (selectedIndex == beforeSelectedIndex) {
-            true -> updateIfSelectSame()
-            false -> updateIfSelectNew(selectedIndex)
+    fun updateEmotionState(selectedIndex: Int?) {
+        if (selectedIndex == null) {
+            emotionsUiState.replaceAll { it.copy(selected = false) }
+            Log.d("123123- 이모션", emotionsUiState.toString())
+            notifyDataSetChanged()
+            return
         }
+        updateIfSelectNew(selectedIndex - 1)
 
-        beforeSelectedIndex = selectedIndex
+//        when (selectedIndex == beforeSelectedIndex) {
+//            true -> updateIfSelectSame()
+//            false -> updateIfSelectNew(selectedIndex)
+//        }
+//
+        beforeSelectedIndex = selectedIndex - 1
     }
 
     private fun updateIfSelectSame() {
