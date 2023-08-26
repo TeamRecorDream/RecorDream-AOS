@@ -6,7 +6,9 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -135,6 +137,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun initDatePickerDialog() {
+        // TODO: maxDate를 수정하기 날짜 이후도 선택 가능한지
         val cal = Calendar.getInstance()
 
         DatePickerDialog(
@@ -177,5 +180,15 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 putExtra(VIEW_MODE, viewMode)
                 putExtra(RECORD_ID, recordId)
             }
+
+        @JvmStatic
+        @BindingAdapter("formattedDate")
+        fun formatDate(textView: TextView, date: String) {
+            if (!date.contains("-")) {
+                textView.text = date.substringBefore(" ").replace("/", "-")
+                return
+            }
+            textView.text = date
+        }
     }
 }

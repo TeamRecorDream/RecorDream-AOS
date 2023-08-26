@@ -29,11 +29,12 @@ class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
     private val documentRepository: DocumentRepository
 ) : ViewModel() {
-    val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
-
     private val _date: MutableStateFlow<String> =
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
+
+
+    val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
 
     val content: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
 
@@ -132,7 +133,8 @@ class RecordViewModel @Inject constructor(
     }
 
     fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
-        _date.value = "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
+        _date.value =
+            "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"
     }
 
     fun updateSelectedEmotionId(emotionId: Int) {

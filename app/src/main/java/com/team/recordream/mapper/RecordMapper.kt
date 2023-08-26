@@ -24,7 +24,7 @@ fun Record.toRequestBody(): RequestRecordDto = RequestRecordDto(
 
 fun Record.toNewRequestBody(): RequestNewRecordDto = RequestNewRecordDto(
     title = title,
-    date = date.substringBefore(" ").replace("/", "-"),
+    date = date,
     content = content,
     emotion = emotion,
     genre = genre,
