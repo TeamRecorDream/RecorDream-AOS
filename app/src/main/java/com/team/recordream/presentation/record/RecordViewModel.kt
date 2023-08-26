@@ -33,10 +33,11 @@ class RecordViewModel @Inject constructor(
         MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
     val date: StateFlow<String> get() = _date
 
+    val title: MutableStateFlow<String> = MutableStateFlow("")
 
-    val title: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
+    val content: MutableStateFlow<String?> = MutableStateFlow("")
 
-    val content: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+    val note: MutableStateFlow<String> = MutableStateFlow("")
 
     private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(EMOTION_ALL)
     val emotion: StateFlow<Int?> get() = _emotion
@@ -44,7 +45,6 @@ class RecordViewModel @Inject constructor(
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
     val genre: StateFlow<List<Int>> get() = _genre
 
-    val note: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
 
     private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
     val voiceId: StateFlow<String?> get() = _voiceId
@@ -86,7 +86,7 @@ class RecordViewModel @Inject constructor(
                 .onSuccess { record ->
                     _date.value = record.date
                     title.value = record.title
-                    note.value = record.note
+                    if (record.note == null) note.value = ""
                     content.value = record.content
                     if (record.emotion == 6) _emotion.value = null
                     _emotion.value = record.emotion!! - CORRECTION_VALUE
@@ -138,11 +138,13 @@ class RecordViewModel @Inject constructor(
     }
 
     fun updateSelectedEmotionId(emotionId: Int) {
-        if (emotion.value == emotionId) {
+        val correctionId = emotionId + CORRECTION_VALUE
+
+        if (emotion.value == correctionId) {
             _emotion.value = null
             return
         }
-        _emotion.value = emotionId + CORRECTION_VALUE
+        _emotion.value = correctionId
     }
 
     fun updateSelectedGenreId(genre: Genre) {

@@ -17,6 +17,7 @@ import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityRecordBinding
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
+import com.team.recordream.presentation.record.model.EmotionState
 import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
 import com.team.recordream.util.StateHandler.DISCONNECT
 import com.team.recordream.util.StateHandler.IDLE
@@ -31,18 +32,14 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
-    private val recordAdapter: RecordAdapter by lazy { RecordAdapter(setClickEventOnEmotions()) }
+    private val recordAdapter: RecordAdapter by lazy { RecordAdapter(::updateEmotionState) }
     private val viewMode by lazy { intent.getStringExtra(VIEW_MODE) }
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
     }
 
-
-    private fun setClickEventOnEmotions() = object : RecordClickListener {
-        override fun setClickEventOnEmotion(emotionId: Int) {
-            Log.d("123123- 클릭", emotionId.toString())
-            recordViewModel.updateSelectedEmotionId(emotionId)
-        }
+    private fun updateEmotionState(emotionId: Int) {
+        recordViewModel.updateSelectedEmotionId(emotionId)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,26 +52,12 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         setClickListener()
     }
 
-    private fun initView() {
-        when (viewMode) {
-            EDIT_MODE -> {
-                binding.tvRecordRecord.text = getString(R.string.tv_record_edit)
-                setEditView()
-            }
-
-            CREATE_MODE -> binding.tvRecordRecord.text = getString(R.string.tv_record_create)
-        }
-    }
-
-    private fun setEditView() {
-        recordViewModel.initEditViewState(recordId)
-    }
-
-
     private fun collectViewState() {
         collectWithLifecycle(recordViewModel.emotion) { emotion ->
-            Log.d("123123- 초기값", emotion.toString())
-            recordAdapter.updateEmotionState(emotion)
+            val emotionStateContainer =
+                EmotionState.getEmotionContainer(emotion ?: EmotionState.SELECTED_ANYTHING)
+
+            recordAdapter.submitList(emotionStateContainer)
         }
 
         collectWithLifecycle(recordViewModel.title) {
@@ -89,6 +72,25 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 is IDLE -> Log.e("RecordActivity", "DEFAULT")
             }
         }
+    }
+
+    private fun navigateToDocumentView(recordId: String) {
+        startActivity(DetailActivity.getIntent(this, recordId))
+        finish()
+    }
+
+    private fun initView() {
+        when (viewMode) {
+            CREATE_MODE -> binding.tvRecordRecord.text = getString(R.string.tv_record_create)
+            EDIT_MODE -> {
+                binding.tvRecordRecord.text = getString(R.string.tv_record_edit)
+                setEditView()
+            }
+        }
+    }
+
+    private fun setEditView() {
+        recordViewModel.initEditViewState(recordId)
     }
 
     private fun bindViewModel() {
@@ -116,24 +118,6 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 CREATE_MODE -> createRecord()
             }
         }
-
-    }
-
-    private fun editRecord() {
-        recordViewModel.editRecord(recordId)
-        finish()
-    }
-
-    private fun createRecord() {
-        when (recordViewModel.isSaveEnabled.value) {
-            true -> recordViewModel.postRecord()
-            false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
-        }
-    }
-
-    private fun navigateToDocumentView(recordId: String) {
-        startActivity(DetailActivity.getIntent(this, recordId))
-        finish()
     }
 
     private fun initDatePickerDialog() {
@@ -154,6 +138,18 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun initRecordBottomSheetDialog() {
         RecordBottomSheetFragment().show(supportFragmentManager, RecordBottomSheetFragment().tag)
+    }
+
+    private fun editRecord() {
+        recordViewModel.editRecord(recordId)
+        finish()
+    }
+
+    private fun createRecord() {
+        when (recordViewModel.isSaveEnabled.value) {
+            true -> recordViewModel.postRecord()
+            false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
+        }
     }
 
     private inline fun <T> collectWithLifecycle(
