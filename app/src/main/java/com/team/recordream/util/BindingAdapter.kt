@@ -10,8 +10,8 @@ import com.team.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.*
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.*
-import com.team.recordream.presentation.record.uistate.Emotion
-import com.team.recordream.presentation.record.uistate.Emotion.*
+import com.team.recordream.presentation.record.model.Emotion
+import com.team.recordream.presentation.record.model.Emotion.*
 
 object BindingAdapter {
     @JvmStatic

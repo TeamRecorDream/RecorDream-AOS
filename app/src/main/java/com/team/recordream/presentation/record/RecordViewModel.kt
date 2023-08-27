@@ -45,6 +45,9 @@ class RecordViewModel @Inject constructor(
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
     val genre: StateFlow<List<Int>> get() = _genre
 
+    // 장르 1개로 관리하기
+    // 장르 워닝
+    // 버튼
 
     private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
     val voiceId: StateFlow<String?> get() = _voiceId
