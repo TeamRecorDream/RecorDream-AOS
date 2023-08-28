@@ -122,7 +122,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun handleRecorderStoppingState() {
-        recorder.startPlaying()
+        recorder.startPlaying(null)
         recordBottomSheetViewModel.startCountUp()
     }
 

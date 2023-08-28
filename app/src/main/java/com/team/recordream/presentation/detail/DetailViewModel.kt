@@ -21,6 +21,9 @@ class DetailViewModel @Inject constructor(
     var recordId: String = ""
         private set
 
+    var recordingFilePath: String? = ""
+        private set
+
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
     val background: StateFlow<Int> get() = _background
 
@@ -38,9 +41,6 @@ class DetailViewModel @Inject constructor(
 
     private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRemoved: StateFlow<Boolean> get() = _isRemoved
-
-    private val _recording: MutableStateFlow<String?> = MutableStateFlow("")
-    val recording: StateFlow<String?> get() = _recording
 
     private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
     val content: StateFlow<List<Content>> get() = _content
@@ -73,7 +73,7 @@ class DetailViewModel @Inject constructor(
                             _recorderState.value,
                         ),
                     )
-                    if (it.voice != null) _recording.value = it.voice.url
+                    if (it.voice != null) recordingFilePath = it.voice.url
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
@@ -84,13 +84,15 @@ class DetailViewModel @Inject constructor(
     fun updateRecorderState(selectedState: PlayButtonState) {
         when (selectedState) {
             PlayButtonState.RECORDER_PLAY -> {
+                _recorderState.value = PlayButtonState.RECORDER_STOP
                 _content.value =
-                    content.value.map { it.copy(state = PlayButtonState.RECORDER_STOP) }
+                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_STOP) }
             }
 
             PlayButtonState.RECORDER_STOP -> {
+                _recorderState.value = PlayButtonState.RECORDER_PLAY
                 _content.value =
-                    content.value.map { it.copy(state = PlayButtonState.RECORDER_PLAY) }
+                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_PLAY) }
             }
         }
     }
