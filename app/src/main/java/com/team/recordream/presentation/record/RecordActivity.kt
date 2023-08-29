@@ -60,8 +60,8 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             recordAdapter.submitList(emotionStateContainer)
         }
 
-        collectWithLifecycle(recordViewModel.title) {
-            recordViewModel.updateSaveButtonEnabled()
+        collectWithLifecycle(recordViewModel.title) { title ->
+            recordViewModel.updateSaveButtonEnabled(title)
         }
 
         collectWithLifecycle(recordViewModel.stateHandlerOfSavingRecord) { result ->
@@ -147,7 +147,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun createRecord() {
         when (recordViewModel.isSaveEnabled.value) {
-            true -> recordViewModel.postRecord()
+            true -> recordViewModel.saveRecord()
             false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
         }
     }

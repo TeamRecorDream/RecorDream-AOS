@@ -29,15 +29,15 @@ class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
     private val documentRepository: DocumentRepository
 ) : ViewModel() {
-    private val _date: MutableStateFlow<String> =
-        MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
-    val date: StateFlow<String> get() = _date
-
     val title: MutableStateFlow<String> = MutableStateFlow("")
 
     val content: MutableStateFlow<String?> = MutableStateFlow("")
 
     val note: MutableStateFlow<String> = MutableStateFlow("")
+
+    private val _date: MutableStateFlow<String> =
+        MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
+    val date: StateFlow<String> get() = _date
 
     private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(EMOTION_ALL)
     val emotion: StateFlow<Int?> get() = _emotion
@@ -45,31 +45,25 @@ class RecordViewModel @Inject constructor(
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
     val genre: StateFlow<List<Int>> get() = _genre
 
-    // 장르 1개로 관리하기
-    // 장르 워닝
-    // 버튼
-
-    private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
-    val voiceId: StateFlow<String?> get() = _voiceId
-
-    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
-    val recordingTime: StateFlow<String> get() = _recordingTime
-
-    private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val warningGenre: StateFlow<Boolean> get() = _warningGenre
-
     private val _genreEnabled: MutableStateFlow<List<Boolean>> =
         MutableStateFlow(List(ALL_GENRE) { true })
     val genreEnabled: StateFlow<List<Boolean>> get() = _genreEnabled
 
-    private val _isSaveEnabled: MutableStateFlow<Boolean> =
-        MutableStateFlow(false)
+    private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val warningGenre: StateFlow<Boolean> get() = _warningGenre
+
+    private val _isSaveEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isSaveEnabled: StateFlow<Boolean> get() = _isSaveEnabled
+
+    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
+    val recordingTime: StateFlow<String> get() = _recordingTime
 
     private val _stateHandlerOfSavingRecord: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
     val stateHandlerOfSavingRecord: StateFlow<StateHandler> get() = _stateHandlerOfSavingRecord
 
-    fun postRecord() {
+    private val voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+
+    fun saveRecord() {
         viewModelScope.launch {
             runCatching { recordRepository.postRecord(getRecord()) }
                 .onSuccess { result ->
@@ -91,13 +85,14 @@ class RecordViewModel @Inject constructor(
                     title.value = record.title
                     if (record.note == null) note.value = ""
                     content.value = record.content
-                    if (record.emotion == 6) _emotion.value = null
-                    _emotion.value = record.emotion!! - CORRECTION_VALUE
+                    when (record.emotion == 6) {
+                        true -> _emotion.value = null
+                        false -> _emotion.value = record.emotion
+                    }
                     _genre.value.addAll(record.genre - CORRECTION_VALUE)
                     _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    Log.d("12312344", record.genre.toString())
 
-
-                    Log.d("123123-viewmodel-emotion-value", emotion.value.toString())
                 }
         }
     }
@@ -106,29 +101,18 @@ class RecordViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching {
                 recordRepository.updateRecord(recordId, getRecord())
-                Log.d("123123", title.value)
             }
                 .onSuccess {}
                 .onFailure {}
         }
     }
 
-    private fun getRecord(): Record = Record(
-        title = title.value,
-        date = date.value,
-        content = content.value,
-        emotion = emotion.value ?: DEFAULT_EMOTION,
-        genre = genre.value.ifEmpty { null },
-        note = note.value,
-        voice = voiceId.value,
-    )
-
     fun updateId(id: String) {
-        _voiceId.value = id
+        voiceId.value = id
     }
 
-    fun updateSaveButtonEnabled() {
-        _isSaveEnabled.value = title.value.isNotEmpty() && title.value.first() != BLANK
+    fun updateSaveButtonEnabled(title: String) {
+        _isSaveEnabled.value = title.isNotEmpty() && title.first() != BLANK
     }
 
     fun updateRecordingTime(recordingTime: String) {
@@ -150,14 +134,16 @@ class RecordViewModel @Inject constructor(
         _emotion.value = correctionId
     }
 
-    fun updateSelectedGenreId(genre: Genre) {
-        val isContained = _genre.value.contains(genre.genreId)
+    fun updateSelectedGenreId(genre2: Genre) {
+        val isContained = _genre.value.contains(genre2.genreId)
         val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
 
         when {
-            isContained -> handleContainedGenre(genre)
-            !isReachedMaxCount -> handleNonContainedGenre(genre)
+            isContained -> handleContainedGenre(genre2)
+            !isReachedMaxCount -> handleNonContainedGenre(genre2)
         }
+        Log.d("123123445", genre.value.toString())
+        Log.d("12312344665", genreEnabled.value.toString())
     }
 
     private fun handleNonContainedGenre(genre: Genre) {
@@ -187,6 +173,16 @@ class RecordViewModel @Inject constructor(
             }
         }
     }
+
+    private fun getRecord(): Record = Record(
+        title = title.value,
+        date = date.value.substringBefore(" ").replace("/", "-"),
+        content = content.value,
+        emotion = emotion.value ?: DEFAULT_EMOTION,
+        genre = genre.value.ifEmpty { null },
+        note = note.value,
+        voice = voiceId.value,
+    )
 
     private fun Int.toStringOfDate(): String {
         if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
