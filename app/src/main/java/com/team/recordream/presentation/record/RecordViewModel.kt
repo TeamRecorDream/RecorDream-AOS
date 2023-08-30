@@ -49,6 +49,7 @@ class RecordViewModel @Inject constructor(
         MutableStateFlow(List(ALL_GENRE) { true })
     val genreEnabled: StateFlow<List<Boolean>> get() = _genreEnabled
 
+
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val warningGenre: StateFlow<Boolean> get() = _warningGenre
 
