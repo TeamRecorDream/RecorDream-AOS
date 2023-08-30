@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.team.recordream.R
 import com.team.recordream.presentation.MainActivity
+import com.team.recordream.presentation.record.RecordActivity
 import timber.log.Timber
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
@@ -31,7 +32,7 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, body: String) {
         createNotificationChannel()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, RecordActivity::class.java)
 //        val intent = Intent(this, LoginActivity::class.java).apply {
 //            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 //        }
