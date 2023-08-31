@@ -49,6 +49,9 @@ class RecordViewModel @Inject constructor(
         MutableStateFlow(List(ALL_GENRE) { true })
     val genreEnabled: StateFlow<List<Boolean>> get() = _genreEnabled
 
+    private val _genreSelected: MutableStateFlow<List<Boolean>> =
+        MutableStateFlow(List(ALL_GENRE) { false })
+    val genreSelected: StateFlow<List<Boolean>> get() = _genreSelected
 
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val warningGenre: StateFlow<Boolean> get() = _warningGenre
@@ -90,9 +93,12 @@ class RecordViewModel @Inject constructor(
                         true -> _emotion.value = null
                         false -> _emotion.value = record.emotion
                     }
-                    _genre.value.addAll(record.genre - CORRECTION_VALUE)
+                    _genre.value.addAll(record.genre)
                     _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    _genreSelected.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
                     Log.d("12312344", record.genre.toString())
+                    Log.d("12312344", genreEnabled.value.toString())
+                    Log.d("12312344", genre.value.toString())
 
                 }
         }
@@ -136,6 +142,7 @@ class RecordViewModel @Inject constructor(
     }
 
     fun updateSelectedGenreId(genre2: Genre) {
+        // selected업데이트해야함
         val isContained = _genre.value.contains(genre2.genreId)
         val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
 
@@ -143,8 +150,6 @@ class RecordViewModel @Inject constructor(
             isContained -> handleContainedGenre(genre2)
             !isReachedMaxCount -> handleNonContainedGenre(genre2)
         }
-        Log.d("123123445", genre.value.toString())
-        Log.d("12312344665", genreEnabled.value.toString())
     }
 
     private fun handleNonContainedGenre(genre: Genre) {
