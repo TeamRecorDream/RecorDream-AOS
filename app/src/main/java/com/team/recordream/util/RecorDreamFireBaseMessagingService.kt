@@ -6,12 +6,14 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.team.recordream.R
 import com.team.recordream.presentation.MainActivity
+import com.team.recordream.presentation.record.RecordActivity
 import timber.log.Timber
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
@@ -31,7 +33,7 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, body: String) {
         createNotificationChannel()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, RecordActivity::class.java)
 //        val intent = Intent(this, LoginActivity::class.java).apply {
 //            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 //        }
@@ -39,7 +41,10 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val notificationBuilder = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(title)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setColor(Color.BLACK)
+            .setColorized(true)
+            .setStyle(Notification.DecoratedCustomViewStyle())
+            .setSmallIcon(R.drawable.ic_notification_alarm)
             .setContentIntent(pendingIntent)
             .setContentText(body)
             .setAutoCancel(true)

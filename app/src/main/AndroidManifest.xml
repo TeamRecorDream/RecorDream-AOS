@@ -46,30 +46,36 @@
 
         <activity
             android:name="com.team.recordream.presentation.detail.DetailActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.team.recordream.presentation.search.SearchActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.team.recordream.presentation.record.RecordActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.team.recordream.presentation.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.team.recordream.presentation.login.LoginActivity"
-
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name="com.team.recordream.presentation.mypage.MypageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.team.recordream.presentation.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,6 +87,7 @@
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
 
             <intent-filter>
