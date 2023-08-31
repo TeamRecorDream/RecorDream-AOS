@@ -45,13 +45,13 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_document_bottom_sheet,
             container,
-            false,
+            false
         )
 
         shareActivityResultLauncher =
@@ -64,6 +64,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         clickShare()
         clickEvent()
         clickCancel()
+        clickEdit()
         return binding.root
     }
 
@@ -96,7 +97,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         return FileProvider.getUriForFile(
             requireContext(),
             requireContext().packageName + ".fileprovider",
-            tempFile,
+            tempFile
         )
     }
 
@@ -119,6 +120,12 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             Firebase.analytics.logEvent(CLICK_SHARE_INSTAGRAM, bundleOf())
             setFragmentResult(INSTA_DIALOG, bundleOf(SHARE_MODE to SHARE))
             dismiss()
+        }
+    }
+
+    private fun clickEdit() {
+        binding.tvDocumentBottomEdit.setOnClickListener {
+            // 수정하기뷰로 연결
         }
     }
 
