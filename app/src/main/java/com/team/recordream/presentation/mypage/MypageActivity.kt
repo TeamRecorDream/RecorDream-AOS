@@ -49,7 +49,7 @@ class MypageActivity : AppCompatActivity() {
 
                 else -> {
                     // 모든 권한이 허가 되었을 때
-                    shortToastByInt(R.string.mypage_alarm_yes)
+//                    shortToastByInt(R.string.mypage_alarm_yes)
                 }
             }
         }
@@ -64,6 +64,7 @@ class MypageActivity : AppCompatActivity() {
         mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
         saveSwitchActive()
         setBackGround(binding.switchMypagePushAlam.isChecked)
+        sendSdkNotify()
     }
 
     private fun mypageDataObserver() {
