@@ -43,7 +43,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
         collectViewState()
         initView()
-        bindViewModel()
+        setupBinding()
         attachAdapter()
         setClickListener()
     }
@@ -89,9 +89,9 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         recordViewModel.initEditViewState(recordId)
     }
 
-    private fun bindViewModel() {
-        binding.viewModel = recordViewModel
+    private fun setupBinding() {
         binding.lifecycleOwner = this
+        binding.viewModel = recordViewModel
     }
 
     private fun attachAdapter() {

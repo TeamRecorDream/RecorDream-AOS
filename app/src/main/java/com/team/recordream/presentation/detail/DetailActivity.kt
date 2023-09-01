@@ -3,7 +3,6 @@ package com.team.recordream.presentation.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -33,7 +32,7 @@ class DetailActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindViewModel()
+        setupBinding()
         collectState()
         attachAdapter()
         setEventOnClick()
@@ -41,7 +40,6 @@ class DetailActivity :
 
     override fun onResume() {
         super.onResume()
-        Log.d("123123", "수정하기하고 저장누르면 이거 뜨나? 화깅ㄴ 고고")
         initView()
     }
 
@@ -63,7 +61,7 @@ class DetailActivity :
         detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
     }
 
-    private fun bindViewModel() {
+    private fun setupBinding() {
         binding.viewModel = documentViewModel
         binding.lifecycleOwner = this
     }

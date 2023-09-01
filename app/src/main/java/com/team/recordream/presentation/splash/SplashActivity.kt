@@ -12,8 +12,7 @@ import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivitySplashBinding
 import com.team.recordream.presentation.MainActivity
 import com.team.recordream.presentation.login.LoginActivity
-import com.team.recordream.presentation.splash.SplashViewModel.*
-import com.team.recordream.presentation.splash.SplashViewModel.LoginState.*
+import com.team.recordream.presentation.splash.SplashViewModel.LoginState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -31,13 +30,13 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
         // 뷰 등장 애니메이션 설정, TAG : 시하
         // overridePendingTransition(R.anim.none, R.anim.horizon_exit)
 
-        initViewModel()
+        setupBinding()
         isLoginAble()
     }
 
-    private fun initViewModel() {
-        binding.viewModel = splashViewModel
+    private fun setupBinding() {
         binding.lifecycleOwner = this
+        binding.viewModel = splashViewModel
     }
 
     private fun isLoginAble() {
@@ -54,9 +53,9 @@ class SplashActivity : BindingActivity<ActivitySplashBinding>(R.layout.activity_
 
     private fun tryLogin(isLoginSuccess: LoginState) {
         when (isLoginSuccess) {
-            SUCCESS -> startMainActivity()
-            FAIL -> startLoginActivity()
-            IDLE -> Timber.e("IDLE")
+            LoginState.SUCCESS -> startMainActivity()
+            LoginState.FAIL -> startLoginActivity()
+            LoginState.IDLE -> Timber.e("IDLE")
         }
     }
 
