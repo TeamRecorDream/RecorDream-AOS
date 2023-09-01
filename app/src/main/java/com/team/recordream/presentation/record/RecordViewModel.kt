@@ -93,8 +93,10 @@ class RecordViewModel @Inject constructor(
                         false -> _emotion.value = record.emotion
                     }
                     _genre.value.addAll(record.genre)
-                    _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
-                    _genreChecked.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }.apply {
+                        _genreEnabled.value = this
+                        _genreChecked.value = this
+                    }
                     if (record.genre.size == MAX_COUNT_OF_GENRE) {
                         _warningGenre.value = SHOW
                         delay(TWO_SECONDS)
