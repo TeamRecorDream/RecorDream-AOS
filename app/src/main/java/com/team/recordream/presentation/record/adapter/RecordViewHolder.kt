@@ -1,6 +1,5 @@
 package com.team.recordream.presentation.record.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,13 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.team.recordream.databinding.ItemListEmotionBinding
-import com.team.recordream.presentation.record.model.EmotionState
 import com.team.recordream.presentation.record.model.Emotion
 import com.team.recordream.presentation.record.model.Emotion.*
+import com.team.recordream.presentation.record.model.EmotionState
 
 class RecordViewHolder(
-    onClick: (emotionId: Int) -> Unit,
     private val binding: ItemListEmotionBinding,
+    onClick: (emotionId: Int) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
@@ -26,8 +25,11 @@ class RecordViewHolder(
     }
 
     companion object {
-        fun getView(parent: ViewGroup, layoutInflater: LayoutInflater): ItemListEmotionBinding =
-            ItemListEmotionBinding.inflate(layoutInflater, parent, false)
+        fun from(parent: ViewGroup, onClick: (emotionId: Int) -> Unit): RecordViewHolder =
+            RecordViewHolder(
+                ItemListEmotionBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+                onClick,
+            )
 
         @JvmStatic
         @BindingAdapter("emotionText")

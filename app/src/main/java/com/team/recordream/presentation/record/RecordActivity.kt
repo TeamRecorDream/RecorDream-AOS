@@ -32,14 +32,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
     private val recordViewModel: RecordViewModel by viewModels()
-    private val recordAdapter: RecordAdapter by lazy { RecordAdapter(::updateEmotionState) }
+    private val recordAdapter: RecordAdapter by lazy { RecordAdapter(recordViewModel::updateSelectedEmotionId) }
     private val viewMode by lazy { intent.getStringExtra(VIEW_MODE) }
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
-    }
-
-    private fun updateEmotionState(emotionId: Int) {
-        recordViewModel.updateSelectedEmotionId(emotionId)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

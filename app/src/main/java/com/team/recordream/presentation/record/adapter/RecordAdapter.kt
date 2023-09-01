@@ -1,6 +1,5 @@
 package com.team.recordream.presentation.record.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,10 +10,7 @@ class RecordAdapter(
 ) : ListAdapter<EmotionState, RecordViewHolder>(diffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder =
-        RecordViewHolder(
-            onClick,
-            RecordViewHolder.getView(parent, LayoutInflater.from(parent.context))
-        )
+        RecordViewHolder.from(parent, onClick)
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         holder.bind(getItem(position))
