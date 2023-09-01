@@ -6,7 +6,7 @@ import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
+import com.team.recordream.presentation.storagy.fragment.StorageFragment
 import com.team.recordream.R
 import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityMainBinding

@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private lateinit var homeAdapter: HomeAdapter
+    private val homeAdapter: HomeAdapter by lazy { HomeAdapter(::navigateToDetailView) }
     private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +44,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun initAdapterHomeCard() {
-        homeAdapter = HomeAdapter(::navigateToDetailView)
-        binding.vpHome.adapter = homeAdapter
         with(binding.vpHome) {
             adapter = homeAdapter
             val display = activity?.applicationContext?.resources?.displayMetrics
