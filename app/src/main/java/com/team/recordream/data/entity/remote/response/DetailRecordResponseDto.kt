@@ -19,7 +19,7 @@ data class DetailRecordResponseDto(
         @SerialName("_id")
         val id: String,
         @SerialName("content")
-        val content: String,
+        val content: String?,
         @SerialName("date")
         val date: String,
         @SerialName("emotion")

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
-import com.team.recordream.data.datasource.local.RecordreamSharedPreference
+import com.team.recordream.data.datasource.local.AuthTokenStorage
 import com.team.recordream.data.entity.remote.request.RequestAlamToggle
 import com.team.recordream.data.entity.remote.request.RequestNickName
 import com.team.recordream.data.entity.remote.request.RequestPushAlam
@@ -106,7 +106,7 @@ class MypageViewModel @Inject constructor(
     }
 
     private fun deleteSharedPrefernceLog() {
-        RecordreamSharedPreference.logout()
+        AuthTokenStorage.logout()
     }
 
     private fun initIsSuccessWithdraw(isSuccess: Boolean) {

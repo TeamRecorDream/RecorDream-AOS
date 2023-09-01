@@ -1,4 +1,4 @@
-package com.team.recordream.presentation.record.uistate
+package com.team.recordream.presentation.record.model
 
 import com.team.recordream.R
 
@@ -12,9 +12,11 @@ enum class Emotion(val emotionName: Int, val viewId: Int) {
     ;
 
     companion object {
+        private const val CORRECTION_VALUE = 1
+
 
         fun getValue(emotionId: Int): Emotion = Emotion.values().find { emotion ->
-            emotion.ordinal + 1 == emotionId
+            emotion.ordinal + CORRECTION_VALUE == emotionId
         } ?: ALL
     }
 }

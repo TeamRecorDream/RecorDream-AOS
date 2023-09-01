@@ -81,7 +81,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun SearchedRecord.toUiState(): SearchedRecordUiState = SearchedRecordUiState(
-        _id = this._id,
+        id = this._id,
         date = this.date,
         emotion = this.emotion,
         genre = this.genre,

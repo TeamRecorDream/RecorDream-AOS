@@ -6,12 +6,12 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.team.recordream.R
+import com.team.recordream.presentation.record.model.Emotion
+import com.team.recordream.presentation.record.model.Emotion.*
 import com.team.recordream.presentation.record.recording.uistate.PlayButtonState
 import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.*
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.*
-import com.team.recordream.presentation.record.uistate.Emotion
-import com.team.recordream.presentation.record.uistate.Emotion.*
 
 object BindingAdapter {
     @JvmStatic

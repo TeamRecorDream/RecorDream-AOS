@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.team.recordream.databinding.ItemDetailContentBinding
-import com.team.recordream.presentation.detail.model.ContentUiModel
+import com.team.recordream.presentation.detail.model.Content
 
 class ContentViewHolder(
     private val binding: ItemDetailContentBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(content: ContentUiModel) {
+    fun bind(content: Content) {
         binding.content = content
     }
 

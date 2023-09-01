@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/menu_record"
-        android:checkable="false"
+        android:enabled="false"
         android:title="@string/bnv_main_write" />
 
     <item

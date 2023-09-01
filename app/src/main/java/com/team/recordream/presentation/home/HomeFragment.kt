@@ -16,15 +16,18 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private lateinit var homeAdapter: HomeAdapter
+    private val homeAdapter: HomeAdapter by lazy { HomeAdapter(::navigateToDetailView) }
     private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdapterHomeCard()
-//        initRefresh()
-        bindViewModel()
 
+        initAdapterHomeCard()
+        bindViewModel()
+        observeState()
+    }
+
+    private fun observeState() {
         homeViewModel.userRecords.observe(viewLifecycleOwner) {
             homeAdapter.submitList(it)
         }
@@ -41,8 +44,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun initAdapterHomeCard() {
-        homeAdapter = HomeAdapter(::navigateToDetailView)
-        binding.vpHome.adapter = homeAdapter
         with(binding.vpHome) {
             adapter = homeAdapter
             val display = activity?.applicationContext?.resources?.displayMetrics
@@ -72,12 +73,4 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         startActivity(DetailActivity.getIntent(requireContext(), userRecord.id))
     }
 
-//    private fun initRefresh() {
-//        val swipeRefreshLayout = binding.swipeRefreshLayout
-//        swipeRefreshLayout.setOnRefreshListener {
-//            homeViewModel.updateHome()
-//            swipeRefreshLayout.isRefreshing = true
-//            swipeRefreshLayout.isRefreshing = false
-//        }
-//    }
 }
