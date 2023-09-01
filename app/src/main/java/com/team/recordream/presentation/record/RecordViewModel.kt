@@ -1,7 +1,6 @@
 package com.team.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
@@ -49,9 +48,9 @@ class RecordViewModel @Inject constructor(
         MutableStateFlow(List(ALL_GENRE) { true })
     val genreEnabled: StateFlow<List<Boolean>> get() = _genreEnabled
 
-    private val _genreSelected: MutableStateFlow<List<Boolean>> =
+    private val _genreChecked: MutableStateFlow<List<Boolean>> =
         MutableStateFlow(List(ALL_GENRE) { false })
-    val genreSelected: StateFlow<List<Boolean>> get() = _genreSelected
+    val genreChecked: StateFlow<List<Boolean>> get() = _genreChecked
 
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val warningGenre: StateFlow<Boolean> get() = _warningGenre
@@ -95,7 +94,7 @@ class RecordViewModel @Inject constructor(
                     }
                     _genre.value.addAll(record.genre)
                     _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
-                    _genreSelected.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    _genreChecked.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
                     if (record.genre.size == MAX_COUNT_OF_GENRE) {
                         _warningGenre.value = SHOW
                         delay(TWO_SECONDS)
@@ -152,7 +151,7 @@ class RecordViewModel @Inject constructor(
             !isReachedMaxCount -> handleNonContainedGenre(genre)
         }
 
-        _genreSelected.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+        _genreChecked.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
 
         // state관리만 확인하고 서버체크하면 해당기능 끝
         // 머지부터하고

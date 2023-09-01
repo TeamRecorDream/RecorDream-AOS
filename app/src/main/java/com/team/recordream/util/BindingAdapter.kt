@@ -1,7 +1,6 @@
 package com.team.recordream.util
 
 import android.view.View
-import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -40,12 +39,6 @@ object BindingAdapter {
     @BindingAdapter("selected")
     fun isSelected(view: View, isSelected: Boolean) {
         view.isSelected = isSelected
-    }
-
-    @JvmStatic
-    @BindingAdapter("checked")
-    fun isChecked(checkBox: CheckBox, isChecked: Boolean) {
-        checkBox.isChecked = isChecked
     }
 
     @JvmStatic
