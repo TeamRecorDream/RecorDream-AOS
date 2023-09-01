@@ -329,7 +329,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.COMEDY)}"
-                        app:selected="@{viewModel.genreSelected[0]}" />
+                        app:checked="@{viewModel.genreSelected[0]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_romance"
@@ -341,7 +341,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.ROMANCE)}"
-                        app:selected="@{viewModel.genreSelected[1]}" />
+                        app:checked="@{viewModel.genreSelected[1]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_fantasy"
@@ -353,7 +353,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FANTASY)}"
-                        app:selected="@{viewModel.genreSelected[2]}" />
+                        app:checked="@{viewModel.genreSelected[2]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_horror"
@@ -365,7 +365,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.HORROR)}"
-                        app:selected="@{viewModel.genreSelected[3]}" />
+                        app:checked="@{viewModel.genreSelected[3]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_animal"
@@ -377,7 +377,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.ANIMAL)}"
-                        app:selected="@{viewModel.genreSelected[4]}" />
+                        app:checked="@{viewModel.genreSelected[4]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_friend"
@@ -389,7 +389,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FRIEND)}"
-                        app:selected="@{viewModel.genreSelected[5]}" />
+                        app:checked="@{viewModel.genreSelected[5]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_family"
@@ -401,7 +401,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FAMILY)}"
-                        app:selected="@{viewModel.genreSelected[6]}" />
+                        app:checked="@{viewModel.genreSelected[6]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_food"
@@ -413,7 +413,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.FOOD)}"
-                        app:selected="@{viewModel.genreSelected[7]}" />
+                        app:checked="@{viewModel.genreSelected[7]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_work"
@@ -425,7 +425,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.WORK)}"
-                        app:selected="@{viewModel.genreSelected[8]}" />
+                        app:checked="@{viewModel.genreSelected[8]}" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_record_etc"
@@ -437,7 +437,7 @@
                         app:chipStrokeColor="@color/selector_color_white_purple"
                         app:chipStrokeWidth="1dp"
                         app:onChipClick="@{()-> viewModel.updateSelectedGenreId(genre.ETC)}"
-                        app:selected="@{viewModel.genreSelected[9]}" />
+                        app:checked="@{viewModel.genreSelected[9]}" />
                 </com.google.android.material.chip.ChipGroup>
 
                 <TextView

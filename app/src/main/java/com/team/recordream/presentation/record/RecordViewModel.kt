@@ -96,10 +96,11 @@ class RecordViewModel @Inject constructor(
                     _genre.value.addAll(record.genre)
                     _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
                     _genreSelected.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
-                    Log.d("12312344", record.genre.toString())
-                    Log.d("12312344", genreEnabled.value.toString())
-                    Log.d("12312344", genre.value.toString())
-
+                    if (record.genre.size == MAX_COUNT_OF_GENRE) {
+                        _warningGenre.value = SHOW
+                        delay(TWO_SECONDS)
+                        _warningGenre.value = HIDE
+                    }
                 }
         }
     }
@@ -141,15 +142,21 @@ class RecordViewModel @Inject constructor(
         _emotion.value = correctionId
     }
 
-    fun updateSelectedGenreId(genre2: Genre) {
-        // selected업데이트해야함
-        val isContained = _genre.value.contains(genre2.genreId)
+    fun updateSelectedGenreId(genre: Genre) {
+        val isContained = _genre.value.contains(genre.genreId)
         val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
 
+
         when {
-            isContained -> handleContainedGenre(genre2)
-            !isReachedMaxCount -> handleNonContainedGenre(genre2)
+            isContained -> handleContainedGenre(genre)
+            !isReachedMaxCount -> handleNonContainedGenre(genre)
         }
+
+        _genreSelected.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+
+        // state관리만 확인하고 서버체크하면 해당기능 끝
+        // 머지부터하고
+        // 프로그래스바 마저 만들면끗
     }
 
     private fun handleNonContainedGenre(genre: Genre) {
