@@ -18,7 +18,7 @@ class SearchViewHolder(
     }
 
     fun bind(record: SearchedRecordUiState) {
-        binding.root.setOnClickListener { onClick(record._id) }
+        binding.root.setOnClickListener { onClick(record.id) }
         binding.record = record
         tagAdapter.updateTags(record.genre)
     }

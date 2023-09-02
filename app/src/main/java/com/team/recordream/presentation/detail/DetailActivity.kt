@@ -23,53 +23,63 @@ class DetailActivity :
     BindingActivity<ActivityDetailBinding>(R.layout.activity_detail) {
     private val contentAdapter: ContentAdapter by lazy { ContentAdapter() }
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
+    private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
     private val documentViewModel: DetailViewModel by viewModels()
+    private val recordId by lazy {
+        intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindViewModel()
-        collectViewTags()
+        setupBinding()
+        collectState()
         attachAdapter()
-        initView()
-
-        binding.ivDocumentMore.setOnClickListener {
-            initBottomSheetFragment()
-        }
-
-        binding.ivDocumentClose.setOnClickListener {
-            finish()
-        }
+        setEventOnClick()
     }
 
-    private fun initView() {
-        val recordId = intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
-
-        documentViewModel.updateDetailRecord(recordId)
-    }
-
-    private fun initBottomSheetFragment() {
-        DetailBottomSheetFragment().show(
-            supportFragmentManager,
-            DetailBottomSheetFragment().tag,
-        )
-    }
-
-    private fun bindViewModel() {
+    private fun setupBinding() {
         binding.viewModel = documentViewModel
         binding.lifecycleOwner = this
     }
 
-    private fun collectViewTags() {
-        collectWithLifecycle(documentViewModel.tags) {
-            genreTagAdapter.submitList(it)
+    private fun collectState() {
+        collectWithLifecycle(documentViewModel.content) { contents ->
+            contentAdapter.submitList(contents)
+        }
+
+        collectWithLifecycle(documentViewModel.tags) { genre ->
+            genreTagAdapter.submitList(genre)
+        }
+
+        collectWithLifecycle(documentViewModel.isRemoved) { isRemoved ->
+            if (isRemoved) finish()
         }
     }
 
     private fun attachAdapter() {
         binding.rvDocumentChip.adapter = genreTagAdapter
+        binding.rvDocumentChip.setHasFixedSize(true)
         binding.vpDocumentContent.adapter = contentAdapter
         TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
+    }
+
+    private fun setEventOnClick() {
+        binding.ivDocumentMore.setOnClickListener { showBottomSheet() }
+        binding.ivDocumentClose.setOnClickListener { finish() }
+    }
+
+    private fun showBottomSheet() {
+        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
+    }
+
+    private fun setupView() {
+        documentViewModel.updateDetailRecord(recordId)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupView()
     }
 
     private inline fun <T> collectWithLifecycle(

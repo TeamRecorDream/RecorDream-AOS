@@ -1,63 +1,26 @@
 package com.team.recordream.presentation.detail.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.team.recordream.presentation.detail.adapter.viewHolder.ContentViewHolder
-import com.team.recordream.presentation.detail.model.ContentUiModel
-
-//class ContentAdapter : ListAdapter<ContentUiModel, ContentViewHolder>(diffCallBack) {
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
-//        return ContentViewHolder(
-//            ContentViewHolder.getView(
-//                parent,
-//                LayoutInflater.from(parent.context),
-//            ),
-//        )
-//    }
-//
-//    override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
-//        holder.bind(getItem(position))
-//    }
-//
-//    companion object {
-//        private val diffCallBack = object : DiffUtil.ItemCallback<ContentUiModel>() {
-//            override fun areItemsTheSame(
-//                oldItem: ContentUiModel,
-//                newItem: ContentUiModel,
-//            ): Boolean {
-//                return oldItem.title == newItem.title
-//            }
-//
-//            override fun areContentsTheSame(
-//                oldItem: ContentUiModel,
-//                newItem: ContentUiModel,
-//            ): Boolean {
-//                return oldItem == newItem
-//            }
-//        }
-//    }
-//}
+import com.team.recordream.presentation.detail.model.Content
 
 class ContentAdapter : RecyclerView.Adapter<ContentViewHolder>() {
-    val list = listOf<ContentUiModel>(
-        ContentUiModel("나의 꿈기록", "123123"),
-        ContentUiModel("노트", "123123"),
-    )
+    private val items: MutableList<Content> =
+        mutableListOf()
 
-    override fun getItemCount(): Int = list.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
-        return ContentViewHolder(
-            ContentViewHolder.getView(
-                parent,
-                LayoutInflater.from(parent.context),
-            ),
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder =
+        ContentViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(items[position])
+    }
+
+    override fun getItemCount(): Int = items.size
+
+    fun submitList(content: List<Content>) {
+        items.clear()
+        items.addAll(content)
+        notifyDataSetChanged()
     }
 }

@@ -1,4 +1,4 @@
-package com.recodream_aos.recordream.presentation.storagy.fragment
+package com.team.recordream.presentation.storagy.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

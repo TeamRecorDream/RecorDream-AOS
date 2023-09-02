@@ -26,15 +26,15 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initViewModel()
+        setupBinding()
         attachAdapter()
         setClickEvent()
         observeSearchResult()
     }
 
-    private fun initViewModel() {
-        binding.viewModel = searchViewModel
+    private fun setupBinding() {
         binding.lifecycleOwner = this
+        binding.viewModel = searchViewModel
     }
 
     private fun attachAdapter() {

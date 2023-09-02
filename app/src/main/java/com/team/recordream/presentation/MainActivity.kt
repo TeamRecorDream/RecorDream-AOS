@@ -6,7 +6,6 @@ import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.recodream_aos.recordream.presentation.storagy.fragment.StorageFragment
 import com.team.recordream.R
 import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityMainBinding
@@ -16,6 +15,7 @@ import com.team.recordream.presentation.home.HomeFragment
 import com.team.recordream.presentation.mypage.MypageActivity
 import com.team.recordream.presentation.record.RecordActivity
 import com.team.recordream.presentation.search.SearchActivity
+import com.team.recordream.presentation.storagy.fragment.StorageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,7 +45,15 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun setClickEvents() {
         binding.ivMainMypage.setOnClickListener { startActivity(MypageActivity.getIntent(this)) }
-        binding.ivNaviWriteBtn.setOnClickListener { startActivity(RecordActivity.getIntent(this)) }
+        binding.ivNaviWriteBtn.setOnClickListener {
+            startActivity(
+                RecordActivity.getIntent(
+                    this,
+                    RecordActivity.CREATE_MODE,
+                    null,
+                ),
+            )
+        }
         binding.ivMainSearch.setOnClickListener { startActivity(SearchActivity.getIntent(this)) }
     }
 

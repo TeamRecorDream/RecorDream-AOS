@@ -7,7 +7,7 @@
 
         <variable
             name="content"
-            type="com.team.recordream.presentation.detail.model.ContentUiModel" />
+            type="com.team.recordream.presentation.detail.model.Content" />
 
     </data>
 
@@ -44,16 +44,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_document_item_title"
             tools:text="빨리 끝내버려~~~" />
 
-        <ImageView
-            android:id="@+id/iv_document_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
-            android:layout_marginBottom="56dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_document_content"
-            app:srcCompat="@drawable/rdgoro_mark" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

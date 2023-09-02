@@ -10,4 +10,6 @@ interface RecordRepository {
     suspend fun postVoice(recordingFile: File): CustomResult<VoiceRecordId>
 
     suspend fun postRecord(record: Record): CustomResult<RecordId>
+
+    suspend fun updateRecord(recordId: String, record: Record): Result<Unit>
 }

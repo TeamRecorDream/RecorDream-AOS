@@ -1,70 +1,32 @@
 package com.team.recordream.presentation.record.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.team.recordream.presentation.record.RecordClickListener
-import com.team.recordream.presentation.record.uistate.Emotion.JOY
-import com.team.recordream.presentation.record.uistate.Emotion.SAD
-import com.team.recordream.presentation.record.uistate.Emotion.SCARY
-import com.team.recordream.presentation.record.uistate.Emotion.SHY
-import com.team.recordream.presentation.record.uistate.Emotion.STRANGE
-import com.team.recordream.presentation.record.uistate.EmotionUiState
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import com.team.recordream.presentation.record.model.EmotionState
 
 class RecordAdapter(
-    private val onClick: RecordClickListener,
-) : RecyclerView.Adapter<RecordViewHolder>() {
-    private var beforeSelectedIndex = INITIAL_VALUE
-    private val emotionsUiState = mutableListOf(
-        EmotionUiState(JOY, false),
-        EmotionUiState(SAD, false),
-        EmotionUiState(SCARY, false),
-        EmotionUiState(STRANGE, false),
-        EmotionUiState(SHY, false),
-    )
+    private val onClick: (emotionId: Int) -> Unit,
+) : ListAdapter<EmotionState, RecordViewHolder>(diffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder =
-        RecordViewHolder(
-            onClick,
-            RecordViewHolder.getView(parent, LayoutInflater.from(parent.context)),
-        )
+        RecordViewHolder.from(parent, onClick)
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
-        holder.bind(emotionsUiState[position])
-    }
-
-    override fun getItemCount(): Int = emotionsUiState.size
-
-    fun updateEmotionState(selectedIndex: Int) {
-        when (selectedIndex == beforeSelectedIndex) {
-            true -> updateIfSelectSame()
-            false -> updateIfSelectNew(selectedIndex)
-        }
-
-        beforeSelectedIndex = selectedIndex
-    }
-
-    private fun updateIfSelectSame() {
-        emotionsUiState[beforeSelectedIndex].copy(selected = !emotionsUiState[beforeSelectedIndex].selected)
-            .updateItemChanged(beforeSelectedIndex)
-    }
-
-    private fun updateIfSelectNew(selectedIndex: Int) {
-        if (beforeSelectedIndex in RANGE) {
-            emotionsUiState[beforeSelectedIndex].copy(selected = false)
-                .updateItemChanged(beforeSelectedIndex)
-        }
-        emotionsUiState[selectedIndex].copy(selected = true)
-            .updateItemChanged(selectedIndex)
-    }
-
-    private fun EmotionUiState.updateItemChanged(index: Int) {
-        emotionsUiState[index] = this
-        notifyItemChanged(index)
+        holder.bind(getItem(position))
     }
 
     companion object {
-        private const val INITIAL_VALUE = -1
-        private val RANGE = 0..4
+        private val diffCallBack = object : DiffUtil.ItemCallback<EmotionState>() {
+            override fun areItemsTheSame(oldItem: EmotionState, newItem: EmotionState): Boolean {
+                return oldItem.selectedEmotion == newItem.selectedEmotion
+            }
+
+            override fun areContentsTheSame(oldItem: EmotionState, newItem: EmotionState): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
+
 }

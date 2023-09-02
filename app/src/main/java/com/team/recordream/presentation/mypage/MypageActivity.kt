@@ -161,7 +161,7 @@ class MypageActivity : AppCompatActivity() {
 
     private fun showDialog() {
         val dialog = CustomDialog(this@MypageActivity)
-        dialog.mypageShowDeleteDialog(R.layout.custom_mypage_dialog)
+        dialog.myPageShowDeleteDialog()
         dialog.setOnClickedListener {
             mypageViewModel.deleteUser()
             finishAffinity()
