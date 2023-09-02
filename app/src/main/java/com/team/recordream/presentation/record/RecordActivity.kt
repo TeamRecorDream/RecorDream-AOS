@@ -42,8 +42,8 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
         collectViewState()
-        initView()
-        bindViewModel()
+        setupView()
+        setupBinding()
         attachAdapter()
         setClickListener()
     }
@@ -75,7 +75,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         finish()
     }
 
-    private fun initView() {
+    private fun setupView() {
         when (viewMode) {
             CREATE_MODE -> binding.tvRecordRecord.text = getString(R.string.tv_record_create)
             EDIT_MODE -> {
@@ -89,9 +89,9 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         recordViewModel.initEditViewState(recordId)
     }
 
-    private fun bindViewModel() {
-        binding.viewModel = recordViewModel
+    private fun setupBinding() {
         binding.lifecycleOwner = this
+        binding.viewModel = recordViewModel
     }
 
     private fun attachAdapter() {

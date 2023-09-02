@@ -19,6 +19,7 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     var recordId: String = ""
         private set
+
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
     val background: StateFlow<Int> get() = _background
 
@@ -37,8 +38,7 @@ class DetailViewModel @Inject constructor(
     private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRemoved: StateFlow<Boolean> get() = _isRemoved
 
-    private val _content: MutableStateFlow<MutableList<Content>> =
-        MutableStateFlow(mutableListOf())
+    private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
     val content: StateFlow<List<Content>> get() = _content
 
     fun updateDetailRecord(id: String) {
@@ -48,11 +48,13 @@ class DetailViewModel @Inject constructor(
                 .onSuccess {
                     _background.value = Emotion.findBackgroundById(it.emotion ?: 0)
                     _icon.value = Emotion.findIconById(it.emotion ?: 0)
-                    _date.value = it.date
+                    _date.value = it.date.replace(Regex("[()]"), "")
                     _title.value = it.title
                     findTagByGenreId(it.genre)
-                    _content.value.add(Content(CONTENT_CATEGORY_DREAM_RECORD, it.content ?: BLANK))
-                    _content.value.add(Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK))
+                    _content.value = listOf(
+                        Content(CONTENT_CATEGORY_DREAM_RECORD, it.content ?: BLANK),
+                        Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK),
+                    )
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
@@ -122,5 +124,9 @@ class DetailViewModel @Inject constructor(
         private const val BLANK = ""
         private const val CONTENT_CATEGORY_NOTE = "노트"
         private const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
+        private val contentDefault = listOf(
+            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK),
+            Content(CONTENT_CATEGORY_NOTE, BLANK),
+        )
     }
 }

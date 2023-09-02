@@ -23,7 +23,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         super.onViewCreated(view, savedInstanceState)
 
         initAdapterHomeCard()
-        bindViewModel()
+        setupBinding()
         observeState()
     }
 
@@ -33,9 +33,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         }
     }
 
-    private fun bindViewModel() {
-        binding.viewModel = homeViewModel
+    private fun setupBinding() {
         binding.lifecycleOwner = this
+        binding.viewModel = homeViewModel
     }
 
     override fun onResume() {
@@ -64,7 +64,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                }
+                },
             )
         }
     }
@@ -72,5 +72,4 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun navigateToDetailView(userRecord: UserRecords) {
         startActivity(DetailActivity.getIntent(requireContext(), userRecord.id))
     }
-
 }

@@ -15,7 +15,9 @@ class GenreTagViewHolder(
     }
 
     companion object {
-        fun getView(parent: ViewGroup, layoutInflater: LayoutInflater): ItemDetailTagBinding =
-            ItemDetailTagBinding.inflate(layoutInflater, parent, false)
+        fun from(parent: ViewGroup): GenreTagViewHolder =
+            GenreTagViewHolder(
+                ItemDetailTagBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            )
     }
 }
