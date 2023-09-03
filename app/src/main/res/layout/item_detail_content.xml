@@ -28,6 +28,59 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="나의 꿈 기록" />
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_document_item_recording"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/rectangle_radius_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_document_item_title">
+
+            <TextView
+                android:id="@+id/tv_document_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_document_item_button"
+                app:layout_constraintStart_toEndOf="@+id/iv_document_item_button"
+                app:layout_constraintTop_toTopOf="@+id/iv_document_item_button"
+                tools:text="00:30" />
+
+            <ImageView
+                android:id="@+id/iv_document_item_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/icn_start"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_document_item_bar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="12dp"
+                android:maxHeight="6dp"
+                android:minHeight="6dp"
+                android:progressDrawable="@drawable/seek_bar_record"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_document_item_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_document_item_time"
+                app:layout_constraintTop_toTopOf="@+id/tv_document_item_time" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
             android:id="@+id/tv_document_content"
             android:layout_width="0dp"
@@ -41,7 +94,7 @@
             android:textColor="@color/white01_FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_document_item_title"
+            app:layout_constraintTop_toBottomOf="@+id/cl_document_item_recording"
             tools:text="빨리 끝내버려~~~" />
 
 
