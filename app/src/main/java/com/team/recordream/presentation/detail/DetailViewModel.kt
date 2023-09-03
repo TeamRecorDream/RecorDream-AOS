@@ -38,6 +38,9 @@ class DetailViewModel @Inject constructor(
     private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRemoved: StateFlow<Boolean> get() = _isRemoved
 
+    private val _recording: MutableStateFlow<String?> = MutableStateFlow("")
+    val recording: StateFlow<String?> get() = _recording
+
     private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
     val content: StateFlow<List<Content>> get() = _content
 
@@ -52,9 +55,14 @@ class DetailViewModel @Inject constructor(
                     _title.value = it.title
                     findTagByGenreId(it.genre)
                     _content.value = listOf(
-                        Content(CONTENT_CATEGORY_DREAM_RECORD, it.content ?: BLANK),
-                        Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK),
+                        Content(
+                            CONTENT_CATEGORY_DREAM_RECORD,
+                            it.content ?: BLANK,
+                            it.voice != null,
+                        ),
+                        Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK, it.voice != null),
                     )
+                    if (it.voice != null) _recording.value = it.voice.url
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
@@ -121,12 +129,12 @@ class DetailViewModel @Inject constructor(
     }
 
     companion object {
-        private const val BLANK = ""
         private const val CONTENT_CATEGORY_NOTE = "노트"
-        private const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
+        private const val BLANK = ""
+        const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
         private val contentDefault = listOf(
-            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK),
-            Content(CONTENT_CATEGORY_NOTE, BLANK),
+            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK, false),
+            Content(CONTENT_CATEGORY_NOTE, BLANK, false),
         )
     }
 }

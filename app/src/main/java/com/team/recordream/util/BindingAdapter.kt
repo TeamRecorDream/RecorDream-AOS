@@ -24,6 +24,15 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("isProgressBarVisible")
+    fun isProgressBarVisible(view: View, isVisible: Boolean) {
+        when (isVisible) {
+            true -> view.visibility = View.VISIBLE
+            false -> view.visibility = View.GONE
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("isActivated")
     fun isActivated(view: View, isActivated: Boolean) {
         view.isActivated = isActivated
