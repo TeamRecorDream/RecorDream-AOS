@@ -14,7 +14,6 @@ enum class Emotion(val emotionName: Int, val viewId: Int) {
     companion object {
         private const val CORRECTION_VALUE = 1
 
-
         fun getValue(emotionId: Int): Emotion = Emotion.values().find { emotion ->
             emotion.ordinal + CORRECTION_VALUE == emotionId
         } ?: ALL

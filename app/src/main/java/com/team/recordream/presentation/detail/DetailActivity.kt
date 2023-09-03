@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.team.recordream.R
-import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityDetailBinding
+import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
 import dagger.hilt.android.AndroidEntryPoint

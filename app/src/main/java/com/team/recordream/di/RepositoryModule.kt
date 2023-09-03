@@ -43,7 +43,7 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun providesDocumentRepository(
-        documentService: DocumentService
+        documentService: DocumentService,
     ): DocumentRepository = DocumentRepositoryImpl(documentService)
 
     @Provides

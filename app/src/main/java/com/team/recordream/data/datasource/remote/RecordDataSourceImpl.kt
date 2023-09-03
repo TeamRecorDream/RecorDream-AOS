@@ -35,7 +35,7 @@ class RecordDataSourceImpl @Inject constructor(
 
     override suspend fun patchRecord(
         recordId: String,
-        requestBody: RequestNewRecordDto
+        requestBody: RequestNewRecordDto,
     ) {
         return recordService.patchRecord(recordId, requestBody)
     }

@@ -11,5 +11,4 @@ class HomeRepositoryImpl @Inject constructor(
 ) : HomeRepository {
     override suspend fun getHomeRecord(): Result<UserRecord> =
         runCatching { homeDataSource.getHomeRecord().toDomain() }
-
 }

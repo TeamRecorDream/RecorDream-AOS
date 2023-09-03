@@ -7,13 +7,13 @@ import com.team.recordream.domain.model.VoiceRecordId
 import com.team.recordream.domain.repository.RecordRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
+import com.team.recordream.presentation.common.model.PlayButtonState
+import com.team.recordream.presentation.common.model.PlayButtonState.RECORDER_PLAY
+import com.team.recordream.presentation.common.model.PlayButtonState.RECORDER_STOP
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.VALID
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING

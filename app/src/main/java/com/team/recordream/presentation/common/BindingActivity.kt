@@ -1,4 +1,4 @@
-package com.team.recordream.base
+package com.team.recordream.presentation.common
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

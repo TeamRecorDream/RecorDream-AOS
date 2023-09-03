@@ -31,7 +31,6 @@ fun Record.toNewRequestBody(): RequestNewRecordDto = RequestNewRecordDto(
     note = note,
 )
 
-
 fun ResponseRecordDto.Data.toDomain(): RecordId = RecordId(
     id = _id,
 )

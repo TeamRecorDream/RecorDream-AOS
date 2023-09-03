@@ -26,7 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
-    private val documentRepository: DocumentRepository
+    private val documentRepository: DocumentRepository,
 ) : ViewModel() {
     val title: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -78,7 +78,6 @@ class RecordViewModel @Inject constructor(
                 .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
         }
     }
-
 
     fun initEditViewState(recordId: String) {
         viewModelScope.launch {
@@ -146,7 +145,6 @@ class RecordViewModel @Inject constructor(
     fun updateSelectedGenreId(genre: Genre) {
         val isContained = _genre.value.contains(genre.genreId)
         val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
-
 
         when {
             isContained -> handleContainedGenre(genre)

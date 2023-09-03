@@ -9,8 +9,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
-import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivitySearchBinding
+import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint

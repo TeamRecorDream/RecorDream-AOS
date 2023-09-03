@@ -43,7 +43,8 @@ class RecordRepositoryImpl @Inject constructor(
     override suspend fun updateRecord(recordId: String, record: Record): Result<Unit> {
         return runCatching {
             recordDataSource.patchRecord(
-                recordId, record.toNewRequestBody()
+                recordId,
+                record.toNewRequestBody(),
             )
         }
     }

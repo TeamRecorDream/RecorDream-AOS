@@ -23,7 +23,6 @@ class DetailDeleteDialog(context: Context) {
         }
     }
 
-
     fun create(detailViewModel: DetailViewModel) {
         dialog.show()
         setEventOnClick(detailViewModel)

@@ -25,7 +25,6 @@ class HomeViewModel @Inject constructor(
     private val _userRecords: MutableLiveData<List<UserRecords>> = MutableLiveData(listOf())
     val userRecords: LiveData<List<UserRecords>> get() = _userRecords
 
-
     fun updateHome() {
         viewModelScope.launch {
             homeRepository.getHomeRecord()
@@ -48,6 +47,6 @@ class HomeViewModel @Inject constructor(
         genre = genre,
         title = title,
         content = content,
-        voice = voice
+        voice = voice,
     )
 }

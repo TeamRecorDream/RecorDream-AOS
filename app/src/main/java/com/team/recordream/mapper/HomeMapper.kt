@@ -6,7 +6,7 @@ import com.team.recordream.domain.model.UserRecord
 
 fun NonNullResponseWrapper<ResponseHome>.toDomain(): UserRecord = UserRecord(
     nickname = data.nickname,
-    records = data.records.map { it.toDomain() }
+    records = data.records.map { it.toDomain() },
 )
 
 fun ResponseHome.Record.toDomain(): UserRecord.Record = UserRecord.Record(
@@ -16,5 +16,5 @@ fun ResponseHome.Record.toDomain(): UserRecord.Record = UserRecord.Record(
     genre = genre,
     title = title,
     content = content ?: "",
-    voice = voice
+    voice = voice,
 )

@@ -8,15 +8,14 @@ import com.team.recordream.databinding.HomeCardItemBinding
 import com.team.recordream.presentation.home.model.UserRecords
 
 class HomeAdapter(
-    private val itemClick: (UserRecords) -> (Unit)
+    private val itemClick: (UserRecords) -> (Unit),
 ) : ListAdapter<UserRecords, PagerViewHolder>(diffResult) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         val binding: HomeCardItemBinding = HomeCardItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
-            false
+            false,
         )
         return PagerViewHolder(binding, itemClick)
     }
@@ -34,7 +33,6 @@ class HomeAdapter(
             override fun areContentsTheSame(oldItem: UserRecords, newItem: UserRecords): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }
