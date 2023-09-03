@@ -21,10 +21,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailActivity :
     BindingActivity<ActivityDetailBinding>(R.layout.activity_detail) {
-    private val contentAdapter: ContentAdapter by lazy { ContentAdapter() }
+    private val documentViewModel: DetailViewModel by viewModels()
+    private val contentAdapter: ContentAdapter by lazy { ContentAdapter(documentViewModel::updateRecorderState) }
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
     private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
-    private val documentViewModel: DetailViewModel by viewModels()
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
     }

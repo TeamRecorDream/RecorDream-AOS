@@ -9,6 +9,9 @@
             name="content"
             type="com.team.recordream.presentation.detail.model.Content" />
 
+        <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function0" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,6 +62,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:onClick="@{() -> onClick.invoke(content.state)}"
                 android:src="@drawable/icn_start"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
