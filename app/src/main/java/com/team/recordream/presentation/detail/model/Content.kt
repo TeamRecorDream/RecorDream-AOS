@@ -7,7 +7,7 @@ data class Content(
     val category: String,
     val content: String,
     val isRecorded: Boolean,
-    val state: PlayButtonState,
+    val recorderState: PlayButtonState,
 ) {
     fun showProgressBar(): Boolean =
         isRecorded && category == CONTENT_CATEGORY_DREAM_RECORD

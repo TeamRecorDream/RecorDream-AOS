@@ -11,8 +11,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivityDetailBinding
 import com.team.recordream.presentation.common.BindingActivity
+import com.team.recordream.presentation.common.model.PlayButtonState
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
+import com.team.recordream.util.recorder.Recorder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -25,6 +27,7 @@ class DetailActivity :
     private val contentAdapter: ContentAdapter by lazy { ContentAdapter(documentViewModel::updateRecorderState) }
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
     private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
+    private val recorder: Recorder by lazy { Recorder(this) }
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
     }
@@ -55,6 +58,23 @@ class DetailActivity :
         collectWithLifecycle(documentViewModel.isRemoved) { isRemoved ->
             if (isRemoved) finish()
         }
+
+        collectWithLifecycle(documentViewModel.recorderState) { recorderState ->
+            when (recorderState) {
+                PlayButtonState.RECORDER_STOP -> handleRecorderPlayState()
+                PlayButtonState.RECORDER_PLAY -> handleRecorderStopState()
+            }
+        }
+    }
+
+    private fun handleRecorderStopState() {
+        recorder.stopPlaying()
+    }
+
+    private fun handleRecorderPlayState() {
+        recorder.startPlaying(
+            documentViewModel.recordingFilePath ?: throw IllegalArgumentException(),
+        )
     }
 
     private fun attachAdapter() {

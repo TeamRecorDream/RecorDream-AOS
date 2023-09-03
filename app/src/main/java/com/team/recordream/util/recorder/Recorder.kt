@@ -4,7 +4,6 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import java.io.File
-import java.io.IOException
 import java.lang.reflect.InvocationTargetException
 
 class Recorder(private val context: Context) {
@@ -16,14 +15,15 @@ class Recorder(private val context: Context) {
         return File(filePath)
     }
 
-    fun startPlaying() {
+    fun startPlaying(file: String?) {
+        val recordingFile = file ?: filePath
+
         player = MediaPlayer().apply {
-            try {
-                setDataSource(filePath)
+            runCatching {
+                setDataSource(recordingFile)
                 prepare()
                 start()
-            } catch (e: IOException) {
-            }
+            }.onFailure { throw IllegalStateException() }
         }
     }
 
