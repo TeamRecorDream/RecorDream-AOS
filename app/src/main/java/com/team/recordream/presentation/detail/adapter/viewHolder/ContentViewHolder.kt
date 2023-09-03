@@ -13,7 +13,7 @@ class ContentViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        binding.onClick = { onClick }
+        binding.onClick = onClick
     }
 
     fun bind(content: Content) {

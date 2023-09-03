@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
 import com.team.recordream.domain.repository.DocumentRepository
+import com.team.recordream.presentation.common.model.PlayButtonState
 import com.team.recordream.presentation.detail.model.Content
 import com.team.recordream.presentation.record.uistate.Genre
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,6 +45,10 @@ class DetailViewModel @Inject constructor(
     private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
     val content: StateFlow<List<Content>> get() = _content
 
+    private val _recorderState: MutableStateFlow<PlayButtonState> =
+        MutableStateFlow(PlayButtonState.RECORDER_PLAY)
+    val recorderState: StateFlow<PlayButtonState> get() = _recorderState
+
     fun updateDetailRecord(id: String) {
         recordId = id
         viewModelScope.launch {
@@ -59,14 +64,34 @@ class DetailViewModel @Inject constructor(
                             CONTENT_CATEGORY_DREAM_RECORD,
                             it.content ?: BLANK,
                             it.voice != null,
+                            _recorderState.value,
                         ),
-                        Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK, it.voice != null),
+                        Content(
+                            CONTENT_CATEGORY_NOTE,
+                            it.note ?: BLANK,
+                            it.voice != null,
+                            _recorderState.value,
+                        ),
                     )
                     if (it.voice != null) _recording.value = it.voice.url
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
                 }
+        }
+    }
+
+    fun updateRecorderState(selectedState: PlayButtonState) {
+        when (selectedState) {
+            PlayButtonState.RECORDER_PLAY -> {
+                _content.value =
+                    content.value.map { it.copy(state = PlayButtonState.RECORDER_STOP) }
+            }
+
+            PlayButtonState.RECORDER_STOP -> {
+                _content.value =
+                    content.value.map { it.copy(state = PlayButtonState.RECORDER_PLAY) }
+            }
         }
     }
 
@@ -133,8 +158,8 @@ class DetailViewModel @Inject constructor(
         private const val BLANK = ""
         const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
         private val contentDefault = listOf(
-            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK, false),
-            Content(CONTENT_CATEGORY_NOTE, BLANK, false),
+            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK, false, PlayButtonState.RECORDER_STOP),
+            Content(CONTENT_CATEGORY_NOTE, BLANK, false, PlayButtonState.RECORDER_STOP),
         )
     }
 }

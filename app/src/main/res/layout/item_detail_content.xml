@@ -11,7 +11,7 @@
 
         <variable
             name="onClick"
-            type="kotlin.jvm.functions.Function0" />
+            type="kotlin.jvm.functions.Function1" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,10 +63,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:onClick="@{() -> onClick.invoke(content.state)}"
-                android:src="@drawable/icn_start"
+                app:glideSrcByPlayButtonState="@{content.state}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/icn_start" />
 
             <ProgressBar
                 android:id="@+id/pb_document_item_bar"
