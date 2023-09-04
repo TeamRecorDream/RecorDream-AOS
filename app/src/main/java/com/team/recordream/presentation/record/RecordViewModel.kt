@@ -1,6 +1,7 @@
 package com.team.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
@@ -92,14 +93,10 @@ class RecordViewModel @Inject constructor(
                     }
                     _genre.value.addAll(record.genre)
                     List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }.apply {
-                        _genreEnabled.value = this
+                        if (genre.value.size == MAX_COUNT_OF_GENRE) _genreEnabled.value = this
                         _genreChecked.value = this
                     }
-                    if (record.genre.size == MAX_COUNT_OF_GENRE) {
-                        _warningGenre.value = SHOW
-                        delay(TWO_SECONDS)
-                        _warningGenre.value = HIDE
-                    }
+                    Log.d("123123", _genreEnabled.value.toString())
                 }
         }
     }
