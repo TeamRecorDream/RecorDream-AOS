@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Timer
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,6 +49,12 @@ class DetailViewModel @Inject constructor(
     private val _recorderState: MutableStateFlow<PlayButtonState> =
         MutableStateFlow(PlayButtonState.RECORDER_PLAY)
     val recorderState: StateFlow<PlayButtonState> get() = _recorderState
+
+    private val _progressRate: MutableStateFlow<Int> = MutableStateFlow(0)
+    val progressRate: StateFlow<Int> get() = _progressRate
+
+    private var timer: Timer? = null
+    private var runningTime: Int = 0
 
     fun updateDetailRecord(id: String) {
         recordId = id
@@ -87,6 +94,7 @@ class DetailViewModel @Inject constructor(
                 _recorderState.value = PlayButtonState.RECORDER_STOP
                 _content.value =
                     content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_STOP) }
+                initProgressBar()
             }
 
             PlayButtonState.RECORDER_STOP -> {
@@ -101,6 +109,21 @@ class DetailViewModel @Inject constructor(
         _isRemoved.value = true
         removeDetailRecord()
     }
+
+    fun updateRunningTime(duration: Int) {
+        runningTime = duration
+    }
+
+    private fun initProgressBar() {
+//        timer = timer(period = runningTime.convertMilliseconds() / HUNDRED_PERCENT) {
+//            if (progressTime > HUNDRED_PERCENT) {
+//                cancel()
+//            }
+//            ++progressTime
+//        }
+    }
+
+    private fun Int.convertMilliseconds(): Long = this * ONE_SECOND_LONG
 
     private fun removeDetailRecord() {
         viewModelScope.launch {
@@ -156,9 +179,11 @@ class DetailViewModel @Inject constructor(
     }
 
     companion object {
+        const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
         private const val CONTENT_CATEGORY_NOTE = "노트"
         private const val BLANK = ""
-        const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
+        private const val HUNDRED_PERCENT = 100
+        private const val ONE_SECOND_LONG: Long = 1000
         private val contentDefault = listOf(
             Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK, false, PlayButtonState.RECORDER_STOP),
             Content(CONTENT_CATEGORY_NOTE, BLANK, false, PlayButtonState.RECORDER_STOP),

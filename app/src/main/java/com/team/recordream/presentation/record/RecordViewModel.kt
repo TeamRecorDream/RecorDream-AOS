@@ -68,13 +68,12 @@ class RecordViewModel @Inject constructor(
 
     fun saveRecord() {
         viewModelScope.launch {
-            runCatching { recordRepository.postRecord(getRecord()) }
-                .onSuccess { result ->
-                    when (result) {
-                        is SUCCESS -> _stateHandlerOfSavingRecord.value = VALID(result.data.id)
-                        is FAIL -> _stateHandlerOfSavingRecord.value = INVALID
-                    }
+            runCatching { recordRepository.postRecord(getRecord()) }.onSuccess { result ->
+                when (result) {
+                    is SUCCESS -> _stateHandlerOfSavingRecord.value = VALID(result.data.id)
+                    is FAIL -> _stateHandlerOfSavingRecord.value = INVALID
                 }
+            }
                 .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
         }
     }
@@ -107,9 +106,7 @@ class RecordViewModel @Inject constructor(
 
     fun editRecord(recordId: String) {
         viewModelScope.launch {
-            runCatching {
-                recordRepository.updateRecord(recordId, getRecord())
-            }
+            runCatching { recordRepository.updateRecord(recordId, getEditedRecord()) }
                 .onSuccess {}
                 .onFailure {}
         }
@@ -152,10 +149,6 @@ class RecordViewModel @Inject constructor(
         }
 
         _genreChecked.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
-
-        // state관리만 확인하고 서버체크하면 해당기능 끝
-        // 머지부터하고
-        // 프로그래스바 마저 만들면끗
     }
 
     private fun handleNonContainedGenre(genre: Genre) {
@@ -190,8 +183,21 @@ class RecordViewModel @Inject constructor(
         title = title.value,
         date = date.value.substringBefore(" ").replace("/", "-"),
         content = content.value,
-        emotion = emotion.value ?: DEFAULT_EMOTION,
+        emotion = emotion.value,
         genre = genre.value.ifEmpty { null },
+        note = note.value,
+        voice = voiceId.value,
+    )
+
+    private fun getEditedRecord(): Record = Record(
+        title = title.value,
+        date = date.value.substringBefore(" ").replace("/", "-"),
+        content = content.value,
+        emotion = emotion.value,
+        genre = when (genre.value.contains(0)) {
+            true -> null
+            false -> genre.value
+        },
         note = note.value,
         voice = voiceId.value,
     )
@@ -203,7 +209,6 @@ class RecordViewModel @Inject constructor(
 
     companion object {
         private const val BLANK = ' '
-        private const val DEFAULT_VALUE_STRING = ""
         private val EMOTION_ALL = null
         private val DEFAULT_VALUE_NULL = null
         private const val DEFAULT_TIME = "00:00"

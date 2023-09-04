@@ -65,6 +65,12 @@ class DetailActivity :
                 PlayButtonState.RECORDER_PLAY -> handleRecorderStopState()
             }
         }
+
+        collectWithLifecycle(documentViewModel.progressRate) { progressRate ->
+            // TODO: 아이템 뷰 -> 프래그먼트
+            // TODO: 액티비티 -> 바텀시트 프래그먼트
+            // TODO: 가끔 나의꿈기록 늦게 업데이트 됨. 프래그먼트로 교체하면 해결
+        }
     }
 
     private fun handleRecorderStopState() {
@@ -72,9 +78,12 @@ class DetailActivity :
     }
 
     private fun handleRecorderPlayState() {
-        recorder.startPlaying(
-            documentViewModel.recordingFilePath ?: throw IllegalArgumentException(),
-        )
+        val file = documentViewModel.recordingFilePath ?: throw IllegalArgumentException()
+
+        recorder.apply {
+            documentViewModel.updateRunningTime(getDuration(file))
+            startPlaying(file)
+        }
     }
 
     private fun attachAdapter() {
