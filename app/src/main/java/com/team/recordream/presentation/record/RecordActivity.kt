@@ -137,8 +137,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun editRecord() {
-        recordViewModel.editRecord(recordId)
-        finish()
+        when (recordViewModel.isSaveEnabled.value) {
+            true -> {
+                recordViewModel.editRecord(recordId)
+                finish()
+            }
+
+            false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
+        }
     }
 
     private fun createRecord() {
