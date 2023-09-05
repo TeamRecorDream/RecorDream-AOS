@@ -104,7 +104,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         binding.ivRecordClose.setOnClickListener { finish() }
         binding.clRecordRecordBtn.setOnClickListener {
             when (viewMode) {
-                EDIT_MODE -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_disable_recording)
+                EDIT_MODE -> showWarningOfRecording()
                 CREATE_MODE -> initRecordBottomSheetDialog()
             }
         }
@@ -114,6 +114,15 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 CREATE_MODE -> createRecord()
             }
         }
+    }
+
+    private fun showWarningOfRecording() {
+        val content = when (recordViewModel.voiceId.value != null) {
+            true -> R.string.tv_record_warning_editable_recording
+            false -> R.string.tv_record_warning_disable_recording
+        }
+
+        binding.btnRecordSave.anchorSnackBar(content)
     }
 
     private fun initDatePickerDialog() {
