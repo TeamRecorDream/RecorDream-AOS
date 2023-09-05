@@ -53,7 +53,7 @@
     <string name="tv_record_content">무슨 꿈을 꾸셨나요?</string>
     <string name="tv_record_emotion">나의 감정</string>
     <string name="tv_record_genre">꿈의 장르</string>
-    <string name="tv_record_warning_max_genre">더 이상 선택할 수 없어요.</string>
+    <string name="tv_record_warning_max_genre">꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
     <string name="tv_record_warning_disable_recording">수정하기에서는 녹음할 수 없어요.</string>
     <string name="tv_record_warning_editable_recording">녹음은 수정할 수 없어요.</string>
     <string name="tv_record_note">노트</string>
