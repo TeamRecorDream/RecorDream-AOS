@@ -1,5 +1,7 @@
 package com.team.recordream.presentation.detail
 
+import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,6 +17,17 @@ class DreamRecordFragment private constructor(
     private val detailViewModel: DetailViewModel,
 ) : BindingFragment<FragmentDreamRecordBinding>(R.layout.fragment_dream_record) {
     private val recorder: Recorder by lazy { Recorder(requireContext()) }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupBinding()
+    }
+
+    private fun setupBinding() {
+        binding.vm = detailViewModel
+        binding.lifecycleOwner = this
+    }
 
     private inline fun <T> collectWithLifecycle(
         flow: Flow<T>,

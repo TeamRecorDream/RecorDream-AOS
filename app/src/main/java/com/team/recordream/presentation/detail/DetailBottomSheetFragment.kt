@@ -67,7 +67,7 @@ class DetailBottomSheetFragment private constructor(
     }
 
     private fun setupBinding() {
-        binding.viewModel = detailViewModel
+        binding.vm = detailViewModel
         binding.lifecycleOwner = this
     }
 

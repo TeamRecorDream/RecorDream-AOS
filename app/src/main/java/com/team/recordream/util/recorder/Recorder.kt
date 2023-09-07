@@ -3,7 +3,6 @@ package com.team.recordream.util.recorder
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.util.Log
 import java.io.File
 import java.lang.reflect.InvocationTargetException
 
@@ -36,7 +35,6 @@ class Recorder(private val context: Context) {
                 setDataSource(recordingFile)
                 prepare()
                 start()
-                Log.d("12312333", duration.toString())
             }.onFailure { throw IllegalStateException() }
         }
     }

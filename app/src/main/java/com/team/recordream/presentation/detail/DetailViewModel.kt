@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.Timer
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,18 +42,16 @@ class DetailViewModel @Inject constructor(
     private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRemoved: StateFlow<Boolean> get() = _isRemoved
 
-    private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
-    val content: StateFlow<List<Content>> get() = _content
+    // 객체 분리 대상
+    private val _note: MutableStateFlow<String> = MutableStateFlow("")
+    val note: StateFlow<String> get() = _note
 
-    private val _recorderState: MutableStateFlow<PlayButtonState> =
-        MutableStateFlow(PlayButtonState.RECORDER_PLAY)
-    val recorderState: StateFlow<PlayButtonState> get() = _recorderState
+    // 객체 분리 대상
+    private val _content: MutableStateFlow<String> = MutableStateFlow("")
+    val content: StateFlow<String> get() = _content
 
-    private val _progressRate: MutableStateFlow<Int> = MutableStateFlow(0)
-    val progressRate: StateFlow<Int> get() = _progressRate
-
-    private var timer: Timer? = null
-    private var runningTime: Int = 0
+    private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isRecorded: StateFlow<Boolean> get() = _isRecorded
 
     fun updateDetailRecord(id: String) {
         recordId = id
@@ -65,21 +62,10 @@ class DetailViewModel @Inject constructor(
                     _icon.value = Emotion.findIconById(it.emotion ?: 0)
                     _date.value = it.date.replace(Regex("[()]"), "")
                     _title.value = it.title
+                    _note.value = it.note ?: ""
+                    _content.value = it.content ?: ""
                     findTagByGenreId(it.genre)
-                    _content.value = listOf(
-                        Content(
-                            CONTENT_CATEGORY_DREAM_RECORD,
-                            it.content ?: BLANK,
-                            it.voice != null,
-                            _recorderState.value,
-                        ),
-                        Content(
-                            CONTENT_CATEGORY_NOTE,
-                            it.note ?: BLANK,
-                            it.voice != null,
-                            _recorderState.value,
-                        ),
-                    )
+                    _isRecorded.value = it.voice != null
                     if (it.voice != null) recordingFilePath = it.voice.url
                 }
                 .onFailure {
@@ -88,30 +74,9 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun updateRecorderState(selectedState: PlayButtonState) {
-        when (selectedState) {
-            PlayButtonState.RECORDER_PLAY -> {
-                _recorderState.value = PlayButtonState.RECORDER_STOP
-                _content.value =
-                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_STOP) }
-                initProgressBar()
-            }
-
-            PlayButtonState.RECORDER_STOP -> {
-                _recorderState.value = PlayButtonState.RECORDER_PLAY
-                _content.value =
-                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_PLAY) }
-            }
-        }
-    }
-
     fun updateRemovedRecord() {
         _isRemoved.value = true
         removeDetailRecord()
-    }
-
-    fun updateRunningTime(duration: Int) {
-        runningTime = duration
     }
 
     private fun initProgressBar() {

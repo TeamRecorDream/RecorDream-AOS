@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_document_item_title">
 
             <TextView
-                android:id="@+id/tv_document_item_time"
+                android:id="@+id/tv_dream_record_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -70,7 +70,7 @@
                 tools:src="@drawable/icn_start" />
 
             <ProgressBar
-                android:id="@+id/pb_document_item_bar"
+                android:id="@+id/pb_dream_record_bar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,15 +80,15 @@
                 android:maxHeight="6dp"
                 android:minHeight="6dp"
                 android:progressDrawable="@drawable/seek_bar_record"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_document_item_time"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_dream_record_time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_document_item_time"
-                app:layout_constraintTop_toTopOf="@+id/tv_document_item_time" />
+                app:layout_constraintStart_toEndOf="@+id/tv_dream_record_time"
+                app:layout_constraintTop_toTopOf="@+id/tv_dream_record_time" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tv_document_content"
+            android:id="@+id/tv_dream_record_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

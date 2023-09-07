@@ -88,6 +88,10 @@
     <!-- 음성녹음 뷰 -->
     <string name="tv_recording_record">음성녹음</string>
 
+    <!-- 상세보기 뷰 -->
+    <string name="tv_dream_record_title">나의 꿈 기록</string>
+
+
     <!--  검색 뷰 -->
     <string name="tv_search_view_title">검색하기</string>
     <string name="tv_search_description">검색어 입력</string>
@@ -113,5 +117,6 @@
     <string name="document_title">기록 상세보기</string>
 
     <string name="network_error">네트워크에 연결할 수 없습니다. 확인 후 다시 시도해 주세요.</string>
+    <string name="tv_note_title">노트</string>
 
 </resources>
