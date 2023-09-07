@@ -70,8 +70,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun navigateToDetailView(userRecord: UserRecords) {
-        //  startActivity(DetailActivity.getIntent(requireContext(), userRecord.id))
-        val detailBottomSheetFragment = DetailBottomSheetFragment.getInstance(userRecord.id)
+        val detailBottomSheetFragment = DetailBottomSheetFragment.from(userRecord.id)
         detailBottomSheetFragment.show(childFragmentManager, detailBottomSheetFragment.tag)
     }
 }

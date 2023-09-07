@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivityRecordBinding
 import com.team.recordream.presentation.common.BindingActivity
-import com.team.recordream.presentation.detail.DetailActivity
+import com.team.recordream.presentation.detail.DetailBottomSheetFragment
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.model.EmotionState
 import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
@@ -62,7 +62,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
         collectWithLifecycle(recordViewModel.stateHandlerOfSavingRecord) { result ->
             when (result) {
-                is VALID -> navigateToDocumentView(result.recordId)
+                is VALID -> navigateToDetailView(result.recordId)
                 is INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
                 is DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
                 is IDLE -> Log.e("RecordActivity", "DEFAULT")
@@ -70,8 +70,9 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         }
     }
 
-    private fun navigateToDocumentView(recordId: String) {
-        startActivity(DetailActivity.getIntent(this, recordId))
+    private fun navigateToDetailView(recordId: String) {
+        val detailBottomSheetFragment = DetailBottomSheetFragment.from(recordId)
+        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
         finish()
     }
 

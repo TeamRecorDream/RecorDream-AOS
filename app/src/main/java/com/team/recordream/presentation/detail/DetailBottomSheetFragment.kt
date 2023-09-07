@@ -16,10 +16,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentDetailBinding
-import com.team.recordream.presentation.common.model.PlayButtonState
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
-import com.team.recordream.util.recorder.Recorder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -31,10 +29,9 @@ class DetailBottomSheetFragment private constructor(
 ) : BottomSheetDialogFragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding ?: error(R.string.error_basefragment)
-    private val documentViewModel: DetailViewModel by viewModels()
-    private val contentAdapter: ContentAdapter by lazy { ContentAdapter(documentViewModel::updateRecorderState) }
+    private val detailViewModel: DetailViewModel by viewModels()
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
-    private val recorder: Recorder by lazy { Recorder(requireContext()) }
+    private val contentAdapter: ContentAdapter by lazy { ContentAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,15 +45,30 @@ class DetailBottomSheetFragment private constructor(
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        // dismiss될 때, 프래그먼트 인스턴스 확인
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupView()
+    }
+
+    private fun setupView() {
+        detailViewModel.updateDetailRecord(recordId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
-        collectState()
+        collectGenre()
         attachAdapter()
         setEventOnClick()
+    }
+
+    private fun setupBinding() {
+        binding.viewModel = detailViewModel
+        binding.lifecycleOwner = this
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
@@ -80,75 +92,35 @@ class DetailBottomSheetFragment private constructor(
         bottomSheet.layoutParams = layoutParams
     }
 
-    private fun setupBinding() {
-        binding.viewModel = documentViewModel
-        binding.lifecycleOwner = this
-    }
-
-    private fun collectState() {
-        collectWithLifecycle(documentViewModel.content) { contents ->
-            contentAdapter.submitList(contents)
-        }
-
-        collectWithLifecycle(documentViewModel.tags) { genre ->
+    private fun collectGenre() {
+        collectWithLifecycle(detailViewModel.tags) { genre ->
             genreTagAdapter.submitList(genre)
-        }
-
-        collectWithLifecycle(documentViewModel.isRemoved) { isRemoved ->
-            if (isRemoved) dismiss()
-        }
-
-        collectWithLifecycle(documentViewModel.recorderState) { recorderState ->
-            when (recorderState) {
-                PlayButtonState.RECORDER_STOP -> handleRecorderPlayState()
-                PlayButtonState.RECORDER_PLAY -> handleRecorderStopState()
-            }
-        }
-
-        collectWithLifecycle(documentViewModel.progressRate) { progressRate ->
-            // TODO: 아이템 뷰 -> 프래그먼트
-            // TODO: 액티비티 -> 바텀시트 프래그먼트
-            // TODO: 가끔 나의꿈기록 늦게 업데이트 됨. 프래그먼트로 교체하면 해결
-        }
-    }
-
-    private fun handleRecorderStopState() {
-        recorder.stopPlaying()
-    }
-
-    private fun handleRecorderPlayState() {
-        val file = documentViewModel.recordingFilePath ?: throw IllegalArgumentException()
-
-        recorder.apply {
-            documentViewModel.updateRunningTime(getDuration(file))
-            startPlaying(file)
         }
     }
 
     private fun attachAdapter() {
         binding.rvDocumentChip.adapter = genreTagAdapter
         binding.rvDocumentChip.setHasFixedSize(true)
+
         binding.vpDocumentContent.adapter = contentAdapter
+        contentAdapter.fragments.addAll(
+            listOf(
+                DreamRecordFragment.from(detailViewModel),
+                NoteFragment.from(detailViewModel),
+            ),
+        )
+
         TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
     }
 
     private fun setEventOnClick() {
-        binding.ivDocumentMore.setOnClickListener { showBottomSheet() }
+        binding.ivDocumentMore.setOnClickListener { showMoreDialog() }
         binding.ivDocumentClose.setOnClickListener { dismiss() }
     }
 
-    private fun showBottomSheet() {
+    private fun showMoreDialog() {
         val documentBottomSheetFragment = DocumentBottomSheetFragment()
         documentBottomSheetFragment.show(childFragmentManager, documentBottomSheetFragment.tag)
-    }
-
-    private fun setupView() {
-        documentViewModel.updateDetailRecord(recordId)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setupView()
     }
 
     private inline fun <T> collectWithLifecycle(
@@ -165,6 +137,6 @@ class DetailBottomSheetFragment private constructor(
     }
 
     companion object {
-        fun getInstance(id: String): DetailBottomSheetFragment = DetailBottomSheetFragment(id)
+        fun from(id: String): DetailBottomSheetFragment = DetailBottomSheetFragment(id)
     }
 }

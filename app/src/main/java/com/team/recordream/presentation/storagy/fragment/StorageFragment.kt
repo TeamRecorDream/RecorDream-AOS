@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentStorageBinding
-import com.team.recordream.presentation.detail.DetailActivity
+import com.team.recordream.presentation.detail.DetailBottomSheetFragment
 import com.team.recordream.presentation.storagy.MyDecoration
 import com.team.recordream.presentation.storagy.StorageViewModel
 import com.team.recordream.presentation.storagy.adapter.StorageEmotionAdapter
@@ -101,19 +101,18 @@ class StorageFragment : Fragment() {
     }
 
     private fun initGridAdapter() {
-        storageGridAdapter =
-            StorageGridAdapter {
-                startActivity(DetailActivity.getIntent(requireContext(), it.id))
-            }
+        storageGridAdapter = StorageGridAdapter { navigateToDetailView(it.id) }
         binding.rvStorage.adapter = storageGridAdapter
         binding.rvStorage.layoutManager = GridLayoutManager(context, 2)
     }
 
+    private fun navigateToDetailView(id: String) {
+        val detailBottomSheetFragment = DetailBottomSheetFragment.from(id)
+        detailBottomSheetFragment.show(childFragmentManager, detailBottomSheetFragment.tag)
+    }
+
     private fun initListAdapter() {
-        storageListAdapter =
-            StorageListAdapter {
-                startActivity(DetailActivity.getIntent(requireContext(), it.id))
-            }
+        storageListAdapter = StorageListAdapter { navigateToDetailView(it.id) }
         binding.rvStorage.adapter = storageListAdapter
         binding.rvStorage.layoutManager = LinearLayoutManager(context)
     }
