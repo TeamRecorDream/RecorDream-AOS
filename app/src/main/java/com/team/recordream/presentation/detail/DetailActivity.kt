@@ -26,7 +26,7 @@ class DetailActivity :
     private val documentViewModel: DetailViewModel by viewModels()
     private val contentAdapter: ContentAdapter by lazy { ContentAdapter(documentViewModel::updateRecorderState) }
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
-    private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
+    private val documentBottomSheetFragment: DocumentBottomSheetFragment by lazy { DocumentBottomSheetFragment() }
     private val recorder: Recorder by lazy { Recorder(this) }
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
@@ -99,7 +99,7 @@ class DetailActivity :
     }
 
     private fun showBottomSheet() {
-        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
+        documentBottomSheetFragment.show(supportFragmentManager, documentBottomSheetFragment.tag)
     }
 
     private fun setupView() {
