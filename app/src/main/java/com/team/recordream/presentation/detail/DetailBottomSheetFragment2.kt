@@ -1,14 +1,17 @@
 package com.team.recordream.presentation.detail
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.team.recordream.R
@@ -59,8 +62,31 @@ class DetailBottomSheetFragment2 private constructor(
             val behavior =
                 BottomSheetBehavior.from(it.findViewById(com.google.android.material.R.id.design_bottom_sheet))
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.skipCollapsed = true
+            behavior.isHideable = true
             it.setCanceledOnTouchOutside(false)
         }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        super.onCreateDialog(savedInstanceState).apply {
+            this.setOnShowListener { dialog ->
+                val bottomSheetDialog =
+                    (dialog as BottomSheetDialog).also { setCanceledOnTouchOutside(false) }
+
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+                    ?.let {
+                        val behaviour = BottomSheetBehavior.from(it)
+                        behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                        setupFullHeight(it)
+                    }
+            }
+        }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 
     private fun setupBinding() {
