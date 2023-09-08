@@ -53,6 +53,10 @@ class DetailViewModel @Inject constructor(
     private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRecorded: StateFlow<Boolean> get() = _isRecorded
 
+
+    // 음성녹음구현남음
+
+
     fun updateDetailRecord(id: String) {
         recordId = id
         viewModelScope.launch {
