@@ -18,6 +18,7 @@ import com.team.recordream.presentation.storagy.adapter.StorageGridAdapter
 import com.team.recordream.presentation.storagy.adapter.StorageListAdapter
 import com.team.recordream.util.makeSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class StorageFragment : Fragment() {
@@ -49,6 +50,10 @@ class StorageFragment : Fragment() {
         selectShowView()
     }
 
+    override fun onResume() {
+        super.onResume()
+        storageViewModel.initServer(emotionCheck)
+    }
     private fun StorageDataObserver() {
         with(storageViewModel) {
             storageCheckList.observe(viewLifecycleOwner) { showView ->
@@ -88,10 +93,9 @@ class StorageFragment : Fragment() {
     }
 
     private fun checkNetworkError() {
-//        storageViewModel.errorMessage.observe(viewLifecycleOwner) {
-//            Log.d("storage", "checkNetworkError: $it")
-//            Timber.tag("storage").d(" $it")
-//        }
+        storageViewModel.errorMessage.observe(viewLifecycleOwner) {
+            Timber.tag("storage").d(" $it")
+        }
     }
 
     private fun emotionAdapterInit() {
@@ -143,7 +147,6 @@ class StorageFragment : Fragment() {
             storageViewModel.storageList[i].isSelected = false
         }
         storageViewModel.storageList[index].isSelected = true
-//        storageEmotionAdapter.submitList(storageViewModel.storageList)
         storageEmotionAdapter.notifyDataSetChanged()
     }
 

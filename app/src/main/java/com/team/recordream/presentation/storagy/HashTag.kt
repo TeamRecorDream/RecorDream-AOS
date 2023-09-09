@@ -30,15 +30,15 @@ class HashTag(context: Context, attrs: AttributeSet? = null) : LinearLayout(cont
     }
 
     fun checkGenreList(genre: Int) = when (genre) {
-        0 -> R.string.tv_record_comedy
-        1 -> R.string.tv_record_romance
-        2 -> R.string.tv_record_fantasy
-        3 -> R.string.tv_record_horror
-        4 -> R.string.tv_record_animal
-        5 -> R.string.tv_record_friend
-        6 -> R.string.tv_record_family
-        7 -> R.string.tv_record_food
-        8 -> R.string.tv_record_work
+        1 -> R.string.tv_record_comedy
+        2 -> R.string.tv_record_romance
+        3 -> R.string.tv_record_fantasy
+        4 -> R.string.tv_record_horror
+        5 -> R.string.tv_record_animal
+        6 -> R.string.tv_record_friend
+        7 -> R.string.tv_record_family
+        8 -> R.string.tv_record_food
+        9 -> R.string.tv_record_work
         else -> R.string.tv_record_etc
     }
 }
