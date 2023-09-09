@@ -16,13 +16,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentRecordBottomSheetBinding
+import com.team.recordream.presentation.common.model.PlayButtonState.RECORDER_PLAY
+import com.team.recordream.presentation.common.model.PlayButtonState.RECORDER_STOP
 import com.team.recordream.presentation.record.RecordViewModel
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.VALID
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.ON_RECORDING
@@ -77,6 +77,7 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
         collectStateProgressBar()
         collectReplayTimeProgress()
         collectNowTimeProgress()
+        collectStateIsOverTime()
     }
 
     private fun collectRecordButtonState() {
@@ -122,13 +123,19 @@ class RecordBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun handleRecorderStoppingState() {
-        recorder.startPlaying()
+        recorder.startPlaying(null)
         recordBottomSheetViewModel.startCountUp()
     }
 
     private fun collectStateProgressBar() {
         collectWithLifecycle(recordBottomSheetViewModel.fullProgressBar) { state ->
             if (state) recorder.stopPlaying()
+        }
+    }
+
+    private fun collectStateIsOverTime() {
+        collectWithLifecycle(recordBottomSheetViewModel.isOverTime) { isOverTime ->
+            if (isOverTime) handleAfterRecording()
         }
     }
 

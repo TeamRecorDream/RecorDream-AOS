@@ -39,7 +39,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun providesDocumentService(
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): DocumentService = retrofit.create(DocumentService::class.java)
 
     @Provides

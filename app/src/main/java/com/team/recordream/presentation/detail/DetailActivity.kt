@@ -9,10 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.team.recordream.R
-import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityDetailBinding
+import com.team.recordream.presentation.common.BindingActivity
+import com.team.recordream.presentation.common.model.PlayButtonState
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
+import com.team.recordream.util.recorder.Recorder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -21,10 +23,11 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailActivity :
     BindingActivity<ActivityDetailBinding>(R.layout.activity_detail) {
-    private val contentAdapter: ContentAdapter by lazy { ContentAdapter() }
+    private val documentViewModel: DetailViewModel by viewModels()
+    private val contentAdapter: ContentAdapter by lazy { ContentAdapter(documentViewModel::updateRecorderState) }
     private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
     private val detailBottomSheetFragment: DetailBottomSheetFragment by lazy { DetailBottomSheetFragment() }
-    private val documentViewModel: DetailViewModel by viewModels()
+    private val recorder: Recorder by lazy { Recorder(this) }
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
     }
@@ -54,6 +57,32 @@ class DetailActivity :
 
         collectWithLifecycle(documentViewModel.isRemoved) { isRemoved ->
             if (isRemoved) finish()
+        }
+
+        collectWithLifecycle(documentViewModel.recorderState) { recorderState ->
+            when (recorderState) {
+                PlayButtonState.RECORDER_STOP -> handleRecorderPlayState()
+                PlayButtonState.RECORDER_PLAY -> handleRecorderStopState()
+            }
+        }
+
+        collectWithLifecycle(documentViewModel.progressRate) { progressRate ->
+            // TODO: 아이템 뷰 -> 프래그먼트
+            // TODO: 액티비티 -> 바텀시트 프래그먼트
+            // TODO: 가끔 나의꿈기록 늦게 업데이트 됨. 프래그먼트로 교체하면 해결
+        }
+    }
+
+    private fun handleRecorderStopState() {
+        recorder.stopPlaying()
+    }
+
+    private fun handleRecorderPlayState() {
+        val file = documentViewModel.recordingFilePath ?: throw IllegalArgumentException()
+
+        recorder.apply {
+            documentViewModel.updateRunningTime(getDuration(file))
+            startPlaying(file)
         }
     }
 

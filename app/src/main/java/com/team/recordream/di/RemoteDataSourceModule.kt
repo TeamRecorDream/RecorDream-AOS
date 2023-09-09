@@ -42,7 +42,6 @@ object RemoteDataSourceModule {
         recordService: RecordService,
     ): RecordDataSource = RecordDataSourceImpl(recordService)
 
-
     @Provides
     @Singleton
     fun providesSearchDataSourceImpl(

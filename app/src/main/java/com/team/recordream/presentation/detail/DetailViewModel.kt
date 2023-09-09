@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
 import com.team.recordream.domain.repository.DocumentRepository
+import com.team.recordream.presentation.common.model.PlayButtonState
 import com.team.recordream.presentation.detail.model.Content
 import com.team.recordream.presentation.record.uistate.Genre
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Timer
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +20,9 @@ class DetailViewModel @Inject constructor(
     private val documentRepository: DocumentRepository,
 ) : ViewModel() {
     var recordId: String = ""
+        private set
+
+    var recordingFilePath: String? = ""
         private set
 
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
@@ -41,6 +46,16 @@ class DetailViewModel @Inject constructor(
     private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
     val content: StateFlow<List<Content>> get() = _content
 
+    private val _recorderState: MutableStateFlow<PlayButtonState> =
+        MutableStateFlow(PlayButtonState.RECORDER_PLAY)
+    val recorderState: StateFlow<PlayButtonState> get() = _recorderState
+
+    private val _progressRate: MutableStateFlow<Int> = MutableStateFlow(0)
+    val progressRate: StateFlow<Int> get() = _progressRate
+
+    private var timer: Timer? = null
+    private var runningTime: Int = 0
+
     fun updateDetailRecord(id: String) {
         recordId = id
         viewModelScope.launch {
@@ -52,9 +67,20 @@ class DetailViewModel @Inject constructor(
                     _title.value = it.title
                     findTagByGenreId(it.genre)
                     _content.value = listOf(
-                        Content(CONTENT_CATEGORY_DREAM_RECORD, it.content ?: BLANK),
-                        Content(CONTENT_CATEGORY_NOTE, it.note ?: BLANK),
+                        Content(
+                            CONTENT_CATEGORY_DREAM_RECORD,
+                            it.content ?: BLANK,
+                            it.voice != null,
+                            _recorderState.value,
+                        ),
+                        Content(
+                            CONTENT_CATEGORY_NOTE,
+                            it.note ?: BLANK,
+                            it.voice != null,
+                            _recorderState.value,
+                        ),
                     )
+                    if (it.voice != null) recordingFilePath = it.voice.url
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
@@ -62,10 +88,42 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+    fun updateRecorderState(selectedState: PlayButtonState) {
+        when (selectedState) {
+            PlayButtonState.RECORDER_PLAY -> {
+                _recorderState.value = PlayButtonState.RECORDER_STOP
+                _content.value =
+                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_STOP) }
+                initProgressBar()
+            }
+
+            PlayButtonState.RECORDER_STOP -> {
+                _recorderState.value = PlayButtonState.RECORDER_PLAY
+                _content.value =
+                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_PLAY) }
+            }
+        }
+    }
+
     fun updateRemovedRecord() {
         _isRemoved.value = true
         removeDetailRecord()
     }
+
+    fun updateRunningTime(duration: Int) {
+        runningTime = duration
+    }
+
+    private fun initProgressBar() {
+//        timer = timer(period = runningTime.convertMilliseconds() / HUNDRED_PERCENT) {
+//            if (progressTime > HUNDRED_PERCENT) {
+//                cancel()
+//            }
+//            ++progressTime
+//        }
+    }
+
+    private fun Int.convertMilliseconds(): Long = this * ONE_SECOND_LONG
 
     private fun removeDetailRecord() {
         viewModelScope.launch {
@@ -121,12 +179,14 @@ class DetailViewModel @Inject constructor(
     }
 
     companion object {
-        private const val BLANK = ""
+        const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
         private const val CONTENT_CATEGORY_NOTE = "노트"
-        private const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
+        private const val BLANK = ""
+        private const val HUNDRED_PERCENT = 100
+        private const val ONE_SECOND_LONG: Long = 1000
         private val contentDefault = listOf(
-            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK),
-            Content(CONTENT_CATEGORY_NOTE, BLANK),
+            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK, false, PlayButtonState.RECORDER_STOP),
+            Content(CONTENT_CATEGORY_NOTE, BLANK, false, PlayButtonState.RECORDER_STOP),
         )
     }
 }

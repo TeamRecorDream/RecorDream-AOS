@@ -1,6 +1,7 @@
 package com.team.recordream.mapper
 
 import com.team.recordream.data.entity.remote.response.DetailRecordResponseDto
+import com.team.recordream.data.entity.remote.response.Voice
 import com.team.recordream.domain.model.DetailRecord
 
 fun DetailRecordResponseDto.toDomain(): DetailRecord = DetailRecord(
@@ -11,5 +12,11 @@ fun DetailRecordResponseDto.toDomain(): DetailRecord = DetailRecord(
     emotion = data.emotion,
     genre = data.genre,
     note = data.note,
-    voice = null,
+    voice = data.voice?.toDomain(),
 )
+
+fun Voice.toDomain(): com.team.recordream.domain.model.Voice =
+    com.team.recordream.domain.model.Voice(
+        id = id,
+        url = url,
+    )

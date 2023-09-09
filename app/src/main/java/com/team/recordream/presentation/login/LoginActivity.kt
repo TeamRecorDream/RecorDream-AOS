@@ -6,9 +6,9 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.common.util.Utility
 import com.team.recordream.R
-import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityLoginBinding
 import com.team.recordream.presentation.MainActivity
+import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.util.manager.KakaoLoginManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

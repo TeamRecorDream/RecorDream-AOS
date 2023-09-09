@@ -13,8 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
-import com.team.recordream.base.BindingActivity
 import com.team.recordream.databinding.ActivityRecordBinding
+import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.model.EmotionState
@@ -137,8 +137,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun editRecord() {
-        recordViewModel.editRecord(recordId)
-        finish()
+        when (recordViewModel.isSaveEnabled.value) {
+            true -> {
+                recordViewModel.editRecord(recordId)
+                finish()
+            }
+
+            false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
+        }
     }
 
     private fun createRecord() {

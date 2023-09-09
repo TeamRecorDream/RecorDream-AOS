@@ -29,7 +29,6 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     private val detailViewModel by activityViewModels<DetailViewModel>()
     private lateinit var shareActivityResultLauncher: ActivityResultLauncher<Intent>
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +39,7 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             inflater,
             R.layout.fragment_document_bottom_sheet,
             container,
-            false
+            false,
         )
         return binding.root
     }
@@ -61,7 +60,6 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ -> }
         setEventOnClick()
     }
-
 
     private fun setEventOnClick() {
         binding.tvDocumentBottomDelete.setOnClickListener {
@@ -86,12 +84,11 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         val intent = RecordActivity.getIntent(
             requireContext(),
             RecordActivity.EDIT_MODE,
-            detailViewModel.recordId
+            detailViewModel.recordId,
         )
 
         startActivity(intent)
     }
-
 
     private fun shareInstagram() {
         val rootView = requireActivity().window.decorView.rootView
@@ -113,7 +110,6 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         dismiss()
     }
 
-
     private fun convertBitmapToImageUri(bitmap: Bitmap): Uri? {
         val tempFile = File(requireContext().cacheDir, IMAGE_FORMAT)
         var outputStream: FileOutputStream? = null
@@ -129,10 +125,11 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
         outputStream?.close()
 
         return FileProvider.getUriForFile(
-            requireContext(), requireContext().packageName + URI_FORMAT, tempFile,
+            requireContext(),
+            requireContext().packageName + URI_FORMAT,
+            tempFile,
         )
     }
-
 
     companion object {
         private const val INSTAGRAM = "INSTAGRAM"

@@ -8,5 +8,5 @@ data class DetailRecord(
     val emotion: Int?,
     val genre: List<Int>,
     val note: String?,
-    val voice: String?,
+    val voice: Voice?,
 )

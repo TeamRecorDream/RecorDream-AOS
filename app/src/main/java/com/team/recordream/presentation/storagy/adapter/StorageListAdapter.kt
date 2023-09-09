@@ -1,6 +1,5 @@
 package com.team.recordream.presentation.storagy.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

@@ -25,8 +25,6 @@ class RecordAdapter(
             override fun areContentsTheSame(oldItem: EmotionState, newItem: EmotionState): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
-
 }

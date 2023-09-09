@@ -6,8 +6,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import com.team.recordream.R
-import com.team.recordream.base.BindingFragment
 import com.team.recordream.databinding.FragmentHomeBinding
+import com.team.recordream.presentation.common.BindingFragment
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.adapter.HomeAdapter
 import com.team.recordream.presentation.home.model.UserRecords

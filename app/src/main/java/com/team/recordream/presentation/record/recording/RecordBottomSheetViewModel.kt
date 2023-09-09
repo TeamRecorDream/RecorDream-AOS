@@ -7,13 +7,13 @@ import com.team.recordream.domain.model.VoiceRecordId
 import com.team.recordream.domain.repository.RecordRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
+import com.team.recordream.presentation.common.model.PlayButtonState
+import com.team.recordream.presentation.common.model.PlayButtonState.RECORDER_PLAY
+import com.team.recordream.presentation.common.model.PlayButtonState.RECORDER_STOP
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.DISCONNECT
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.IDLE
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.INVALID
 import com.team.recordream.presentation.record.recording.RecordBottomSheetViewModel.SavingRecordingState.VALID
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_PLAY
-import com.team.recordream.presentation.record.recording.uistate.PlayButtonState.RECORDER_STOP
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.AFTER_RECORDING
 import com.team.recordream.presentation.record.recording.uistate.RecordButtonState.BEFORE_RECORDING
@@ -68,6 +68,9 @@ class RecordBottomSheetViewModel @Inject constructor(
         MutableStateFlow(IDLE)
     val stateOfSavingRecording: StateFlow<SavingRecordingState> = _stateOfSavingRecording
 
+    private val _isOverTime = MutableStateFlow(false)
+    val isOverTime: StateFlow<Boolean> get() = _isOverTime
+
     fun postVoice(recordingFile: File) {
         viewModelScope.launch {
             runCatching { recordRepository.postVoice(recordingFile) }
@@ -99,7 +102,6 @@ class RecordBottomSheetViewModel @Inject constructor(
             if (_replayTime.value > HUNDRED_PERCENT) {
                 cancel()
                 stopReplayProgressBar()
-                _fullProgressBar.value = true
             }
             ++_replayTime.value
         }
@@ -107,6 +109,7 @@ class RecordBottomSheetViewModel @Inject constructor(
 
     private fun stopPlayingRecorder() {
         _playButtonState.value = RECORDER_PLAY
+        _fullProgressBar.value = false
         stopReplayProgressBar()
     }
 
@@ -129,19 +132,23 @@ class RecordBottomSheetViewModel @Inject constructor(
     }
 
     private fun initProgressBar() {
-        firstTimer = timer(period = ONE_PERCENT, initialDelay = ONE_PERCENT) {
-            if (_nowTime.value > HUNDRED_PERCENT) cancel()
+        firstTimer = timer(period = ONE_PERCENT) {
+            if (_nowTime.value > HUNDRED_PERCENT) {
+                cancel()
+                stopRecording()
+            }
             ++_nowTime.value
         }
     }
 
     private fun initRealTimer() {
-        realTimer = timer(period = ONE_SECOND, initialDelay = ONE_SECOND) {
+        realTimer = timer(period = ONE_SECOND) {
             recordingTime++
         }
     }
 
     private fun stopRecording() {
+        _isOverTime.value = true
         _recordButtonState.value = AFTER_RECORDING
         _isRecorderActivated.value = true
         stopProgressBar()
@@ -153,7 +160,7 @@ class RecordBottomSheetViewModel @Inject constructor(
         _isRecorderActivated.value = false
         stopProgressBar()
         clearProgressBar()
-
+        _isOverTime.value = false
         _playButtonState.value = RECORDER_PLAY
     }
 

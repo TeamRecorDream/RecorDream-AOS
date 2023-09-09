@@ -1,6 +1,7 @@
 package com.team.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
@@ -26,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
-    private val documentRepository: DocumentRepository
+    private val documentRepository: DocumentRepository,
 ) : ViewModel() {
     val title: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -68,17 +69,15 @@ class RecordViewModel @Inject constructor(
 
     fun saveRecord() {
         viewModelScope.launch {
-            runCatching { recordRepository.postRecord(getRecord()) }
-                .onSuccess { result ->
-                    when (result) {
-                        is SUCCESS -> _stateHandlerOfSavingRecord.value = VALID(result.data.id)
-                        is FAIL -> _stateHandlerOfSavingRecord.value = INVALID
-                    }
+            runCatching { recordRepository.postRecord(getRecord()) }.onSuccess { result ->
+                when (result) {
+                    is SUCCESS -> _stateHandlerOfSavingRecord.value = VALID(result.data.id)
+                    is FAIL -> _stateHandlerOfSavingRecord.value = INVALID
                 }
+            }
                 .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
         }
     }
-
 
     fun initEditViewState(recordId: String) {
         viewModelScope.launch {
@@ -94,23 +93,17 @@ class RecordViewModel @Inject constructor(
                     }
                     _genre.value.addAll(record.genre)
                     List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }.apply {
-                        _genreEnabled.value = this
+                        if (genre.value.size == MAX_COUNT_OF_GENRE) _genreEnabled.value = this
                         _genreChecked.value = this
                     }
-                    if (record.genre.size == MAX_COUNT_OF_GENRE) {
-                        _warningGenre.value = SHOW
-                        delay(TWO_SECONDS)
-                        _warningGenre.value = HIDE
-                    }
+                    Log.d("123123", _genreEnabled.value.toString())
                 }
         }
     }
 
     fun editRecord(recordId: String) {
         viewModelScope.launch {
-            runCatching {
-                recordRepository.updateRecord(recordId, getRecord())
-            }
+            runCatching { recordRepository.updateRecord(recordId, getEditedRecord()) }
                 .onSuccess {}
                 .onFailure {}
         }
@@ -147,17 +140,12 @@ class RecordViewModel @Inject constructor(
         val isContained = _genre.value.contains(genre.genreId)
         val isReachedMaxCount = _genre.value.size == MAX_COUNT_OF_GENRE
 
-
         when {
             isContained -> handleContainedGenre(genre)
             !isReachedMaxCount -> handleNonContainedGenre(genre)
         }
 
         _genreChecked.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
-
-        // state관리만 확인하고 서버체크하면 해당기능 끝
-        // 머지부터하고
-        // 프로그래스바 마저 만들면끗
     }
 
     private fun handleNonContainedGenre(genre: Genre) {
@@ -192,8 +180,21 @@ class RecordViewModel @Inject constructor(
         title = title.value,
         date = date.value.substringBefore(" ").replace("/", "-"),
         content = content.value,
-        emotion = emotion.value ?: DEFAULT_EMOTION,
+        emotion = emotion.value,
         genre = genre.value.ifEmpty { null },
+        note = note.value,
+        voice = voiceId.value,
+    )
+
+    private fun getEditedRecord(): Record = Record(
+        title = title.value,
+        date = date.value.substringBefore(" ").replace("/", "-"),
+        content = content.value,
+        emotion = emotion.value,
+        genre = when (genre.value.contains(0)) {
+            true -> null
+            false -> genre.value
+        },
         note = note.value,
         voice = voiceId.value,
     )
@@ -205,7 +206,6 @@ class RecordViewModel @Inject constructor(
 
     companion object {
         private const val BLANK = ' '
-        private const val DEFAULT_VALUE_STRING = ""
         private val EMOTION_ALL = null
         private val DEFAULT_VALUE_NULL = null
         private const val DEFAULT_TIME = "00:00"

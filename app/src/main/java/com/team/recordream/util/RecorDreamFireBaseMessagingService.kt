@@ -7,12 +7,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.util.Log
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.team.recordream.R
-import com.team.recordream.presentation.MainActivity
 import com.team.recordream.presentation.record.RecordActivity
 import timber.log.Timber
 

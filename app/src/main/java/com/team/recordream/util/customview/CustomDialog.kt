@@ -31,7 +31,6 @@ class CustomDialog(private val context: Context) {
         onClickedListener = listener
     }
 
-
     fun myPageShowDeleteDialog() {
         mypageBinding = CustomMypageDialogBinding.inflate(inflater)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

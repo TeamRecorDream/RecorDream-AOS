@@ -9,7 +9,7 @@ import com.team.recordream.util.RecordreamMapping
 
 class PagerViewHolder(
     private val binding: HomeCardItemBinding,
-    itemClick: (UserRecords) -> Unit
+    itemClick: (UserRecords) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {

@@ -97,10 +97,11 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFcmToken(getFcmToken: (String) -> Unit) {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            getFcmToken(requireNotNull(task.result))
-            Timber.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
-        }
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                getFcmToken(requireNotNull(task.result))
+                Timber.d("fcm", "getFcmToken: ${FirebaseMessaging.getInstance().token}")
+            },
         )
     }
 
