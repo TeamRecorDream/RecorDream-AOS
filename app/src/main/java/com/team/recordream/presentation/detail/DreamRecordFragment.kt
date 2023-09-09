@@ -52,8 +52,8 @@ class DreamRecordFragment private constructor(
     }
 
     private fun collectProgressRate() {
-        collectWithLifecycle(detailViewModel.progressRate) {
-            binding.pbDreamRecordBar.progress = it
+        collectWithLifecycle(detailViewModel.progressRate) { rate ->
+            binding.pbDreamRecordBar.progress = rate
         }
     }
 

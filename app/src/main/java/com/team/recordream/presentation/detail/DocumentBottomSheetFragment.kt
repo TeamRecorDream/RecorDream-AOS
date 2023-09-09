@@ -13,12 +13,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentDocumentBottomSheetBinding
 import com.team.recordream.presentation.record.RecordActivity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 
@@ -64,6 +70,13 @@ class DocumentBottomSheetFragment private constructor(
         shareActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ -> }
         setEventOnClick()
+        collectIsRemoved()
+    }
+
+    private fun collectIsRemoved() {
+        collectWithLifecycle(detailViewModel.isRemoved) { isRemoved ->
+            if (isRemoved) dismiss()
+        }
     }
 
     private fun setEventOnClick() {
@@ -134,6 +147,19 @@ class DocumentBottomSheetFragment private constructor(
             requireContext().packageName + URI_FORMAT,
             tempFile,
         )
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 
     companion object {

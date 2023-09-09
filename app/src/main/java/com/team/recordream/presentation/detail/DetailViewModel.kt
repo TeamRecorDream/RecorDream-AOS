@@ -91,9 +91,16 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun updateRemovedRecord() {
-        _isRemoved.value = true
-        removeDetailRecord()
+    fun updateRecordDeleted() {
+        viewModelScope.launch {
+            documentRepository.deleteDetailRecord(recordId)
+                .onSuccess {
+                    _isRemoved.value = true
+                }
+                .onFailure {
+                    Log.d("123123-DetailViewModel", it.message.toString())
+                }
+        }
     }
 
     fun updateRecordingTime(time: Int) {
@@ -152,16 +159,6 @@ class DetailViewModel @Inject constructor(
 
     private fun stopProgressBar() {
         progressTimer?.cancel()
-    }
-
-    private fun removeDetailRecord() {
-        viewModelScope.launch {
-            documentRepository.deleteDetailRecord(recordId)
-                .onSuccess {
-                }
-                .onFailure {
-                }
-        }
     }
 
     private fun findTagByGenreId(genre: List<Int>) {

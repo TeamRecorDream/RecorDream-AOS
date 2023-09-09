@@ -62,6 +62,7 @@ class DetailBottomSheetFragment private constructor(
 
         setupBinding()
         collectGenre()
+        collectIsRemoved()
         attachAdapter()
         setEventOnClick()
     }
@@ -95,6 +96,12 @@ class DetailBottomSheetFragment private constructor(
     private fun collectGenre() {
         collectWithLifecycle(detailViewModel.tags) { genre ->
             genreTagAdapter.submitList(genre)
+        }
+    }
+
+    private fun collectIsRemoved() {
+        collectWithLifecycle(detailViewModel.isRemoved) { isRemoved ->
+            if (isRemoved) dismiss()
         }
     }
 
