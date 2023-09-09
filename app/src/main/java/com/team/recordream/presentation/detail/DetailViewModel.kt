@@ -53,9 +53,9 @@ class DetailViewModel @Inject constructor(
     private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRecorded: StateFlow<Boolean> get() = _isRecorded
 
-
     // 음성녹음구현남음
-
+    private val _isPlayed: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isPlayed: StateFlow<Boolean> get() = _isPlayed
 
     fun updateDetailRecord(id: String) {
         recordId = id
@@ -81,6 +81,10 @@ class DetailViewModel @Inject constructor(
     fun updateRemovedRecord() {
         _isRemoved.value = true
         removeDetailRecord()
+    }
+
+    fun updateRecorderState() {
+        _isPlayed.value = !isPlayed.value
     }
 
     private fun initProgressBar() {

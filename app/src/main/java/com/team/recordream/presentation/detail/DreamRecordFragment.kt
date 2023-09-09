@@ -22,11 +22,22 @@ class DreamRecordFragment private constructor(
         super.onViewCreated(view, savedInstanceState)
 
         setupBinding()
+        collectRecorderState()
     }
 
     private fun setupBinding() {
         binding.vm = detailViewModel
+        binding.onClick = { detailViewModel.updateRecorderState() }
         binding.lifecycleOwner = this
+    }
+
+    private fun collectRecorderState() {
+        collectWithLifecycle(detailViewModel.isPlayed) { state ->
+            when (state) {
+                true -> recorder.startPlaying(detailViewModel.recordingFilePath)
+                false -> recorder.stopPlaying()
+            }
+        }
     }
 
     private inline fun <T> collectWithLifecycle(

@@ -109,6 +109,15 @@ object BindingAdapter {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("srcRecorderState")
+    fun setImageByRecorderState(imageview: ImageView, recorderState: Boolean) {
+        when (recorderState) {
+            false -> R.drawable.icn_start.setImageWithGlide(imageview)
+            true -> R.drawable.icn_stop.setImageWithGlide(imageview)
+        }
+    }
+
     private fun Int.setImageWithGlide(imageview: ImageView) {
         Glide.with(imageview.context)
             .load(this)

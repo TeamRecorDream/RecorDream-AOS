@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="onClick"
+            type="kotlin.jvm.functions.Function0" />
+
+        <variable
             name="vm"
             type="com.team.recordream.presentation.detail.DetailViewModel" />
 
@@ -58,9 +62,11 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:onClick="@{() -> onClick.invoke()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:srcRecorderState="@{vm.isPlayed()}"
                 tools:src="@drawable/icn_start" />
 
             <ProgressBar
