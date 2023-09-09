@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="com.team.recordream.presentation.detail.DetailViewModel" />
 
     </data>
@@ -15,20 +15,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="12dp"
-        app:setBackground="@{viewModel.background}">
+        app:setBackground="@{vm.background}">
+
+        <View
+            android:id="@+id/v_recording_indicator"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="171dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="171dp"
+            android:background="@drawable/rectangle_radius_10dp_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/tv_document_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/document_title"
             android:textAppearance="@style/Sb16"
             android:textColor="@color/white02_80FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
 
         <ImageView
             android:id="@+id/iv_document_close"
@@ -55,7 +67,7 @@
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_marginTop="48dp"
-            app:glideSrc="@{viewModel.icon}"
+            app:glideSrc="@{vm.icon}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_document_title" />
@@ -65,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@{viewModel.date}"
+            android:text="@{vm.date}"
             android:textAppearance="@style/Sb14"
             android:textColor="@color/white01_FFFFFF"
             app:layout_constraintEnd_toEndOf="@+id/iv_document_feeling"
@@ -80,7 +92,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
-            android:text="@{viewModel.title}"
+            android:text="@{vm.title}"
             android:textAppearance="@style/Sb18"
             android:textColor="@color/white01_FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
@@ -120,6 +132,7 @@
             android:id="@+id/vp_document_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@+id/iv_document_logo"
@@ -137,4 +150,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/rdgoro_mark" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

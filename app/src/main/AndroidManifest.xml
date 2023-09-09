@@ -45,10 +45,6 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="com.team.recordream.presentation.detail.DetailActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.team.recordream.presentation.search.SearchActivity"
             android:exported="false"
             android:screenOrientation="portrait"

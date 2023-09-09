@@ -1,142 +1,149 @@
 package com.team.recordream.presentation.detail
 
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.net.Uri
+import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import android.view.WindowManager
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.tabs.TabLayoutMediator
 import com.team.recordream.R
-import com.team.recordream.databinding.FragmentDocumentBottomSheetBinding
-import com.team.recordream.presentation.record.RecordActivity
-import java.io.File
-import java.io.FileOutputStream
+import com.team.recordream.databinding.FragmentDetailBinding
+import com.team.recordream.presentation.detail.adapter.ContentAdapter
+import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class DetailBottomSheetFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentDocumentBottomSheetBinding? = null
+@AndroidEntryPoint
+class DetailBottomSheetFragment private constructor(
+    private val recordId: String,
+) : BottomSheetDialogFragment() {
+    private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding ?: error(R.string.error_basefragment)
-    private val detailViewModel by activityViewModels<DetailViewModel>()
-    private lateinit var shareActivityResultLauncher: ActivityResultLauncher<Intent>
+    private val detailViewModel: DetailViewModel by viewModels()
+    private val genreTagAdapter: GenreTagAdapter by lazy { GenreTagAdapter() }
+    private val contentAdapter: ContentAdapter by lazy { ContentAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        setDialogState()
-        _binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_document_bottom_sheet,
-            container,
-            false,
-        )
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun setDialogState() {
-        dialog?.let {
-            val behavior = (it as BottomSheetDialog).behavior
-            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            it.setCanceledOnTouchOutside(false)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        // dismiss될 때, 프래그먼트 인스턴스 확인
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupView()
+    }
+
+    private fun setupView() {
+        detailViewModel.updateDetailRecord(recordId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shareActivityResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { _ -> }
+        setupBinding()
+        collectGenre()
+        collectIsRemoved()
+        attachAdapter()
         setEventOnClick()
     }
 
-    private fun setEventOnClick() {
-        binding.tvDocumentBottomDelete.setOnClickListener {
-            DetailDeleteDialog(requireContext()).create(detailViewModel)
-        }
-
-        binding.btnDocumentBottomCancel.setOnClickListener {
-            dismiss()
-        }
-
-        binding.tvDocumentBottomShare.setOnClickListener {
-            shareInstagram()
-        }
-
-        binding.tvDocumentBottomEdit.setOnClickListener {
-            navigateToEditView()
-            dismiss()
-        }
+    private fun setupBinding() {
+        binding.vm = detailViewModel
+        binding.lifecycleOwner = this
     }
 
-    private fun navigateToEditView() {
-        val intent = RecordActivity.getIntent(
-            requireContext(),
-            RecordActivity.EDIT_MODE,
-            detailViewModel.recordId,
-        )
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        super.onCreateDialog(savedInstanceState).apply {
+            this.setOnShowListener { dialog ->
+                val bottomSheetDialog =
+                    (dialog as BottomSheetDialog).also { setCanceledOnTouchOutside(false) }
 
-        startActivity(intent)
-    }
-
-    private fun shareInstagram() {
-        val rootView = requireActivity().window.decorView.rootView
-        val bitmap = Bitmap.createBitmap(rootView.width, rootView.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        rootView.draw(canvas)
-        val imageUri = convertBitmapToImageUri(bitmap)
-
-        if (imageUri != null) {
-            val intent = Intent(INSTAGRAM_PATH).apply {
-                putExtra(INSTAGRAM, SOURCE_KEY)
-                setDataAndType(imageUri, MEDIA_TYPE_JPEG)
-                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+                    ?.let {
+                        val behaviour = BottomSheetBehavior.from(it)
+                        behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                        setupFullHeight(it)
+                    }
             }
-
-            shareActivityResultLauncher.launch(intent)
         }
 
-        dismiss()
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 
-    private fun convertBitmapToImageUri(bitmap: Bitmap): Uri? {
-        val tempFile = File(requireContext().cacheDir, IMAGE_FORMAT)
-        var outputStream: FileOutputStream? = null
-
-        runCatching {
-            outputStream = FileOutputStream(tempFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            outputStream?.flush() ?: throw IllegalArgumentException()
-        }.onFailure {
-            Log.e("error", it.message.toString())
+    private fun collectGenre() {
+        collectWithLifecycle(detailViewModel.tags) { genre ->
+            genreTagAdapter.submitList(genre)
         }
+    }
 
-        outputStream?.close()
+    private fun collectIsRemoved() {
+        collectWithLifecycle(detailViewModel.isRemoved) { isRemoved ->
+            if (isRemoved) dismiss()
+        }
+    }
 
-        return FileProvider.getUriForFile(
-            requireContext(),
-            requireContext().packageName + URI_FORMAT,
-            tempFile,
+    private fun attachAdapter() {
+        binding.rvDocumentChip.adapter = genreTagAdapter
+        binding.rvDocumentChip.setHasFixedSize(true)
+
+        binding.vpDocumentContent.adapter = contentAdapter
+        contentAdapter.fragments.addAll(
+            listOf(
+                DreamRecordFragment.from(detailViewModel),
+                NoteFragment.from(detailViewModel),
+            ),
         )
+
+        TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
+    }
+
+    private fun setEventOnClick() {
+        binding.ivDocumentMore.setOnClickListener { showMoreDialog() }
+        binding.ivDocumentClose.setOnClickListener { dismiss() }
+    }
+
+    private fun showMoreDialog() {
+        val documentBottomSheetFragment = DocumentBottomSheetFragment.from(detailViewModel)
+        documentBottomSheetFragment.show(childFragmentManager, documentBottomSheetFragment.tag)
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 
     companion object {
-        private const val INSTAGRAM = "INSTAGRAM"
-        private const val SOURCE_KEY = "4432324493558166"
-        private const val INSTAGRAM_PATH = "com.instagram.share.ADD_TO_STORY"
-        private const val IMAGE_FORMAT = "temp_image.jpg"
-        private const val MEDIA_TYPE_JPEG = "image/jpeg"
-        private const val URI_FORMAT = ".fileprovider"
+        fun from(id: String): DetailBottomSheetFragment = DetailBottomSheetFragment(id)
     }
 }

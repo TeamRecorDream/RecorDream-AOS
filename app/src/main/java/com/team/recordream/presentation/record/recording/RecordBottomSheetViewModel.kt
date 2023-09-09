@@ -213,7 +213,7 @@ class RecordBottomSheetViewModel @Inject constructor(
     }
 
     companion object {
-        private const val ONE_PERCENT = 1800L
+        private const val ONE_PERCENT = 1790L
         private const val INIT_TO_ZERO_LONG: Long = 0
         private const val INIT_TO_ZERO: Int = 0
         private const val HUNDRED_PERCENT = 100

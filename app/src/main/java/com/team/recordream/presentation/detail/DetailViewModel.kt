@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
 import com.team.recordream.domain.repository.DocumentRepository
-import com.team.recordream.presentation.common.model.PlayButtonState
-import com.team.recordream.presentation.detail.model.Content
 import com.team.recordream.presentation.record.uistate.Genre
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.util.Timer
 import javax.inject.Inject
+import kotlin.concurrent.timer
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
@@ -22,8 +21,8 @@ class DetailViewModel @Inject constructor(
     var recordId: String = ""
         private set
 
-    var recordingFilePath: String? = ""
-        private set
+    private val _recordingFilePath: MutableStateFlow<String?> = MutableStateFlow(null)
+    val recordingFilePath: StateFlow<String?> get() = _recordingFilePath
 
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
     val background: StateFlow<Int> get() = _background
@@ -42,19 +41,34 @@ class DetailViewModel @Inject constructor(
 
     private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRemoved: StateFlow<Boolean> get() = _isRemoved
+    // ?
 
-    private val _content: MutableStateFlow<List<Content>> = MutableStateFlow(contentDefault)
-    val content: StateFlow<List<Content>> get() = _content
+    // 리팩터링 분리
+    private val _note: MutableStateFlow<String> = MutableStateFlow("")
+    val note: StateFlow<String> get() = _note
 
-    private val _recorderState: MutableStateFlow<PlayButtonState> =
-        MutableStateFlow(PlayButtonState.RECORDER_PLAY)
-    val recorderState: StateFlow<PlayButtonState> get() = _recorderState
+    // 리팩터링 분리
+    private val _content: MutableStateFlow<String> = MutableStateFlow("")
+    val content: StateFlow<String> get() = _content
+
+    private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isRecorded: StateFlow<Boolean> get() = _isRecorded
+
+    // 리팩터링 분리
+    private val _isPlayed: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isPlayed: StateFlow<Boolean> get() = _isPlayed
+
+    private val _recordingTime: MutableStateFlow<Int> = MutableStateFlow(0)
+    val recordingTime: StateFlow<Int> get() = _recordingTime
+
+    private val _playTime: MutableStateFlow<Int> = MutableStateFlow(0)
+    val playTime: StateFlow<Int> get() = _playTime
 
     private val _progressRate: MutableStateFlow<Int> = MutableStateFlow(0)
     val progressRate: StateFlow<Int> get() = _progressRate
 
-    private var timer: Timer? = null
-    private var runningTime: Int = 0
+    private var recordingTimer: Timer? = null
+    private var progressTimer: Timer? = null
 
     fun updateDetailRecord(id: String) {
         recordId = id
@@ -65,22 +79,11 @@ class DetailViewModel @Inject constructor(
                     _icon.value = Emotion.findIconById(it.emotion ?: 0)
                     _date.value = it.date.replace(Regex("[()]"), "")
                     _title.value = it.title
+                    _note.value = it.note ?: ""
+                    _content.value = it.content ?: ""
                     findTagByGenreId(it.genre)
-                    _content.value = listOf(
-                        Content(
-                            CONTENT_CATEGORY_DREAM_RECORD,
-                            it.content ?: BLANK,
-                            it.voice != null,
-                            _recorderState.value,
-                        ),
-                        Content(
-                            CONTENT_CATEGORY_NOTE,
-                            it.note ?: BLANK,
-                            it.voice != null,
-                            _recorderState.value,
-                        ),
-                    )
-                    if (it.voice != null) recordingFilePath = it.voice.url
+                    _isRecorded.value = it.voice != null
+                    if (it.voice != null) _recordingFilePath.value = it.voice.url
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
@@ -88,51 +91,74 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun updateRecorderState(selectedState: PlayButtonState) {
-        when (selectedState) {
-            PlayButtonState.RECORDER_PLAY -> {
-                _recorderState.value = PlayButtonState.RECORDER_STOP
-                _content.value =
-                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_STOP) }
-                initProgressBar()
-            }
-
-            PlayButtonState.RECORDER_STOP -> {
-                _recorderState.value = PlayButtonState.RECORDER_PLAY
-                _content.value =
-                    content.value.map { it.copy(recorderState = PlayButtonState.RECORDER_PLAY) }
-            }
-        }
-    }
-
-    fun updateRemovedRecord() {
-        _isRemoved.value = true
-        removeDetailRecord()
-    }
-
-    fun updateRunningTime(duration: Int) {
-        runningTime = duration
-    }
-
-    private fun initProgressBar() {
-//        timer = timer(period = runningTime.convertMilliseconds() / HUNDRED_PERCENT) {
-//            if (progressTime > HUNDRED_PERCENT) {
-//                cancel()
-//            }
-//            ++progressTime
-//        }
-    }
-
-    private fun Int.convertMilliseconds(): Long = this * ONE_SECOND_LONG
-
-    private fun removeDetailRecord() {
+    fun updateRecordDeleted() {
         viewModelScope.launch {
             documentRepository.deleteDetailRecord(recordId)
                 .onSuccess {
+                    _isRemoved.value = true
                 }
                 .onFailure {
+                    Log.d("123123-DetailViewModel", it.message.toString())
                 }
         }
+    }
+
+    fun updateRecordingTime(time: Int) {
+        _recordingTime.value = time
+        _playTime.value = time / 1000
+    }
+
+    fun updateRecorderState() {
+        _isPlayed.value = !isPlayed.value
+
+        when (isPlayed.value) {
+            true -> handleRecorderPlayed()
+            false -> handleRecorderStopped()
+        }
+    }
+
+    private fun handleRecorderPlayed() {
+        startTimer()
+        startProgressBar()
+    }
+
+    private fun startTimer() {
+        if (recordingTime.value / 1000 == playTime.value) _playTime.value = 0
+
+        recordingTimer = timer(period = 1000, initialDelay = 1000) {
+            if (recordingTime.value / 1000 == playTime.value) {
+                cancel()
+                _playTime.value = recordingTime.value / 1000
+                return@timer
+            }
+            _playTime.value++
+        }
+    }
+
+    private fun startProgressBar() {
+        progressTimer =
+            timer(period = recordingTime.value.toLong() / HUNDRED_PERCENT) {
+                if (progressRate.value > HUNDRED_PERCENT) {
+                    _isPlayed.value = !isPlayed.value
+                    _progressRate.value = 0
+                    cancel()
+                    return@timer
+                }
+                _progressRate.value++
+            }
+    }
+
+    private fun handleRecorderStopped() {
+        stopTimer()
+        stopProgressBar()
+    }
+
+    private fun stopTimer() {
+        recordingTimer?.cancel()
+    }
+
+    private fun stopProgressBar() {
+        progressTimer?.cancel()
     }
 
     private fun findTagByGenreId(genre: List<Int>) {
@@ -179,14 +205,6 @@ class DetailViewModel @Inject constructor(
     }
 
     companion object {
-        const val CONTENT_CATEGORY_DREAM_RECORD = "나의 꿈 기록"
-        private const val CONTENT_CATEGORY_NOTE = "노트"
-        private const val BLANK = ""
         private const val HUNDRED_PERCENT = 100
-        private const val ONE_SECOND_LONG: Long = 1000
-        private val contentDefault = listOf(
-            Content(CONTENT_CATEGORY_DREAM_RECORD, BLANK, false, PlayButtonState.RECORDER_STOP),
-            Content(CONTENT_CATEGORY_NOTE, BLANK, false, PlayButtonState.RECORDER_STOP),
-        )
     }
 }

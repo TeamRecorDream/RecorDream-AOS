@@ -1,29 +1,14 @@
 package com.team.recordream.presentation.detail.adapter
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.team.recordream.presentation.common.model.PlayButtonState
-import com.team.recordream.presentation.detail.adapter.viewHolder.ContentViewHolder
-import com.team.recordream.presentation.detail.model.Content
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.team.recordream.presentation.detail.DetailBottomSheetFragment
 
-class ContentAdapter(
-    private val onClick: (PlayButtonState) -> Unit,
-) : RecyclerView.Adapter<ContentViewHolder>() {
-    private val items: MutableList<Content> =
-        mutableListOf()
+class ContentAdapter(detailFragment: DetailBottomSheetFragment) :
+    FragmentStateAdapter(detailFragment) {
+    val fragments: MutableList<Fragment> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder =
-        ContentViewHolder.from(parent, onClick)
+    override fun getItemCount(): Int = fragments.size
 
-    override fun onBindViewHolder(holder: ContentViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
-    override fun getItemCount(): Int = items.size
-
-    fun submitList(content: List<Content>) {
-        items.clear()
-        items.addAll(content)
-        notifyDataSetChanged()
-    }
+    override fun createFragment(position: Int): Fragment = fragments[position]
 }

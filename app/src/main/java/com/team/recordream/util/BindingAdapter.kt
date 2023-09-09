@@ -2,6 +2,7 @@ package com.team.recordream.util
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
@@ -85,6 +86,18 @@ object BindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("timeFormattedText")
+    fun setTime(textView: TextView, time: Int) {
+        textView.text = time.toTimeFormatted()
+    }
+
+    private fun Int.toTimeFormatted(): String {
+        val minutes = this / 60
+        val seconds = this % 60
+        return "%02d:%02d".format(minutes, seconds)
+    }
+
+    @JvmStatic
     @BindingAdapter("setBackground")
     fun setBackground(view: View, image: Int) {
         view.setBackgroundResource(image)
@@ -106,6 +119,15 @@ object BindingAdapter {
         when (updatedState) {
             RECORDER_PLAY -> R.drawable.icn_start.setImageWithGlide(imageview)
             RECORDER_STOP -> R.drawable.icn_stop.setImageWithGlide(imageview)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("srcRecorderState")
+    fun setImageByRecorderState(imageview: ImageView, recorderState: Boolean) {
+        when (recorderState) {
+            false -> R.drawable.icn_start.setImageWithGlide(imageview)
+            true -> R.drawable.icn_stop.setImageWithGlide(imageview)
         }
     }
 

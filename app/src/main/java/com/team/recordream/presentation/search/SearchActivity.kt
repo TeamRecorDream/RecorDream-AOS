@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivitySearchBinding
 import com.team.recordream.presentation.common.BindingActivity
-import com.team.recordream.presentation.detail.DetailActivity
+import com.team.recordream.presentation.detail.DetailBottomSheetFragment
 import com.team.recordream.presentation.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_search) {
     private val searchViewModel: SearchViewModel by viewModels()
-    private val searchAdapter: SearchAdapter by lazy { SearchAdapter(::navigateToDocumentActivity) }
+    private val searchAdapter: SearchAdapter by lazy { SearchAdapter(::navigateToDetailView) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +54,9 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         }
     }
 
-    private fun navigateToDocumentActivity(id: String) {
-        startActivity(DetailActivity.getIntent(this, id))
+    private fun navigateToDetailView(id: String) {
+        val detailBottomSheetFragment = DetailBottomSheetFragment.from(id)
+        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
     }
 
     private inline fun <T> collectWithLifecycle(

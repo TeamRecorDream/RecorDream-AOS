@@ -34,7 +34,7 @@ class DetailDeleteDialog(context: Context) {
         }
 
         binding.tvDocumentDelete.setOnClickListener {
-            detailViewModel.updateRemovedRecord()
+            detailViewModel.updateRecordDeleted()
             dialog.dismiss()
         }
     }

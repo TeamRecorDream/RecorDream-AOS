@@ -1,7 +1,6 @@
 package com.team.recordream.presentation.record // ktlint-disable package-name
 
 import android.app.DatePickerDialog
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
@@ -65,7 +64,8 @@ class RecordViewModel @Inject constructor(
     private val _stateHandlerOfSavingRecord: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
     val stateHandlerOfSavingRecord: StateFlow<StateHandler> get() = _stateHandlerOfSavingRecord
 
-    private val voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+    private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+    val voiceId: StateFlow<String?> get() = _voiceId
 
     fun saveRecord() {
         viewModelScope.launch {
@@ -96,7 +96,7 @@ class RecordViewModel @Inject constructor(
                         if (genre.value.size == MAX_COUNT_OF_GENRE) _genreEnabled.value = this
                         _genreChecked.value = this
                     }
-                    Log.d("123123", _genreEnabled.value.toString())
+                    _voiceId.value = record.voice?.id
                 }
         }
     }
@@ -110,7 +110,7 @@ class RecordViewModel @Inject constructor(
     }
 
     fun updateId(id: String) {
-        voiceId.value = id
+        _voiceId.value = id
     }
 
     fun updateSaveButtonEnabled(title: String) {
@@ -183,7 +183,7 @@ class RecordViewModel @Inject constructor(
         emotion = emotion.value,
         genre = genre.value.ifEmpty { null },
         note = note.value,
-        voice = voiceId.value,
+        voice = _voiceId.value,
     )
 
     private fun getEditedRecord(): Record = Record(
@@ -196,7 +196,7 @@ class RecordViewModel @Inject constructor(
             false -> genre.value
         },
         note = note.value,
-        voice = voiceId.value,
+        voice = _voiceId.value,
     )
 
     private fun Int.toStringOfDate(): String {
