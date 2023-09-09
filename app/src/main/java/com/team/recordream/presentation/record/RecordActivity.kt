@@ -127,7 +127,6 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun initDatePickerDialog() {
-        // TODO: maxDate를 수정하기 날짜 이후도 선택 가능한지
         val cal = Calendar.getInstance()
 
         DatePickerDialog(
