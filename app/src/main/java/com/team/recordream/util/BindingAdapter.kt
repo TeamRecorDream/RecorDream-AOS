@@ -2,6 +2,7 @@ package com.team.recordream.util
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
@@ -82,6 +83,18 @@ object BindingAdapter {
         Glide.with(imageview.context)
             .load(image)
             .into(imageview)
+    }
+
+    @JvmStatic
+    @BindingAdapter("timeFormattedText")
+    fun setTime(textView: TextView, time: Int) {
+        textView.text = time.toTimeFormatted()
+    }
+
+    private fun Int.toTimeFormatted(): String {
+        val minutes = this / 60
+        val seconds = this % 60
+        return "%02d:%02d".format(minutes, seconds)
     }
 
     @JvmStatic

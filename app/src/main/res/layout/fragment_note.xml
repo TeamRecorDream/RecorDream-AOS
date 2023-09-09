@@ -9,13 +9,6 @@
             name="vm"
             type="com.team.recordream.presentation.detail.DetailViewModel" />
 
-        <variable
-            name="content"
-            type="com.team.recordream.presentation.detail.model.Content" />
-
-        <variable
-            name="onClick"
-            type="kotlin.jvm.functions.Function1" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

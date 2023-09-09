@@ -119,7 +119,7 @@ class DetailBottomSheetFragment private constructor(
     }
 
     private fun showMoreDialog() {
-        val documentBottomSheetFragment = DocumentBottomSheetFragment()
+        val documentBottomSheetFragment = DocumentBottomSheetFragment.from(detailViewModel)
         documentBottomSheetFragment.show(childFragmentManager, documentBottomSheetFragment.tag)
     }
 

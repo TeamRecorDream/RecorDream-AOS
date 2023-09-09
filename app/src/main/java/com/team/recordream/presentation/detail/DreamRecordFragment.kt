@@ -23,6 +23,8 @@ class DreamRecordFragment private constructor(
 
         setupBinding()
         collectRecorderState()
+        collectRecordState()
+        collectProgressRate()
     }
 
     private fun setupBinding() {
@@ -34,10 +36,31 @@ class DreamRecordFragment private constructor(
     private fun collectRecorderState() {
         collectWithLifecycle(detailViewModel.isPlayed) { state ->
             when (state) {
-                true -> recorder.startPlaying(detailViewModel.recordingFilePath)
+                true -> recorder.startPlaying(detailViewModel.recordingFilePath.value)
                 false -> recorder.stopPlaying()
             }
         }
+    }
+
+    private fun collectRecordState() {
+        collectWithLifecycle(detailViewModel.recordingFilePath) { filaPath ->
+            when (filaPath) {
+                null -> return@collectWithLifecycle
+                else -> initView(filaPath)
+            }
+        }
+    }
+
+    private fun collectProgressRate() {
+        collectWithLifecycle(detailViewModel.progressRate) {
+            binding.pbDreamRecordBar.progress = it
+        }
+    }
+
+    private fun initView(filaPath: String) {
+        val recordingTime = recorder.getDuration(filaPath)
+
+        detailViewModel.updateRecordingTime(recordingTime)
     }
 
     private inline fun <T> collectWithLifecycle(

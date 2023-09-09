@@ -13,7 +13,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,10 +22,11 @@ import com.team.recordream.presentation.record.RecordActivity
 import java.io.File
 import java.io.FileOutputStream
 
-class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
+class DocumentBottomSheetFragment private constructor(
+    private val detailViewModel: DetailViewModel,
+) : BottomSheetDialogFragment() {
     private var _binding: FragmentDocumentBottomSheetBinding? = null
     private val binding get() = _binding ?: error(R.string.error_basefragment)
-    private val detailViewModel by activityViewModels<DetailViewModel>()
     private lateinit var shareActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
@@ -143,5 +143,8 @@ class DocumentBottomSheetFragment : BottomSheetDialogFragment() {
         private const val IMAGE_FORMAT = "temp_image.jpg"
         private const val MEDIA_TYPE_JPEG = "image/jpeg"
         private const val URI_FORMAT = ".fileprovider"
+
+        fun from(detailViewModel: DetailViewModel): DocumentBottomSheetFragment =
+            DocumentBottomSheetFragment(detailViewModel)
     }
 }
