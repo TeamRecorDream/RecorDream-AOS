@@ -8,7 +8,7 @@
     <!-- 바텀네비게이션 -->
     <string name="bnv_main_home">홈</string>
     <string name="bnv_main_write">기록하기</string>
-    <string name="bnv_main_storage">보관하기</string>
+    <string name="bnv_main_storage">보관함</string>
 
 
     <!-- 로그인 뷰 -->
