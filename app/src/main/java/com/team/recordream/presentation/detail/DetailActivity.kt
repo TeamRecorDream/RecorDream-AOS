@@ -105,7 +105,7 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
     companion object {
         private const val RECORD_ID = "RECORD_ID"
 
-        fun from(context: Context, id: String): Intent =
+        fun getIntent(context: Context, id: String): Intent =
             Intent(context, DetailActivity::class.java).apply {
                 putExtra(RECORD_ID, id)
             }

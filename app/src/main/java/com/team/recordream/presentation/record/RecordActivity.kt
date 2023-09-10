@@ -71,7 +71,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun navigateToDetailView(recordId: String) {
-        startActivity(DetailActivity.from(this, recordId))
+        startActivity(DetailActivity.getIntent(this, recordId))
         finish()
     }
 

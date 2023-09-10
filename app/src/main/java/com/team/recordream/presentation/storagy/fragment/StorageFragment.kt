@@ -112,7 +112,7 @@ class StorageFragment : Fragment() {
     }
 
     private fun navigateToDetailView(recordId: String) {
-        startActivity(DetailActivity.from(requireContext(), recordId))
+        startActivity(DetailActivity.getIntent(requireContext(), recordId))
     }
 
     private fun initListAdapter() {
