@@ -3,7 +3,12 @@ package com.team.recordream.presentation.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +37,13 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         observeSearchResult()
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
+    }
+
     private fun setupBinding() {
         binding.lifecycleOwner = this
         binding.viewModel = searchViewModel
@@ -46,6 +58,20 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         binding.etSearchEnter.setOnEditorActionListener { _, actionId, _ ->
             actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch().let { true }
         }
+        binding.etSearchEnter.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideKeyboard(binding.etSearchEnter)
+                    return true
+                }
+                return false
+            }
+        })
+    }
+
+    private fun hideKeyboard(view: EditText) {
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     private fun observeSearchResult() {

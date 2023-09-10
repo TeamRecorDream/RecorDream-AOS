@@ -6,6 +6,8 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.BindingAdapter
@@ -36,6 +38,13 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     private val viewMode by lazy { intent.getStringExtra(VIEW_MODE) }
     private val recordId by lazy {
         intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
