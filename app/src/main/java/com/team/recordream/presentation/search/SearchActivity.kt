@@ -11,7 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivitySearchBinding
 import com.team.recordream.presentation.common.BindingActivity
-import com.team.recordream.presentation.detail.DetailBottomSheetFragment
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.search.adapter.SearchAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
@@ -54,9 +54,8 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         }
     }
 
-    private fun navigateToDetailView(id: String) {
-        val detailBottomSheetFragment = DetailBottomSheetFragment.from(id)
-        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
+    private fun navigateToDetailView(recordId: String) {
+        startActivity(DetailActivity.from(this, recordId))
     }
 
     private inline fun <T> collectWithLifecycle(
