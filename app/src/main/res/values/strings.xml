@@ -80,7 +80,7 @@
     <string name="tv_record_strange">이상한</string>
     <string name="tv_record_shy">민망한</string>
     <string name="tv_record_all">전체</string>
-    <string name="tv_record_warning_genre">! 꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
+    <string name="tv_record_warning_genre">꿈의 장르는 최대 3개까지만 선택할 수 있어요.</string>
     <string name="default_time_format">03:00</string>
     <string name="tv_record_warning_save">꿈의 제목을 입력해주세요.</string>
 
