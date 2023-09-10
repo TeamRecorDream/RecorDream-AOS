@@ -55,7 +55,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     }
 
     private fun navigateToDetailView(recordId: String) {
-        startActivity(DetailActivity.from(this, recordId))
+        startActivity(DetailActivity.getIntent(this, recordId))
     }
 
     private inline fun <T> collectWithLifecycle(
