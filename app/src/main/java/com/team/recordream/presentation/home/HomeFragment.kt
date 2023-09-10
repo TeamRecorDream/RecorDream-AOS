@@ -70,6 +70,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun navigateToDetailView(userRecord: UserRecords) {
-        startActivity(DetailActivity.from(requireContext(), userRecord.id))
+        startActivity(DetailActivity.getIntent(requireContext(), userRecord.id))
     }
 }
