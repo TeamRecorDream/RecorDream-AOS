@@ -17,30 +17,18 @@
         android:layout_marginTop="12dp"
         app:setBackground="@{vm.background}">
 
-        <View
-            android:id="@+id/v_recording_indicator"
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginStart="171dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="171dp"
-            android:background="@drawable/rectangle_radius_10dp_indicator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <TextView
             android:id="@+id/tv_document_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:text="@string/document_title"
             android:textAppearance="@style/Sb16"
             android:textColor="@color/white02_80FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_recording_indicator" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_document_close"

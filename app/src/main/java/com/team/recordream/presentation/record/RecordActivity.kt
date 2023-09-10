@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivityRecordBinding
 import com.team.recordream.presentation.common.BindingActivity
-import com.team.recordream.presentation.detail.DetailBottomSheetFragment
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.model.EmotionState
 import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
@@ -71,8 +71,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun navigateToDetailView(recordId: String) {
-        val detailBottomSheetFragment = DetailBottomSheetFragment.from(recordId)
-        detailBottomSheetFragment.show(supportFragmentManager, detailBottomSheetFragment.tag)
+        startActivity(DetailActivity.from(this, recordId))
         finish()
     }
 

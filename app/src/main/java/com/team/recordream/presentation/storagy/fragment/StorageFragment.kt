@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentStorageBinding
-import com.team.recordream.presentation.detail.DetailBottomSheetFragment
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.storagy.MyDecoration
 import com.team.recordream.presentation.storagy.StorageViewModel
 import com.team.recordream.presentation.storagy.adapter.StorageEmotionAdapter
@@ -54,6 +54,7 @@ class StorageFragment : Fragment() {
         super.onResume()
         storageViewModel.initServer(emotionCheck)
     }
+
     private fun StorageDataObserver() {
         with(storageViewModel) {
             storageCheckList.observe(viewLifecycleOwner) { showView ->
@@ -110,9 +111,8 @@ class StorageFragment : Fragment() {
         binding.rvStorage.layoutManager = GridLayoutManager(context, 2)
     }
 
-    private fun navigateToDetailView(id: String) {
-        val detailBottomSheetFragment = DetailBottomSheetFragment.from(id)
-        detailBottomSheetFragment.show(childFragmentManager, detailBottomSheetFragment.tag)
+    private fun navigateToDetailView(recordId: String) {
+        startActivity(DetailActivity.from(requireContext(), recordId))
     }
 
     private fun initListAdapter() {

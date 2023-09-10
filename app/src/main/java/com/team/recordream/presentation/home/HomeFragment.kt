@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentHomeBinding
 import com.team.recordream.presentation.common.BindingFragment
-import com.team.recordream.presentation.detail.DetailBottomSheetFragment
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.adapter.HomeAdapter
 import com.team.recordream.presentation.home.model.UserRecords
 import com.team.recordream.util.ZoomOutPageTransformer
@@ -70,7 +70,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun navigateToDetailView(userRecord: UserRecords) {
-        val detailBottomSheetFragment = DetailBottomSheetFragment.from(userRecord.id)
-        detailBottomSheetFragment.show(childFragmentManager, detailBottomSheetFragment.tag)
+        startActivity(DetailActivity.from(requireContext(), userRecord.id))
     }
 }
