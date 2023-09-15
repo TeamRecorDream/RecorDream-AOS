@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/rectangle_radius_8dp"
             app:isProgressBarVisible="@{vm.isRecorded}"
@@ -88,21 +88,34 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_dream_record_content"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:minLines="8"
-            android:text="@{vm.content}"
-            android:textAppearance="@style/M14"
-            android:textColor="@color/white01_FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_dream_record_recording"
-            tools:text="빨리 끝내버려~~~" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_sv_record_dream"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_dream_record_recording">
+
+            <ScrollView
+                android:id="@+id/sv_record_dream"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_dream_record_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="24dp"
+                    android:minLines="8"
+                    android:text="@{vm.content}"
+                    android:textAppearance="@style/M14"
+                    android:textColor="@color/white01_FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="@id/sv_record_dream"
+                    tools:text="빨리 끝내버려~~~" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

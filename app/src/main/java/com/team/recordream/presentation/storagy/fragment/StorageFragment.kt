@@ -41,7 +41,7 @@ class StorageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        storageViewModel.initServer(0)
+        emotionClick(0)
         emotionAdapterInit()
         initGridAdapter()
         binding.viewModel = storageViewModel
