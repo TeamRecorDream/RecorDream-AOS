@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/tv_main_welcoming2"
+            android:text="@string/tv_main_welcoming_new"
             android:textAppearance="@style/EL24"
             app:isVisible="@{viewModel.isRecordEmpty()}"
             app:layout_constraintEnd_toEndOf="parent"
