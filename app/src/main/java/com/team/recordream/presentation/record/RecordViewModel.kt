@@ -85,7 +85,11 @@ class RecordViewModel @Inject constructor(
                 .onSuccess { record ->
                     _date.value = record.date
                     title.value = record.title
-                    if (record.note == null) note.value = ""
+                    if (record.note == null) {
+                        note.value = ""
+                    } else {
+                        note.value = record.note
+                    }
                     content.value = record.content
                     when (record.emotion == 6) {
                         true -> _emotion.value = null
@@ -167,7 +171,8 @@ class RecordViewModel @Inject constructor(
                 }
 
                 false -> {
-                    _genreEnabled.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+                    _genreEnabled.value =
+                        List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
                     _warningGenre.value = SHOW
                     delay(TWO_SECONDS)
                     _warningGenre.value = HIDE
