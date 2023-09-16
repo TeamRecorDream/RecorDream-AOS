@@ -41,6 +41,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onResume() {
         super.onResume()
         homeViewModel.updateHome()
+        // 맨 앞 카드로 포커스 설정
+//        homeViewModel.userRecords.observe(viewLifecycleOwner) { userRecords ->
+//            if (userRecords.isNotEmpty()) {
+//                // RecyclerView의 첫 번째 아이템으로 포커스 설정
+//                binding.vpHome.post {
+//                    binding.vpHome.setCurrentItem(0, false)
+//                }
+//            }
+//        }
     }
 
     private fun initAdapterHomeCard() {
@@ -64,7 +73,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     addTransformer { page, position ->
                         page.translationX = position * -(innerPadding)
                     }
-                },
+                }
             )
         }
     }
