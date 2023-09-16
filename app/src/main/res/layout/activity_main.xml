@@ -77,9 +77,11 @@
             android:id="@+id/iv_navi_write_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="46dp"
+            android:paddingTop="10dp"
+            android:paddingVertical="10dp"
+            android:layout_marginBottom="36dp"
             android:src="@drawable/navibar_btn_record"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/fcv_main_navhostfragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

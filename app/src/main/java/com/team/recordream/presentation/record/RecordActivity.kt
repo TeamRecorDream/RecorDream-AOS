@@ -109,9 +109,9 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun setClickListener() {
-        binding.clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
+        binding.clRecordDate.setOnClickListener { initDatePickerDialog() }
         binding.ivRecordClose.setOnClickListener { finish() }
-        binding.clRecordRecordBtn.setOnClickListener {
+        binding.clRecordRecord.setOnClickListener {
             when (viewMode) {
                 EDIT_MODE -> showWarningOfRecording()
                 CREATE_MODE -> initRecordBottomSheetDialog()
