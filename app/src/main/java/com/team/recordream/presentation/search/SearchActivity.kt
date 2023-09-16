@@ -55,13 +55,11 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
 
     private fun setClickEvent() {
         binding.ivSearchBackBtn.setOnClickListener { finish() }
-        binding.etSearchEnter.setOnEditorActionListener { _, actionId, _ ->
-            actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch().let { true }
-        }
         binding.etSearchEnter.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideKeyboard(binding.etSearchEnter)
+                    actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch().let { true }
                     return true
                 }
                 return false
@@ -70,7 +68,8 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     }
 
     private fun hideKeyboard(view: EditText) {
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
