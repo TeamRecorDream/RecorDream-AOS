@@ -13,6 +13,7 @@ import com.team.recordream.databinding.ActivityDetailBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
+import com.team.recordream.presentation.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -82,6 +83,11 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
     private fun setEventOnClick() {
         binding.ivDocumentMore.setOnClickListener { showMoreDialog() }
         binding.ivDocumentClose.setOnClickListener {
+            val homeFragment =
+                supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
+            if (homeFragment is HomeFragment) {
+                homeFragment.binding.vpHome.setCurrentItem(0, false)
+            }
             finish()
         }
     }
