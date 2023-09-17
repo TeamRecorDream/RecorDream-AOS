@@ -40,16 +40,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun onResume() {
         super.onResume()
+        binding.vpHome.setCurrentItem(0, false)
         homeViewModel.updateHome()
         // 맨 앞 카드로 포커스 설정
-//        homeViewModel.userRecords.observe(viewLifecycleOwner) { userRecords ->
-//            if (userRecords.isNotEmpty()) {
-//                // RecyclerView의 첫 번째 아이템으로 포커스 설정
-//                binding.vpHome.post {
-//                    binding.vpHome.setCurrentItem(0, false)
-//                }
-//            }
-//        }
     }
 
     private fun initAdapterHomeCard() {
@@ -64,7 +57,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
             // 맨 위에서 더 이상 위로 스크롤할 영역이 없을 때 위로 땡겨지지 않도록
             getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             // 리사이클러뷰에서 현재 보고있는 아이템의 양쪽으로 지정한 숫자만큼의 아이템을 유지한다. 그 밖의 아이템들은 필요할 때 어댑터에서 만든다.
-            // Set the number of pages that should be retained to either side of the currently visible page(s). Pages beyond this limit will be recreated from the adapter when needed
             offscreenPageLimit = 1
             setPadding(pagePadding, 0, pagePadding, 0) // 패딩 값 코드단에서 주기
             setPageTransformer(
