@@ -72,8 +72,8 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
         contentAdapter.fragments.addAll(
             listOf(
                 DreamRecordFragment.from(detailViewModel),
-                NoteFragment.from(detailViewModel),
-            ),
+                NoteFragment.from(detailViewModel)
+            )
         )
 
         TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
@@ -81,7 +81,9 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
 
     private fun setEventOnClick() {
         binding.ivDocumentMore.setOnClickListener { showMoreDialog() }
-        binding.ivDocumentClose.setOnClickListener { finish() }
+        binding.ivDocumentClose.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showMoreDialog() {
@@ -91,7 +93,7 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
 
     private inline fun <T> collectWithLifecycle(
         flow: Flow<T>,
-        crossinline action: (T) -> Unit,
+        crossinline action: (T) -> Unit
     ) {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {

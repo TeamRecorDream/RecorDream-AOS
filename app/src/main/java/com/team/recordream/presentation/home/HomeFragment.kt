@@ -1,6 +1,7 @@
 package com.team.recordream.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -40,9 +41,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun onResume() {
         super.onResume()
-        binding.vpHome.setCurrentItem(0, false)
         homeViewModel.updateHome()
-        // 맨 앞 카드로 포커스 설정
+        Log.d("why??", "뭐야")
+        //        맨앞 카드로 설정
+        binding.vpHome.setCurrentItem(0, false)
     }
 
     private fun initAdapterHomeCard() {

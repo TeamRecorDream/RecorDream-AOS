@@ -46,12 +46,17 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     private fun setClickEvents() {
         binding.ivMainMypage.setOnClickListener { startActivity(MypageActivity.getIntent(this)) }
         binding.ivNaviWriteBtn.setOnClickListener {
+            val homeFragment =
+                supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
+            if (homeFragment is HomeFragment) {
+                homeFragment.binding.vpHome.setCurrentItem(0, false)
+            }
             startActivity(
                 RecordActivity.getIntent(
                     this,
                     RecordActivity.CREATE_MODE,
-                    null,
-                ),
+                    null
+                )
             )
         }
         binding.ivMainSearch.setOnClickListener { startActivity(SearchActivity.getIntent(this)) }
