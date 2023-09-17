@@ -18,6 +18,7 @@ import com.team.recordream.R
 import com.team.recordream.databinding.ActivityRecordBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.DetailActivity
+import com.team.recordream.presentation.home.HomeFragment
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.model.EmotionState
 import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
@@ -142,7 +143,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             recordViewModel.updateDate(),
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
         ).apply {
             datePicker.maxDate = System.currentTimeMillis()
             show()
@@ -157,6 +158,11 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         when (recordViewModel.isSaveEnabled.value) {
             true -> {
                 recordViewModel.editRecord(recordId)
+                val homeFragment =
+                    supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
+                if (homeFragment is HomeFragment) {
+                    homeFragment.binding.vpHome.setCurrentItem(0, false)
+                }
                 finish()
             }
 
@@ -173,7 +179,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private inline fun <T> collectWithLifecycle(
         flow: Flow<T>,
-        crossinline action: (T) -> Unit,
+        crossinline action: (T) -> Unit
     ) {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
