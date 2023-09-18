@@ -8,6 +8,7 @@ import com.team.recordream.R
 import com.team.recordream.data.entity.local.StorageEmotionData
 import com.team.recordream.data.entity.remote.response.ResponseStorage
 import com.team.recordream.domain.repository.StorageRepository
+import com.team.recordream.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -17,8 +18,9 @@ import javax.inject.Inject
 class StorageViewModel @Inject constructor(
     private val storageRepository: StorageRepository,
 ) : ViewModel() {
-    private val _storageRecords = MutableLiveData<List<ResponseStorage.Record>>()
-    val storageRecords: LiveData<List<ResponseStorage.Record>>
+    private val _storageRecords =
+        MutableLiveData<UiState<List<ResponseStorage.Record>>>()
+    val storageRecords: LiveData<UiState<List<ResponseStorage.Record>>>
         get() = _storageRecords
     val storageList = storageEmotionList
 
@@ -35,14 +37,44 @@ class StorageViewModel @Inject constructor(
             kotlin.runCatching {
                 storageRepository.getStorage(getEmotion)?.data
             }.onSuccess {
-                _storageRecords.value = it?.records
+                if (it == null) {
+                    _storageRecords.value = UiState.Empty
+                    return@launch
+                }
+//                _storageRecords.value = it.records
+                _storageRecords.value = when {
+                    it.records.isEmpty() -> UiState.Empty
+                    else -> UiState.Success(it.records)
+                }
+                _storageRecords.value = UiState.Success(it.records)
                 _storageRecordCount.value = it?.recordsCount
             }.onFailure {
                 Timber.d("${it.message}")
+                _storageRecords.value = UiState.Failure(it.message.toString())
                 errorMessage.value = it.message
             }
         }
     }
+
+//    fun getYelloDetail(id: Long) {
+//        voteId = id
+//        viewModelScope.launch {
+//            repository.getYelloDetail(id)
+//                .onSuccess {
+//                    if (it == null) {
+//                        _yelloDetailData.value = UiState.Empty
+//                        return@launch
+//                    }
+//                    myReadingTicketCount = it.ticketCount
+//                    myPoint = it.currentPoint
+//                    yelloDetail = it
+//                    _yelloDetailData.value = UiState.Success(it)
+//                    AmplitudeUtils.updateUserIntProperties("user_point", it.currentPoint)
+//                }.onFailure {
+//                    _yelloDetailData.value = UiState.Failure("옐로 상세보기 서버 통신 실패")
+//                }
+//        }
+//    }
 
     fun isCheckShow(show: Boolean) {
         _storageCheckList.value = show

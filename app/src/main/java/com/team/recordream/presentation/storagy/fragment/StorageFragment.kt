@@ -16,6 +16,7 @@ import com.team.recordream.presentation.storagy.StorageViewModel
 import com.team.recordream.presentation.storagy.adapter.StorageEmotionAdapter
 import com.team.recordream.presentation.storagy.adapter.StorageGridAdapter
 import com.team.recordream.presentation.storagy.adapter.StorageListAdapter
+import com.team.recordream.util.UiState
 import com.team.recordream.util.makeSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -61,26 +62,49 @@ class StorageFragment : Fragment() {
                 if (showView) {
                     storageCheck = true
                     initGridAdapter()
-                    storageGridAdapter.submitList(storageViewModel.storageRecords.value)
+//                    storageGridAdapter.submitList(storageViewModel.storageRecords.value)
                 } else {
                     storageCheck = false
                     initListAdapter()
                     storageViewModel.initServer(emotionCheck)
-                    storageListAdapter.submitList(storageViewModel.storageRecords.value)
+//                    storageListAdapter.submitList(storageViewModel.storageRecords.value)
                 }
             }
 
             storageRecords.observe(viewLifecycleOwner) { records ->
                 binding.tvStorageNoList.visibility = View.INVISIBLE
-                if (records == null) {
-                    view?.makeSnackBar(R.string.network_error)
-                }
-                if (storageCheck) {
-                    storageGridAdapter.submitList(records)
-                    storageEmotionAdapter.submitList(storageViewModel.storageList)
-                } else {
-                    storageEmotionAdapter.submitList(storageViewModel.storageList)
-                    storageListAdapter.submitList(records)
+//                if (records == null) {
+//                    view?.makeSnackBar(R.string.network_error)
+//                }
+//                if (storageCheck) {
+//                    storageGridAdapter.submitList(records)
+//                    storageEmotionAdapter.submitList(storageViewModel.storageList)
+//                } else {
+//                    storageEmotionAdapter.submitList(storageViewModel.storageList)
+//                    storageListAdapter.submitList(records)
+//                }
+                when (records) {
+                    is UiState.Success -> {
+                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                        storageGridAdapter?.submitList(records.data)
+                        if (storageCheck) {
+                            storageGridAdapter.submitList(records.data)
+                            storageEmotionAdapter.submitList(storageViewModel.storageList)
+                        } else {
+                            storageEmotionAdapter.submitList(storageViewModel.storageList)
+                            storageListAdapter.submitList(records.data)
+                        }
+                    }
+
+                    is UiState.Failure -> {
+                        view?.makeSnackBar(R.string.network_error)
+                    }
+
+                    is UiState.Loading -> {
+                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                    }
+
+                    is UiState.Empty -> {}
                 }
             }
             storageRecordCount.observe(viewLifecycleOwner) { count ->
