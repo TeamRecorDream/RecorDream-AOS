@@ -33,6 +33,7 @@ class StorageViewModel @Inject constructor(
     val storageCheckList: LiveData<Boolean> get() = _storageCheckList
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     fun initServer(getEmotion: Int) {
+        _storageRecords.value = UiState.Loading
         viewModelScope.launch {
             kotlin.runCatching {
                 storageRepository.getStorage(getEmotion)?.data
@@ -55,26 +56,6 @@ class StorageViewModel @Inject constructor(
             }
         }
     }
-
-//    fun getYelloDetail(id: Long) {
-//        voteId = id
-//        viewModelScope.launch {
-//            repository.getYelloDetail(id)
-//                .onSuccess {
-//                    if (it == null) {
-//                        _yelloDetailData.value = UiState.Empty
-//                        return@launch
-//                    }
-//                    myReadingTicketCount = it.ticketCount
-//                    myPoint = it.currentPoint
-//                    yelloDetail = it
-//                    _yelloDetailData.value = UiState.Success(it)
-//                    AmplitudeUtils.updateUserIntProperties("user_point", it.currentPoint)
-//                }.onFailure {
-//                    _yelloDetailData.value = UiState.Failure("옐로 상세보기 서버 통신 실패")
-//                }
-//        }
-//    }
 
     fun isCheckShow(show: Boolean) {
         _storageCheckList.value = show
