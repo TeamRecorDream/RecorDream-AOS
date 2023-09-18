@@ -17,6 +17,7 @@ import com.team.recordream.R
 import com.team.recordream.databinding.ActivityMypageBinding
 import com.team.recordream.presentation.login.LoginActivity
 import com.team.recordream.util.RecorDreamFireBaseMessagingService
+import com.team.recordream.util.UiState
 import com.team.recordream.util.customview.CustomDialog
 import com.team.recordream.util.makeSnackBar
 import com.team.recordream.util.shortToastByInt
@@ -83,7 +84,23 @@ class MypageActivity : AppCompatActivity() {
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
-                binding.tvMypageEmail.text = email
+                when (email) {
+                    is UiState.Success -> {
+                        binding.lvStorageLottieLoading.pauseAnimation()
+                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                        binding.clLoadingBackground.visibility = View.INVISIBLE
+                        binding.tvMypageEmail.text = email.data
+                    }
+
+                    is UiState.Failure -> {}
+                    is UiState.Loading -> {
+                        binding.lvStorageLottieLoading.playAnimation()
+                        binding.clLoadingBackground.visibility = View.VISIBLE
+                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                    }
+
+                    is UiState.Empty -> {}
+                }
             }
             settingTime.observe(this@MypageActivity) { time ->
                 if (binding.switchMypagePushAlam.isChecked) {
