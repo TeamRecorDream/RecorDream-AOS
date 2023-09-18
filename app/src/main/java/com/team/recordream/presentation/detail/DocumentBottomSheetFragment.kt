@@ -1,5 +1,6 @@
 package com.team.recordream.presentation.detail
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -114,17 +116,18 @@ class DocumentBottomSheetFragment private constructor(
         val canvas = Canvas(bitmap)
         rootView.draw(canvas)
         val imageUri = convertBitmapToImageUri(bitmap)
-
         if (imageUri != null) {
             val intent = Intent(INSTAGRAM_PATH).apply {
                 putExtra(INSTAGRAM, SOURCE_KEY)
                 setDataAndType(imageUri, MEDIA_TYPE_JPEG)
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             }
-
-            shareActivityResultLauncher.launch(intent)
+            try {
+                shareActivityResultLauncher.launch(intent)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(context, "인스타그램 앱이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
-
         dismiss()
     }
 
