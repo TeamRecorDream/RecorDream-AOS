@@ -88,6 +88,7 @@ class StorageFragment : Fragment() {
                     is UiState.Success -> {
                         binding.lvStorageLottieLoading.pauseAnimation()
                         binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                        binding.clLoadingBackground.visibility = View.INVISIBLE
                         storageGridAdapter?.submitList(records.data)
                         if (storageCheck) {
                             storageGridAdapter.submitList(records.data)
@@ -104,6 +105,7 @@ class StorageFragment : Fragment() {
 
                     is UiState.Loading -> {
                         binding.lvStorageLottieLoading.playAnimation()
+                        binding.clLoadingBackground.visibility = View.VISIBLE
                         binding.lvStorageLottieLoading.visibility = View.VISIBLE
                     }
 
