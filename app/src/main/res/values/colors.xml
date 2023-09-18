@@ -13,6 +13,7 @@
 
     <!--recodreamcolor-->
     <color name="black1_000000">#000000</color>
+    <color name="black2_CC0000">#CC000000</color>
     <color name="dark01_02040F">#02040F</color>
     <color name="dark02_37333F">#37333F</color>
     <color name="white01_FFFFFF">#FFFFFF</color>
