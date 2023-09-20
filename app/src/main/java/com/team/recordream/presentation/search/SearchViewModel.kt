@@ -1,5 +1,6 @@
 package com.team.recordream.presentation.search
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.SearchResult
@@ -42,9 +43,11 @@ class SearchViewModel @Inject constructor(
     private val _searchStateHandler: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
     val searchStateHandler: StateFlow<StateHandler> get() = _searchStateHandler
 
-    fun postSearch() {
+//    val isResume = MutableLiveData<Boolean>(true)
+
+    fun postSearch(isResume:Boolean) {
         viewModelScope.launch {
-            _resultCount.value = UiState.Loading
+            if (isResume == false) _resultCount.value = UiState.Loading
             runCatching {
                 if (searchKeyword.value.isNotEmpty()) searchRepository.postSearch(searchKeyword.value) else return@launch
                 // 이후 검색 최소 글자 수 관련된 로직 추가

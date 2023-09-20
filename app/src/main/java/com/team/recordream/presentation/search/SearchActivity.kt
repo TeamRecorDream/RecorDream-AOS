@@ -40,6 +40,11 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         getResultCount()
     }
 
+    override fun onResume() {
+        super.onResume()
+//        searchViewModel.isResume.value = true
+        searchViewModel.postSearch(true)
+    }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val imm: InputMethodManager =
@@ -63,7 +68,7 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideKeyboard(binding.etSearchEnter)
-                    actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch()
+                    actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch(false)
                         .let { true }
                     return true
                 }
