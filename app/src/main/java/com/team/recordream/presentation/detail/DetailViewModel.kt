@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
 import com.team.recordream.domain.repository.DocumentRepository
 import com.team.recordream.presentation.record.uistate.Genre
+import com.team.recordream.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,8 +49,9 @@ class DetailViewModel @Inject constructor(
     val note: StateFlow<String> get() = _note
 
     // 리팩터링 분리
-    private val _content: MutableStateFlow<String> = MutableStateFlow("")
-    val content: StateFlow<String> get() = _content
+    private val _content: MutableStateFlow<UiState<String>> =
+        MutableStateFlow<UiState<String>>(UiState.Loading)
+    val content: StateFlow<UiState<String>> get() = _content
 
     private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRecorded: StateFlow<Boolean> get() = _isRecorded
@@ -73,6 +75,7 @@ class DetailViewModel @Inject constructor(
     fun updateDetailRecord(id: String) {
         recordId = id
         viewModelScope.launch {
+            _content.value = UiState.Loading
             documentRepository.getDetailRecord(recordId)
                 .onSuccess {
                     _background.value = Emotion.findBackgroundById(it.emotion ?: 0)
@@ -80,7 +83,10 @@ class DetailViewModel @Inject constructor(
                     _date.value = it.date.replace(Regex("[()]"), "")
                     _title.value = it.title
                     _note.value = it.note ?: ""
-                    _content.value = it.content ?: ""
+                    _content.value = UiState.Success(it.content.toString())
+                    if (it.content == null) {
+                        _content.value = UiState.Empty
+                    }
                     findTagByGenreId(it.genre)
                     _isRecorded.value = it.voice != null
                     if (it.voice != null) _recordingFilePath.value = it.voice.url
