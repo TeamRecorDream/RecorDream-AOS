@@ -61,6 +61,7 @@ class MypageActivity : AppCompatActivity() {
         setContentView(binding.root)
         setOnClick()
         mypageDataObserver()
+        observeSettinTime()
         mypageViewModel.getUser()
         mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
         saveSwitchActive()
@@ -102,20 +103,23 @@ class MypageActivity : AppCompatActivity() {
                     is UiState.Empty -> {}
                 }
             }
-            settingTime.observe(this@MypageActivity) { time ->
-                if (binding.switchMypagePushAlam.isChecked) {
-                    binding.tvMypageSettitngTimeDescription.text = time
-                    setBackGround(true)
-                } else {
-                    setBackGround(false)
-                }
-            }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
             saveTime.observe(this@MypageActivity) { save ->
                 clickSaveBtnOnBottomSheet(save)
             }
             isShow.observe(this@MypageActivity) {
                 binding.tvMypageSettitngTimeDescription.text = it
+            }
+        }
+    }
+
+    private fun observeSettinTime(){
+        mypageViewModel.settingTime.observe(this@MypageActivity) { time ->
+            if (binding.switchMypagePushAlam.isChecked) {
+                binding.tvMypageSettitngTimeDescription.text = time
+                setBackGround(true)
+            } else {
+                setBackGround(false)
             }
         }
     }
