@@ -63,27 +63,15 @@ class StorageFragment : Fragment() {
                     storageCheck = true
                     initGridAdapter()
                     storageViewModel.initServer(emotionCheck)
-//                    storageGridAdapter.submitList(storageViewModel.storageRecords.value)
                 } else {
                     storageCheck = false
                     initListAdapter()
                     storageViewModel.initServer(emotionCheck)
-//                    storageListAdapter.submitList(storageViewModel.storageRecords.value = UiState.Loading)
                 }
             }
 
             storageRecords.observe(viewLifecycleOwner) { records ->
                 binding.tvStorageNoList.visibility = View.INVISIBLE
-//                if (records == null) {
-//                    view?.makeSnackBar(R.string.network_error)
-//                }
-//                if (storageCheck) {
-//                    storageGridAdapter.submitList(records)
-//                    storageEmotionAdapter.submitList(storageViewModel.storageList)
-//                } else {
-//                    storageEmotionAdapter.submitList(storageViewModel.storageList)
-//                    storageListAdapter.submitList(records)
-//                }
                 when (records) {
                     is UiState.Success -> {
                         binding.lvStorageLottieLoading.pauseAnimation()
