@@ -37,6 +37,11 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         observeSearchResult()
     }
 
+    override fun onResume() {
+        super.onResume()
+        searchViewModel.postSearch()
+    }
+
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val imm: InputMethodManager =
             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
