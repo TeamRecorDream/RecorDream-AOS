@@ -32,10 +32,9 @@ class HomeViewModel @Inject constructor(
             _userName.value = UiState.Loading
             homeRepository.getHomeRecord()
                 .onSuccess {
-                    _userName.value = UiState.Success(it.nickname)
                     _userRecords.value = it.records.map { record -> record.toUiModel() }
-
-                    if (!userRecords.value.isNullOrEmpty()) _isRecordEmpty.value = false
+                    _isRecordEmpty.value = userRecords.value.isNullOrEmpty()
+                    _userName.value = UiState.Success(it.nickname)
                 }
                 .onFailure {
                     Log.d("12312344", it.message.toString())

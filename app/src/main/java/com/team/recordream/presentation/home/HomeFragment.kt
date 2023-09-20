@@ -1,6 +1,7 @@
 package com.team.recordream.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -54,15 +55,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
                     binding.lvStorageLottieLoading.pauseAnimation()
                     binding.lvStorageLottieLoading.visibility = View.INVISIBLE
                     binding.clLoadingBackground.visibility = View.INVISIBLE
-                    Timber.d("homeWhy", "observeNickName: ${state.data}")
                     if (homeViewModel.isRecordEmpty.value == true) {
-                        Timber.d("homeWhy1", "observeNickName: ${state.data}")
                         binding.tvHomeUserNameNoneData.text =
                             getString(R.string.tv_main_welcoming, state.data)
                         binding.tvHomeUserNameNoneData.visibility = View.VISIBLE
                         binding.tvHomeUserName.visibility = View.INVISIBLE
                     } else {
-                        Timber.d("homeWhy2", "observeNickName: ${state.data}")
                         binding.tvHomeUserName.visibility = View.VISIBLE
                         binding.tvHomeUserNameNoneData.visibility = View.INVISIBLE
                         binding.tvHomeUserName.text =
