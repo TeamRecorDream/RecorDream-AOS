@@ -110,16 +110,9 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun setClickListener() {
-        binding.clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
-        binding.ivRecordClose.setOnClickListener {
-            val homeFragment =
-                supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
-            if (homeFragment is HomeFragment) {
-                homeFragment.binding.vpHome.setCurrentItem(0, false)
-            }
-            finish()
-        }
-        binding.clRecordRecordBtn.setOnClickListener {
+        binding.clRecordDate.setOnClickListener { initDatePickerDialog() }
+        binding.ivRecordClose.setOnClickListener { finish() }
+        binding.clRecordRecord.setOnClickListener {
             when (viewMode) {
                 EDIT_MODE -> showWarningOfRecording()
                 CREATE_MODE -> initRecordBottomSheetDialog()
