@@ -3,6 +3,7 @@ package com.team.recordream.presentation.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -28,6 +29,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         observeState()
     }
 
+    private val focusOnFirstItemLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        // Handle the result here if needed (e.g., result from another activity)
+
+        // Focus on the first item of the ViewPager2
+        binding.vpHome.setCurrentItem(0, false) // Scroll to the first item and disable smooth scroll
+    }
+
+
     private fun observeState() {
         homeViewModel.userRecords.observe(viewLifecycleOwner) {
             homeAdapter.submitList(it)
@@ -44,7 +53,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         homeViewModel.updateHome()
         Log.d("why??", "뭐야")
         //        맨앞 카드로 설정
-        binding.vpHome.setCurrentItem(0, false)
+//        binding.vpHome.setCurrentItem(0, false)
     }
 
     private fun initAdapterHomeCard() {

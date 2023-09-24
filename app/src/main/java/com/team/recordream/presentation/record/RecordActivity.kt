@@ -18,6 +18,7 @@ import com.team.recordream.R
 import com.team.recordream.databinding.ActivityRecordBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.DetailActivity
+import com.team.recordream.presentation.home.HomeFragment
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.model.EmotionState
 import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
@@ -110,7 +111,14 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private fun setClickListener() {
         binding.clRecordDateBtn.setOnClickListener { initDatePickerDialog() }
-        binding.ivRecordClose.setOnClickListener { finish() }
+        binding.ivRecordClose.setOnClickListener {
+            val homeFragment =
+                supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
+            if (homeFragment is HomeFragment) {
+                homeFragment.binding.vpHome.setCurrentItem(0, false)
+            }
+            finish()
+        }
         binding.clRecordRecordBtn.setOnClickListener {
             when (viewMode) {
                 EDIT_MODE -> showWarningOfRecording()
