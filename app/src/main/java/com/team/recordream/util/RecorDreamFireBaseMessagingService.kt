@@ -7,11 +7,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import androidx.core.app.NotificationManagerCompat
+import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.team.recordream.R
-import com.team.recordream.presentation.record.RecordActivity
+import com.team.recordream.presentation.MainActivity
+import com.team.recordream.presentation.splash.SplashActivity
 import timber.log.Timber
 
 class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
@@ -31,10 +32,12 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, body: String) {
         createNotificationChannel()
-        val intent = Intent(this, RecordActivity::class.java)
-//        val intent = Intent(this, LoginActivity::class.java).apply {
-//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        }
+//        val intent = Intent(this, SplashActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(OPEN_FROM_PUSH_ALARM, CHANNEL_ID)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            Log.d("pushAlarm", "sendNotification: $OPEN_FROM_PUSH_ALARM")
+        }
         val pendingIntent: PendingIntent =
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         val notificationBuilder = Notification.Builder(this, CHANNEL_ID)
@@ -47,9 +50,12 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
             .setContentText(body)
             .setAutoCancel(true)
 
-        with(NotificationManagerCompat.from(this)) {
-            notify(NOTIFICATION_ID, notificationBuilder.build())
-        }
+//        with(NotificationManagerCompat.from(this)) {
+//            notify(NOTIFICATION_ID, notificationBuilder.build())
+//        }
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build())
     }
 
     private fun createNotificationChannel() {
@@ -71,5 +77,6 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
         const val CHANNEL_NAME = "recordDream_channel_name"
         const val TITLE = "title"
         const val BODY = "body"
+        const val OPEN_FROM_PUSH_ALARM = "openPushAlarm"
     }
 }
