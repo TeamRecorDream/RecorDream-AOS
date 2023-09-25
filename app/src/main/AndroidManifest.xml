@@ -38,6 +38,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecorDream"
         android:usesCleartextTraffic="true"
+        android:launchMode="singleInstance"
         tools:targetApi="31">
         <activity
             android:name=".presentation.detail.DetailActivity"
