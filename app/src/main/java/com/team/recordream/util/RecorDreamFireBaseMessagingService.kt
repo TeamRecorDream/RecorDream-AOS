@@ -34,14 +34,14 @@ class RecorDreamFireBaseMessagingService : FirebaseMessagingService() {
     private fun getPendingIntent(requestCode: Int, flag: Int): PendingIntent {
         createNotificationChannel()
         val mainIntent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 //            flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         val intent = Intent(this, RecordActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         val stackBuilder = TaskStackBuilder.create(this)
-        stackBuilder.addParentStack(RecordActivity::class.java)
+        stackBuilder.addNextIntent(mainIntent)
         stackBuilder.addNextIntent(intent)
         return stackBuilder.getPendingIntent(requestCode, flag)
     }
