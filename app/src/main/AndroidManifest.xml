@@ -57,7 +57,12 @@
             android:name=".presentation.record.RecordActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".presentation.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.MainActivity"/>
+        </activity>
         <activity
             android:name=".presentation.MainActivity"
             android:exported="false"
@@ -73,7 +78,7 @@
         <activity
             android:name=".presentation.splash.SplashActivity"
             android:exported="true"
-            android:launchMode="singleInstance"
+
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>

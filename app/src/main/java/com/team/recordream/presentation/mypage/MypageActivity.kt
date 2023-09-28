@@ -61,7 +61,6 @@ class MypageActivity : AppCompatActivity() {
         setContentView(binding.root)
         setOnClick()
         mypageDataObserver()
-        observeSettinTime()
         mypageViewModel.getUser()
         mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
         saveSwitchActive()
@@ -91,6 +90,7 @@ class MypageActivity : AppCompatActivity() {
                         binding.lvStorageLottieLoading.visibility = View.INVISIBLE
                         binding.clLoadingBackground.visibility = View.INVISIBLE
                         binding.tvMypageEmail.text = email.data
+                        observeSettinTime()
                     }
 
                     is UiState.Failure -> {}
@@ -113,7 +113,7 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeSettinTime(){
+    private fun observeSettinTime() {
         mypageViewModel.settingTime.observe(this@MypageActivity) { time ->
             if (binding.switchMypagePushAlam.isChecked) {
                 binding.tvMypageSettitngTimeDescription.text = time
