@@ -185,6 +185,7 @@ class MypageActivity : AppCompatActivity() {
         dialog.myPageShowDeleteDialog()
         dialog.setOnClickedListener {
             mypageViewModel.deleteUser()
+            resetSharedPushAlarm()
             finishAffinity()
         }
     }
@@ -193,6 +194,7 @@ class MypageActivity : AppCompatActivity() {
         mypageViewModel.userLogout()
         val intent = Intent(this, LoginActivity::class.java)
         finishAffinity()
+        resetSharedPushAlarm()
         startActivity(intent)
     }
 
@@ -218,6 +220,13 @@ class MypageActivity : AppCompatActivity() {
                 createBottomSheet()
             }
         }
+    }
+
+    private fun resetSharedPushAlarm() {
+        val editor = mypageViewModel.switchState.edit()
+        editor.remove(ALARM)
+        editor.clear()
+        editor.commit()
     }
 
     private fun setBackGround(onSwitch: Boolean) {
