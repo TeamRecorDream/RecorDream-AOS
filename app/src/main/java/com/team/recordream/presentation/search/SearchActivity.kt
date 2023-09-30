@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -18,6 +19,7 @@ import com.team.recordream.databinding.ActivitySearchBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.search.adapter.SearchAdapter
+import com.team.recordream.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -35,6 +37,13 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
         attachAdapter()
         setClickEvent()
         observeSearchResult()
+        getResultCount()
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        searchViewModel.isResume.value = true
+        searchViewModel.postSearch(true)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -59,7 +68,8 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     hideKeyboard(binding.etSearchEnter)
-                    actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch().let { true }
+                    actionId == EditorInfo.IME_ACTION_DONE && searchViewModel.postSearch(false)
+                        .let { true }
                     return true
                 }
                 return false
@@ -76,6 +86,37 @@ class SearchActivity : BindingActivity<ActivitySearchBinding>(R.layout.activity_
     private fun observeSearchResult() {
         collectWithLifecycle(searchViewModel.searchResult) { searchResult ->
             searchAdapter.updateSearchResult(searchResult)
+        }
+    }
+
+    private fun getResultCount() {
+        lifecycleScope.launchWhenStarted {
+            searchViewModel.resultCount.collectLatest { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        binding.lvStorageLottieLoading.pauseAnimation()
+                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                        binding.clLoadingBackground.visibility = View.INVISIBLE
+                        binding.tvSearchCountResult.text =
+                            getString(R.string.tv_search_count_record, state.data)
+                    }
+
+                    is UiState.Failure -> {
+                    }
+
+                    is UiState.Loading -> {
+                        binding.lvStorageLottieLoading.playAnimation()
+                        binding.clLoadingBackground.visibility = View.VISIBLE
+                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                    }
+
+                    is UiState.Empty -> {
+                        binding.lvStorageLottieLoading.pauseAnimation()
+                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                        binding.clLoadingBackground.visibility = View.INVISIBLE
+                    }
+                }
+            }
         }
     }
 

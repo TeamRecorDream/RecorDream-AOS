@@ -1,5 +1,6 @@
 package com.team.recordream.presentation.search
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.SearchResult
@@ -12,6 +13,7 @@ import com.team.recordream.util.StateHandler
 import com.team.recordream.util.StateHandler.DISCONNECT
 import com.team.recordream.util.StateHandler.IDLE
 import com.team.recordream.util.StateHandler.INVALID
+import com.team.recordream.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,8 +26,8 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
     val searchKeyword: MutableStateFlow<String> = MutableStateFlow(DEFAULT_VALUE_STRING)
 
-    private val _resultCount: MutableStateFlow<Int> = MutableStateFlow(DEFAULT_VALUE_INT)
-    val resultCount: StateFlow<Int> get() = _resultCount
+    private val _resultCount = MutableStateFlow<UiState<Int>>(UiState.Empty)
+    val resultCount: StateFlow<UiState<Int>> get() = _resultCount
 
     private val _messageVisible: MutableStateFlow<Boolean> = MutableStateFlow(INVISIBLE)
     val messageVisible: StateFlow<Boolean> get() = _messageVisible
@@ -41,8 +43,11 @@ class SearchViewModel @Inject constructor(
     private val _searchStateHandler: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
     val searchStateHandler: StateFlow<StateHandler> get() = _searchStateHandler
 
-    fun postSearch() {
+//    val isResume = MutableLiveData<Boolean>(true)
+
+    fun postSearch(isResume:Boolean) {
         viewModelScope.launch {
+            if (isResume == false) _resultCount.value = UiState.Loading
             runCatching {
                 if (searchKeyword.value.isNotEmpty()) searchRepository.postSearch(searchKeyword.value) else return@launch
                 // 이후 검색 최소 글자 수 관련된 로직 추가
@@ -64,7 +69,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun updateValueFromServer(result: SUCCESS<SearchResult>) {
-        _resultCount.value = result.data.recordsCount
+        _resultCount.value = UiState.Success(result.data.recordsCount)
         _searchResult.value = result.data.records.map { it.toUiState() }
         // _searchState.value = VALID(result.data.records[0].)
         // result 분리
@@ -76,6 +81,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun updateVisibilityOnEmpty() {
+        _resultCount.value = UiState.Empty
         _messageVisible.value = VISIBLE
         _searchResultVisible.value = INVISIBLE
     }

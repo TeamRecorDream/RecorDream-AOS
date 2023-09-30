@@ -1,6 +1,7 @@
 package com.team.recordream.presentation.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,11 @@ import com.team.recordream.presentation.common.BindingFragment
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.adapter.HomeAdapter
 import com.team.recordream.presentation.home.model.UserRecords
+import com.team.recordream.util.UiState
 import com.team.recordream.util.ZoomOutPageTransformer
+import com.team.recordream.util.makeSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -25,6 +29,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initAdapterHomeCard()
         setupBinding()
         observeState()
+        observeNickName()
     }
 
     private fun observeState() {
@@ -41,6 +46,41 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onResume() {
         super.onResume()
         homeViewModel.updateHome()
+    }
+
+    private fun observeNickName() {
+        homeViewModel.userName.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Success -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                    if (homeViewModel.isRecordEmpty.value == true) {
+                        binding.tvHomeUserNameNoneData.text =
+                            getString(R.string.tv_main_welcoming, state.data)
+                        binding.tvHomeUserNameNoneData.visibility = View.VISIBLE
+                        binding.tvHomeUserName.visibility = View.INVISIBLE
+                    } else {
+                        binding.tvHomeUserName.visibility = View.VISIBLE
+                        binding.tvHomeUserNameNoneData.visibility = View.INVISIBLE
+                        binding.tvHomeUserName.text =
+                            getString(R.string.tv_main_welcoming, state.data)
+                    }
+                }
+
+                is UiState.Failure -> {
+                    view?.makeSnackBar(R.string.network_error)
+                }
+
+                is UiState.Loading -> {
+                    binding.lvStorageLottieLoading.playAnimation()
+                    binding.clLoadingBackground.visibility = View.VISIBLE
+                    binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                }
+
+                is UiState.Empty -> {}
+            }
+        }
     }
 
     private fun initAdapterHomeCard() {

@@ -22,9 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginTop="28dp"
-            android:text="@{@string/tv_main_welcoming(viewModel.userName)}"
+
             android:textAppearance="@style/Sb24"
-            app:isVisible="@{!viewModel.isRecordEmpty()}"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/tv_main_welcoming" />
@@ -45,9 +45,9 @@
             android:id="@+id/tv_home_userName_none_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/tv_main_welcoming(viewModel.userName)}"
+
             android:textAppearance="@style/Sb24"
-            app:isVisible="@{viewModel.isRecordEmpty()}"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,5 +87,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_home_banner" />
         <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_loading_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black2_CC0000">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lv_storage_lottie_loading"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="126dp"
+                android:layout_marginVertical="308dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_fileName="recordream_loading.json" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
