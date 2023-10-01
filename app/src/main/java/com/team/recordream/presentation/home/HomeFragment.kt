@@ -1,9 +1,7 @@
 package com.team.recordream.presentation.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -17,7 +15,6 @@ import com.team.recordream.util.UiState
 import com.team.recordream.util.ZoomOutPageTransformer
 import com.team.recordream.util.makeSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -33,17 +30,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         observeNickName()
     }
 
-    private val focusOnFirstItemLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        // Handle the result here if needed (e.g., result from another activity)
-
-        // Focus on the first item of the ViewPager2
-        binding.vpHome.setCurrentItem(0, false) // Scroll to the first item and disable smooth scroll
-    }
-
-
     private fun observeState() {
         homeViewModel.userRecords.observe(viewLifecycleOwner) {
             homeAdapter.submitList(it)
+//            정보 업데이트 후에 맨 앞 카드로 포커스 해주기
+            binding.vpHome.setCurrentItem(0, false)
         }
     }
 
@@ -55,9 +46,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onResume() {
         super.onResume()
         homeViewModel.updateHome()
-        Log.d("why??", "뭐야")
-        //        맨앞 카드로 설정
-//        binding.vpHome.setCurrentItem(0, false)
     }
 
     private fun observeNickName() {
