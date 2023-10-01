@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentHomeBinding
 import com.team.recordream.presentation.common.BindingFragment
@@ -20,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeAdapter: HomeAdapter by lazy { HomeAdapter(::navigateToDetailView) }
     private val homeViewModel by viewModels<HomeViewModel>()
+    private var isPageLoaded = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,13 +30,16 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         setupBinding()
         observeState()
         observeNickName()
+
+        // Observe the reset event
+        homeViewModel.resetViewPagerEvent.observe(viewLifecycleOwner) {
+            resetViewPager()
+        }
     }
 
     private fun observeState() {
         homeViewModel.userRecords.observe(viewLifecycleOwner) {
             homeAdapter.submitList(it)
-//            정보 업데이트 후에 맨 앞 카드로 포커스 해주기
-            binding.vpHome.setCurrentItem(0, false)
         }
     }
 
@@ -45,7 +50,24 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun onResume() {
         super.onResume()
+        isPageLoaded = true
         homeViewModel.updateHome()
+
+        binding.vpHome.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if (isPageLoaded) {
+                        resetViewPager()
+                        isPageLoaded = false
+                    }
+                }
+            }
+        )
+    }
+
+    private fun resetViewPager() {
+        binding.vpHome.setCurrentItem(0, false)
     }
 
     private fun observeNickName() {

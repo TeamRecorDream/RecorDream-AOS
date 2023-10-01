@@ -2,6 +2,7 @@ package com.team.recordream.presentation
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -20,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
+    val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +48,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     private fun setClickEvents() {
         binding.ivMainMypage.setOnClickListener { startActivity(MypageActivity.getIntent(this)) }
         binding.ivNaviWriteBtn.setOnClickListener {
-//            val homeFragment =
-//                supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
-//            if (homeFragment is HomeFragment) {
-//                homeFragment.binding.vpHome.setCurrentItem(0, false)
-//            }
+            sharedViewModel.triggerResetViewPager()
             startActivity(
                 RecordActivity.getIntent(
                     this,

@@ -17,6 +17,13 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
 ) : ViewModel() {
+    private val _resetViewPagerEvent = MutableLiveData<Unit>()
+    val resetViewPagerEvent: LiveData<Unit> get() = _resetViewPagerEvent
+
+    fun triggerResetViewPager() {
+        _resetViewPagerEvent.value = Unit
+    }
+
     private val _isRecordEmpty: MutableLiveData<Boolean> = MutableLiveData(true)
     val isRecordEmpty: LiveData<Boolean> get() = _isRecordEmpty
 
