@@ -13,8 +13,11 @@ import com.team.recordream.presentation.common.BindingFragment
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.home.adapter.HomeAdapter
 import com.team.recordream.presentation.home.model.UserRecords
+import com.team.recordream.util.UiState
 import com.team.recordream.util.ZoomOutPageTransformer
+import com.team.recordream.util.makeSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -27,6 +30,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         initAdapterHomeCard()
         setupBinding()
         observeState()
+        observeNickName()
     }
 
     private val focusOnFirstItemLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -54,6 +58,41 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         Log.d("why??", "뭐야")
         //        맨앞 카드로 설정
 //        binding.vpHome.setCurrentItem(0, false)
+    }
+
+    private fun observeNickName() {
+        homeViewModel.userName.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Success -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                    if (homeViewModel.isRecordEmpty.value == true) {
+                        binding.tvHomeUserNameNoneData.text =
+                            getString(R.string.tv_main_welcoming, state.data)
+                        binding.tvHomeUserNameNoneData.visibility = View.VISIBLE
+                        binding.tvHomeUserName.visibility = View.INVISIBLE
+                    } else {
+                        binding.tvHomeUserName.visibility = View.VISIBLE
+                        binding.tvHomeUserNameNoneData.visibility = View.INVISIBLE
+                        binding.tvHomeUserName.text =
+                            getString(R.string.tv_main_welcoming, state.data)
+                    }
+                }
+
+                is UiState.Failure -> {
+                    view?.makeSnackBar(R.string.network_error)
+                }
+
+                is UiState.Loading -> {
+                    binding.lvStorageLottieLoading.playAnimation()
+                    binding.clLoadingBackground.visibility = View.VISIBLE
+                    binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                }
+
+                is UiState.Empty -> {}
+            }
+        }
     }
 
     private fun initAdapterHomeCard() {

@@ -18,6 +18,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:includeFontPadding">false</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialog.Style</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
     <!--bottomsheet-->
     <style name="BottomSheetDialog.Style" parent="Theme.Design.Light.BottomSheetDialog">
@@ -50,6 +51,8 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:interpolator"></item>
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 
@@ -62,4 +65,5 @@
         <item name="chipStartPadding">4dp</item>
         <item name="chipEndPadding">4dp</item>
     </style>
+
 </resources>

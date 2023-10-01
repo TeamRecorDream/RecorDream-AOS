@@ -122,6 +122,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             when (viewMode) {
                 EDIT_MODE -> editRecord()
                 CREATE_MODE -> createRecord()
+                else -> openPushAlarmWrite()
             }
         }
     }
@@ -166,6 +167,12 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     private fun createRecord() {
+        when (recordViewModel.isSaveEnabled.value) {
+            true -> recordViewModel.saveRecord()
+            false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
+        }
+    }
+    private fun openPushAlarmWrite() {
         when (recordViewModel.isSaveEnabled.value) {
             true -> recordViewModel.saveRecord()
             false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)

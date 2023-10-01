@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.UserRecord
 import com.team.recordream.domain.repository.HomeRepository
 import com.team.recordream.presentation.home.model.UserRecords
+import com.team.recordream.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,20 +20,21 @@ class HomeViewModel @Inject constructor(
     private val _isRecordEmpty: MutableLiveData<Boolean> = MutableLiveData(true)
     val isRecordEmpty: LiveData<Boolean> get() = _isRecordEmpty
 
-    private val _userName: MutableLiveData<String> = MutableLiveData("")
-    val userName: LiveData<String> get() = _userName
+    private val _userName: MutableLiveData<UiState<String>> =
+        MutableLiveData<UiState<String>>(UiState.Loading)
+    val userName: LiveData<UiState<String>> get() = _userName
 
     private val _userRecords: MutableLiveData<List<UserRecords>> = MutableLiveData(listOf())
     val userRecords: LiveData<List<UserRecords>> get() = _userRecords
 
     fun updateHome() {
         viewModelScope.launch {
+            _userName.value = UiState.Loading
             homeRepository.getHomeRecord()
                 .onSuccess {
-                    _userName.value = it.nickname
                     _userRecords.value = it.records.map { record -> record.toUiModel() }
-
-                    if (!userRecords.value.isNullOrEmpty()) _isRecordEmpty.value = false
+                    _isRecordEmpty.value = userRecords.value.isNullOrEmpty()
+                    _userName.value = UiState.Success(it.nickname)
                 }
                 .onFailure {
                     Log.d("12312344", it.message.toString())
