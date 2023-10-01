@@ -45,13 +45,9 @@
             android:id="@+id/tv_home_userName_none_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            <!-- android:layout_marginTop="223dp" -->
-            <!-- android:text="@{@string/tv_main_welcoming(viewModel.userName)}" -->
-            
+            android:layout_marginTop="293dp"
             android:textAppearance="@style/Sb24"
             app:isVisible="@{viewModel.isRecordEmpty()}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
