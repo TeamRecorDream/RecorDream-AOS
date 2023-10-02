@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivityEditBinding
@@ -12,7 +15,6 @@ import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.util.anchorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit) {
@@ -22,6 +24,12 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
     }
     private val recordAdapter: RecordAdapter by lazy { RecordAdapter(editViewModel::updateSelectedEmotionId) }
 
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +41,10 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
     }
 
     private fun setClickListener() {
-        binding.clEditDate.setOnClickListener { initDatePickerDialog() }
+        binding.clEditDate.setOnClickListener {
+            Log.d("123123", "123123")
+            initDatePickerDialog()
+        }
         binding.ivRecordClose.setOnClickListener { finish() }
         binding.btnRecordSave.setOnClickListener { editRecord() }
         binding.clRecordRecordBtn.setOnClickListener { showWarningOfRecording() }
