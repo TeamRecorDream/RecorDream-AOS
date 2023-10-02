@@ -105,8 +105,8 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
         binding.vpDocumentContent.adapter = contentAdapter
         contentAdapter.fragments.addAll(
             listOf(
-                DreamRecordFragment.from(detailViewModel),
-                NoteFragment.from(detailViewModel),
+                DreamRecordFragment(),
+                NoteFragment(),
             ),
         )
 
