@@ -104,6 +104,10 @@ class EditViewModel @Inject constructor(
         }
     }
 
+    fun updateSaveButtonEnabled(title: String) {
+        _isSaveEnabled.value = title.isNotEmpty() && title.first() != BLANK
+    }
+
     fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
         _date.value =
             "$year-${(month + CORRECTION_VALUE).toStringOfDate()}-${day.toStringOfDate()}"

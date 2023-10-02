@@ -9,12 +9,21 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivityEditBinding
 import com.team.recordream.presentation.common.BindingActivity
+import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
+import com.team.recordream.presentation.record.model.EmotionState
+import com.team.recordream.util.StateHandler
 import com.team.recordream.util.anchorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit) {
@@ -34,10 +43,38 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        collectViewState()
         bindViewModel()
         setEditView()
         attachAdapter()
         setClickListener()
+    }
+
+    private fun collectViewState() {
+        collectWithLifecycle(editViewModel.emotion) { emotion ->
+            val emotionStateContainer =
+                EmotionState.getEmotionContainer(emotion ?: EmotionState.SELECTED_ANYTHING)
+
+            recordAdapter.submitList(emotionStateContainer)
+        }
+
+        collectWithLifecycle(editViewModel.title) { title ->
+            editViewModel.updateSaveButtonEnabled(title)
+        }
+
+        collectWithLifecycle(editViewModel.stateHandlerOfSavingRecord) { result ->
+            when (result) {
+                is StateHandler.VALID -> navigateToDetailView(result.recordId)
+                is StateHandler.INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is StateHandler.DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is StateHandler.IDLE -> Log.e("RecordActivity", "DEFAULT")
+            }
+        }
+    }
+
+    private fun navigateToDetailView(recordId: String) {
+        startActivity(DetailActivity.getIntent(this, recordId))
+        finish()
     }
 
     private fun setClickListener() {
@@ -98,6 +135,19 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
         }
 
         binding.btnRecordSave.anchorSnackBar(content)
+    }
+
+    private inline fun <T> collectWithLifecycle(
+        flow: Flow<T>,
+        crossinline action: (T) -> Unit,
+    ) {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                flow.collectLatest { value ->
+                    action(value)
+                }
+            }
+        }
     }
 
     companion object {
