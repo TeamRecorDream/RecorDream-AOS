@@ -91,6 +91,16 @@ object BindingAdapter {
         textView.text = time.toTimeFormatted()
     }
 
+    @JvmStatic
+    @BindingAdapter("formattedDate")
+    fun formatDate(textView: TextView, date: String) {
+        if (!date.contains("-")) {
+            textView.text = date.substringBefore(" ").replace("/", "-")
+            return
+        }
+        textView.text = date
+    }
+
     private fun Int.toTimeFormatted(): String {
         val minutes = this / 60
         val seconds = this % 60

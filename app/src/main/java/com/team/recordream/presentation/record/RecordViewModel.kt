@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
-import com.team.recordream.domain.repository.DocumentRepository
 import com.team.recordream.domain.repository.RecordRepository
 import com.team.recordream.domain.util.CustomResult.FAIL
 import com.team.recordream.domain.util.CustomResult.SUCCESS
@@ -26,7 +25,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RecordViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
-    private val documentRepository: DocumentRepository,
 ) : ViewModel() {
     val title: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -76,40 +74,6 @@ class RecordViewModel @Inject constructor(
                 }
             }
                 .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
-        }
-    }
-
-    fun initEditViewState(recordId: String) {
-        viewModelScope.launch {
-            documentRepository.getDetailRecord(recordId)
-                .onSuccess { record ->
-                    _date.value = record.date
-                    title.value = record.title
-                    if (record.note == null) {
-                        note.value = ""
-                    } else {
-                        note.value = record.note
-                    }
-                    content.value = record.content
-                    when (record.emotion == 6) {
-                        true -> _emotion.value = null
-                        false -> _emotion.value = record.emotion
-                    }
-                    _genre.value.addAll(record.genre)
-                    List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }.apply {
-                        if (genre.value.size == MAX_COUNT_OF_GENRE) _genreEnabled.value = this
-                        _genreChecked.value = this
-                    }
-                    _voiceId.value = record.voice?.id
-                }
-        }
-    }
-
-    fun editRecord(recordId: String) {
-        viewModelScope.launch {
-            runCatching { recordRepository.updateRecord(recordId, getEditedRecord()) }
-                .onSuccess {}
-                .onFailure {}
         }
     }
 
@@ -191,18 +155,6 @@ class RecordViewModel @Inject constructor(
         voice = _voiceId.value,
     )
 
-    private fun getEditedRecord(): Record = Record(
-        title = title.value,
-        date = date.value.substringBefore(" ").replace("/", "-"),
-        content = content.value,
-        emotion = emotion.value,
-        genre = when (genre.value.contains(0)) {
-            true -> null
-            false -> genre.value
-        },
-        note = note.value,
-        voice = _voiceId.value,
-    )
 
     private fun Int.toStringOfDate(): String {
         if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
@@ -225,6 +177,5 @@ class RecordViewModel @Inject constructor(
         private const val NON_CONTAINED = false
         private const val SHOW = true
         private const val HIDE = false
-        private const val DEFAULT_EMOTION = 6
     }
 }

@@ -101,13 +101,7 @@ class DocumentBottomSheetFragment private constructor(
     }
 
     private fun navigateToEditView() {
-        val intent = RecordActivity.getIntent(
-            requireContext(),
-            RecordActivity.EDIT_MODE,
-            detailViewModel.recordId,
-        )
-
-        startActivity(intent)
+        startActivity(RecordActivity.getIntent(requireContext()))
     }
 
     private fun shareInstagram() {
