@@ -117,6 +117,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
                 CREATE_MODE -> initRecordBottomSheetDialog()
             }
         }
+
         binding.btnRecordSave.setOnClickListener {
             when (viewMode) {
                 EDIT_MODE -> editRecord()
