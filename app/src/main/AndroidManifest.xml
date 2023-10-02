@@ -41,7 +41,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.modify.ModifyActivity"
+            android:name=".presentation.edit.EditActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.detail.DetailActivity"
