@@ -104,6 +104,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH),
         ).apply {
+            setCanceledOnTouchOutside(false)
             datePicker.maxDate = System.currentTimeMillis()
             show()
         }

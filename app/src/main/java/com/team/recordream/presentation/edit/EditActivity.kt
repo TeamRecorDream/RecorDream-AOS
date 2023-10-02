@@ -78,10 +78,7 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
     }
 
     private fun setClickListener() {
-        binding.clEditDate.setOnClickListener {
-            Log.d("123123", "123123")
-            initDatePickerDialog()
-        }
+        binding.clEditDate.setOnClickListener { initDatePickerDialog() }
         binding.ivRecordClose.setOnClickListener { finish() }
         binding.btnRecordSave.setOnClickListener { editRecord() }
         binding.clRecordRecordBtn.setOnClickListener { showWarningOfRecording() }
@@ -97,6 +94,7 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
             cal.get(Calendar.MONTH),
             cal.get(Calendar.DAY_OF_MONTH),
         ).apply {
+            setCanceledOnTouchOutside(false)
             datePicker.maxDate = System.currentTimeMillis()
             show()
         }
