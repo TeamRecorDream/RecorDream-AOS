@@ -85,7 +85,12 @@ class EditViewModel @Inject constructor(
                         true -> _emotion.value = null
                         false -> _emotion.value = record.emotion
                     }
-                    _genre.value.addAll(record.genre)
+
+                    when (record.genre.contains(0)) {
+                        true -> _genre.value.addAll(listOf())
+                        false -> _genre.value.addAll(record.genre)
+                    }
+
                     List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }.apply {
                         if (genre.value.size == MAX_COUNT_OF_GENRE) _genreEnabled.value =
                             this
@@ -98,9 +103,14 @@ class EditViewModel @Inject constructor(
 
     fun editRecord(recordId: String) {
         viewModelScope.launch {
-            runCatching { recordRepository.updateRecord(recordId, getEditedRecord()) }
-                .onSuccess {}
-                .onFailure {}
+            runCatching {
+
+                recordRepository.updateRecord(recordId, getEditedRecord())
+            }
+                .onSuccess {
+                }
+                .onFailure {
+                }
         }
     }
 
@@ -175,7 +185,7 @@ class EditViewModel @Inject constructor(
         date = date.value.substringBefore(" ").replace("/", "-"),
         content = content.value,
         emotion = emotion.value,
-        genre = when (genre.value.contains(0)) {
+        genre = when (genre.value.isEmpty()) {
             true -> null
             false -> genre.value
         },

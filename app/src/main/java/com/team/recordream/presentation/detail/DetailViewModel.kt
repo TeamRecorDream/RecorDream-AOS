@@ -168,7 +168,7 @@ class DetailViewModel @Inject constructor(
 
     private fun findTagByGenreId(genre: List<Int>) {
         when (genre.contains(0)) {
-            true -> _tags.value = listOf(Genre.getValue(-1))
+            true -> _tags.value = listOf()
             false -> {
                 _tags.value = genre.map {
                     Genre.getValue(it)
