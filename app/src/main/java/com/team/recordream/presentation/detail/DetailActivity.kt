@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -63,33 +62,31 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
     }
 
     private fun getContent() {
-        lifecycleScope.launchWhenStarted {
-            detailViewModel.content.collectLatest { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        binding.lvStorageLottieLoading.pauseAnimation()
-                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                        binding.clLoadingBackground.visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.tv_dream_record_content).setText(state.data)
-                    }
+        collectWithLifecycle(detailViewModel.content) { state ->
+            when (state) {
+                is UiState.Success -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                }
 
-                    is UiState.Failure -> {
-                    }
+                is UiState.Failure -> {
+                }
 
-                    is UiState.Loading -> {
-                        binding.lvStorageLottieLoading.playAnimation()
-                        binding.clLoadingBackground.visibility = View.VISIBLE
-                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
-                    }
+                is UiState.Loading -> {
+                    binding.lvStorageLottieLoading.playAnimation()
+                    binding.clLoadingBackground.visibility = View.VISIBLE
+                    binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                }
 
-                    is UiState.Empty -> {
-                        binding.lvStorageLottieLoading.pauseAnimation()
-                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                        binding.clLoadingBackground.visibility = View.INVISIBLE
-                    }
+                is UiState.Empty -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
                 }
             }
         }
+
     }
 
     private fun collectIsRemoved() {
