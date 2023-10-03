@@ -79,7 +79,6 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
                 }
             }
         }
-
     }
 
     private fun collectIsRemoved() {

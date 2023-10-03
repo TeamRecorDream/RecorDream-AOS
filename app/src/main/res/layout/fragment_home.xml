@@ -45,10 +45,9 @@
             android:id="@+id/tv_home_userName_none_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginTop="239dp"
             android:textAppearance="@style/Sb24"
-
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:isVisible="@{viewModel.isRecordEmpty()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/tv_main_welcoming2"
+            android:text="@string/tv_main_welcoming_new"
             android:textAppearance="@style/EL24"
             app:isVisible="@{viewModel.isRecordEmpty()}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,14 +66,20 @@
             app:layout_constraintTop_toBottomOf="@id/tv_home_userName_none_data"
             tools:text="@string/tv_main_welcoming_new" />
 
-        <!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-        <!--            android:id="@+id/swipeRefreshLayout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:layout_marginTop="47dp"-->
-        <!--            android:layout_marginBottom="120dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/tv_home_banner">-->
+        <TextView
+            android:id="@+id/tv_home_banner_none_data_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tv_main_welcoming_new_detail"
+            android:textAppearance="@style/R14"
+            android:textColor="@color/white02_80FFFFFF"
+            app:isVisible="@{viewModel.isRecordEmpty()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_home_banner_none_data"
+
+            />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_home"

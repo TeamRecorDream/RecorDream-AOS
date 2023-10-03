@@ -102,7 +102,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
             recordViewModel.updateDate(),
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
         ).apply {
             setCanceledOnTouchOutside(false)
             datePicker.maxDate = System.currentTimeMillis()
@@ -124,7 +124,7 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
     private inline fun <T> collectWithLifecycle(
         flow: Flow<T>,
-        crossinline action: (T) -> Unit,
+        crossinline action: (T) -> Unit
     ) {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
