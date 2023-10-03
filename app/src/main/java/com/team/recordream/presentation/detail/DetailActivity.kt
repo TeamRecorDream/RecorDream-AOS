@@ -14,7 +14,6 @@ import com.team.recordream.databinding.ActivityDetailBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
-import com.team.recordream.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -62,27 +61,21 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
     }
 
     private fun getContent() {
-        collectWithLifecycle(detailViewModel.content) { state ->
+        collectWithLifecycle(detailViewModel.state) { state ->
             when (state) {
-                is UiState.Success -> {
+                is DetailViewModel.ViewState.Success -> {
                     binding.lvStorageLottieLoading.pauseAnimation()
                     binding.lvStorageLottieLoading.visibility = View.INVISIBLE
                     binding.clLoadingBackground.visibility = View.INVISIBLE
                 }
 
-                is UiState.Failure -> {
-                }
-
-                is UiState.Loading -> {
+                is DetailViewModel.ViewState.Loading -> {
                     binding.lvStorageLottieLoading.playAnimation()
                     binding.clLoadingBackground.visibility = View.VISIBLE
                     binding.lvStorageLottieLoading.visibility = View.VISIBLE
                 }
 
-                is UiState.Empty -> {
-                    binding.lvStorageLottieLoading.pauseAnimation()
-                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                is DetailViewModel.ViewState.Idle -> {
                 }
             }
         }

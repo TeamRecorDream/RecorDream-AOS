@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.team.recordream.R
 import com.team.recordream.domain.repository.DocumentRepository
 import com.team.recordream.presentation.record.uistate.Genre
-import com.team.recordream.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -49,9 +48,9 @@ class DetailViewModel @Inject constructor(
     val note: StateFlow<String> get() = _note
 
     // 리팩터링 분리
-    private val _content: MutableStateFlow<UiState<String>> =
-        MutableStateFlow<UiState<String>>(UiState.Loading)
-    val content: StateFlow<UiState<String>> get() = _content
+    private val _content: MutableStateFlow<String> =
+        MutableStateFlow<String>("")
+    val content: StateFlow<String> get() = _content
 
     private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isRecorded: StateFlow<Boolean> get() = _isRecorded
@@ -69,13 +68,15 @@ class DetailViewModel @Inject constructor(
     private val _progressRate: MutableStateFlow<Int> = MutableStateFlow(0)
     val progressRate: StateFlow<Int> get() = _progressRate
 
+    private val _state: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Loading)
+    val state: StateFlow<ViewState> get() = _state
+
     private var recordingTimer: Timer? = null
     private var progressTimer: Timer? = null
 
     fun updateDetailRecord(id: String) {
         recordId = id
         viewModelScope.launch {
-            _content.value = UiState.Loading
             documentRepository.getDetailRecord(recordId)
                 .onSuccess {
                     _background.value = Emotion.findBackgroundById(it.emotion ?: 0)
@@ -83,13 +84,11 @@ class DetailViewModel @Inject constructor(
                     _date.value = it.date.replace(Regex("[()]"), "")
                     _title.value = it.title
                     _note.value = it.note ?: ""
-                    _content.value = UiState.Success(it.content.toString())
-                    if (it.content == null) {
-                        _content.value = UiState.Empty
-                    }
+                    _content.value = it.content ?: ""
                     findTagByGenreId(it.genre)
                     _isRecorded.value = it.voice != null
                     if (it.voice != null) _recordingFilePath.value = it.voice.url
+                    _state.value = ViewState.Success
                 }
                 .onFailure {
                     Log.d("123123-DetailViewModel", it.message.toString())
@@ -208,6 +207,12 @@ class DetailViewModel @Inject constructor(
                 emotion.ordinal + 1 == emotionId
             } ?: ALL
         }
+    }
+
+    sealed interface ViewState {
+        object Success : ViewState
+        object Loading : ViewState
+        object Idle : ViewState
     }
 
     companion object {
