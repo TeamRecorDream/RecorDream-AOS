@@ -59,6 +59,7 @@ class MypageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClick()
+        lodingObserve()
         mypageDataObserver()
         mypageViewModel.getUser()
         mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
@@ -99,6 +100,24 @@ class MypageActivity : AppCompatActivity() {
             }
             isShow.observe(this@MypageActivity) {
                 binding.tvMypageSettitngTimeDescription.text = it
+            }
+        }
+    }
+
+    private fun lodingObserve() {
+        mypageViewModel.state.observe(this) { state ->
+            when (state) {
+                is MypageViewModel.ViewState.Loading -> {
+                    binding.lvStorageLottieLoading.playAnimation()
+                    binding.clLoadingBackground.visibility = View.VISIBLE
+                    binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                }
+                is MypageViewModel.ViewState.Success -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                }
+                is MypageViewModel.ViewState.Idle -> {}
             }
         }
     }

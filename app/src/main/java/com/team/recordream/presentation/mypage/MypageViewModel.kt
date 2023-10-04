@@ -28,6 +28,9 @@ class MypageViewModel @Inject constructor(
     var setHour: Int = 0
     var setMinute: Int = 0
 
+    private val _state: MutableLiveData<ViewState> = MutableLiveData(ViewState.Loading)
+    val state: LiveData<ViewState> get() = _state
+
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> get() = _userEmail
 
@@ -47,11 +50,13 @@ class MypageViewModel @Inject constructor(
     lateinit var switchState: SharedPreferences
 
     fun getUser() {
+        _state.value = ViewState.Loading
         viewModelScope.launch {
             userName.value = mypageUserRepository.getUser()?.data?.nickname
             _userEmail.value = mypageUserRepository.getUser()?.data?.email
             _settingTime.value = mypageUserRepository.getUser()?.data?.time
             formatDate()
+            _state.value = ViewState.Success
         }
     }
 
@@ -123,6 +128,12 @@ class MypageViewModel @Inject constructor(
         viewModelScope.launch {
             authRepository.deleteUser()
         }
+    }
+
+    sealed interface ViewState {
+        object Success : ViewState
+        object Loading : ViewState
+        object Idle : ViewState
     }
 
     companion object {
