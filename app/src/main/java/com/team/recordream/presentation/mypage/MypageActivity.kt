@@ -17,7 +17,6 @@ import com.team.recordream.R
 import com.team.recordream.databinding.ActivityMypageBinding
 import com.team.recordream.presentation.login.LoginActivity
 import com.team.recordream.util.RecorDreamFireBaseMessagingService
-import com.team.recordream.util.UiState
 import com.team.recordream.util.customview.CustomDialog
 import com.team.recordream.util.makeSnackBar
 import com.team.recordream.util.shortToastByInt
@@ -60,6 +59,7 @@ class MypageActivity : AppCompatActivity() {
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClick()
+        lodingObserve()
         mypageDataObserver()
         mypageViewModel.getUser()
         mypageViewModel.switchState = getSharedPreferences(SWITCH, MODE_PRIVATE)
@@ -84,23 +84,14 @@ class MypageActivity : AppCompatActivity() {
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
-                when (email) {
-                    is UiState.Success -> {
-                        binding.lvStorageLottieLoading.pauseAnimation()
-                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                        binding.clLoadingBackground.visibility = View.INVISIBLE
-                        binding.tvMypageEmail.text = email.data
-                        observeSettinTime()
-                    }
-
-                    is UiState.Failure -> {}
-                    is UiState.Loading -> {
-                        binding.lvStorageLottieLoading.playAnimation()
-                        binding.clLoadingBackground.visibility = View.VISIBLE
-                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
-                    }
-
-                    is UiState.Empty -> {}
+                binding.tvMypageEmail.text = email
+            }
+            settingTime.observe(this@MypageActivity) { time ->
+                if (binding.switchMypagePushAlam.isChecked) {
+                    binding.tvMypageSettitngTimeDescription.text = time
+                    setBackGround(true)
+                } else {
+                    setBackGround(false)
                 }
             }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
@@ -113,13 +104,20 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeSettinTime() {
-        mypageViewModel.settingTime.observe(this@MypageActivity) { time ->
-            if (binding.switchMypagePushAlam.isChecked) {
-                binding.tvMypageSettitngTimeDescription.text = time
-                setBackGround(true)
-            } else {
-                setBackGround(false)
+    private fun lodingObserve() {
+        mypageViewModel.state.observe(this) { state ->
+            when (state) {
+                is MypageViewModel.ViewState.Loading -> {
+                    binding.lvStorageLottieLoading.playAnimation()
+                    binding.clLoadingBackground.visibility = View.VISIBLE
+                    binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                }
+                is MypageViewModel.ViewState.Success -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                }
+                is MypageViewModel.ViewState.Idle -> {}
             }
         }
     }
@@ -222,13 +220,6 @@ class MypageActivity : AppCompatActivity() {
         }
     }
 
-    private fun resetSharedPushAlarm() {
-        val editor = mypageViewModel.switchState.edit()
-        editor.remove(ALARM)
-        editor.clear()
-        editor.commit()
-    }
-
     private fun setBackGround(onSwitch: Boolean) {
         if (onSwitch) {
             binding.tvMypageSettitngTimeDescription.visibility = View.VISIBLE
@@ -265,6 +256,12 @@ class MypageActivity : AppCompatActivity() {
     private fun saveSwitchActive() {
         binding.switchMypagePushAlam.isChecked =
             mypageViewModel.switchState.getBoolean(ALARM, false)
+    }
+    private fun resetSharedPushAlarm() {
+        val editor = mypageViewModel.switchState.edit()
+        editor.remove(ALARM)
+        editor.clear()
+        editor.commit()
     }
 
     companion object {

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.user.UserApiClient
 import com.team.recordream.R
 import com.team.recordream.data.datasource.local.AuthTokenStorage
 import com.team.recordream.data.entity.remote.request.RequestAlamToggle
@@ -12,7 +13,6 @@ import com.team.recordream.data.entity.remote.request.RequestNickName
 import com.team.recordream.data.entity.remote.request.RequestPushAlam
 import com.team.recordream.domain.repository.AuthRepository
 import com.team.recordream.domain.repository.MypageUserRepository
-import com.team.recordream.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,8 +29,11 @@ class MypageViewModel @Inject constructor(
     var setHour: Int = 0
     var setMinute: Int = 0
 
-    private val _userEmail = MutableLiveData<UiState<String>>()
-    val userEmail: LiveData<UiState<String>> get() = _userEmail
+    private val _state: MutableLiveData<ViewState> = MutableLiveData(ViewState.Loading)
+    val state: LiveData<ViewState> get() = _state
+
+    private val _userEmail = MutableLiveData<String>()
+    val userEmail: LiveData<String> get() = _userEmail
 
     private val _settingTime = MutableLiveData<String?>()
     val settingTime: MutableLiveData<String?> get() = _settingTime
@@ -48,16 +51,13 @@ class MypageViewModel @Inject constructor(
     lateinit var switchState: SharedPreferences
 
     fun getUser() {
+        _state.value = ViewState.Loading
         viewModelScope.launch {
-            _userEmail.value = UiState.Loading
-            kotlin.runCatching { mypageUserRepository.getUser() }
-                .onSuccess {
-                    userName.value = it?.data?.nickname
-                    _userEmail.value = UiState.Success(it?.data!!.email)
-                    _settingTime.value = it?.data?.time
-                    formatDate()
-                }
-                .onFailure { }
+            userName.value = mypageUserRepository.getUser()?.data?.nickname
+            _userEmail.value = mypageUserRepository.getUser()?.data?.email
+            _settingTime.value = mypageUserRepository.getUser()?.data?.time
+            formatDate()
+            _state.value = ViewState.Success
         }
     }
 
@@ -106,13 +106,12 @@ class MypageViewModel @Inject constructor(
     }
 
     fun userLogout() {
-        authRepository.unLinkKakaoAccount { isSuccess -> initIsSuccessWithdraw(isSuccess) }
-        postSignOut()
+        UserApiClient.instance.logout { postSignOut() }
         deleteSharedPrefernceLog()
     }
 
     private fun deleteSharedPrefernceLog() {
-        AuthTokenStorage.logout()
+        AuthTokenStorage.deleteSharedAccessToken()
     }
 
     private fun initIsSuccessWithdraw(isSuccess: Boolean) {
@@ -128,7 +127,15 @@ class MypageViewModel @Inject constructor(
     fun deleteUser() {
         viewModelScope.launch {
             authRepository.deleteUser()
+            authRepository.unLinkKakaoAccount { isSuccess -> initIsSuccessWithdraw(isSuccess) }
+            deleteSharedPrefernceLog()
         }
+    }
+
+    sealed interface ViewState {
+        object Success : ViewState
+        object Loading : ViewState
+        object Idle : ViewState
     }
 
     companion object {
