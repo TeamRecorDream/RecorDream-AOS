@@ -21,7 +21,7 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
         recordreamSharedPreference.getValue(REFRESH_TOKEN) ?: ""
 
     override fun removeAccessToken() {
-        recordreamSharedPreference.logout()
+        recordreamSharedPreference.deleteSharedAccessToken()
     }
 
     companion object {
