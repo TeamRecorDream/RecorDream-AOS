@@ -17,7 +17,6 @@ import com.team.recordream.R
 import com.team.recordream.databinding.ActivityMypageBinding
 import com.team.recordream.presentation.login.LoginActivity
 import com.team.recordream.util.RecorDreamFireBaseMessagingService
-import com.team.recordream.util.UiState
 import com.team.recordream.util.customview.CustomDialog
 import com.team.recordream.util.makeSnackBar
 import com.team.recordream.util.shortToastByInt
@@ -84,23 +83,14 @@ class MypageActivity : AppCompatActivity() {
                 }
             }
             userEmail.observe(this@MypageActivity) { email ->
-                when (email) {
-                    is UiState.Success -> {
-                        binding.lvStorageLottieLoading.pauseAnimation()
-                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                        binding.clLoadingBackground.visibility = View.INVISIBLE
-                        binding.tvMypageEmail.text = email.data
-                        observeSettinTime()
-                    }
-
-                    is UiState.Failure -> {}
-                    is UiState.Loading -> {
-                        binding.lvStorageLottieLoading.playAnimation()
-                        binding.clLoadingBackground.visibility = View.VISIBLE
-                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
-                    }
-
-                    is UiState.Empty -> {}
+                binding.tvMypageEmail.text = email
+            }
+            settingTime.observe(this@MypageActivity) { time ->
+                if (binding.switchMypagePushAlam.isChecked) {
+                    binding.tvMypageSettitngTimeDescription.text = time
+                    setBackGround(true)
+                } else {
+                    setBackGround(false)
                 }
             }
             isSuccessWithdraw.observe(this@MypageActivity) { success -> }
@@ -109,17 +99,6 @@ class MypageActivity : AppCompatActivity() {
             }
             isShow.observe(this@MypageActivity) {
                 binding.tvMypageSettitngTimeDescription.text = it
-            }
-        }
-    }
-
-    private fun observeSettinTime() {
-        mypageViewModel.settingTime.observe(this@MypageActivity) { time ->
-            if (binding.switchMypagePushAlam.isChecked) {
-                binding.tvMypageSettitngTimeDescription.text = time
-                setBackGround(true)
-            } else {
-                setBackGround(false)
             }
         }
     }
@@ -185,7 +164,6 @@ class MypageActivity : AppCompatActivity() {
         dialog.myPageShowDeleteDialog()
         dialog.setOnClickedListener {
             mypageViewModel.deleteUser()
-            resetSharedPushAlarm()
             finishAffinity()
         }
     }
@@ -194,7 +172,6 @@ class MypageActivity : AppCompatActivity() {
         mypageViewModel.userLogout()
         val intent = Intent(this, LoginActivity::class.java)
         finishAffinity()
-        resetSharedPushAlarm()
         startActivity(intent)
     }
 
@@ -220,13 +197,6 @@ class MypageActivity : AppCompatActivity() {
                 createBottomSheet()
             }
         }
-    }
-
-    private fun resetSharedPushAlarm() {
-        val editor = mypageViewModel.switchState.edit()
-        editor.remove(ALARM)
-        editor.clear()
-        editor.commit()
     }
 
     private fun setBackGround(onSwitch: Boolean) {
