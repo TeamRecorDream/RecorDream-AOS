@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,8 +14,6 @@ import com.team.recordream.databinding.ActivityDetailBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.adapter.ContentAdapter
 import com.team.recordream.presentation.detail.adapter.GenreTagAdapter
-//import com.team.recordream.presentation.home.HomeFragment
-import com.team.recordream.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -64,30 +61,21 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
     }
 
     private fun getContent() {
-        lifecycleScope.launchWhenStarted {
-            detailViewModel.content.collectLatest { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        binding.lvStorageLottieLoading.pauseAnimation()
-                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                        binding.clLoadingBackground.visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.tv_dream_record_content).setText(state.data)
-                    }
+        collectWithLifecycle(detailViewModel.state) { state ->
+            when (state) {
+                is DetailViewModel.ViewState.Success -> {
+                    binding.lvStorageLottieLoading.pauseAnimation()
+                    binding.lvStorageLottieLoading.visibility = View.INVISIBLE
+                    binding.clLoadingBackground.visibility = View.INVISIBLE
+                }
 
-                    is UiState.Failure -> {
-                    }
+                is DetailViewModel.ViewState.Loading -> {
+                    binding.lvStorageLottieLoading.playAnimation()
+                    binding.clLoadingBackground.visibility = View.VISIBLE
+                    binding.lvStorageLottieLoading.visibility = View.VISIBLE
+                }
 
-                    is UiState.Loading -> {
-                        binding.lvStorageLottieLoading.playAnimation()
-                        binding.clLoadingBackground.visibility = View.VISIBLE
-                        binding.lvStorageLottieLoading.visibility = View.VISIBLE
-                    }
-
-                    is UiState.Empty -> {
-                        binding.lvStorageLottieLoading.pauseAnimation()
-                        binding.lvStorageLottieLoading.visibility = View.INVISIBLE
-                        binding.clLoadingBackground.visibility = View.INVISIBLE
-                    }
+                is DetailViewModel.ViewState.Idle -> {
                 }
             }
         }
@@ -106,9 +94,9 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
         binding.vpDocumentContent.adapter = contentAdapter
         contentAdapter.fragments.addAll(
             listOf(
-                DreamRecordFragment.from(detailViewModel),
-                NoteFragment.from(detailViewModel)
-            )
+                DreamRecordFragment(),
+                NoteFragment(),
+            ),
         )
 
         TabLayoutMediator(binding.tlDocument, binding.vpDocumentContent) { _, _ -> }.attach()
@@ -116,14 +104,7 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
 
     private fun setEventOnClick() {
         binding.ivDocumentMore.setOnClickListener { showMoreDialog() }
-        binding.ivDocumentClose.setOnClickListener {
-//            val homeFragment =
-//                supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName)
-//            if (homeFragment is HomeFragment) {
-//                homeFragment.binding.vpHome.setCurrentItem(0, false)
-//            }
-            finish()
-        }
+        binding.ivDocumentClose.setOnClickListener { finish() }
     }
 
     private fun showMoreDialog() {
@@ -133,7 +114,7 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
 
     private inline fun <T> collectWithLifecycle(
         flow: Flow<T>,
-        crossinline action: (T) -> Unit
+        crossinline action: (T) -> Unit,
     ) {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {

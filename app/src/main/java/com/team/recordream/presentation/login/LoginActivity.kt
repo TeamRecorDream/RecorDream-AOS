@@ -2,6 +2,7 @@ package com.team.recordream.presentation.login // ktlint-disable package-name
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kakao.sdk.common.util.Utility
@@ -25,6 +26,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
+        Log.d("123123", Utility.getKeyHash(this))
         setupBinding()
         clickLoginBtn()
     }
