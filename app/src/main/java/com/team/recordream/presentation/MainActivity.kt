@@ -49,14 +49,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         binding.ivMainMypage.setOnClickListener { startActivity(MypageActivity.getIntent(this)) }
         binding.ivNaviWriteBtn.setOnClickListener {
             sharedViewModel.triggerResetViewPager()
-            startActivity(
-                RecordActivity.getIntent(
-                    this,
-                    RecordActivity.CREATE_MODE,
-                    null
-                )
-            )
-        }
+            startActivity(RecordActivity.getIntent(this)) }
         binding.ivMainSearch.setOnClickListener { startActivity(SearchActivity.getIntent(this)) }
     }
 

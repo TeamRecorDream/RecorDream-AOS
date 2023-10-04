@@ -1,4 +1,4 @@
-package com.team.recordream.presentation.record
+package com.team.recordream.presentation.edit
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -13,16 +13,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.team.recordream.R
-import com.team.recordream.databinding.ActivityRecordBinding
+import com.team.recordream.databinding.ActivityEditBinding
 import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.presentation.detail.DetailActivity
 import com.team.recordream.presentation.record.adapter.RecordAdapter
 import com.team.recordream.presentation.record.model.EmotionState
-import com.team.recordream.presentation.record.recording.RecordBottomSheetFragment
-import com.team.recordream.util.StateHandler.DISCONNECT
-import com.team.recordream.util.StateHandler.IDLE
-import com.team.recordream.util.StateHandler.INVALID
-import com.team.recordream.util.StateHandler.VALID
+import com.team.recordream.util.StateHandler
 import com.team.recordream.util.anchorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
@@ -30,9 +26,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_record) {
-    private val recordViewModel: RecordViewModel by viewModels()
-    private val recordAdapter: RecordAdapter by lazy { RecordAdapter(recordViewModel::updateSelectedEmotionId) }
+class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit) {
+    private val editViewModel: EditViewModel by viewModels()
+    private val recordId by lazy {
+        intent.getStringExtra(RECORD_ID) ?: throw IllegalArgumentException()
+    }
+    private val recordAdapter: RecordAdapter by lazy { RecordAdapter(editViewModel::updateSelectedEmotionId) }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val imm: InputMethodManager =
@@ -45,29 +44,30 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
         collectViewState()
-        setupBinding()
+        bindViewModel()
+        setEditView()
         attachAdapter()
         setClickListener()
     }
 
     private fun collectViewState() {
-        collectWithLifecycle(recordViewModel.emotion) { emotion ->
+        collectWithLifecycle(editViewModel.emotion) { emotion ->
             val emotionStateContainer =
                 EmotionState.getEmotionContainer(emotion ?: EmotionState.SELECTED_ANYTHING)
 
             recordAdapter.submitList(emotionStateContainer)
         }
 
-        collectWithLifecycle(recordViewModel.title) { title ->
-            recordViewModel.updateSaveButtonEnabled(title)
+        collectWithLifecycle(editViewModel.title) { title ->
+            editViewModel.updateSaveButtonEnabled(title)
         }
 
-        collectWithLifecycle(recordViewModel.stateHandlerOfSavingRecord) { result ->
+        collectWithLifecycle(editViewModel.stateHandlerOfSavingRecord) { result ->
             when (result) {
-                is VALID -> navigateToDetailView(result.recordId)
-                is INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
-                is DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
-                is IDLE -> Log.e("RecordActivity", "DEFAULT")
+                is StateHandler.VALID -> navigateToDetailView(result.recordId)
+                is StateHandler.INVALID -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is StateHandler.DISCONNECT -> Log.e("RecordActivity", "에러 핸들링 필요")
+                is StateHandler.IDLE -> Log.e("RecordActivity", "DEFAULT")
             }
         }
     }
@@ -77,21 +77,11 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         finish()
     }
 
-    private fun setupBinding() {
-        binding.lifecycleOwner = this
-        binding.viewModel = recordViewModel
-    }
-
-    private fun attachAdapter() {
-        binding.rvRecordEmotion.adapter = recordAdapter
-        binding.rvRecordEmotion.setHasFixedSize(true)
-    }
-
     private fun setClickListener() {
-        binding.clRecordDate.setOnClickListener { initDatePickerDialog() }
+        binding.clEditDate.setOnClickListener { initDatePickerDialog() }
         binding.ivRecordClose.setOnClickListener { finish() }
-        binding.clRecordRecord.setOnClickListener { initRecordBottomSheetDialog() }
-        binding.btnRecordSave.setOnClickListener { createRecord() }
+        binding.btnRecordSave.setOnClickListener { editRecord() }
+        binding.clRecordRecordBtn.setOnClickListener { showWarningOfRecording() }
     }
 
     private fun initDatePickerDialog() {
@@ -99,10 +89,10 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
 
         DatePickerDialog(
             this,
-            recordViewModel.updateDate(),
+            editViewModel.updateDate(),
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
-            cal.get(Calendar.DAY_OF_MONTH)
+            cal.get(Calendar.DAY_OF_MONTH),
         ).apply {
             setCanceledOnTouchOutside(false)
             datePicker.maxDate = System.currentTimeMillis()
@@ -110,21 +100,44 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
         }
     }
 
-    private fun initRecordBottomSheetDialog() {
-        RecordBottomSheetFragment().show(supportFragmentManager, RecordBottomSheetFragment().tag)
+    private fun bindViewModel() {
+        binding.viewModel = editViewModel
+        binding.lifecycleOwner = this
     }
 
+    private fun setEditView() {
+        editViewModel.initEditViewState(recordId)
+    }
 
-    private fun createRecord() {
-        when (recordViewModel.isSaveEnabled.value) {
-            true -> recordViewModel.saveRecord()
+    private fun attachAdapter() {
+        binding.rvRecordEmotion.adapter = recordAdapter
+        binding.rvRecordEmotion.setHasFixedSize(true)
+    }
+
+    private fun editRecord() {
+        when (editViewModel.isSaveEnabled.value) {
+            true -> {
+                editViewModel.editRecord(recordId)
+                finish()
+            }
+
             false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
         }
     }
 
+
+    private fun showWarningOfRecording() {
+        val content = when (editViewModel.voiceId.value != null) {
+            true -> R.string.tv_record_warning_editable_recording
+            false -> R.string.tv_record_warning_disable_recording
+        }
+
+        binding.btnRecordSave.anchorSnackBar(content)
+    }
+
     private inline fun <T> collectWithLifecycle(
         flow: Flow<T>,
-        crossinline action: (T) -> Unit
+        crossinline action: (T) -> Unit,
     ) {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -136,7 +149,11 @@ class RecordActivity : BindingActivity<ActivityRecordBinding>(R.layout.activity_
     }
 
     companion object {
+        private const val RECORD_ID = "RECORD_ID"
 
-        fun getIntent(context: Context): Intent = Intent(context, RecordActivity::class.java)
+        fun getIntent(context: Context, recordId: String): Intent =
+            Intent(context, EditActivity::class.java).apply {
+                putExtra(RECORD_ID, recordId)
+            }
     }
 }

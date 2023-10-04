@@ -2,6 +2,7 @@ package com.team.recordream.presentation.detail
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -13,9 +14,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class DreamRecordFragment private constructor(
-    private val detailViewModel: DetailViewModel,
-) : BindingFragment<FragmentDreamRecordBinding>(R.layout.fragment_dream_record) {
+class DreamRecordFragment :
+    BindingFragment<FragmentDreamRecordBinding>(R.layout.fragment_dream_record) {
+    private val detailViewModel: DetailViewModel by activityViewModels()
     private val recorder: Recorder by lazy { Recorder(requireContext()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,7 +31,7 @@ class DreamRecordFragment private constructor(
     private fun setupBinding() {
         binding.vm = detailViewModel
         binding.onClick = { detailViewModel.updateRecorderState() }
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun collectRecorderState() {
@@ -74,11 +75,5 @@ class DreamRecordFragment private constructor(
                 }
             }
         }
-    }
-
-    companion object {
-
-        fun from(detailViewModel: DetailViewModel): DreamRecordFragment =
-            DreamRecordFragment(detailViewModel)
     }
 }

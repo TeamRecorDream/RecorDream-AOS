@@ -1,18 +1,13 @@
-package com.team.recordream.presentation.record // ktlint-disable package-name
+package com.team.recordream.presentation.edit
 
 import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.team.recordream.domain.model.Record
+import com.team.recordream.domain.repository.DocumentRepository
 import com.team.recordream.domain.repository.RecordRepository
-import com.team.recordream.domain.util.CustomResult.FAIL
-import com.team.recordream.domain.util.CustomResult.SUCCESS
 import com.team.recordream.presentation.record.uistate.Genre
 import com.team.recordream.util.StateHandler
-import com.team.recordream.util.StateHandler.DISCONNECT
-import com.team.recordream.util.StateHandler.IDLE
-import com.team.recordream.util.StateHandler.INVALID
-import com.team.recordream.util.StateHandler.VALID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,9 +18,11 @@ import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
-class RecordViewModel @Inject constructor(
+class EditViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
+    private val documentRepository: DocumentRepository
 ) : ViewModel() {
+
     val title: MutableStateFlow<String> = MutableStateFlow("")
 
     val content: MutableStateFlow<String?> = MutableStateFlow("")
@@ -33,7 +30,9 @@ class RecordViewModel @Inject constructor(
     val note: MutableStateFlow<String> = MutableStateFlow("")
 
     private val _date: MutableStateFlow<String> =
-        MutableStateFlow(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
+        MutableStateFlow(
+            LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
+        )
     val date: StateFlow<String> get() = _date
 
     private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(EMOTION_ALL)
@@ -56,37 +55,67 @@ class RecordViewModel @Inject constructor(
     private val _isSaveEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isSaveEnabled: StateFlow<Boolean> get() = _isSaveEnabled
 
-    private val _recordingTime: MutableStateFlow<String> = MutableStateFlow(DEFAULT_TIME)
+    private val _recordingTime: MutableStateFlow<String> =
+        MutableStateFlow(DEFAULT_TIME)
     val recordingTime: StateFlow<String> get() = _recordingTime
 
-    private val _stateHandlerOfSavingRecord: MutableStateFlow<StateHandler> = MutableStateFlow(IDLE)
+    private val _stateHandlerOfSavingRecord: MutableStateFlow<StateHandler> = MutableStateFlow(
+        StateHandler.IDLE
+    )
     val stateHandlerOfSavingRecord: StateFlow<StateHandler> get() = _stateHandlerOfSavingRecord
 
-    private val _voiceId: MutableStateFlow<String?> = MutableStateFlow(DEFAULT_VALUE_NULL)
+    private val _voiceId: MutableStateFlow<String?> =
+        MutableStateFlow(DEFAULT_VALUE_NULL)
     val voiceId: StateFlow<String?> get() = _voiceId
 
-    fun saveRecord() {
+
+    fun initEditViewState(recordId: String) {
         viewModelScope.launch {
-            runCatching { recordRepository.postRecord(getRecord()) }.onSuccess { result ->
-                when (result) {
-                    is SUCCESS -> _stateHandlerOfSavingRecord.value = VALID(result.data.id)
-                    is FAIL -> _stateHandlerOfSavingRecord.value = INVALID
+            documentRepository.getDetailRecord(recordId)
+                .onSuccess { record ->
+                    _date.value = record.date
+                    title.value = record.title
+                    if (record.note == null) {
+                        note.value = ""
+                    } else {
+                        note.value = record.note
+                    }
+                    content.value = record.content
+                    when (record.emotion == 6) {
+                        true -> _emotion.value = null
+                        false -> _emotion.value = record.emotion
+                    }
+
+                    when (record.genre.contains(0)) {
+                        true -> _genre.value.addAll(listOf())
+                        false -> _genre.value.addAll(record.genre)
+                    }
+
+                    List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }.apply {
+                        if (genre.value.size == MAX_COUNT_OF_GENRE) _genreEnabled.value =
+                            this
+                        _genreChecked.value = this
+                    }
+                    _voiceId.value = record.voice?.id
                 }
-            }
-                .onFailure { _stateHandlerOfSavingRecord.value = DISCONNECT }
         }
     }
 
-    fun updateId(id: String) {
-        _voiceId.value = id
+    fun editRecord(recordId: String) {
+        viewModelScope.launch {
+            runCatching {
+
+                recordRepository.updateRecord(recordId, getEditedRecord())
+            }
+                .onSuccess {
+                }
+                .onFailure {
+                }
+        }
     }
 
     fun updateSaveButtonEnabled(title: String) {
         _isSaveEnabled.value = title.isNotEmpty() && title.first() != BLANK
-    }
-
-    fun updateRecordingTime(recordingTime: String) {
-        _recordingTime.value = recordingTime
     }
 
     fun updateDate() = DatePickerDialog.OnDateSetListener { _, year, month, day ->
@@ -113,16 +142,21 @@ class RecordViewModel @Inject constructor(
             !isReachedMaxCount -> handleNonContainedGenre(genre)
         }
 
-        _genreChecked.value = List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
+        _genreChecked.value =
+            List(ALL_GENRE) { it + CORRECTION_VALUE in _genre.value }
     }
 
     private fun handleNonContainedGenre(genre: Genre) {
         _genre.value.add(genre.genreId)
-        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(NON_CONTAINED)
+        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(
+            NON_CONTAINED
+        )
     }
 
     private fun handleContainedGenre(genre: Genre) {
-        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(CONTAINED)
+        if (_genre.value.size == MAX_COUNT_OF_GENRE) handleIfReachMaxCount(
+            CONTAINED
+        )
         _genre.value.remove(genre.genreId)
     }
 
@@ -145,21 +179,25 @@ class RecordViewModel @Inject constructor(
         }
     }
 
-    private fun getRecord(): Record = Record(
+
+    private fun getEditedRecord(): Record = Record(
         title = title.value,
         date = date.value.substringBefore(" ").replace("/", "-"),
         content = content.value,
         emotion = emotion.value,
-        genre = genre.value.ifEmpty { null },
+        genre = when (genre.value.isEmpty()) {
+            true -> null
+            false -> genre.value
+        },
         note = note.value,
         voice = _voiceId.value,
     )
-
 
     private fun Int.toStringOfDate(): String {
         if (this < TWO_DIGITS) return UNIT_TENS + this.toString()
         return this.toString()
     }
+
 
     companion object {
         private const val BLANK = ' '

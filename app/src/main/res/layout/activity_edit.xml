@@ -11,14 +11,14 @@
 
         <variable
             name="viewModel"
-            type="com.team.recordream.presentation.record.RecordViewModel" />
+            type="com.team.recordream.presentation.edit.EditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dark01_02040F"
-        tools:context=".presentation.record.RecordActivity">
+        tools:context=".presentation.edit.EditActivity">
 
         <ImageView
             android:id="@+id/iv_record_close"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/tv_record_create"
+            android:text="@string/tv_record_edit"
             android:textAppearance="@style/Sb16"
             android:textColor="@color/white01_FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_record_date"
+                    android:id="@+id/cl_edit_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -75,7 +75,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/tv_record_date"
+                        android:id="@+id/tv_edit_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -85,11 +85,11 @@
                         android:textAppearance="@style/M14"
                         android:textColor="@color/white01_FFFFFF"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/iv_record_calendar"
+                        app:layout_constraintStart_toEndOf="@+id/iv_edit_calendar"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/iv_record_calendar"
+                        android:id="@+id/iv_edit_calendar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -101,7 +101,7 @@
                         app:srcCompat="@drawable/icn_calendar" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_record_date_btn"
+                        android:id="@+id/cl_edit_date_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
@@ -110,7 +110,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/tv_record_date_num"
+                            android:id="@+id/tv_edit_date_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
@@ -145,7 +145,7 @@
                     android:background="@drawable/rectangle_record_radius_10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cl_record_date">
+                    app:layout_constraintTop_toBottomOf="@+id/cl_edit_date">
 
                     <ImageView
                         android:id="@+id/iv_record_mic"

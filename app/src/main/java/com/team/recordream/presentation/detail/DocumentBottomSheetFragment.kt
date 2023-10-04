@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.team.recordream.R
 import com.team.recordream.databinding.FragmentDocumentBottomSheetBinding
-import com.team.recordream.presentation.record.RecordActivity
+import com.team.recordream.presentation.edit.EditActivity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -101,13 +101,7 @@ class DocumentBottomSheetFragment private constructor(
     }
 
     private fun navigateToEditView() {
-        val intent = RecordActivity.getIntent(
-            requireContext(),
-            RecordActivity.EDIT_MODE,
-            detailViewModel.recordId,
-        )
-
-        startActivity(intent)
+        startActivity(EditActivity.getIntent(requireContext(), detailViewModel.recordId))
     }
 
     private fun shareInstagram() {

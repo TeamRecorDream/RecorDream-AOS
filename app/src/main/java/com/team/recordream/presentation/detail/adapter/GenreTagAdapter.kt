@@ -6,7 +6,7 @@ import com.team.recordream.presentation.detail.adapter.viewHolder.GenreTagViewHo
 import com.team.recordream.presentation.record.uistate.Genre
 
 class GenreTagAdapter : RecyclerView.Adapter<GenreTagViewHolder>() {
-    private val items: MutableList<Genre> = mutableListOf()
+    private val items: MutableList<Genre> = mutableListOf(Genre.NOTHING)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreTagViewHolder =
         GenreTagViewHolder.from(parent)
@@ -19,7 +19,11 @@ class GenreTagAdapter : RecyclerView.Adapter<GenreTagViewHolder>() {
 
     fun submitList(genre: List<Genre>) {
         items.clear()
-        items.addAll(genre)
+        when (genre.isEmpty()) {
+            true -> items.add(Genre.NOTHING)
+            false -> items.addAll(genre)
+        }
+
         notifyDataSetChanged()
     }
 }
