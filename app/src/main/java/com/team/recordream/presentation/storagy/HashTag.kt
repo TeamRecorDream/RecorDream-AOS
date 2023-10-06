@@ -39,6 +39,6 @@ class HashTag(context: Context, attrs: AttributeSet? = null) : LinearLayout(cont
         7 -> R.string.tv_record_family
         8 -> R.string.tv_record_food
         9 -> R.string.tv_record_work
-        else -> R.string.genre_name_nothing
+        else -> R.string.tv_record_etc
     }
 }
