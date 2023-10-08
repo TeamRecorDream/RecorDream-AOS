@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,40 +34,44 @@ class EditViewModel @Inject constructor(
         MutableStateFlow(
             LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN))
         )
-    val date: StateFlow<String> get() = _date
+    val date: StateFlow<String> = _date.asStateFlow()
 
     private val _emotion: MutableStateFlow<Int?> = MutableStateFlow(EMOTION_ALL)
-    val emotion: StateFlow<Int?> get() = _emotion
+    val emotion: StateFlow<Int?> = _emotion.asStateFlow()
 
     private val _genre: MutableStateFlow<MutableList<Int>> = MutableStateFlow(mutableListOf())
-    val genre: StateFlow<List<Int>> get() = _genre
+    val genre: StateFlow<List<Int>> = _genre.asStateFlow()
 
     private val _genreEnabled: MutableStateFlow<List<Boolean>> =
         MutableStateFlow(List(ALL_GENRE) { true })
-    val genreEnabled: StateFlow<List<Boolean>> get() = _genreEnabled
+    val genreEnabled: StateFlow<List<Boolean>> = _genreEnabled.asStateFlow()
 
     private val _genreChecked: MutableStateFlow<List<Boolean>> =
         MutableStateFlow(List(ALL_GENRE) { false })
-    val genreChecked: StateFlow<List<Boolean>> get() = _genreChecked
+    val genreChecked: StateFlow<List<Boolean>> = _genreChecked.asStateFlow()
 
     private val _warningGenre: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val warningGenre: StateFlow<Boolean> get() = _warningGenre
+    val warningGenre: StateFlow<Boolean> = _warningGenre.asStateFlow()
 
     private val _isSaveEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isSaveEnabled: StateFlow<Boolean> get() = _isSaveEnabled
+    val isSaveEnabled: StateFlow<Boolean> = _isSaveEnabled.asStateFlow()
 
     private val _recordingTime: MutableStateFlow<String> =
         MutableStateFlow(DEFAULT_TIME)
-    val recordingTime: StateFlow<String> get() = _recordingTime
+    val recordingTime: StateFlow<String> = _recordingTime.asStateFlow()
 
     private val _stateHandlerOfSavingRecord: MutableStateFlow<StateHandler> = MutableStateFlow(
         StateHandler.IDLE
     )
-    val stateHandlerOfSavingRecord: StateFlow<StateHandler> get() = _stateHandlerOfSavingRecord
+    val stateHandlerOfSavingRecord: StateFlow<StateHandler> =
+        _stateHandlerOfSavingRecord.asStateFlow()
 
     private val _voiceId: MutableStateFlow<String?> =
         MutableStateFlow(DEFAULT_VALUE_NULL)
-    val voiceId: StateFlow<String?> get() = _voiceId
+    val voiceId: StateFlow<String?> = _voiceId.asStateFlow()
+
+    private val _isSaved: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isSaved: StateFlow<Boolean> = _isSaved.asStateFlow()
 
 
     fun initEditViewState(recordId: String) {
@@ -103,14 +108,9 @@ class EditViewModel @Inject constructor(
 
     fun editRecord(recordId: String) {
         viewModelScope.launch {
-            runCatching {
-
-                recordRepository.updateRecord(recordId, getEditedRecord())
-            }
-                .onSuccess {
-                }
-                .onFailure {
-                }
+            runCatching { recordRepository.updateRecord(recordId, getEditedRecord()) }
+                .onSuccess { _isSaved.value = true }
+                .onFailure {}
         }
     }
 
