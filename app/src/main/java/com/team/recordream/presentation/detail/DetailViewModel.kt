@@ -9,6 +9,7 @@ import com.team.recordream.presentation.record.uistate.Genre
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Timer
 import javax.inject.Inject
@@ -22,54 +23,53 @@ class DetailViewModel @Inject constructor(
         private set
 
     private val _recordingFilePath: MutableStateFlow<String?> = MutableStateFlow(null)
-    val recordingFilePath: StateFlow<String?> get() = _recordingFilePath
+    val recordingFilePath: StateFlow<String?> = _recordingFilePath.asStateFlow()
 
     private val _background: MutableStateFlow<Int> = MutableStateFlow(0)
-    val background: StateFlow<Int> get() = _background
+    val background: StateFlow<Int> = _background.asStateFlow()
 
     private val _icon: MutableStateFlow<Int> = MutableStateFlow(0)
-    val icon: StateFlow<Int> get() = _icon
+    val icon: StateFlow<Int> = _icon.asStateFlow()
 
     private val _date: MutableStateFlow<String> = MutableStateFlow("")
-    val date: StateFlow<String> get() = _date
+    val date: StateFlow<String> = _date.asStateFlow()
 
     private val _title: MutableStateFlow<String> = MutableStateFlow("")
-    val title: StateFlow<String> get() = _title
+    val title: StateFlow<String> = _title.asStateFlow()
 
     private val _tags: MutableStateFlow<List<Genre>> = MutableStateFlow(listOf())
-    val tags: StateFlow<List<Genre>> get() = _tags
+    val tags: StateFlow<List<Genre>> = _tags.asStateFlow()
 
     private val _isRemoved: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isRemoved: StateFlow<Boolean> get() = _isRemoved
-    // ?
+    val isRemoved: StateFlow<Boolean> = _isRemoved.asStateFlow()
 
     // 리팩터링 분리
     private val _note: MutableStateFlow<String> = MutableStateFlow("")
-    val note: StateFlow<String> get() = _note
+    val note: StateFlow<String> = _note.asStateFlow()
 
     // 리팩터링 분리
     private val _content: MutableStateFlow<String> =
         MutableStateFlow<String>("")
-    val content: StateFlow<String> get() = _content
+    val content: StateFlow<String> = _content.asStateFlow()
 
     private val _isRecorded: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isRecorded: StateFlow<Boolean> get() = _isRecorded
+    val isRecorded: StateFlow<Boolean> = _isRecorded.asStateFlow()
 
     // 리팩터링 분리
     private val _isPlayed: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val isPlayed: StateFlow<Boolean> get() = _isPlayed
+    val isPlayed: StateFlow<Boolean> = _isPlayed.asStateFlow()
 
     private val _recordingTime: MutableStateFlow<Int> = MutableStateFlow(0)
-    val recordingTime: StateFlow<Int> get() = _recordingTime
+    val recordingTime: StateFlow<Int> = _recordingTime.asStateFlow()
 
     private val _playTime: MutableStateFlow<Int> = MutableStateFlow(0)
-    val playTime: StateFlow<Int> get() = _playTime
+    val playTime: StateFlow<Int> = _playTime.asStateFlow()
 
     private val _progressRate: MutableStateFlow<Int> = MutableStateFlow(0)
-    val progressRate: StateFlow<Int> get() = _progressRate
+    val progressRate: StateFlow<Int> = _progressRate.asStateFlow()
 
     private val _state: MutableStateFlow<ViewState> = MutableStateFlow(ViewState.Loading)
-    val state: StateFlow<ViewState> get() = _state
+    val state: StateFlow<ViewState> = _state.asStateFlow()
 
     private var recordingTimer: Timer? = null
     private var progressTimer: Timer? = null

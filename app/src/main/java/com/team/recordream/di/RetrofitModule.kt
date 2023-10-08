@@ -25,7 +25,7 @@ object RetrofitModule {
     @Singleton
     fun providesRetrofit(client: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(RECORDREAM_BASE_URL)
+            .baseUrl(BASE_URL_RELEASE)
             .client(client)
             .addConverterFactory(
                 Json.asConverterFactory(
