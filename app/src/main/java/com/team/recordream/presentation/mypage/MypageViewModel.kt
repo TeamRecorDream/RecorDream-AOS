@@ -1,11 +1,11 @@
 package com.team.recordream.presentation.mypage
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kakao.sdk.user.UserApiClient
 import com.team.recordream.R
 import com.team.recordream.data.datasource.local.AuthTokenStorage
 import com.team.recordream.data.entity.remote.request.RequestAlamToggle
@@ -106,8 +106,8 @@ class MypageViewModel @Inject constructor(
     }
 
     fun userLogout() {
-        UserApiClient.instance.logout { postSignOut() }
-        deleteSharedPrefernceLog()
+        postSignOut()
+        authRepository.logoutKakaoAccount { isSuccess -> deleteSharedPrefernceLog()}
     }
 
     private fun deleteSharedPrefernceLog() {
@@ -120,6 +120,7 @@ class MypageViewModel @Inject constructor(
 
     private fun postSignOut() {
         viewModelScope.launch {
+            Log.d("MypageUserRepositoryImpl2", "postSignOut: ")
             authRepository.patchSignOut()
         }
     }

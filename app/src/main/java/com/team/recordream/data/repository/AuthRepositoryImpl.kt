@@ -71,6 +71,20 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun logoutKakaoAccount(logout: (Boolean) -> Unit) {
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                Timber.d("kakao", "logout: 연결 끊기 실패")
+                Timber.tag("kakao").e(error, "연결 끊기 실패")
+                logout(false)
+            } else {
+                Timber.d("kakao", "logout: 연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                Timber.tag("kakao").d("연결 끊기 성공. SDK에서 토큰 삭제 됨")
+                logout(true)
+            }
+        }
+    }
+
     private fun saveNewTokens(postTokenInfo: ResponseWrapper<ResponseNewToken>) {
         if (postTokenInfo.success) {
             val newAccessToken = postTokenInfo.data!!.accessToken
@@ -108,7 +122,10 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun patchSignOut(): Result<NoDataResponse> {
         return kotlin.runCatching {
             authDataSource.patchSignOut()
+        }.onSuccess {
+            Timber.d("MypageUserRepositoryImpl0", "patchSignOut: ")
         }.onFailure {
+            Timber.d("MypageUserRepositoryImpl1", "patchSignOut: ${it.message}")
             Timber.d("MypageUserRepositoryImpl", "postPushAlam OnFail: ${it.message}")
             it.message
         }
