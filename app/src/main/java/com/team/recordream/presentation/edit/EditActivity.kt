@@ -62,6 +62,10 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
             editViewModel.updateSaveButtonEnabled(title)
         }
 
+        collectWithLifecycle(editViewModel.isSaved) { isSaved ->
+            if (isSaved) finish()
+        }
+
         collectWithLifecycle(editViewModel.stateHandlerOfSavingRecord) { result ->
             when (result) {
                 is StateHandler.VALID -> navigateToDetailView(result.recordId)
@@ -116,11 +120,7 @@ class EditActivity : BindingActivity<ActivityEditBinding>(R.layout.activity_edit
 
     private fun editRecord() {
         when (editViewModel.isSaveEnabled.value) {
-            true -> {
-                editViewModel.editRecord(recordId)
-                finish()
-            }
-
+            true -> editViewModel.editRecord(recordId)
             false -> binding.btnRecordSave.anchorSnackBar(R.string.tv_record_warning_save)
         }
     }

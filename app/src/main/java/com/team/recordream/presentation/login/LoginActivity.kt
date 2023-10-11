@@ -2,9 +2,10 @@ package com.team.recordream.presentation.login // ktlint-disable package-name
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.kakao.sdk.common.util.Utility
 import com.team.recordream.R
 import com.team.recordream.databinding.ActivityLoginBinding
@@ -13,6 +14,7 @@ import com.team.recordream.presentation.common.BindingActivity
 import com.team.recordream.util.manager.KakaoLoginManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,7 +28,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.tag("*****HASHKEY*****").d(Utility.getKeyHash(this))
-        Log.d("123123", Utility.getKeyHash(this))
         setupBinding()
         clickLoginBtn()
     }
@@ -47,9 +48,11 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         kakaoLoginManager.showKaKaoLogin(loginViewModel.getKaKaoCallback())
 
     private fun collectSignUpResult() {
-        lifecycleScope.launchWhenStarted {
-            loginViewModel.signUpSuccess.collectLatest {
-                if (it) startMainActivity()
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.signUpSuccess.collectLatest {
+                    if (it) startMainActivity()
+                }
             }
         }
     }
