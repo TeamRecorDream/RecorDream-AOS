@@ -17,6 +17,7 @@ interface AuthRepository {
     suspend fun getAccessToken(): String
 
     fun unLinkKakaoAccount(initSuccessWithdraw: (Boolean) -> Unit)
+    fun logoutKakaoAccount(logout: (Boolean) -> Unit)
 
     suspend fun getFcmToken(getFcmToken: (String) -> Unit)
 
