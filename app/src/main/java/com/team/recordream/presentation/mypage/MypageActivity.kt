@@ -112,11 +112,13 @@ class MypageActivity : AppCompatActivity() {
                     binding.clLoadingBackground.visibility = View.VISIBLE
                     binding.lvStorageLottieLoading.visibility = View.VISIBLE
                 }
+
                 is MypageViewModel.ViewState.Success -> {
                     binding.lvStorageLottieLoading.pauseAnimation()
                     binding.lvStorageLottieLoading.visibility = View.INVISIBLE
                     binding.clLoadingBackground.visibility = View.INVISIBLE
                 }
+
                 is MypageViewModel.ViewState.Idle -> {}
             }
         }
@@ -142,12 +144,15 @@ class MypageActivity : AppCompatActivity() {
     private fun setOnClick() {
         binding.tvMypageDeleteAccount.setOnClickListener { showDialog() }
         binding.btnMypageLogout.setOnClickListener { outLogin() }
-        binding.ivMypageEditName.setOnClickListener { editName() }
+        binding.ivMypageEditName.setOnClickListener {
+            editName()
+        }
         switchOnClick()
         binding.ivMypageBack.setOnClickListener { finish() }
     }
 
     private fun editName() {
+        binding.edtMypageName.setSelection(binding.edtMypageName.length())
         val inputMethodManager =
             this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         with(binding) {
@@ -257,6 +262,7 @@ class MypageActivity : AppCompatActivity() {
         binding.switchMypagePushAlam.isChecked =
             mypageViewModel.switchState.getBoolean(ALARM, false)
     }
+
     private fun resetSharedPushAlarm() {
         val editor = mypageViewModel.switchState.edit()
         editor.remove(ALARM)
